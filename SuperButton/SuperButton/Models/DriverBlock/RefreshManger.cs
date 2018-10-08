@@ -8,6 +8,7 @@ using SuperButton.CommandsDB;
 using SuperButton.ViewModels;
 using System.Collections.ObjectModel;
 using SuperButton.Views;
+using System.Collections;
 
 namespace SuperButton.Models.DriverBlock
 {
@@ -18,7 +19,8 @@ namespace SuperButton.Models.DriverBlock
         private static readonly object Synlock = new object();
         private static RefreshManger _instance;
 
-        private static Dictionary<string, ObservableCollection<object>> BuildGroup = new Dictionary<string, ObservableCollection<object>>();
+        public static Dictionary<string, ObservableCollection<object>> BuildGroup = new Dictionary<string, ObservableCollection<object>>();
+        public static Dictionary<Tuple<int, int>, DataViewModel> BuildList;
 
         public static RefreshManger GetInstance
         {
@@ -109,29 +111,38 @@ namespace SuperButton.Models.DriverBlock
         }
         private string[] GroupToExecute(int tabIndex)
         {
+            string[] PanelElements = new string[] { "RPCommands List", "Profiler Mode", "LPCommands List", "Driver Type" };
+
             switch (tabIndex)
             {
                 case 0:
-                    return new string[] { "Control", "Motor", "Motion Limit" };
+                    string[] arr = new string[] { "Control", "Motor", "Motion Limit"};
+                    return arr.Concat(PanelElements).ToArray();
                 case 1:
-                    return new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback", "Digital", "Analog" };
+                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback", "Digital", "Analog"};
+                    return arr.Concat(PanelElements).ToArray();
                 case 2:
-                    return new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition" };
+                    arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition"};
+                    return arr.Concat(PanelElements).ToArray();
                 case 3:
-                    return new string[] { "DeviceSerial" };
+                    arr = new string[] { "DeviceSerial"};
+                    return arr.Concat(PanelElements).ToArray();
                 case 4:
-                    return new string[] { "DriverFullScale" };
+                    arr = new string[] { "DriverFullScale"};
+                    return arr.Concat(PanelElements).ToArray();
                 case 5:
-                    return new string[] { "CalibrationCommands List" };
+                    arr = new string[] { "CalibrationCommands List" };
+                    return arr.Concat(PanelElements).ToArray();
                 case -1:
-                    return new string[] { "RPCommands List" };
+                    return PanelElements;
                 default:
                     return new string[] { };
             }
         }
         public void StartRefresh()
         {
-            Dictionary<Tuple<int, int>, DataViewModel> BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
+            BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
+
             tab = Views.ParametarsWindow.ParametersWindowTabSelected;
             if (ParametarsWindow.WindowsOpen == false)
                 tab = -1;
@@ -175,7 +186,7 @@ namespace SuperButton.Models.DriverBlock
                 );
                 // }
 
-                Thread.Sleep(500);
+                Thread.Sleep(10);
             }
 
         }
@@ -187,22 +198,22 @@ namespace SuperButton.Models.DriverBlock
             {
                 switch (commandidentifier.Item2)
                 {
-                    case 1:
+                    case 2:
                         CalibrationViewModel.GetInstance.offsetCalVal = newPropertyValue.ToString();
                         break;
-                    case 2:
+                    case 4:
                         CalibrationViewModel.GetInstance.PICurrentCalVal = newPropertyValue.ToString();
                         break;
-                    case 3:
+                    case 6:
                         CalibrationViewModel.GetInstance.PISpeedCalVal = newPropertyValue.ToString();
                         break;
-                    case 4:
+                    case 8:
                         CalibrationViewModel.GetInstance.HallCalVal = newPropertyValue.ToString();
                         break;
-                    case 5:
+                    case 10:
                         CalibrationViewModel.GetInstance.Encoder1CalVal = newPropertyValue.ToString();
                         break;
-                    case 6:
+                    case 12:
                         CalibrationViewModel.GetInstance.PIPosCalVal = newPropertyValue.ToString();
                         break;
                     default:

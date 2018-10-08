@@ -365,7 +365,24 @@ namespace SuperButton.Models.DriverBlock
                 { /*int i = 0; */}
                 // messege.Data2Send = "0.5";
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
-                Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
+
+                //Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
+
+                //try
+                //{
+                //    foreach (var List in RefreshManger.BuildList)
+                //    {
+                //        if (List.Value.CommandId.ToString() == messege.ID.ToString())
+                //        {
+                //            if (messege.IsSet)
+                //                EventRiser.Instance.RiseEevent("Tx: Set " + List.Value.CommandName.ToString() + ' ' + messege.ID + '[' + messege.SubID + "]=" + messege.Data2Send + " (" + (messege.IsFloat ? ".0" : "") + ')');
+                //            else
+                //                EventRiser.Instance.RiseEevent("Tx: Get " + List.Value.CommandName.ToString() + ' ' + messege.ID + '[' + messege.SubID + "]");
+                //        }
+                //    }
+                //}
+                //catch { }
+
             }
         }
 

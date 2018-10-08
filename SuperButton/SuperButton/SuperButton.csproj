@@ -189,6 +189,15 @@
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\MessageBoxVM.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
+    <Compile Include="Views\DataViewSmallFontInd.xaml.cs">
+      <DependentUpon>DataViewSmallFontInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataViewSmallFont.xaml.cs">
+      <DependentUpon>DataViewSmallFont.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFont.xaml.cs">
+      <DependentUpon>EnumViewSmallFont.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\mainWindowPanels\BottomPanel.xaml.cs">
       <DependentUpon>BottomPanel.xaml</DependentUpon>
     </Compile>
@@ -279,6 +288,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFontInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFont.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFont.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -558,6 +579,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\redler.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="settings_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -57,76 +57,104 @@ namespace SuperButton.ViewModels
                 SubID = Convert.ToInt16(1),
                 IsSet = true,
                 IsFloat = false
-            }
-        );
-
+            });
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(2),
+                IsSet = false,
+                IsFloat = false
+            });
         }
         private void PiCurrentCalCmd()
         {
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
-                Data2Send = "1",
+                Data2Send = 1,
                 ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(2),
+                SubID = Convert.ToInt16(3),
                 IsSet = true,
                 IsFloat = false
-            }
-        );
-        }
-        private void PiSpeedCalCmd()
-        {
+            });
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
-                Data2Send = "1",
                 ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(5),
-                IsSet = true,
+                SubID = Convert.ToInt16(4),
+                IsSet = false,
                 IsFloat = false
-            }
-        );
-
+            });
         }
         private void HallMapCalCmd()
         {
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
-                Data2Send = "1",
+                Data2Send = 1,
                 ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(3),
+                SubID = Convert.ToInt16(5),
                 IsSet = true,
                 IsFloat = false
-            }
-        );
+            });
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(6),
+                IsSet = false,
+                IsFloat = false
+            });
         }
         private void EncoderCalCmd()
         {
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
-                Data2Send = "1",
+                Data2Send = 1,
                 ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(4),
+                SubID = Convert.ToInt16(7),
                 IsSet = true,
                 IsFloat = false
-            }
-        );
-
+            });
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(8),
+                IsSet = false,
+                IsFloat = false
+            });
+        }
+        private void PiSpeedCalCmd()
+        {
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                Data2Send = 1,
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(9),
+                IsSet = true,
+                IsFloat = false
+            });
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(10),
+                IsSet = false,
+                IsFloat = false
+            });
         }
         private void P2PositionCalCmd()
         {
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
-                //Data2Send = "1",
-                //ID = Convert.ToInt16(6),
-                //SubID = Convert.ToInt16(6),
-                //IsSet = true,
-                //IsFloat = false
-                Data2Send = 7,
+                Data2Send = 1,
                 ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(7),
+                SubID = Convert.ToInt16(11),
                 IsSet = true,
                 IsFloat = false
-            }
-        );
+            });
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                ID = Convert.ToInt16(6),
+                SubID = Convert.ToInt16(12),
+                IsSet = false,
+                IsFloat = false
+            });
         }
 
         public string offsetCalVal

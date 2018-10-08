@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("themes/redler.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mailshlomi.designer.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mailshlomi.txt")]
 
 

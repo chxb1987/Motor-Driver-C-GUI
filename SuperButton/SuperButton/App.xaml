@@ -29,11 +29,19 @@
             <DataTemplate x:Key="EnumViewModel">
                 <views:EnumView></views:EnumView>
             </DataTemplate>
+            <DataTemplate x:Key="EnumViewSmallFont">
+                <views:EnumViewSmallFont></views:EnumViewSmallFont>
+            </DataTemplate>
 
-          
 
             <DataTemplate x:Key="DataViewModel">
                 <views:DataView></views:DataView>
+            </DataTemplate>
+            <DataTemplate x:Key="DataViewSmallFont">
+                <views:DataViewSmallFont></views:DataViewSmallFont>
+            </DataTemplate>
+            <DataTemplate x:Key="DataViewSmallFontInd">
+                <views:DataViewSmallFontInd></views:DataViewSmallFontInd>
             </DataTemplate>
 
             <!--<DataTemplate x:Key="LeftPanelViewModel">

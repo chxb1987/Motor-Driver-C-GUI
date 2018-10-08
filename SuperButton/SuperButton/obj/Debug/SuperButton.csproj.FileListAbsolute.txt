@@ -749,4 +749,11 @@ C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.dll
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.DXGI.dll
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.xml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.xml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFont.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFont.baml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFont.baml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFont.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFontInd.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFontInd.baml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\settings_icon.png
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache

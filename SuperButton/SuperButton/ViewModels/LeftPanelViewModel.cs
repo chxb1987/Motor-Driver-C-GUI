@@ -22,11 +22,15 @@ using SuperButton.Views.mainWindowPanels;
 using SuperButton.Helpers;
 using System.Drawing;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using SuperButton.Models;
+
 
 namespace SuperButton.ViewModels
 {
 
-    public partial class LeftPanelViewModel : BaseViewModel
+    public partial class LeftPanelViewModel : ViewModelBase
     {
         #region members
         public PacketFields RxPacket;
@@ -81,7 +85,8 @@ namespace SuperButton.ViewModels
             get { return _connetButtonContent; }
             set
             {
-                if(value == "Disconnect") {
+                if (value == "Disconnect")
+                {
                     LeftPanelViewModel.flag = true;
                     Task task = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
                 }
@@ -91,6 +96,46 @@ namespace SuperButton.ViewModels
 
             }
 
+        }
+
+        private String _connectTextBoxContent;
+        public String ConnectTextBoxContent
+        {
+            get
+            {
+                if (_connetButtonContent == "Connect")
+                    return "Not Connected";
+                else
+                    return "Connected";
+            }
+            set
+            {
+                if (_connectTextBoxContent == value) return;
+                _connectTextBoxContent = value;
+                OnPropertyChanged("ConnectTextBoxContent");
+            }
+        }
+
+        private ObservableCollection<object> _lpCommandsList;
+        public ObservableCollection<object> LPCommandsList
+        {
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["LPCommands List"];
+            }
+            set
+            {
+                _lpCommandsList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<object> DriverTypeList
+        {
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["Driver Type"];
+            }
         }
         #endregion
 

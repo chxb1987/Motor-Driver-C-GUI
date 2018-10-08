@@ -4,7 +4,7 @@ using SuperButton.Models;
 using SuperButton.Models.DriverBlock;
 namespace SuperButton.ViewModels
 {
-    class DataViewModel : ViewModelBase
+    public class DataViewModel : ViewModelBase
     {
 
 

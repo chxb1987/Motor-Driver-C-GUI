@@ -11,10 +11,9 @@
              x:Class="SuperButton.Views.mainWindowPanels.LeftPanelView"
              x:Name="GsUserControl"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    
              d:DesignHeight="800"
              d:DesignWidth="1380"
-             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True">
+             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True" >
 
     <UserControl.Resources>
         <!--  BackgroundBrush  -->
@@ -731,35 +730,167 @@
                 </Borders:OuterGlowBorder>
             </Grid>
         </ControlTemplate>
-        <!--Glass Button control template-->
 
     </UserControl.Resources>
-    <!--<UserControl.Background>
-        <ImageBrush ImageSource="/SuperButton;component/Images/Backgrounds/HomeBackground.jpg" TileMode="Tile" Stretch="UniformToFill" Opacity="0.5"/>
-    </UserControl.Background>-->
 
     <Grid MaxWidth="170">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="10"  />
+            <ColumnDefinition Width="9"/>
         </Grid.ColumnDefinitions>
-        <!--<Rectangle  Margin="0"  Style="{StaticResource rectangleStyle}" Opacity="0.6" Fill="#BF616161" StrokeThickness="1.5"  />-->
-        <common:CollapsableGridSplitter Grid.Column="1"              
-			Width="9"
-			Margin="2,0,-1,0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Stretch"
-			CollapseMode="Previous"
-			IsCollapsed="False"
-			IsTabStop="False" 
-            ResizeDirection="Columns"
-            Cursor="Hand"
-            ResizeBehavior="PreviousAndNext"/>
 
-        <StackPanel Orientation="Vertical" MaxWidth="160" Grid.ColumnSpan="2" Margin="2,0,8,0">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="21"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="33"></RowDefinition>
+                <RowDefinition Height="33"></RowDefinition>
+                <RowDefinition Height="130"></RowDefinition>
+                <RowDefinition Height="33"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="22" FontWeight="Bold" FontSize="19" Foreground="White"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock HorizontalAlignment="Left" Text="Technologies     Version V0.0.c" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Border BorderBrush="Gray"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <TextBlock Height="17" Text="Communication" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="3">
+                <!--COM Enum superButton-->
+                <Views:EnumUC 
+                ToolTip="Pls Choose Com"
+                DataContext="{Binding ComboBoxCOM}"               
+            	Label="COM"
+            	Value="{Binding ComList}"
+            	SelectedValue="{Binding ComString, Mode=TwoWay}"
+                Height="30" 
+                Style="{DynamicResource EnumUCStyleLeftPanel}" 
+                Width="160">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="DropDownOpened">
+                            <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
-            <!--COM Enum superButton-->
-            <!--<ComboBox 
+                </Views:EnumUC>
+            </Grid>
+            <Grid Grid.Row="4">
+                <!--Connect superButton-->
+                <Button
+                Content="{Binding ConnectButtonContent, Mode=TwoWay}"
+                Name="ConnectButton"
+				BorderThickness="5,1" 
+				Command="{Binding SetAutoConnectActionCommandCommand}"
+				Template="{DynamicResource GlassButton}"  
+                Height="30" 
+				FontFamily="Bell MT" 
+				FontSize="12" Width="70" 
+                HorizontalAlignment="Left">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Connect">
+                                    <Setter Property="Foreground" Value="White"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Disconnect">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="90" Height="30" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right">
+                    <TextBox 
+                        Text="{Binding ConnectTextBoxContent, Mode=TwoWay}"  
+                        Background="Black" 
+                        BorderBrush="Transparent" 
+                        Foreground="White" 
+                        HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center"
+                        TextWrapping="NoWrap">
+                    </TextBox>
+                </Border>
+            </Grid>
+            <ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+                <Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
+                              Grid.Row="0" 
+                              Width="160" 
+                              HorizontalAlignment="Left" 
+                              ItemsSource="{Binding DriverTypeList}" 
+                              ItemTemplate="{StaticResource EnumViewSmallFont}"/>
+                        <ItemsControl HorizontalContentAlignment="Left"
+                              Grid.Row="1" 
+                              Width="160" 
+                              HorizontalAlignment="Left"
+                              ItemsSource="{Binding LPCommandsList}" 
+                              ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+            <Grid Grid.Row="6">
+                <Border BorderBrush="Gray"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <TextBlock Height="17" Text="Log" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="7">
+                <!-- Log -->
+                <TextBox IsReadOnly="True" Foreground="White" BorderBrush="White" TextWrapping="Wrap"  Text="{Binding LogText}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.CanContentScroll="True" FontSize="11"/>
+            </Grid>
+            <Grid Grid.Row="8">
+            </Grid>
+            <Grid Grid.Row="9">
+                <!--Param And Action-->
+                <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="44" Height="42" 
+                        Background="Transparent" 
+                        Foreground="Transparent">
+                    <Image Source="C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\settings_icon.png" Width="40" Height="38"
+                               Stretch="Fill"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Stretch"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="10">
+                <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
+				BorderBrush="White"
+				Width="160" 
+				UncheckedBackground="#B2B8482F" 
+				UncheckedForeground="#FF333330" 
+                IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
+				ThumbSize="38" HorizontalAlignment="Center" CheckedContent="DRIVE ON" UncheckedContent="DRIVE OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
+				Style="{DynamicResource MotorOnStyleofTumb}" ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" Background="#00000000" >
+                    <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF4D4E48"/>
+                            <GradientStop Color="#FF333430" Offset="1"/>
+                            <GradientStop Color="#FF333330" Offset="0.021"/>
+                        </LinearGradientBrush>
+                    </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
+                </ToggleSwitch:HorizontalToggleSwitch>
+            </Grid>
+        </Grid>
+
+        <!--<StackPanel Orientation="Vertical" MaxWidth="160" Grid.ColumnSpan="2" Margin="2,0,8,0">
+
+            -->
+        <!--COM Enum superButton-->
+        <!--<ComboBox 
                 Name="ComboboxCOM"
                 DataContext="{Binding ComboBoxCOM}"
                 Margin="2"
@@ -774,56 +905,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>-->
-
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="23" FontWeight="Bold" FontSize="18.667" Padding="0,0,0,12" Margin="0" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Technologies    Version V0.0.c" VerticalAlignment="Top" Grid.Row="1" Height="17" Width="160" Foreground="#FF5499D3"/>
-
-            <!--COM Enum superButton-->
-            <Views:EnumUC 
-                
-                ToolTip="Pls Choose Com"
-                DataContext="{Binding ComboBoxCOM}"
-            	Margin="0,10,0,10"                
-            	Label="COM"
-            	Value="{Binding ComList}"
-            	SelectedValue="{Binding ComString, Mode=TwoWay}"
-                Height="30" 
-                Style="{DynamicResource EnumUCStyleLeftPanel}" 
-                Width="160">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="DropDownOpened">
-                        <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
-            </Views:EnumUC>
-            <!--Connect superButton-->
-            <Button
-                Content="{Binding ConnectButtonContent, Mode=TwoWay}"
-                Name="ConnectButton"
-				BorderThickness="5,1" 
-				Command="{Binding SetAutoConnectActionCommandCommand}"
-				Template="{DynamicResource GlassButton}"  
-                Height="30" 
-				Margin="0,10,0,10" 
-				FontFamily="Bell MT" 
-				FontSize="18.667" Width="160" >
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Connect">
-                                <Setter Property="Foreground" Value="Green"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Disconnect">
-                                <Setter Property="Foreground" Value="Red"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-
-            <!--send superButton-->
-            <Button Content="{Binding SendButtonContent, Mode=TwoWay}"
+        <!--send superButton-->
+        <!--<Button Content="{Binding SendButtonContent, Mode=TwoWay}"
 				BorderThickness="5,1" 
 				Command="{Binding SendActionCommand}" 
 				Template="{DynamicResource GlassButton}"
@@ -831,9 +914,9 @@
 				Height="30" 
 				Margin="0,10,0,10" 
 				FontFamily="Bell MT" 
-				FontSize="18.667" Width="160"/>
-            <!--stop superButton-->
-            <!--
+				FontSize="18.667" Width="160"/>-->
+        <!--stop superButton-->
+        <!--
             <Button Content="{Binding StopButtonContent, Mode=TwoWay}"
             	BorderThickness="5,1" 
             	Command="{Binding ForceStop}" 
@@ -843,8 +926,8 @@
             	FontFamily="Bell MT" 
             	FontSize="18.667" Width="160" Height="30"/>
             -->
-            <!--XLS Enum superButton-->
-            <!--
+        <!--XLS Enum superButton-->
+        <!--
             <Views:EnumUC 
             	Margin="0,9,0,5"
             	Label="XLS"
@@ -853,12 +936,14 @@
                 Height="30" 
                 Style="{DynamicResource EnumUCStyleLeftPanel}" 
                 Width="160"/>-->
-            <!--<ScrollViewer  Width="160" Height="120" Margin="0,2,0,2" FontFamily="Bell MT" FontSize="11">
+        <!--<ScrollViewer  Width="160" Height="120" Margin="0,2,0,2" FontFamily="Bell MT" FontSize="11">
                 <Border BorderThickness="1" BorderBrush="White">
                     <TextBlock    ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding LogText}"  TextWrapping="Wrap"/>
                 </Border>
             </ScrollViewer>-->
+        <!--
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Loger:" VerticalAlignment="Center" Margin="0,92,0,0" Foreground="#FFF1F0F0" Visibility="Collapsed"/>
+
             <RichTextBox HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="164" Margin="0,2,0,10" Visibility="Collapsed">
                 <FlowDocument>
                     <Paragraph>
@@ -866,40 +951,20 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <!--Param And Action-->
-            <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center" Margin="0,10,0,10" Template="{DynamicResource ActionButton}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" MaxWidth="70" MaxHeight="70" >
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <!--ComboTest-->
-            
-            <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
-				BorderBrush="White"
-				Width="160" 
-				UncheckedBackground="#B2B8482F" 
-				UncheckedForeground="#FF333330" 
-                IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
-				ThumbSize="38" HorizontalAlignment="Center" Margin="0,12,0,0" CheckedContent="MOTOR ON" UncheckedContent="MOTOR OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
-				Style="{DynamicResource MotorOnStyleofTumb}" ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" Background="#00000000" >
-                <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF4D4E48"/>
-                        <GradientStop Color="#FF333430" Offset="1"/>
-                        <GradientStop Color="#FF333330" Offset="0.021"/>
-                    </LinearGradientBrush>
-                </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
-            </ToggleSwitch:HorizontalToggleSwitch>
-        </StackPanel>
-        <TextBox IsReadOnly="True" Foreground="White" BorderBrush="White" TextWrapping="Wrap"  Text="{Binding LogText}"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 ScrollViewer.CanContentScroll="True" Margin="1,352,0,26"/>
+        </StackPanel>-->
 
+
+        <common:CollapsableGridSplitter Grid.Column="1"              
+			Width="9"
+			Margin="3,0,0,0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Stretch"
+			CollapseMode="Previous"
+			IsCollapsed="False"
+			IsTabStop="False" 
+            ResizeDirection="Columns"
+            Cursor="Hand"
+            ResizeBehavior="PreviousAndNext"/>
     </Grid>
 
     <!--if down grid collapse-->

@@ -17,8 +17,9 @@ namespace SuperButton.CommandsDB
             GenerateDeviceCommands();
             GenerateDriverCommands();
             GenerateMainWindowCommands();
-            GenerateRPCommands();
+            GenerateBPCommands();
             GenerateCalCommands();
+            GenerateLPCommands();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -38,6 +39,7 @@ namespace SuperButton.CommandsDB
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsList = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, EnumViewModel> EnumViewCommandsList = new Dictionary<Tuple<int, int>, EnumViewModel>();
         public Dictionary<string, List<string>> Enums = new Dictionary<string, List<string>>();
+
         public Dictionary<string, ObservableCollection<object>> EnumCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> DataCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         private static readonly object Synlock = new object(); //Single tone variable
@@ -433,7 +435,7 @@ namespace SuperButton.CommandsDB
             var data5 = new DataViewModel
             {
 
-                CommandName = "Max position [Counts]",
+                CommandName = "Max position [C]",
                 CommandId = "53",// "205",
                 CommandSubId = "3",
                 CommandValue = "",
@@ -446,7 +448,7 @@ namespace SuperButton.CommandsDB
             var data6 = new DataViewModel
             {
 
-                CommandName = "Min position [Counts]",
+                CommandName = "Min position [C]",
                 CommandId = "53",
                 CommandSubId = "4",
                 CommandValue = "",
@@ -454,46 +456,125 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(53, 4), data6);
             DataCommandsListbySubGroup["Motion Limit"].Add(data6);
         }
-        public void GenerateRPCommands()
+        public void GenerateBPCommands()
         {
+            #region Commands1
             DataCommandsListbySubGroup.Add("RPCommands List", new ObservableCollection<object>());
 
             var data = new DataViewModel
             {
                 CommandName = "Current [A]",
-                CommandId = "6",
-                CommandSubId = "7",
+                CommandId = "3",
+                CommandSubId = "0",
                 CommandValue = "",
+                IsFloat = true,
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(3, 0), data);
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Speed [CPS]",
+                CommandName = "Speed [C/S]",
                 CommandId = "4",
                 CommandSubId = "0",
                 CommandValue = "",
+                IsFloat = false,
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(4, 0), data);
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Speed Position [CPS]",
+                CommandName = "Speed Position [C/S]",
                 CommandId = "5",
                 CommandSubId = "2",
                 CommandValue = "",
+                IsFloat = false,
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(5, 2), data);
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Position [Count]",
+                CommandName = "Position Absolute [C]",
                 CommandId = "5",
                 CommandSubId = "0",
                 CommandValue = "",
+                IsFloat = false,
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(5, 0), data);
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
+            data = new DataViewModel
+            {
+                CommandName = "Position Relative [C]",
+                CommandId = "5",
+                CommandSubId = "1",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(5, 1), data);
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Accelaration [C/S^2]",
+                CommandId = "54",
+                CommandSubId = "3",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(54, 3), data);
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "PTP Speed [C/S]",
+                CommandId = "54",
+                CommandSubId = "2",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(54, 2), data);
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Max Tracking Err [C]",
+                CommandId = "54",
+                CommandSubId = "6",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(54, 6), data);
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+            #endregion Commands1
+            #region Commands2
+            var ProfilerModeEnum = new List<string>
+              {
+                  "PID",
+                  "Trapezoid",
+                  "Test1",
+                  "Test2"
+              };
+            Enums.Add("Profiler Mode", ProfilerModeEnum);
+
+            var ProfilerModeCmd = new EnumViewModel
+            {
+                CommandName = "Profiler Mode",
+                CommandId = "54",
+                CommandSubId = "1",
+                CommandList = Enums["Profiler Mode"],
+                CommandValue = "",//first enum in list
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
+            EnumViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
+            EnumCommandsListbySubGroup.Add("Profiler Mode", new ObservableCollection<object>
+            {
+              ProfilerModeCmd
+            });
+            #endregion Commands2
+            
         }
         public void GenerateCalCommands()
         {
@@ -503,56 +584,128 @@ namespace SuperButton.CommandsDB
             {
                 CommandName = "Current Offset",
                 CommandId = "6",
-                CommandSubId = "1",
+                CommandSubId = "2",
                 CommandValue = "",
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 2), data);
             DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
 
             data = new DataViewModel
             {
                 CommandName = "PI Current Loop",
                 CommandId = "6",
-                CommandSubId = "2",
+                CommandSubId = "4",
                 CommandValue = "",
             };
-            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
-
-            data = new DataViewModel
-            {
-                CommandName = "PI Speed Loop",
-                CommandId = "6",
-                CommandSubId = "5",
-                CommandValue = "",
-            };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 4), data);
             DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
 
             data = new DataViewModel
             {
                 CommandName = "Hall Mapping",
                 CommandId = "6",
-                CommandSubId = "3",
+                CommandSubId = "6",
                 CommandValue = "",
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 6), data);
             DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
 
             data = new DataViewModel
             {
                 CommandName = "Encoder1 Direction",
                 CommandId = "6",
-                CommandSubId = "4",
+                CommandSubId = "8",
                 CommandValue = "",
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 8), data);
             DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "PI Position Loop",
+                CommandName = "PI Speed Loop",
                 CommandId = "6",
-                CommandSubId = "6",
+                CommandSubId = "10",
                 CommandValue = "",
             };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 10), data);
             DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
             
+            data = new DataViewModel
+            {
+                CommandName = "PI Position Loop",
+                CommandId = "6",
+                CommandSubId = "12",
+                CommandValue = "",
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(6, 12), data);
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+            
+        }
+        public void GenerateLPCommands()
+        {
+            #region Commands1
+            DataCommandsListbySubGroup.Add("LPCommands List", new ObservableCollection<object>());
+
+            var data = new DataViewModel
+            {
+                CommandName = "SN",
+                CommandId = "62",
+                CommandSubId = "1",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(62, 1), data);
+            DataCommandsListbySubGroup["LPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "HW Rev",
+                CommandId = "62",
+                CommandSubId = "2",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(62, 2), data);
+            DataCommandsListbySubGroup["LPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "FW Rev",
+                CommandId = "62",
+                CommandSubId = "3",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(62, 3), data);
+            DataCommandsListbySubGroup["LPCommands List"].Add(data);
+            #endregion Commands1
+
+            #region Commands2
+            var ProfilerModeEnum = new List<string>
+              {
+                  "Rayon",
+                  "uRayon",
+                  "Rayon 150 A",
+                  "Rayon 250A"
+              };
+            Enums.Add("Driver Type", ProfilerModeEnum);
+
+            var ProfilerModeCmd = new EnumViewModel
+            {
+                CommandName = "Driver Type",
+                CommandId = "62",
+                CommandSubId = "0",
+                CommandList = Enums["Driver Type"],
+                CommandValue = "",//first enum in list
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
+            EnumViewCommandsList.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
+            EnumCommandsListbySubGroup.Add("Driver Type", new ObservableCollection<object>
+            {
+              ProfilerModeCmd
+            });
+            #endregion Commands2
+
         }
     }
 }

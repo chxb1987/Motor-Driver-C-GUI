@@ -16,7 +16,7 @@
         mc:Ignorable="d"
 	x:Name="Window" 
 	Title="Motor Driver"
-	Width="1000" Height="600" MinWidth="300" IsTabStop="False" ShowInTaskbar="True" WindowState="Maximized"
+	Width="1000" Height="600" MinWidth="300" MinHeight="300" IsTabStop="False" ShowInTaskbar="True" WindowState="Maximized"
     Icon="./Themes/redler.jpg">
 
 
@@ -79,11 +79,11 @@
 
         <!-- Bottom Panel -->
 
-        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1"/>
+        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- right Panel -->
 
-        <mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.Column="2" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2"/>
+        <!--<mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>-->
         
         <Grid Grid.Column="1" Margin="0" Grid.Row="2"  >
             <views:OscilloscopeView 

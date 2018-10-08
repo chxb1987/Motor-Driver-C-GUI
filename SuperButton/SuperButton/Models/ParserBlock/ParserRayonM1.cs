@@ -20,6 +20,7 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.Models.ParserBlock;
 using SuperButton.Models.SataticClaass;
 using SuperButton.Views;
+using SuperButton.Helpers;
 
 
 //TODO add interface
@@ -475,7 +476,25 @@ namespace SuperButton.Models.ParserBlock
                     transit |= data[3];
 
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
-                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, true, false, commandSubId);
+
+                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, true, false, commandSubId);
+
+                    //try
+                    //{
+                    //    foreach (var List in RefreshManger.BuildList)
+                    //    {
+
+                    //        if (List.Value.CommandId.ToString() == commandId.ToString())
+                    //        {
+                    //            EventRiser.Instance.RiseEevent("Rx: " + List.Value.CommandName + ' ' + commandId + '[' + commandSubId + "] " + transit.ToString());
+                    //        }
+
+                    //    }
+                    //}
+                    //catch
+                    //{
+
+                    //}
                 }
                 else
                 {
@@ -490,7 +509,25 @@ namespace SuperButton.Models.ParserBlock
                         //int j = 0;
                     }
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
-                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
+
+                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
+
+                    //try
+                    //{
+                    //    foreach (var List in RefreshManger.BuildList)
+                    //    {
+
+                    //        if (List.Value.CommandId.ToString() == commandId.ToString())
+                    //        {
+                    //            EventRiser.Instance.RiseEevent("Rx: " + List.Value.CommandName + ' ' + commandId + '[' + commandSubId + "] " + newPropertyValuef.ToString() + ".0");
+                    //        }
+                    //    }
+                    //}
+                    //catch
+                    //{
+
+                    //}
+
                 }
                 return true;
             }

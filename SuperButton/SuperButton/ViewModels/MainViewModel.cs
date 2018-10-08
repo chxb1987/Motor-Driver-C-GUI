@@ -59,11 +59,12 @@ namespace SuperButton.ViewModels
         //Data content binding between views of panels within main window
         //and their view models, write binding in XAMLs also
 
-        private RightPanelViewModel rightPanelViewModel = new RightPanelViewModel();
-        public RightPanelViewModel RPcontent
+        private BottomPanelViewModel bottomPanelViewModel = new BottomPanelViewModel();
+
+        public BottomPanelViewModel RPcontent
         {
-            get { return rightPanelViewModel; }
-            set {  }
+            get { return bottomPanelViewModel; }
+            set { }
         }
 
         private LeftPanelViewModel leftPanelViewModel = new LeftPanelViewModel();
@@ -110,6 +111,7 @@ namespace SuperButton.ViewModels
             
 
             leftPanelViewModel.ConnectButtonContent = "Connect";
+            leftPanelViewModel.ConnectTextBoxContent = "Not Connected";
             //leftPanelViewModel.ConnectButtonBackground = ColorConverter;
             leftPanelViewModel.ComToolTipText = "Pls Choose CoM";
             Rs232Interface.GetInstance.Driver2Mainmodel += SincronizationPos;
@@ -126,7 +128,7 @@ namespace SuperButton.ViewModels
 
             //  rightPanel.DataContext = rightPanelViewModel;
 
-            rightPanelViewModel = new RightPanelViewModel();
+            bottomPanelViewModel = new BottomPanelViewModel();
             //rightPanel.DataContext = rightPanelViewModel;
             //rightPanelViewModel.ConnetButtonContent = "Disconnect";
 
@@ -134,7 +136,7 @@ namespace SuperButton.ViewModels
             //Test.Label = "kjlljkljkljkljkljkljkljk";
 
             //Test2 = new UserControl1ViewModel();
-            
+
 
             //b2 = new UserControl1();
             //b2.DataContext = Test2;
@@ -152,12 +154,13 @@ namespace SuperButton.ViewModels
 
 
             // Insert code required on object creation below this point.
-		}
+        }
 
 
         private void  SincronizationPos(object sender, Rs232InterfaceEventArgs e)
         {
             leftPanelViewModel.ConnectButtonContent = e.ConnecteButtonLabel;
+            leftPanelViewModel.ConnectTextBoxContent = e.ConnecteButtonLabel;
             leftPanelViewModel.ComToolTipText = "Allready Connected";
         }
 
