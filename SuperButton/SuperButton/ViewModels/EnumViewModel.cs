@@ -149,26 +149,29 @@ namespace SuperButton.ViewModels
         {
             if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
-                var tmp = new PacketFields
+                Task.Factory.StartNew(action: () =>
                 {
-                    Data2Send = val,
-                    ID = Convert.ToInt16(CommandId),
-                    SubID = Convert.ToInt16(CommandSubId),
-                    IsSet = true,
-                    IsFloat = IsFloat
-                };
-                Rs232Interface.GetInstance.SendToParser(tmp);
-                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), val, IsFloat?"F":"I");
+                    var tmp = new PacketFields
+                    {
+                        Data2Send = val,
+                        ID = Convert.ToInt16(CommandId),
+                        SubID = Convert.ToInt16(CommandSubId),
+                        IsSet = true,
+                        IsFloat = IsFloat
+                    };
+                    Rs232Interface.GetInstance.SendToParser(tmp);
+                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), val, IsFloat?"F":"I");
 
-                //tmp = new PacketFields
-                //{
-                //    Data2Send = val,
-                //    ID = Convert.ToInt16(CommandId),
-                //    SubID = Convert.ToInt16(CommandSubId),
-                //    IsSet = false,
-                //    IsFloat = IsFloat
-                //};
-                //Rs232Interface.GetInstance.SendToParser(tmp);
+                    //tmp = new PacketFields
+                    //{
+                    //    Data2Send = val,
+                    //    ID = Convert.ToInt16(CommandId),
+                    //    SubID = Convert.ToInt16(CommandSubId),
+                    //    IsSet = false,
+                    //    IsFloat = IsFloat
+                    //};
+                    //Rs232Interface.GetInstance.SendToParser(tmp);
+                });
             }
         }
 

@@ -82,7 +82,7 @@ namespace SuperButton.Models.ParserBlock
                     if (PlotPacketsList.Count > 0)
                     {
                         EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
-                        Thread.Sleep(0);
+                        //Thread.Sleep(0);
                         ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
                         EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
                     }               //send to plot parser              

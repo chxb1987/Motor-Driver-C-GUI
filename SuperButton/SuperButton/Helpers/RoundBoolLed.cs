@@ -170,7 +170,7 @@ namespace SuperButton.Helpers
                         break;
                     myBackgroundBrush = Rg_wait;
                     _worker = new BackgroundWorker();
-                    _worker.DoWork += worker_DoWork;
+                        _worker.DoWork += worker_DoWork;
                     _worker.ProgressChanged += WorkerProgressChanged;
                     _worker.WorkerReportsProgress = true;
                     _worker.WorkerSupportsCancellation = true;
@@ -201,13 +201,14 @@ namespace SuperButton.Helpers
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (true)
-            {
-                Thread.Sleep(350);
-                if (_worker.CancellationPending)
-                    break;
-                _worker.ReportProgress(0, null);
-            }
+           
+                while (true)
+                {
+                    Thread.Sleep(350);
+                    if (_worker.CancellationPending)
+                        break;
+                    _worker.ReportProgress(0, null);
+                }
         }
 
         private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)

@@ -1239,7 +1239,12 @@ namespace SuperButton.Views
                                 Ytemp.Add(item * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
                             //Record
                             if (RecFlag)
-                                RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
+                            {
+                                if (SelectedCh1DataSource != "Pause:")
+                                    RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
+                                else if (SelectedCh2DataSource != "Pause:")
+                                    RecList2.Add(item * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
+                            }
                         }
                         AllYData.AddRange(Ytemp);
 
@@ -1911,40 +1916,64 @@ namespace SuperButton.Views
                     StringBuilder sb = new StringBuilder();
 
                     // string[] output = new string[RecList.Count];
-
                     // float[] xxls = new float[RecList.Count];
 
                     float[] yxls = RecList.ToArray();
-
-                    string[] xstring = new string[RecList.Count + 1];
-                    string[] ystring = new string[RecList.Count + 1];
                     float[] yxls2 = RecList2.ToArray();
-                    string[] ystring2 = new string[RecList2.Count + 1];
-                    xstring[0] = "Time";
-                    ystring[0] = "Channel 1";
-                    if (RecList2.Count != 0)
-                        ystring2[0] = "Channel 2";
 
-                    for (int i = 1; i < RecList.Count; i++)
+                    string[] xstring = new string[RecList.Count + 1]; ; 
+
+                    string[] ystring = new string[RecList.Count + 1];
+                    if (SelectedCh1DataSource != "Pause:")
                     {
-                        xstring[i] = (i * OscilloscopeParameters.Step).ToString(CultureInfo.CurrentCulture);
-                        ystring[i] = yxls[i - 1].ToString(CultureInfo.CurrentCulture);
-                        if (RecList2.Count != 0)
-                        {
-                            ystring2[i] = yxls2[i - 1].ToString(CultureInfo.CurrentCulture);
-                            sb.AppendLine(string.Join(delimiter, xstring[i-1], ystring[i-1], ystring2[i-1]));
-                        }
-                        else
-                            sb.AppendLine(string.Join(delimiter, xstring[i-1], ystring[i-1]));
+                        xstring = new string[RecList.Count + 1];
+                        ystring[0] = "Channel 1 - " + SelectedCh1DataSource;
                     }
-                    RecList.Clear();
-                    RecList2.Clear();
 
-                    // sb.AppendLine(string.Join(delimiter, xstring, ystring));
+                    string[] ystring2 = new string[RecList2.Count + 1];
+                    if (SelectedCh2DataSource != "Pause:")
+                    {
+                        xstring = new string[RecList2.Count + 1];
+                        ystring2[0] = "Channel 2 - " + SelectedCh2DataSource;
+                    }
+                    xstring[0] = "Time";
+
+                    if (SelectedCh1DataSource != "Pause:" && SelectedCh2DataSource != "Pause:")
+                    {
+                        for (int i = 1; i < RecList.Count; i++)
+                        {
+                            xstring[i] = (i * OscilloscopeParameters.Step).ToString(CultureInfo.CurrentCulture);
+                            ystring[i] = yxls[i - 1].ToString(CultureInfo.CurrentCulture);
+                            ystring2[i] = yxls2[i - 1].ToString(CultureInfo.CurrentCulture);
+                            sb.AppendLine(string.Join(delimiter, xstring[i - 1], ystring[i - 1], ystring2[i - 1]));
+                        }
+                        RecList.Clear();
+                        RecList2.Clear();
+                    }
+                    else if (SelectedCh1DataSource != "Pause:")
+                    {
+                        for (int i = 1; i < RecList.Count; i++)
+                        {
+                            xstring[i] = (i * OscilloscopeParameters.Step).ToString(CultureInfo.CurrentCulture);
+                            ystring[i] = yxls[i - 1].ToString(CultureInfo.CurrentCulture);
+                            sb.AppendLine(string.Join(delimiter, xstring[i - 1], ystring[i - 1]));
+                        }
+                        RecList.Clear();
+                    }
+                    else if (SelectedCh2DataSource != "Pause:")
+                    {
+                        for (int i = 1; i < RecList2.Count; i++)
+                        {
+                            xstring[i] = (i * OscilloscopeParameters.Step).ToString(CultureInfo.CurrentCulture);
+                            ystring2[i] = yxls2[i - 1].ToString(CultureInfo.CurrentCulture);
+                            sb.AppendLine(string.Join(delimiter, xstring[i - 1], ystring2[i - 1]));
+                        }
+                        RecList2.Clear();
+                    }
+
                     File.AppendAllText(filePath, sb.ToString());
                     sb.Clear();
 
-                    RecList.Clear();
                 });
             }
 

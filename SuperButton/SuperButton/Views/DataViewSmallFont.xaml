@@ -116,7 +116,9 @@
                              Foreground="White"
                              FontSize="11.5" 
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
-                             Background="{Binding Background}">
+                             Background="{Binding Background}"
+                             IsReadOnly="{Binding ReadOnly}"
+                             IsEnabled="{Binding EnableTextBox}">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>

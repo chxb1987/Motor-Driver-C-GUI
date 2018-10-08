@@ -16,6 +16,9 @@ namespace SuperButton.Models
         private bool _isFloat;
         private bool _isSelected;
         private SolidColorBrush _background;
+        private bool _readOnly;
+        private bool _enableTextBox;
+
 
         public string CommandName { get { return _commandName; } set { _commandName = value; } }
 
@@ -27,6 +30,7 @@ namespace SuperButton.Models
         public bool IsFloat { get { return _isFloat; } set { _isFloat = value; } }
         public bool IsSelected { get { return _isSelected; } set { _isSelected = value; } }
         public SolidColorBrush Background { get { return _background; } set { _background = value; } }
-
+        public bool ReadOnly { get { return _readOnly; } set { _readOnly = value; } }
+        public bool EnableTextBox { get { return _enableTextBox; } set { _enableTextBox = value; } }
     }
 }

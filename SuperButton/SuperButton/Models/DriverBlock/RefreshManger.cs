@@ -200,10 +200,7 @@ namespace SuperButton.Models.DriverBlock
                         });
                     }
                     else { }
-
-
                     // }
-
                     Thread.Sleep(10);
                 }
             }
@@ -212,7 +209,7 @@ namespace SuperButton.Models.DriverBlock
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
             EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             if (commandidentifier.Item1 == 6)
             {
                 switch (commandidentifier.Item2)

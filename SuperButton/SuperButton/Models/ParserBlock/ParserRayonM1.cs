@@ -462,7 +462,11 @@ namespace SuperButton.Models.ParserBlock
         {
             for (int i = 0; i < dataList.Count; i++)
             {
-                ParseInputPacket(dataList[i]);
+                //Task.Factory.StartNew(action: () =>
+                //{
+                //    Thread.Sleep(1);
+                    ParseInputPacket(dataList[i]);
+                //});
             }
         }
         private bool ParseInputPacket(byte[] data)

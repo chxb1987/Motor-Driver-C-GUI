@@ -343,7 +343,10 @@ namespace SuperButton.Models.DriverBlock
         //********************************************************
         public void SendDataHendler(object sender, Parser2SendEventArgs parser2SendEventArgs)
         {
-            SendData(parser2SendEventArgs.BytesTosend, _comPort);
+            //Task.Factory.StartNew(action: () =>
+            //{
+                SendData(parser2SendEventArgs.BytesTosend, _comPort);
+            //});
         }
 
 
