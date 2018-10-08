@@ -20,8 +20,16 @@ namespace SuperButton.ViewModels
             }
             set
             {
+                //if (LeftPanelViewModel.flag == true)
+                //{
+                //    if (_baseModel.CommandName == "Pole Pair" && (Int32.Parse(value) < 0))
+                //        _baseModel.CommandValue = "0";
+                //    else
+                //        _baseModel.CommandValue = value;
+                //}
+                //else
                 _baseModel.CommandValue = value;
-               OnPropertyChanged();
+                OnPropertyChanged();
 
 
             }

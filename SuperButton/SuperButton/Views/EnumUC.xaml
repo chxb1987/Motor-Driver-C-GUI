@@ -126,10 +126,12 @@
             <ComboBox MinWidth="100"
                       SelectedItem="{Binding Path=SelectedValue,Mode=TwoWay}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=Value}" SelectedIndex="0"
-                      HorizontalContentAlignment="Center"> 
+                      ItemsSource="{Binding Path=Value}" 
+                      SelectedIndex="0"
+                      HorizontalContentAlignment="Center"
+                     > 
             </ComboBox>
-            <!--<ComboBox MinWidth="100"
+            <!--<ComboBox MinWidth="100"   DropDownOpened="{Binding Path=Value}"
                       SelectedItem="{Binding SelectedDataSource,
                                              Mode=TwoWay}" d:IsHidden="False" >
                 <ComboBox.Items>

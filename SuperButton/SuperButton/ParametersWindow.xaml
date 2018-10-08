@@ -49,10 +49,16 @@
                             <RowDefinition Height="130"/>
                         </Grid.RowDefinitions>
                         <GroupBox  Header="Control" Grid.Row="0">
-                            <ItemsControl ItemsSource="{Binding ControlList}" ItemTemplate="{StaticResource EnumViewModel}" Margin="0,4,0,-4"/>
+                            <ItemsControl ItemsSource="{Binding ControlList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}" 
+                                          
+                                          Margin="0,4,0,-4"/>
                         </GroupBox>
                         <GroupBox Header="Motor" Grid.Row="1" Margin="0,10,0,0">
-                            <ItemsControl ItemsSource="{Binding MotorlList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            <ItemsControl ItemsSource="{Binding MotorlList}" 
+                                          ItemTemplate="{StaticResource DataViewModel}" 
+                                          Margin="0,4,0,-4"
+                                          MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"/>
                         </GroupBox>
                         <GroupBox Header="Motor Limit"  Grid.Row="2" Margin="0,10,0,0">
                             <ItemsControl ItemsSource="{Binding MotorLimitlList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
@@ -137,7 +143,7 @@
                             <RowDefinition Height="20"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0" Header="Digital"  Background="Transparent" >
+                        <!--<GroupBox Grid.Row="0" Header="Digital"  Background="Transparent" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
@@ -148,8 +154,8 @@
                                     <ItemsControl ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
                                 </ScrollViewer>
                             </Grid>
-                        </GroupBox>
-                        <GroupBox Grid.Row="2"    Header="Analog"  Background="Transparent">
+                        </GroupBox>-->
+                        <!--<GroupBox Grid.Row="2"    Header="Analog"  Background="Transparent">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
@@ -158,7 +164,7 @@
                                 <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsAnalogFeddbackEnabled}"/>
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
                             </Grid>
-                        </GroupBox>
+                        </GroupBox>-->
                     </Grid>
                 </Grid>
             </TabItem>

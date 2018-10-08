@@ -67,7 +67,7 @@ namespace SuperButton {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SuperButton;component/views/mainwindowpanels/upperpanel.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Driver GUI;component/views/mainwindowpanels/upperpanel.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\mainWindowPanels\UpperPanel.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

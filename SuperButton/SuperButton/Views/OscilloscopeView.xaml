@@ -275,7 +275,7 @@
                                             IsDigitalLine="False"
                                             ResamplingMode="MinMax"
                                             StrokeThickness="1"
-                                            Style="{StaticResource LineSeriesStyle}"   />
+                                            Style="{StaticResource LineSeriesStyle}"/>
                 
                 <s:FastLineRenderableSeries DataSeries="{Binding ChartData2}"
                                             SeriesColor="Red"
@@ -320,7 +320,7 @@
                                DrawMinorTicks="False"
                                 DrawMajorTicks="False"
                                StrokeThickness="1"
-                               AxisTitle="Voltage (mV)"
+                               AxisTitle=""
                                 />
             </s:SciChartSurface.YAxis>
 

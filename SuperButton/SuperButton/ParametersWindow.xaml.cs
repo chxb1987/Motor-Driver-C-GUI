@@ -43,5 +43,10 @@ namespace SuperButton.Views
         {
             ParametersWindowTabSelected = ((System.Windows.Controls.Primitives.Selector)sender).SelectedIndex;
         }
+
+        private void ItemsControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

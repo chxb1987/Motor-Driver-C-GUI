@@ -36,5 +36,15 @@ namespace SuperButton.Views.mainWindowPanels
         {
           this.InitializeComponent();
         }
+
+        private void EnumUC_ContextMenuOpening(object sender, System.Windows.DragEventArgs e)
+        {
+
+        }
+
+        private void EnumUC_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

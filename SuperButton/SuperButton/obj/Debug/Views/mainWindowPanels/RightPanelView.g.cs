@@ -71,7 +71,7 @@ namespace SuperButton.Views.mainWindowPanels {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SuperButton;component/views/mainwindowpanels/rightpanelview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Driver GUI;component/views/mainwindowpanels/rightpanelview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\mainWindowPanels\RightPanelView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

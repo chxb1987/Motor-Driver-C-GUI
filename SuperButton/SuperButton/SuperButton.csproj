@@ -9,9 +9,9 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperButton</RootNamespace>
-    <AssemblyName>SuperButton</AssemblyName>
+    <AssemblyName>Driver GUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>redler_BOD_icon.ico</ApplicationIcon>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -48,6 +48,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E4034261435741EC5D43DEDFADFAAC17754F4219</ManifestCertificateThumbprint>
@@ -71,7 +74,7 @@
       <HintPath>..\..\..\Lib\net40\Abt.Controls.SciChart3D.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics">
-      <HintPath>..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\ExamplesDepends\MathNet\Net40\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -112,7 +115,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Internals" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
-      <HintPath>..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\ExamplesDepends\WPFToolkit\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+      <HintPath>..\packages\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -128,16 +131,16 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Telerik.Windows.Controls">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.ImageEditor">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.Input.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
     <Reference Include="TextBoxBehaivior">
-      <HintPath>..\..\UserControls\UserControlLibrary\UserControlLibrary\bin\Debug\TextBoxBehaivior.dll</HintPath>
+      <HintPath>..\packages\TextBoxBehaivior.dll</HintPath>
     </Reference>
     <Reference Include="ToggleSwitch">
       <HintPath>..\packages\ToggleSwitch.1.1.2\lib\net40-client\ToggleSwitch.dll</HintPath>
@@ -145,7 +148,7 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="UserControlLibrary">
-      <HintPath>..\..\UserControls\UserControlLibrary\UserControlLibrary\bin\Debug\UserControlLibrary.dll</HintPath>
+      <HintPath>..\packages\UserControlLibrary.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -165,6 +168,7 @@
     <Compile Include="Behaviors\TreeViewScrollbarVisibilityBehavior.cs" />
     <Compile Include="Behaviors\TreeViewSelectOnExpandedBehavior.cs" />
     <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Common\Consts.cs" />
     <Compile Include="Common\MessageBoxWrapper.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroupViewModel.cs" />
@@ -177,6 +181,7 @@
     <Compile Include="Helpers\EventRiser.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\NavigationBase.cs" />
+    <Compile Include="Helpers\RoundBoolLed.cs" />
     <Compile Include="Helpers\TransitioningFrame.cs" />
     <Compile Include="Helpers\TreeViewExtension.cs" />
     <Compile Include="HomeControl.xaml.cs">
@@ -196,6 +201,9 @@
     </Compile>
     <Compile Include="Views\DataViewSmallFont.xaml.cs">
       <DependentUpon>DataViewSmallFont.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFontInd.xaml.cs">
+      <DependentUpon>EnumViewSmallFontInd.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnumViewSmallFont.xaml.cs">
       <DependentUpon>EnumViewSmallFont.xaml</DependentUpon>
@@ -298,6 +306,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DataViewSmallFont.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFontInd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -586,6 +598,15 @@
     <EmbeddedResource Include="settings_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="redler_BOD_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alt-parameters-icone-9469-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

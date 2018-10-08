@@ -21,6 +21,8 @@ using System.Globalization;
 using SuperButton.Common;
 using System.Windows;
 using SuperButton.Helpers;
+using System.ComponentModel;
+using SuperButton.Annotations;
 
 namespace SuperButton.Models.DriverBlock
 {
@@ -114,10 +116,6 @@ namespace SuperButton.Models.DriverBlock
 
             //ParserRayonM1.GetInstanceofParser.Parser2Send += SendDataHendler;
         }
-
-
-
-
         public override void Disconnect()
         {
             if (_comPort.IsOpen)
@@ -140,7 +138,9 @@ namespace SuperButton.Models.DriverBlock
                         _comPort.Dispose();
 
                         if (Driver2Mainmodel != null)
+                        {
                             Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
+                        }
                         else
                         {
                             throw new NullReferenceException("No Listeners to this event");
@@ -155,8 +155,6 @@ namespace SuperButton.Models.DriverBlock
                 _comPort.Dispose();
             }
         }
-
-
 
         #region Auto_Connect
 
@@ -202,7 +200,9 @@ namespace SuperButton.Models.DriverBlock
                                 if (_isSynced)
                                 {
                                     if (Driver2Mainmodel != null)
+                                    {
                                         Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Disconnect"));
+                                    }
                                     else
                                     {
                                         throw new NullReferenceException("No Listeners on this event");
@@ -230,7 +230,7 @@ namespace SuperButton.Models.DriverBlock
                                         RxtoParser(this, new Rs232InterfaceEventArgs(RxPacket));
                                     }
                                     Thread.Sleep(100);// while with timeout of 1 second
-                                    
+
                                     var Cleaner = tmpcom.ReadExisting();
                                 }
 
@@ -365,8 +365,7 @@ namespace SuperButton.Models.DriverBlock
                 { /*int i = 0; */}
                 // messege.Data2Send = "0.5";
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
-
-                //Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
+                Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
 
                 //try
                 //{
@@ -386,7 +385,6 @@ namespace SuperButton.Models.DriverBlock
             }
         }
 
-
         #endregion
 
         #region Read_Mechanism
@@ -402,7 +400,7 @@ namespace SuperButton.Models.DriverBlock
         //
         //********************************************************
 
-        void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //Create new parent Task
             // Task.Factory.StartNew(() => ProcessRecievedData( sender,e));
@@ -419,9 +417,6 @@ namespace SuperButton.Models.DriverBlock
                 }
             }
         }
-
-
-
         public void Connect()
         {
             _comPort.DataReceived += DataReceived;

@@ -8,12 +8,13 @@
              xmlns:Borders="clr-namespace:ToggleSwitch.Borders;assembly=ToggleSwitch" 
              xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch" 
              xmlns:Views="clr-namespace:SuperButton.Views"  
+             xmlns:Helpers="clr-namespace:SuperButton.Helpers"
              x:Class="SuperButton.Views.mainWindowPanels.LeftPanelView"
              x:Name="GsUserControl"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="800"
              d:DesignWidth="1380"
-             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True" >
+             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True">
 
     <UserControl.Resources>
         <!--  BackgroundBrush  -->
@@ -750,14 +751,15 @@
                 <RowDefinition Height="33"></RowDefinition>
                 <RowDefinition Height="150"></RowDefinition>
                 <RowDefinition Height="10"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="22" FontWeight="Bold" FontSize="19" Foreground="White"/>
             </Grid>
             <Grid Grid.Row="1">
-                <TextBlock HorizontalAlignment="Left" Text="Technologies     Version V0.0.c" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
+                <TextBlock HorizontalAlignment="Left" Text="Technologies     Version V0.0.j" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
@@ -780,7 +782,6 @@
                             <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
                 </Views:EnumUC>
             </Grid>
             <Grid Grid.Row="4">
@@ -808,38 +809,50 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="90" Height="30" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right">
+                <Helpers:RoundBoolLed Width="10" Height="10" CurrStatus="{Binding LedStatusTx}" VerticalAlignment="Top" Margin="70,2,81,0"/>
+                <TextBlock HorizontalAlignment="Center" Text="Tx" VerticalAlignment="Top" FontSize="10" Margin="80,0,72,0" Foreground="White"></TextBlock>
+                <Border BorderBrush="Transparent" 
+                        BorderThickness="1" 
+                        CornerRadius="3" 
+                        Width="90" Height="20" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right">
                     <TextBox 
                         Text="{Binding ConnectTextBoxContent, Mode=TwoWay}"  
                         Background="Transparent" 
                         BorderBrush="Transparent" 
+                        Width="89" Height="19"
                         Foreground="White" 
                         HorizontalContentAlignment="Center" 
                         VerticalContentAlignment="Center"
-                        TextWrapping="NoWrap">
+                        TextWrapping="NoWrap"
+                        IsHitTestVisible="False"
+                        IsReadOnly="True">
                     </TextBox>
                 </Border>
+                <Helpers:RoundBoolLed Width="10" Height="10" CurrStatus="{Binding LedStatusRx}" VerticalAlignment="Bottom" Margin="70,0,81,2"/>
+                <TextBlock HorizontalAlignment="Center" Text="Rx" VerticalAlignment="Bottom" FontSize="10" Margin="80,0,70,1" Foreground="White"></TextBlock>
             </Grid>
             <ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
                 <!--<Grid>-->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
                               Grid.Row="0" 
                               Width="160" 
                               HorizontalAlignment="Left" 
                               ItemsSource="{Binding DriverTypeList}" 
-                              ItemTemplate="{StaticResource EnumViewSmallFont}"/>
-                        <ItemsControl HorizontalContentAlignment="Left"
+                              ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
+                    <ItemsControl HorizontalContentAlignment="Left"
                               Grid.Row="1" 
                               Width="160" 
                               HorizontalAlignment="Left"
                               ItemsSource="{Binding LPCommandsList}" 
                               ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
-                    </Grid>
+                </Grid>
                 <!--</Grid>-->
             </ScrollViewer>
             <Grid Grid.Row="6">
@@ -857,24 +870,36 @@
             </Grid>
             <Grid Grid.Row="9">
                 <!--Param And Action-->
-                <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="44" Height="42" 
+                <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="34" Height="34" 
                         Background="Transparent" 
                         Foreground="Transparent">
-                    <Image Source="C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\settings_icon.png" Width="40" Height="38"
-                               Stretch="Fill"
-                               VerticalAlignment="Stretch"
-                               HorizontalAlignment="Stretch"/>
+                    <Image Source="pack://application:,,,/Images/alt-parameters-icone-9469-64.png" Width="40" Height="40"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    <!--C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\alt-parameters-icone-9469-64.png-->
                 </Button>
             </Grid>
             <Grid Grid.Row="10">
+            <CheckBox Content="Enable Refresh"
+                IsChecked="{Binding EnRefresh, Mode=TwoWay}"></CheckBox>
+            </Grid>
+            <Grid Grid.Row="11">
                 <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
 				BorderBrush="White"
 				Width="160" 
 				UncheckedBackground="#B2B8482F" 
 				UncheckedForeground="#FF333330" 
                 IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
-				ThumbSize="38" HorizontalAlignment="Center" CheckedContent="DRIVE ON" UncheckedContent="DRIVE OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
-				Style="{DynamicResource MotorOnStyleofTumb}" ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" Background="#00000000" >
+				ThumbSize="38" 
+                HorizontalAlignment="Center" 
+                CheckedContent="DRIVE ON" 
+                UncheckedContent="DRIVE OFF" 
+                BorderThickness="0.5" Elasticity="0.5" 
+                CheckedBackground="#B277E444" 
+                CheckedForeground="#FFF7F6F6"
+				Style="{DynamicResource MotorOnStyleofTumb}" 
+                ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" 
+                Background="#00000000">
                     <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF4D4E48"/>

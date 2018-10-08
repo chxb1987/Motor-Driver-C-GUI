@@ -798,10 +798,10 @@ namespace SuperButton.Views
                 ChartData = _series0;
                 _series1.Clear();
                 ChartData1 = _series1;
-                _series2.Clear();
-                ChartData2 = _series2;
-                _series3.Clear();
-                ChartData3 = _series3;
+                //_series2.Clear();
+                //ChartData2 = _series2;
+                //_series3.Clear();
+                //ChartData3 = _series3;
 
                 OnExampleEnter();
                 plotActivationstate = 1;

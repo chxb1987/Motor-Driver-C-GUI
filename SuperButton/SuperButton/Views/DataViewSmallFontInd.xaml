@@ -116,7 +116,10 @@
                              Background="Transparent"
                              Foreground="White"
                              FontSize="11.5" 
-                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}">
+                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="NoWrap"
+                        IsHitTestVisible="False"
+                        IsReadOnly="True">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>

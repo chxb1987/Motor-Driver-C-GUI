@@ -46,6 +46,7 @@ namespace SuperButton.ViewModels
         {
             get { return new ActionCommand(AutoConnectCommand); }
         }
+
         public ActionCommand ForceStop { get { return new ActionCommand(FStop); } }
         public ActionCommand Showwindow { get { return new ActionCommand(ShowParametersWindow); } }
         private static LeftPanelViewModel _instance;
@@ -70,8 +71,9 @@ namespace SuperButton.ViewModels
         public LeftPanelViewModel()
         {
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
-            _comboBox = new ComboBox();
-
+            EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
+            EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
+            _comboBox = new ComboBox();            
         }
         public ComboBox ComboBoxCOM
         {
@@ -106,7 +108,19 @@ namespace SuperButton.ViewModels
                 if (_connetButtonContent == "Connect")
                     return "Not Connected";
                 else
+                {
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = _motorOnToggleChecked ? 1 : 0,
+                        ID = Convert.ToInt16(1),
+                        SubID = Convert.ToInt16(0),
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                    TxCount = 0; RxCount = 0;
                     return "Connected";
+                }
+                    
             }
             set
             {
@@ -195,29 +209,34 @@ namespace SuperButton.ViewModels
         #endregion
 
         #region MotorON_Switch
-
+        public static bool MotorOnOff_flag = false;
         private bool _motorOnToggleChecked = false;
         public bool MotorOnToggleChecked
         {
             get
             {
                 return _motorOnToggleChecked;
-                //Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(400, 0)].CommandValue == "1" ? true : false;               
             }
             set
             {
-                _motorOnToggleChecked = value;
-                //retrieve the command values
-                var temp = Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(1, 1)]; // old value: 400, 0
-                //init rxPacket
-                RxPacket.ID = Convert.ToInt16(temp.CommandId);
-                RxPacket.IsFloat = temp.IsFloat;
-                RxPacket.IsSet = true;
-                RxPacket.SubID = Convert.ToInt16(temp.CommandSubId);
-                RxPacket.Data2Send = _motorOnToggleChecked ? 1 : 0;
-                //Sent
-                Rs232Interface.GetInstance.SendToParser(RxPacket);
-                OnPropertyChanged("MotorONToggleChecked");
+                if (_connetButtonContent == "Disconnect")
+                {
+                    _motorOnToggleChecked = value;
+                    //Sent
+                    if (!MotorOnOff_flag)
+                    {
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = _motorOnToggleChecked ? 1 : 0,
+                            ID = Convert.ToInt16(1),
+                            SubID = Convert.ToInt16(0),
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                    }
+                    MotorOnOff_flag = false;
+                    OnPropertyChanged("MotorONToggleChecked");
+                }
             }
         }
 
@@ -225,6 +244,63 @@ namespace SuperButton.ViewModels
         #endregion
 
         #endregion
+
+        #region TXRXLed
+        private int TxCount = 0, RxCount = 0;
+        private int _led_statusTx;
+        public int LedStatusTx
+        {
+            get
+            {
+                return _led_statusTx;
+            }
+            set
+            {
+                if (_connetButtonContent == "Connect")
+                {
+                    _led_statusTx = RoundBoolLed.IDLE;
+                }
+                else
+                {
+                    TxCount++;
+                    //Debug.WriteLine("Tx: {0}",TxCount);
+                    _led_statusTx = value;
+                }
+                RaisePropertyChanged("LedStatusTx");
+            }
+        }
+        public void Instance_BlinkLedTx(object sender, EventArgs e)
+        {
+            LedStatusTx = ((CustomEventArgs)e).LedTx;
+        }
+
+        private int _led_statusRx;
+        public int LedStatusRx
+        {
+            get
+            {
+                return _led_statusRx;
+            }
+            set
+            {
+                if (_connetButtonContent == "Connect")
+                {
+                    _led_statusRx = RoundBoolLed.IDLE;
+                }
+                else
+                {
+                    RxCount++;
+                    //Debug.WriteLine("Rx: {0}", RxCount);
+                    _led_statusRx = value;
+                }
+                RaisePropertyChanged("LedStatusRx");
+            }
+        }
+        public void Instance_BlinkLedRx(object sender, EventArgs e)
+        {
+            LedStatusRx = ((CustomEventArgs)e).LedRx;
+        }
+        #endregion TXRXLed
 
         #region Send_Button
 
@@ -432,7 +508,6 @@ namespace SuperButton.ViewModels
         private void Instance_LoggerEvent(object sender, EventArgs e)
         {
             LogText = ((CustomEventArgs)e).Msg + Environment.NewLine + LogText;
-
         }
         public string LogText
         {
@@ -443,7 +518,6 @@ namespace SuperButton.ViewModels
                 _logText = value;
                 RaisePropertyChanged("LogText");
             }
-
         }
 
         private string _comToolTipText;
@@ -463,8 +537,6 @@ namespace SuperButton.ViewModels
             }
 
         }
-
-
         public void FStop()
         {
             lock (TableLock)
@@ -548,11 +620,26 @@ namespace SuperButton.ViewModels
         {
             //flag = false;
         }
+
+        private bool _enRefresh;
+        public bool EnRefresh
+        {
+            get {
+                return _enRefresh;
+            }
+            set {
+                //LeftPanelViewModel.GetInstance.EnRefresh = value;
+                _enRefresh = value;
+                OnPropertyChanged("EnRefresh");
+            }
+        }
         public static void BackGroundFunc()
         {
             while (flag)
             {
+                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
                 RefreshManger.GetInstance.StartRefresh();
+                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
                 Thread.Sleep(1000);
                 //flag = false; // Joseph added
             }

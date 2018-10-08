@@ -79,7 +79,7 @@ namespace SuperButton.CommandsDB
                 CommandValue = "0"
             };
 
-            DataViewCommandsList.Add(new Tuple<int, int>(400, 0), temp);
+            //DataViewCommandsList.Add(new Tuple<int, int>(400, 0), temp);
         }
         private void GenerateDriverCommands()
         {
@@ -159,7 +159,6 @@ namespace SuperButton.CommandsDB
 
             for (int i = 0; i < names.Length; i++)
             {
-
                 var data = new DataViewModel
                 {
                     CommandName = names[i],
@@ -168,7 +167,6 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                     IsFloat = true
                 };
-
                 DataViewCommandsList.Add(new Tuple<int, int>(81, (i + 1)), data);
                 DataCommandsListbySubGroup["PIDCurrent"].Add(data);
 
@@ -182,8 +180,6 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                     IsFloat = true
                 };
-
-
                 DataViewCommandsList.Add(new Tuple<int, int>(82, (i + 1)), data);
                 DataCommandsListbySubGroup["PIDSpeed"].Add(data);
 
@@ -196,11 +192,8 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                     IsFloat = true
                 };
-
                 DataViewCommandsList.Add(new Tuple<int, int>(83, (i + 1)), data);
                 DataCommandsListbySubGroup["PIDPosition"].Add(data);
-
-
             }
 
 
@@ -229,7 +222,7 @@ namespace SuperButton.CommandsDB
                     CommandId = "70",
                     CommandSubId = (i + 1).ToString(CultureInfo.InvariantCulture),
                     CommandValue = "",
-                    IsFloat = names[i] == "Hall Angle"
+                    IsFloat = names[i] == "Speed LPF Cut-Off"
                 };
                 DataViewCommandsList.Add(new Tuple<int, int>(70, i + 1), data);
                 DataCommandsListbySubGroup["Hall"].Add(data);
@@ -266,8 +259,8 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                 };
                 DataViewCommandsList.Add(new Tuple<int, int>(75, i), data);
-                if (i != 0)
-                    DataCommandsListbySubGroup["Digital"].Add(data);
+                //if (i != 0)
+                    //DataCommandsListbySubGroup["Digital"].Add(data);
 
                 data = new DataViewModel
                 {
@@ -277,8 +270,8 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                 };
                 DataViewCommandsList.Add(new Tuple<int, int>(76, i), data);
-                if (i != 0)
-                    DataCommandsListbySubGroup["Analog"].Add(data);
+                //if (i != 0)
+                    //DataCommandsListbySubGroup["Analog"].Add(data);
             }
 
             names = new[]
@@ -306,6 +299,17 @@ namespace SuperButton.CommandsDB
                     k = 12;
             }
 
+            var dataB = new DataViewModel
+            {
+                CommandName = "Resolution Sin/Cos",
+                CommandId = "71",
+                CommandSubId = 14.ToString(CultureInfo.InvariantCulture),
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(73, 14), dataB);
+            DataCommandsListbySubGroup["Qep1"].Add(dataB);
+
         }
         public void GenerateMotionCommands()
         {
@@ -323,13 +327,13 @@ namespace SuperButton.CommandsDB
             var enum1 = new EnumViewModel
             {
                 CommandName = "Drive Mode",
-                CommandId = "212",
-                CommandSubId = "0",
+                CommandId = "50",
+                CommandSubId = "1",
                 CommandList = Enums["Drive Mode"],
                 CommandValue = "1",//first enum in list
             };
 
-            EnumViewCommandsList.Add(new Tuple<int, int>(212, 0), enum1);
+            EnumViewCommandsList.Add(new Tuple<int, int>(50, 1), enum1);
 
 
             EnumCommandsListbySubGroup.Add("Control", new ObservableCollection<object>
@@ -359,14 +363,14 @@ namespace SuperButton.CommandsDB
             var enum2 = new EnumViewModel
             {
                 CommandName = "Commutation Source",
-                CommandId = "209",
-                CommandSubId = "1",
+                CommandId = "50",
+                CommandSubId = "2",
                 CommandValue = "1", //first enum in list
                 CommandList = Enums["Commutation Source"]
             };
 
 
-            EnumViewCommandsList.Add(new Tuple<int, int>(209, 1), enum2);
+            EnumViewCommandsList.Add(new Tuple<int, int>(50, 2), enum2);
             EnumCommandsListbySubGroup["Control"].Add(enum2);
 
 
@@ -376,6 +380,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "51",
                 CommandSubId = "1",
                 CommandValue = "",
+                IsFloat = false,
 
             };
 
@@ -389,6 +394,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "51",
                 CommandSubId = "2",
                 CommandValue = "",
+                IsFloat = false,
 
             };
             DataViewCommandsList.Add(new Tuple<int, int>(51, 2), data2);
@@ -398,11 +404,11 @@ namespace SuperButton.CommandsDB
 
             var data3 = new DataViewModel
             {
-                CommandName = "Max speed [rpm]",
+                CommandName = "Max speed [CPS]",
                 CommandId = "53",
                 CommandSubId = "1",
                 CommandValue = "",
-                IsFloat = true
+                IsFloat = false
             };
             DataViewCommandsList.Add(new Tuple<int, int>(53, 1), data3);
 
@@ -414,11 +420,11 @@ namespace SuperButton.CommandsDB
 
             var data4 = new DataViewModel
             {
-                CommandName = "Min Speed [rpm]",
+                CommandName = "Min Speed [CPS]",
                 CommandId = "53",
                 CommandSubId = "2",
                 CommandValue = "",
-                IsFloat = true
+                IsFloat = false
             };
 
             DataViewCommandsList.Add(new Tuple<int, int>(53, 2), data4);
@@ -433,7 +439,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "53",// "205",
                 CommandSubId = "3",
                 CommandValue = "",
-
+                IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(53, 3), data5);
 
@@ -446,6 +452,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "53",
                 CommandSubId = "4",
                 CommandValue = "",
+                IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(53, 4), data6);
             DataCommandsListbySubGroup["Motion Limit"].Add(data6);
@@ -568,7 +575,6 @@ namespace SuperButton.CommandsDB
               ProfilerModeCmd
             });
             #endregion Commands2
-
             #region Status
             DataCommandsListbySubGroup.Add("MotionStatus List", new ObservableCollection<object>());
 
@@ -639,7 +645,6 @@ namespace SuperButton.CommandsDB
             DataCommandsListbySubGroup["MotionStatus List"].Add(data);
 
             #endregion Status
-
         }
         public void GenerateCalCommands()
         {

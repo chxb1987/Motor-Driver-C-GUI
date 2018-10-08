@@ -1,22 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using Abt.Controls.SciChart;
-using Abt.Controls.SciChart.Rendering.Common;
-using Abt.Controls.SciChart.Visuals;
 using SuperButton.Models.DriverBlock;
-using SuperButton.Models.ParserBlock;
 using SuperButton.Views;
-using UserControlLibrary;
-using UserControlLibrary.ViewModels;
 using BaseViewModel = SuperButton.Common.BaseViewModel;
 using SuperButton.Helpers;
-using SharpDX;
 //using SharpDX.Design;
-using System.Windows.Media;
 
 namespace SuperButton.ViewModels
 {
@@ -67,7 +57,8 @@ namespace SuperButton.ViewModels
             set { }
         }
 
-        private LeftPanelViewModel leftPanelViewModel = new LeftPanelViewModel();
+        private LeftPanelViewModel leftPanelViewModel = LeftPanelViewModel.GetInstance;
+        
         public LeftPanelViewModel LPcontent
         {
             get { return leftPanelViewModel; }

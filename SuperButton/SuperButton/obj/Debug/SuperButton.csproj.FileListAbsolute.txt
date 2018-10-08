@@ -678,10 +678,6 @@ C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.pdb
 C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\HomeBackground.jpg
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Views\HomeBackground.jpg
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SuperButton.exe.manifest
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SuperButton.application
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SuperButton.exe
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SuperButton.pdb
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Drawing.dll
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Interactions.dll
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\System.Windows.Interactivity.dll
@@ -716,8 +712,6 @@ C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumUC.g.cs
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ParametersWindow.g.cs
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\App.g.cs
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton_MarkupCompile.cache
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton_MarkupCompile.lref
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\App.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ExampleItemViewControl.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\HomeControl.baml
@@ -732,12 +726,6 @@ C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\IntegerUC.ba
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\OscilloscopeView.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumUC.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ParametersWindow.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.g.resources
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.exe.licenses
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.exe.manifest
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.application
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.exe
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.pdb
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\MesageBox.g.cs
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\MesageBox.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.dll
@@ -757,3 +745,24 @@ C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmal
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFontInd.baml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\settings_icon.png
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.exe.manifest
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.application
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.exe
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.pdb
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\MathNet.Numerics.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.ImageEditor.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.Input.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\TextBoxBehaivior.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\UserControlLibrary.dll
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI_MarkupCompile.cache
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI_MarkupCompile.lref
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.g.resources
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe.licenses
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe.manifest
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.application
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.pdb
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFontInd.baml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFontInd.g.cs

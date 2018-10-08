@@ -9,6 +9,8 @@ using SuperButton.ViewModels;
 using System.Collections.ObjectModel;
 using SuperButton.Views;
 using System.Collections;
+using SuperButton.Helpers;
+using System.Diagnostics;
 
 namespace SuperButton.Models.DriverBlock
 {
@@ -119,7 +121,7 @@ namespace SuperButton.Models.DriverBlock
                     string[] arr = new string[] { "Control", "Motor", "Motion Limit"};
                     return arr.Concat(PanelElements).ToArray();
                 case 1:
-                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback", "Digital", "Analog"};
+                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback"};
                     return arr.Concat(PanelElements).ToArray();
                 case 2:
                     arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition"};
@@ -147,59 +149,62 @@ namespace SuperButton.Models.DriverBlock
         }
         public void StartRefresh()
         {
-            BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
-
-            tab = Views.ParametarsWindow.ParametersWindowTabSelected;
-            if (ParametarsWindow.WindowsOpen == false)
-                tab = -1;
-
-            foreach (var list in BuildGroup)
+            if (LeftPanelViewModel.GetInstance.EnRefresh)
             {
-                if (GroupToExecute(tab).Contains(list.Key)) // list.Key == "Control" || list.Key == "Motor" || list.Key == "Motion Limit"
+                BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
+
+                tab = Views.ParametarsWindow.ParametersWindowTabSelected;
+                if (ParametarsWindow.WindowsOpen == false)
+                    tab = -1;
+
+                foreach (var list in BuildGroup)
                 {
-                    foreach (var sub_list in list.Value)
+                    if (GroupToExecute(tab).Contains(list.Key)) // list.Key == "Control" || list.Key == "Motor" || list.Key == "Motion Limit"
                     {
-                        var data = new DataViewModel
+                        foreach (var sub_list in list.Value)
                         {
-                            CommandName = ((DataViewModel)sub_list).CommandName,
-                            CommandId = ((DataViewModel)sub_list).CommandId,
-                            CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                            CommandValue = ((DataViewModel)sub_list).CommandValue,
-                            IsFloat = ((DataViewModel)sub_list).IsFloat,
-                        };
-                        BuildList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+                            var data = new DataViewModel
+                            {
+                                CommandName = ((DataViewModel)sub_list).CommandName,
+                                CommandId = ((DataViewModel)sub_list).CommandId,
+                                CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+                                CommandValue = ((DataViewModel)sub_list).CommandValue,
+                                IsFloat = ((DataViewModel)sub_list).IsFloat,
+                            };
+                            BuildList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+                        }
                     }
                 }
-            }
 
-            foreach (var command in BuildList)
-            {
-                if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
+                foreach (var command in BuildList)
                 {
-                    //int k = 0;
-                }//|| (command.Value.CommandId == "83"))
+                    if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
+                    {
+                        //int k = 0;
+                    }//|| (command.Value.CommandId == "83"))
 
-                //  if (command.Value.CommandName == "Serial Number")
-                //{
-                Rs232Interface.GetInstance.SendToParser(new PacketFields
-                {
-                    Data2Send = command.Value.CommandValue,
-                    ID = Convert.ToInt16(command.Value.CommandId),
-                    SubID = Convert.ToInt16(command.Value.CommandSubId),
-                    IsSet = false,
-                    IsFloat = command.Value.IsFloat
+                    //  if (command.Value.CommandName == "Serial Number")
+                    //{
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = command.Value.CommandValue,
+                        ID = Convert.ToInt16(command.Value.CommandId),
+                        SubID = Convert.ToInt16(command.Value.CommandSubId),
+                        IsSet = false,
+                        IsFloat = command.Value.IsFloat
+                    }
+                    );
+                    // }
+
+                    Thread.Sleep(10);
                 }
-                );
-                // }
-
-                Thread.Sleep(10);
             }
-
         }
 
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-
+            EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
+            Thread.Sleep(1);
             if (commandidentifier.Item1 == 6)
             {
                 switch (commandidentifier.Item2)
@@ -211,13 +216,13 @@ namespace SuperButton.Models.DriverBlock
                         CalibrationViewModel.GetInstance.PICurrentCalVal = newPropertyValue.ToString();
                         break;
                     case 6:
-                        CalibrationViewModel.GetInstance.PISpeedCalVal = newPropertyValue.ToString();
-                        break;
-                    case 8:
                         CalibrationViewModel.GetInstance.HallCalVal = newPropertyValue.ToString();
                         break;
-                    case 10:
+                    case 8:
                         CalibrationViewModel.GetInstance.Encoder1CalVal = newPropertyValue.ToString();
+                        break;
+                    case 10:
+                        CalibrationViewModel.GetInstance.PISpeedCalVal = newPropertyValue.ToString();
                         break;
                     case 12:
                         CalibrationViewModel.GetInstance.PIPosCalVal = newPropertyValue.ToString();
@@ -268,14 +273,24 @@ namespace SuperButton.Models.DriverBlock
 
             if (Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
-                Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue =
+                Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue =
                     newPropertyValue;
 
+            }
+            if (commandidentifier.Item1 == 1)
+            {
+                if(commandidentifier.Item2 == 0)
+                {
+                    LeftPanelViewModel.MotorOnOff_flag = true;
+                    LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;
+                }
             }
             else
             {
                 //OperationViewModel.GetInstance.MotorDriver = newPropertyValue;
             }
+            EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
+
         }
 
     }

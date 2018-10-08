@@ -21,6 +21,7 @@ using SuperButton.Models.ParserBlock;
 using SuperButton.Models.SataticClaass;
 using SuperButton.Views;
 using SuperButton.Helpers;
+using SuperButton.ViewModels;
 
 
 //TODO add interface
@@ -102,6 +103,14 @@ namespace SuperButton.Models.ParserBlock
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
+                if (LeftPanelViewModel.GetInstance != null)
+                {
+                    if (LeftPanelViewModel.flag == true && LeftPanelViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
+                    {
+                        ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, false,
+                        e.PacketRx.IsFloat);
+                    }
+                }
             }//Add Here aditional parsers...
         }
 
@@ -353,6 +362,22 @@ namespace SuperButton.Models.ParserBlock
                 temp[7] = (byte)(datvaluevalue[2]);
                 temp[8] = (byte)(datvaluevalue[3]);
             }
+            else // String Value
+            {
+                if (Data2Send.ToString().Length != 0)
+                {
+                    if (Data2Send.ToString().IndexOf(".") != -1)
+                    {
+                        Data2Send = Data2Send.ToString().Substring(0, Data2Send.ToString().IndexOf("."));
+                    }
+                    var datvaluevalue = Int32.Parse(Data2Send.ToString());
+                    temp[5] = (byte)(((int)datvaluevalue & 0xFF));
+                    temp[6] = (byte)(((int)datvaluevalue >> 8) & 0xFF);
+                    temp[7] = (byte)(((int)datvaluevalue >> 16) & 0xFF);
+                    temp[8] = (byte)(((int)datvaluevalue >> 24) & 0xFF);
+                }
+            }
+            
 
             //Risng up delegate , to call static function from CRC class
             ushort TempCrc = CrcInputCalc(temp.Take(9), 2);   // Delegate won  
@@ -477,7 +502,7 @@ namespace SuperButton.Models.ParserBlock
 
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
 
-                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, true, false, commandSubId);
+                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, false, false, commandSubId);
 
                     //try
                     //{
@@ -510,7 +535,7 @@ namespace SuperButton.Models.ParserBlock
                     }
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
 
-                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
+                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
 
                     //try
                     //{

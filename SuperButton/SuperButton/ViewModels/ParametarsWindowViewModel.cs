@@ -3,6 +3,7 @@ using SuperButton.CommandsDB;
 using System.Windows.Input;
 using SuperButton.Models;
 using System.Windows.Controls;
+using System;
 
 namespace SuperButton.ViewModels
 {
@@ -365,10 +366,10 @@ namespace SuperButton.ViewModels
         private void EnumChange()
         {
 
-        //    EnumViewModel tmp = (EnumViewModel)CommandsDB.Commands.GetInstance.CommandsList[new Tuple<string, string>("212", "0")];
-        //    tmp.IsUpdate = true;
-        //    tmp.SelectedValue = "Current Control";
-        //    tmp.IsUpdate = false;
+            //EnumViewModel tmp = (EnumViewModel)CommandsDB.Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(212, 0)];
+            //tmp.IsUpdate = true;
+            //tmp.SelectedValue = "Current Control";
+            //tmp.IsUpdate = false;
         }
 
         

@@ -9,7 +9,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Abt.Controls.SciChart;
+using Abt.Controls.SciChart.ChartModifiers;
+using Abt.Controls.SciChart.Common;
+using Abt.Controls.SciChart.Common.Extensions;
 using Abt.Controls.SciChart.Example.Common;
+using Abt.Controls.SciChart.Model.DataSeries;
+using Abt.Controls.SciChart.Rendering.Common;
+using Abt.Controls.SciChart.Rendering.HighQualityRasterizer;
+using Abt.Controls.SciChart.Rendering.HighSpeedRasterizer;
+using Abt.Controls.SciChart.Utility.Mouse;
+using Abt.Controls.SciChart.Visuals;
+using Abt.Controls.SciChart.Visuals.Annotations;
+using Abt.Controls.SciChart.Visuals.Axes;
+using Abt.Controls.SciChart.Visuals.PointMarkers;
+using Abt.Controls.SciChart.Visuals.RenderableSeries;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -52,7 +66,7 @@ namespace SuperButton {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SuperButton;component/exampleitemviewcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Driver GUI;component/exampleitemviewcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\ExampleItemViewControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

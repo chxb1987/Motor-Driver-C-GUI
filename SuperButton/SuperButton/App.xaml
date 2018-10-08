@@ -33,7 +33,9 @@
                 <views:EnumViewSmallFont></views:EnumViewSmallFont>
             </DataTemplate>
 
-
+            <DataTemplate x:Key="EnumViewSmallFontInd">
+                <views:EnumViewSmallFontInd></views:EnumViewSmallFontInd>
+            </DataTemplate>
             <DataTemplate x:Key="DataViewModel">
                 <views:DataView></views:DataView>
             </DataTemplate>
@@ -42,6 +44,9 @@
             </DataTemplate>
             <DataTemplate x:Key="DataViewSmallFontInd">
                 <views:DataViewSmallFontInd></views:DataViewSmallFontInd>
+            </DataTemplate>
+            <DataTemplate x:Key="IntegerUCModel">
+                <views:IntegerUC></views:IntegerUC>
             </DataTemplate>
 
             <!--<DataTemplate x:Key="LeftPanelViewModel">
@@ -513,7 +518,7 @@
             	<Setter Property="FontSize" Value="12"/>
             	<Setter Property="HorizontalContentAlignment" Value="Center" />
             	<Setter Property="VerticalContentAlignment" Value="Center" />
-            	<Setter Property="CheckedBackground">
+                <Setter Property="CheckedBackground">
             		<Setter.Value>
             			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             				<GradientStop Color="#FF81B5FB" Offset="1"/>
