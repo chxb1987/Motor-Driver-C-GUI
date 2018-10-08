@@ -5,8 +5,7 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:s="http://schemas.abtsoftware.co.uk/scichart"         
              xmlns:common="clr-namespace:SuperButton.Common"    
-             xmlns:Helpers="clr-namespace:SuperButton.Helpers"
-             xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D" 
+            xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D" 
              d:DesignHeight="768"
              d:DesignWidth="1024"
              mc:Ignorable="d">
@@ -102,10 +101,11 @@
 
     <Grid Margin="0" Background="#FF616161">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="36"/><ColumnDefinition/>
+            <ColumnDefinition Width="36"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="36" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -126,79 +126,68 @@
             </Border.Background>
         </Border>
 
-        <!--Define the Toolbar Orientation="Horizontal"-->
-        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
-        <Grid Grid.Row="0" Background="#7F595957">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Line Grid.Column="0" Margin="13,8,5,8"
+        <!--Define the Toolbar-->
+        <StackPanel Grid.Row="0"
+                    Margin="0"
+                    Orientation="Horizontal" Background="#7F595957" Grid.ColumnSpan="2">
+
+            <Line Margin="13,8,5,8"
         		Stroke="Gray"
         		Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Line Grid.Column="1" Margin="5,0,6,0"
+            <Line Margin="5,0,6,0"
             	Stroke="Gray"
             	Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Column="2" Command="{Binding DirectionPlus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="10,3.5,2,3.5" Width="25" BorderBrush="#FFF3F3F3" BorderThickness="0.5">
+
+            <Button Command="{Binding DirectionPlus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="10,3.5,2,3.5" Width="25" BorderBrush="#FFF3F3F3" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="0"
-        				Source="pack://application:,,,/Images/back_tb.png"
+        				Source="/SuperButton;component/Images/back_tb.png"
         				Stretch="Fill" Width="20" Height="20" />
                 </StackPanel>
             </Button>
-            <TextBlock Grid.Column="3" Margin="3,0"
+            <TextBlock Margin="3,0"
             	Foreground="#FFF"
-            	Text="Duration" FontSize="10.667" VerticalAlignment="Center" />
-            <Button Grid.Column="4" Command="{Binding DirectionMinus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="3,3.5,1,3.5" Width="25" BorderBrush="White" VerticalAlignment="Center" BorderThickness="0.5">
+            	Text="Duration:" FontSize="10.667" VerticalAlignment="Center" />
+            <Button Command="{Binding DirectionMinus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="3,3.5,1,3.5" Width="25" BorderBrush="White" VerticalAlignment="Center" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="0"
-            			Source="pack://application:,,,/Images/next_tb.png" Width="20" Height="20" Stretch="Fill" />
+            			Source="/SuperButton;component/Images/next_tb.png" Width="20" Height="20" Stretch="Fill" />
                 </StackPanel>
             </Button>
-            <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="69,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
+
+            <Border BorderBrush="White" BorderThickness="0.5" Margin="69,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
                 <TextBlock Margin="0"
             		Foreground="#FFF"
             		Text="CH1" Background="#82F7E31D" VerticalAlignment="Center" />
             </Border>
-            <Border Grid.Column="6" MinWidth="100"
+            <Border MinWidth="100"
             	Margin="3,0"
             	Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
 
                 <ComboBox
-            		SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel1SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0"/>
+            		SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" SelectedIndex="0" 
+            		ItemsSource="{Binding Channel1SourceItems}" Width="100" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0"/>
             </Border>
-            <Border Grid.Column="7" BorderBrush="White" BorderThickness="0.5" Margin="5,8,0,8" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
+            <Border BorderBrush="White" BorderThickness="0.5" Margin="5,8,0,8" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
                 <TextBlock Margin="0"
             		Foreground="#FFF"
             		Background="#7F1810D4" VerticalAlignment="Center" ><Run Text="Ch2:"/></TextBlock>
             </Border>
-            <Border Grid.Column="8" MinWidth="100"
+            <Border MinWidth="100"
             	Margin="8,0,3,0"
             	Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" 
                 >
                 <ComboBox
             		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel2SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0" />
+            		ItemsSource="{Binding Channel2SourceItems}" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0" Width="100"/>
 
             </Border>
-            <Line Grid.Column="9" Margin="5,0"
+
+            <Line Margin="5,0"
                   Stroke="Gray"
                   Y2="16" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="10" Command="{Binding SetZoomPanModifierCommand}"
+
+            <ToggleButton Command="{Binding SetZoomPanModifierCommand}"
                           s:ToggleButtonExtensions.GroupName="Modifiers"
                           Style="{StaticResource ExampleToolbarToggleButtonStyle}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
             	<ToggleButton.Background>
@@ -216,7 +205,7 @@
                     <TextBlock Margin="3" Text="Pan" VerticalAlignment="Center" />
                 </StackPanel>
             </ToggleButton>
-            <ToggleButton Grid.Column="11" Command="{Binding SetRubberBandZoomModifierCommand}"
+            <ToggleButton Command="{Binding SetRubberBandZoomModifierCommand}"
                           s:ToggleButtonExtensions.GroupName="Modifiers"
                           IsEnabled="False"
                           Style="{StaticResource ExampleToolbarToggleButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5" BorderBrush="#FFF1F0F0" Height="24.0107">
@@ -227,10 +216,10 @@
                     <TextBlock Margin="3" Text="Fit View" VerticalAlignment="Center" />
                 </StackPanel>
             </ToggleButton>
-            <Line Grid.Column="12" Margin="5,0"
+            <Line Margin="5,0"
                   Stroke="#FFD6D5D5"
                   Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
-            <Button Grid.Column="13" Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
+            <Button Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="3"
                            Source="/Images/fit_to_size.png"
@@ -238,27 +227,10 @@
                     <TextBlock Margin="3" Text="Zoom Reset" />
                 </StackPanel>
             </Button>
-            <!--<Button Grid.Column="14" Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
+            <Button Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                 <TextBlock Margin="3" Text="Rec" />
-            </Button>  -->
-                <ToggleButton Grid.Column="14" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
-                    <ToggleButton.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                            <GradientStop Color="#FFCFCFCF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ToggleButton.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <!--<customControls:RoundBoolLed Width="11" CurrStatus="{Binding ShowRecordigStatus}"></customControls:RoundBoolLed>-->
-                        <Helpers:RecLed Width="11" Recording="{Binding IsRecording}"></Helpers:RecLed>
-                        <Grid Width="4"></Grid>
-                        <Label>Rec</Label>
-                    </StackPanel>
-                </ToggleButton>
-            </Grid>
-        </ScrollViewer>
+            </Button>
+        </StackPanel>
 
         <!--http://support.scichart.com/index.php?/Knowledgebase/Article/View/17227/36/performance-tips-and-tricks-->
 
@@ -303,22 +275,6 @@
                                             IsDigitalLine="False"
                                             ResamplingMode="MinMax"
                                             StrokeThickness="1"
-                                            Style="{StaticResource LineSeriesStyle}"/>
-                
-                <s:FastLineRenderableSeries DataSeries="{Binding ChartData2}"
-                                            SeriesColor="Red"
-                                            AntiAliasing="False"
-                                            IsDigitalLine="False"
-                                            ResamplingMode="MinMax"
-                                            StrokeThickness="1"
-                                            Style="{StaticResource LineSeriesStyle}" />
-
-                <s:FastLineRenderableSeries DataSeries="{Binding ChartData3}"
-                                            SeriesColor="Black"
-                                            AntiAliasing="False"
-                                            IsDigitalLine="False"
-                                            ResamplingMode="MinMax"
-                                            StrokeThickness="1"
                                             Style="{StaticResource LineSeriesStyle}"   />
             </s:SciChartSurface.RenderableSeries>
 
@@ -348,7 +304,7 @@
                                DrawMinorTicks="False"
                                 DrawMajorTicks="False"
                                StrokeThickness="1"
-                               AxisTitle=""
+                               AxisTitle="Voltage (mV)"
                                 />
             </s:SciChartSurface.YAxis>
 
@@ -404,7 +360,7 @@
             <Button Command="{Binding YMinus}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="0,7,0,5" Width="25" MinWidth="10" MinHeight="10" MaxWidth="30" MaxHeight="30" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center" BorderBrush="#FFE0DBDB" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="0"
-        				Source="pack://application:,,,/Images/back_tb.png"
+        				Source="/SuperButton;component/Images/back_tb.png"
         				Stretch="Fill" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
@@ -419,11 +375,11 @@
             </Button>
             <TextBlock Margin="0,18"
         		Foreground="#FFF"
-        		Text="Zoom" FontSize="10.667" Height="16" HorizontalAlignment="Center" />
+        		Text="Zoom:" FontSize="10.667" Height="16" HorizontalAlignment="Center" />
             <Button Command="{Binding YPlus}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="0" Width="25" MinWidth="10" MinHeight="10" MaxWidth="30" MaxHeight="30" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" BorderBrush="#FFDCD7D7" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Margin="0"
-        				Source="pack://application:,,,/Images/next_tb.png" Width="20" Height="20" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" >
+        				Source="/SuperButton;component/Images/next_tb.png" Width="20" Height="20" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -436,7 +392,9 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+
         <!--Define the overlay panel to show start and to dates, chart values-->
+
     </Grid>
 </UserControl>
 

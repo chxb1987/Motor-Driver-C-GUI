@@ -13,7 +13,6 @@ namespace SuperButton.Models
         private string _commandId;
         private string _commandSubId;
         private bool _isFloat;
-        private bool _isSelected;
 
         public string CommandName { get { return _commandName; } set { _commandName = value; } }
 
@@ -23,8 +22,6 @@ namespace SuperButton.Models
 
         public string CommandSubID { get { return _commandSubId; } set { _commandSubId = value; } }
         public bool IsFloat { get { return _isFloat; } set { _isFloat = value; } }
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; } }
-
 
     }
 }

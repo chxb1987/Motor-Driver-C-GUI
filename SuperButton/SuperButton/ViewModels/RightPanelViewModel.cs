@@ -1,30 +1,25 @@
-﻿using SuperButton.CommandsDB;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OleDb;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Abt.Controls.SciChart;
+using SuperButton.Annotations;
+using SuperButton.Common;
+using SuperButton.Models.DriverBlock;
 
 namespace SuperButton.ViewModels
 {
-    public class RightPanelViewModel : ViewModelBase
+    public class RightPanelViewModel : BaseViewModel
     {
-
-        public RightPanelViewModel()
-        {
-            //Commands.GetInstance.GenerateRPCommands();
-        }
-        private ObservableCollection<object> _rpCommandsList;
-        public ObservableCollection<object> RPCommandsList
-        {
-
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["RPCommands List"]; //Motion Limit
-            }
-            set
-            {
-                _rpCommandsList = value;
-                OnPropertyChanged();
-            }
-
-
-        }
+   
     }
 }

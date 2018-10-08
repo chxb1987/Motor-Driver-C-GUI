@@ -99,7 +99,7 @@ namespace SuperButton {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Driver GUI;component/enumpattern.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SuperButton;component/enumpattern.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\EnumPattern.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

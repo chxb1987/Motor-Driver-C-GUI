@@ -1,12 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Abt.Controls.SciChart;
+using Abt.Controls.SciChart.Rendering.Common;
+using Abt.Controls.SciChart.Visuals;
 using SuperButton.Models.DriverBlock;
+using SuperButton.Models.ParserBlock;
 using SuperButton.Views;
+using UserControlLibrary;
+using UserControlLibrary.ViewModels;
 using BaseViewModel = SuperButton.Common.BaseViewModel;
-using SuperButton.Helpers;
-//using SharpDX.Design;
 
 namespace SuperButton.ViewModels
 {
@@ -18,7 +24,7 @@ namespace SuperButton.ViewModels
         }
 
 
-
+        
         //Friday 08.01
         public ActionCommand MainWindowResized { get { return new ActionCommand(mainWindowResized); } }
 
@@ -30,9 +36,7 @@ namespace SuperButton.ViewModels
       
 
         #region Actions
-        public ActionCommand SetAutoConnectActionCommandCommand {
-            get { return new ActionCommand(AutoConnectCommand); }
-        }
+        public ActionCommand SetAutoConnectActionCommandCommand { get { return new ActionCommand(AutoConnectCommand); } }
         
         #endregion
 
@@ -49,21 +53,27 @@ namespace SuperButton.ViewModels
         //Data content binding between views of panels within main window
         //and their view models, write binding in XAMLs also
 
-        private BottomPanelViewModel bottomPanelViewModel = new BottomPanelViewModel();
-
-        public BottomPanelViewModel RPcontent
+        private RightPanelViewModel rightPanelViewModel = new RightPanelViewModel();
+        public RightPanelViewModel RPcontent
         {
-            get { return bottomPanelViewModel; }
-            set { }
+            get { return rightPanelViewModel; }
+            set {  }
         }
 
-        private LeftPanelViewModel leftPanelViewModel = LeftPanelViewModel.GetInstance;
-        
+        private LeftPanelViewModel leftPanelViewModel = new LeftPanelViewModel();
         public LeftPanelViewModel LPcontent
         {
             get { return leftPanelViewModel; }
             set { }
         }
+
+
+
+
+
+
+
+
 
         #region Debug
 
@@ -96,16 +106,16 @@ namespace SuperButton.ViewModels
         //    Left_Grid_Width = 10;
         //}
         #endregion
+
+
+
         public MainViewModel()
 		{
-            //System.Windows.Media.Color color;
-            
 
             leftPanelViewModel.ConnectButtonContent = "Connect";
-            leftPanelViewModel.ConnectTextBoxContent = "Not Connected";
-            //leftPanelViewModel.ConnectButtonBackground = ColorConverter;
-            leftPanelViewModel.ComToolTipText = "Pls Choose CoM";
             Rs232Interface.GetInstance.Driver2Mainmodel += SincronizationPos;
+
+         
 
             leftPanelViewModel.SendButtonContent = "Send";
             leftPanelViewModel.StopButtonContent = "Force Stop";
@@ -119,7 +129,9 @@ namespace SuperButton.ViewModels
 
             //  rightPanel.DataContext = rightPanelViewModel;
 
-            bottomPanelViewModel = new BottomPanelViewModel();
+
+
+            //rightPanelViewModel=new RightPanelViewModel();
             //rightPanel.DataContext = rightPanelViewModel;
             //rightPanelViewModel.ConnetButtonContent = "Disconnect";
 
@@ -127,7 +139,7 @@ namespace SuperButton.ViewModels
             //Test.Label = "kjlljkljkljkljkljkljkljk";
 
             //Test2 = new UserControl1ViewModel();
-
+            //Test2.Label = "ILIYA POZ";
 
             //b2 = new UserControl1();
             //b2.DataContext = Test2;
@@ -145,19 +157,21 @@ namespace SuperButton.ViewModels
 
 
             // Insert code required on object creation below this point.
-        }
 
+		}
+		
 
         private void  SincronizationPos(object sender, Rs232InterfaceEventArgs e)
         {
-            leftPanelViewModel.ConnectButtonContent = e.ConnecteButtonLabel;
-            leftPanelViewModel.ConnectTextBoxContent = e.ConnecteButtonLabel;
-            leftPanelViewModel.ComToolTipText = "Allready Connected";
+            leftPanelViewModel.ConnectButtonContent = e.ConncteButtonLabel;
         }
+
+   
+
+
 
         public void AutoConnectCommand()
         {
-            EventRiser.Instance.RiseEevent(string.Format($"You Pressed : button"));
             Rs232Interface comRs232Interface = Rs232Interface.GetInstance;
             Task task = new Task(new Action(comRs232Interface.AutoConnect));
             task.Start();
@@ -195,6 +209,28 @@ namespace SuperButton.ViewModels
         //DirecX10
 
 
+
+
+
+
+
+
+
+
+
+
+
+		#region INotifyPropertyChanged
+		public event PropertyChangedEventHandler PropertyChanged;
+
+	    protected void NotifyPropertyChanged(String info)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(info));
+			}
+		}
+		#endregion
 
   
 

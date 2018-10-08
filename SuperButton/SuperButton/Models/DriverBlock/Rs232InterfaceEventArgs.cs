@@ -9,7 +9,7 @@ namespace SuperButton.Models.DriverBlock
         public readonly PacketFields PacketRx;
         public readonly int ParseLength;
         public readonly byte[] InputChank;
-        public readonly string ConnecteButtonLabel;
+        public readonly string ConncteButtonLabel;
 
        // public readonly DoubleSeries Datasource1;
         public byte[] DataChunk { get; private set; }
@@ -38,9 +38,9 @@ namespace SuperButton.Models.DriverBlock
             DataChunk = dataChunk;     
         }
 
-        public Rs232InterfaceEventArgs(string connecteButtonLabel)
+        public Rs232InterfaceEventArgs(string conncteButtonLabel)
         {
-            ConnecteButtonLabel = connecteButtonLabel;
+            ConncteButtonLabel = conncteButtonLabel;
         }
 
    

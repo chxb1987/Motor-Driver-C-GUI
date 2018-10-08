@@ -73,8 +73,8 @@
 
     <!--<Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource EnumUCModelDataSource}}">-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="35"/>
-            <ColumnDefinition Width="125"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="White" BorderThickness="1" CornerRadius="4,0,0,4">
             <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000" d:IsHidden="True">
@@ -126,12 +126,9 @@
             <ComboBox MinWidth="100"
                       SelectedItem="{Binding Path=SelectedValue,Mode=TwoWay}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=Value}" 
-                      SelectedIndex="0"
-                      HorizontalContentAlignment="Center"
-                     > 
+                      ItemsSource="{Binding Path=Value}" SelectedIndex="0"> 
             </ComboBox>
-            <!--<ComboBox MinWidth="100"   DropDownOpened="{Binding Path=Value}"
+            <!--<ComboBox MinWidth="100"
                       SelectedItem="{Binding SelectedDataSource,
                                              Mode=TwoWay}" d:IsHidden="False" >
                 <ComboBox.Items>

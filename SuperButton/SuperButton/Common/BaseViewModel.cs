@@ -17,7 +17,6 @@
 
 using System.ComponentModel;
 using SuperButton.Views;
-using System;
 
 namespace SuperButton.Common
 {
@@ -63,26 +62,5 @@ namespace SuperButton.Common
                 handler(this, new PropertyChangedEventArgs(propertyName));
            }
         }
-
-        public void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        #region INotifyPropertyChanged
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-        #endregion
     }
 }

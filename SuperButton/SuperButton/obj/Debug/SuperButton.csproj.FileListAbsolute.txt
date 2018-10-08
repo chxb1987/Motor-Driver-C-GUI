@@ -510,6 +510,8 @@ C:\Projects\SuperButtonReal\SuperButton\SuperButton\bin\Debug\SuperButton.exe.ma
 C:\Projects\SuperButtonReal\SuperButton\SuperButton\bin\Debug\SuperButton.application
 C:\Projects\SuperButtonReal\SuperButton\SuperButton\obj\Debug\SuperButton.exe.manifest
 C:\Projects\SuperButtonReal\SuperButton\SuperButton\obj\Debug\SuperButton.application
+C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe
+C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.pdb
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\HomeBackground.jpg
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\Views\HomeBackground.jpg
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\SuperButton.exe.manifest
@@ -549,6 +551,7 @@ C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\ko\System.Windows.Interacti
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Projects\9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\EnumPattern.baml
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\Styles\ResourceDictionary1.baml
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.baml
@@ -590,179 +593,95 @@ C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.g.resources
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe.licenses
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe.manifest
 C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.application
-C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe
-C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.pdb
-C:\Projects\9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\HomeBackground.jpg
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\Views\HomeBackground.jpg
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\SuperButton.exe.manifest
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\SuperButton.application
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\SuperButton.exe
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\SuperButton.pdb
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Drawing.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Interactions.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\System.Windows.Interactivity.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ToggleSwitch.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\de\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\es\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\fr\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\it\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ja\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ko\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ru\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hans\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\de\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\en\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\es\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\fr\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\it\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ja\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ko\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\ru\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\EnumPattern.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Styles\ResourceDictionary1.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\EnumView.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\ExampleItemViewControl.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\HomeControl.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\EnumPattern.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\MainWindow.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\BoolUC.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\DataView.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\EnumView.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\IntegerUC.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\OscilloscopeView.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\EnumUC.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\ParametersWindow.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\App.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton_MarkupCompile.cache
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton_MarkupCompile.lref
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\App.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\ExampleItemViewControl.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\HomeControl.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\MainWindow.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Styles\Dictionary1.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\BoolUC.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\DataView.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\IntegerUC.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\OscilloscopeView.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\Views\EnumUC.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\ParametersWindow.baml
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.g.resources
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe.licenses
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe.manifest
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.application
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.exe
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.pdb
-C:\Projects\Iliya C# 9.3.18\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\HomeBackground.jpg
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Views\HomeBackground.jpg
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Drawing.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Microsoft.Expression.Interactions.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\System.Windows.Interactivity.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\ToggleSwitch.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\de\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\es\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\fr\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\it\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\ja\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\ko\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\ru\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\zh-Hans\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\EnumPattern.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Styles\ResourceDictionary1.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumView.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ExampleItemViewControl.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\HomeControl.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\EnumPattern.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\MainWindow.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\BoolUC.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataView.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumView.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\IntegerUC.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\OscilloscopeView.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumUC.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ParametersWindow.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\App.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\App.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ExampleItemViewControl.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\HomeControl.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\MainWindow.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Styles\Dictionary1.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\BoolUC.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataView.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\IntegerUC.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\OscilloscopeView.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumUC.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\ParametersWindow.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\MesageBox.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\MesageBox.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.D3DCompiler.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.Direct3D10.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.Direct3D9.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.DXGI.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.xml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.xml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFont.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFont.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFont.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFont.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFontInd.g.cs
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\DataViewSmallFontInd.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\settings_icon.png
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.exe.manifest
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.application
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.exe
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Driver GUI.pdb
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\MathNet.Numerics.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.ImageEditor.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Telerik.Windows.Controls.Input.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\TextBoxBehaivior.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\UserControlLibrary.dll
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI_MarkupCompile.cache
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI_MarkupCompile.lref
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.g.resources
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe.licenses
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe.manifest
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.application
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.exe
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Driver GUI.pdb
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFontInd.baml
-C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\Views\EnumViewSmallFontInd.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.exe
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.pdb
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\HomeBackground.jpg
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Views\HomeBackground.jpg
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SuperButton.exe.manifest
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SuperButton.application
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SuperButton.exe
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SuperButton.pdb
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Microsoft.Expression.Drawing.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\System.Windows.Interactivity.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ToggleSwitch.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\de\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\es\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\fr\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\it\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ja\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ko\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ru\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hans\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ru\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\EnumPattern.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Styles\ResourceDictionary1.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\EnumView.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\ExampleItemViewControl.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\HomeControl.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\EnumPattern.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\MainWindow.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\UpperPanel.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\BoolUC.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\DataView.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\EnumView.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\IntegerUC.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\OscilloscopeView.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\EnumUC.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\ParametarsWindow.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\App.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton_MarkupCompile.cache
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton_MarkupCompile.lref
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\App.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\ExampleItemViewControl.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\HomeControl.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\BottomPanel.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\LeftPanelView.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\MainWindow.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\mainWindowPanels\RightPanelView.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Styles\Dictionary1.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\BoolUC.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\DataView.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\IntegerUC.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\OscilloscopeView.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\EnumUC.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\Views\ParametarsWindow.baml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.g.resources
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.exe.licenses
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.exe.manifest
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\obj\Debug\SuperButton.application
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SharpDX.D3DCompiler.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SharpDX.Direct3D10.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SharpDX.Direct3D9.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SharpDX.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\SharpDX.DXGI.dll
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.xml
+C:\Projects\C#_GuiForDriver\SuperButton_backUp\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.xml

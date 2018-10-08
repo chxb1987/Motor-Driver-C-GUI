@@ -15,11 +15,7 @@
 // merchantability, fitness for a particular purpose and non-infringement. 
 // *************************************************************************************
 
-using System;
 using System.Windows.Controls;
-using SuperButton.ViewModels;
-using System.IO.Ports;
-using System.Linq;
 
 namespace SuperButton.Views.mainWindowPanels
 {
@@ -31,11 +27,11 @@ namespace SuperButton.Views.mainWindowPanels
 
     public partial class  LeftPanelView : UserControl
     {
-
         public LeftPanelView()
         {
           this.InitializeComponent();
         }
 
+     
     }
 }

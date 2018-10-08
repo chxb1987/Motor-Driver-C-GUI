@@ -66,7 +66,7 @@ namespace SuperButton {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Driver GUI;component/exampleitemviewcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SuperButton;component/exampleitemviewcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\ExampleItemViewControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

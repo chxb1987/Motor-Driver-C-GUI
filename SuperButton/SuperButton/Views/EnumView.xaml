@@ -121,9 +121,7 @@
             <ComboBox MinWidth="100"  
                       SelectedItem="{Binding Path=SelectedValue,Mode=TwoWay}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=CommandList}" SelectedIndex="0"
-                      SelectedValue="{Binding Path=SelectedValue,Mode=TwoWay}">
-                
+                      ItemsSource="{Binding Path=CommandList}" SelectedIndex="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectedItemChanged}" />

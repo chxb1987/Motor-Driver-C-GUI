@@ -12,52 +12,34 @@ using SuperButton.CommandsDB;
 using SuperButton.Common;
 using SuperButton.Models.DriverBlock;
 using SuperButton.Views;
-using System.IO.Ports;
 using Application = System.Windows.Application;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using SuperButton.Views.mainWindowPanels;
-using SuperButton.Helpers;
-using System.Drawing;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using SuperButton.Models;
-
 
 namespace SuperButton.ViewModels
 {
-
-    public partial class LeftPanelViewModel : ViewModelBase
+    public  class LeftPanelViewModel : BaseViewModel
     {
         #region members
         public PacketFields RxPacket;
         private static readonly object TableLock = new object();
-        private readonly object ConnectLock = new object();
-        private readonly object pidLock = new object();
-        private ComboBox _comboBox;
+        private static readonly object ConnectLock = new object();
+        private static readonly object pidLock = new object();
 
         private Thread _xlThread = new Thread(ThreadProc);
         #endregion
         #region Actions
-        public ActionCommand SetAutoConnectActionCommandCommand
-        {
-            get { return new ActionCommand(AutoConnectCommand); }
-        }
-
+        public ActionCommand SetAutoConnectActionCommandCommand { get { return new ActionCommand(AutoConnectCommand); } }
         public ActionCommand ForceStop { get { return new ActionCommand(FStop); } }
-        public ActionCommand Showwindow { get { return new ActionCommand(ShowParametersWindow); } }
+        public ActionCommand Showwindow { get { return new ActionCommand(ShowParametarsWindow); } }
         private static LeftPanelViewModel _instance;
         private static readonly object Synlock = new object(); //Single tone variabl
-                                                               //   public ActionCommand GetPidCurr { get { return new ActionCommand(GPC); } }
-                                                               //   public ActionCommand SetPidCurr { get { return new ActionCommand(SPC); } }
+        //   public ActionCommand GetPidCurr { get { return new ActionCommand(GPC); } }
+        //   public ActionCommand SetPidCurr { get { return new ActionCommand(SPC); } }
         #endregion
 
         #region Props
         public static LeftPanelViewModel GetInstance
         {
+
             get
             {
                 lock (Synlock)
@@ -70,100 +52,23 @@ namespace SuperButton.ViewModels
         }
         public LeftPanelViewModel()
         {
-            EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
-            EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
-            EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
-            ComboBoxCOM = ComboBox.GetInstance;
-            //Task task = Task.Run((Action)_comboBox.UpdateComList);
-        }
-        public ComboBox ComboBoxCOM
-        {
-            get { return _comboBox; }
-            set { _comboBox = value; }
+            //Binding BindingText = new System.Windows.Data.Binding(Property);
+            //BindingText.Source = Statics.CurrentMarket;
+            //BindingText.Path = new PropertyPath("CurrentPid");
+            //BindingText.Converter = new TextConverter();
+            //this.SetBinding(Label.ContentProperty, BindingText);
         }
         #region Connect_Button
         private String _connetButtonContent;
-
-        Task Background;
-        Task Connection;
         public String ConnectButtonContent
         {
             get { return _connetButtonContent; }
             set
             {
-                if (value == "Disconnect")
-                {
-                    LeftPanelViewModel.flag = true;
-                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
-                    Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
-
-                }
-                else
-                {
-                    LeftPanelViewModel.flag = false;
-                    
-                }
                 if (_connetButtonContent == value) return;
                 _connetButtonContent = value;
                 OnPropertyChanged("ConnectButtonContent");
-
-            }
-
-        }
-
-        private String _connectTextBoxContent;
-        public String ConnectTextBoxContent
-        {
-            get
-            {
-                if (_connetButtonContent == "Connect")
-                {
-                    if (ParametarsWindow.WindowsOpen)
-                        Close_parmeterWindow();
-                    return "Not Connected";
-                }
-                else
-                {
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                    {
-                        Data2Send = _motorOnToggleChecked ? 1 : 0,
-                        ID = Convert.ToInt16(1),
-                        SubID = Convert.ToInt16(0),
-                        IsSet = false,
-                        IsFloat = false
-                    });
-                    TxCount = 0; RxCount = 0;
-                    return "Connected";
-                }
-
-            }
-            set
-            {
-                if (_connectTextBoxContent == value) return;
-                _connectTextBoxContent = value;
-                OnPropertyChanged("ConnectTextBoxContent");
-            }
-        }
-
-        private ObservableCollection<object> _lpCommandsList;
-        public ObservableCollection<object> LPCommandsList
-        {
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["LPCommands List"];
-            }
-            set
-            {
-                _lpCommandsList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<object> DriverTypeList
-        {
-            get
-            {
-                return Commands.GetInstance.EnumCommandsListbySubGroup["Driver Type"];
+                
             }
         }
         #endregion
@@ -174,10 +79,10 @@ namespace SuperButton.ViewModels
             get { return _setCurrentPid; }
             set
             {
-                if (_setCurrentPid == value) return;
+             if (_setCurrentPid == value) return;
                 _setCurrentPid = value;
                 OnPropertyChanged("SetCurrentPid");
-
+               
 
             }
         }
@@ -188,8 +93,8 @@ namespace SuperButton.ViewModels
             set
             {
                 if (_currentPid == value) return;
-
-                _currentPid = value;
+             
+                _currentPid = value;       
                 OnPropertyChanged("CurrentPid");
             }
         }
@@ -198,7 +103,6 @@ namespace SuperButton.ViewModels
         private String _sendButtonContent;
         public String SendButtonContent
         {
-
             get { return _sendButtonContent; }
             set
             {
@@ -224,34 +128,29 @@ namespace SuperButton.ViewModels
         #endregion
 
         #region MotorON_Switch
-        public static bool MotorOnOff_flag = false;
-        private bool _motorOnToggleChecked = false;
+
+        private bool _motorOnToggleChecked=false;
         public bool MotorOnToggleChecked
         {
             get
             {
                 return _motorOnToggleChecked;
+                    //Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(400, 0)].CommandValue == "1" ? true : false;               
             }
             set
             {
-                if (_connetButtonContent == "Disconnect")
-                {
-                    _motorOnToggleChecked = value;
+                _motorOnToggleChecked = value;
+                   //retrieve the command values
+                    var temp=Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(400, 0)];
+                    //init rxPacket
+                    RxPacket.ID = Convert.ToInt16(temp.CommandId);
+                    RxPacket.IsFloat = temp.IsFloat; 
+                    RxPacket.IsSet = true;
+                    RxPacket.SubID = Convert.ToInt16(temp.CommandSubId); 
+                    RxPacket.Data2Send = _motorOnToggleChecked ? 1 : 0;
                     //Sent
-                    if (!MotorOnOff_flag)
-                    {
-                        Rs232Interface.GetInstance.SendToParser(new PacketFields
-                        {
-                            Data2Send = _motorOnToggleChecked ? 1 : 0,
-                            ID = Convert.ToInt16(1),
-                            SubID = Convert.ToInt16(0),
-                            IsSet = true,
-                            IsFloat = false
-                        });
-                    }
-                    MotorOnOff_flag = false;
-                    OnPropertyChanged("MotorONToggleChecked");
-                }
+                    Rs232Interface.GetInstance.SendToParser(RxPacket);                    
+                    OnPropertyChanged("MotorONToggleChecked");           
             }
         }
 
@@ -259,63 +158,6 @@ namespace SuperButton.ViewModels
         #endregion
 
         #endregion
-
-        #region TXRXLed
-        private static int TxCount = 0, RxCount = 0;
-        private int _led_statusTx;
-        public int LedStatusTx
-        {
-            get
-            {
-                return _led_statusTx;
-            }
-            set
-            {
-                if (_connetButtonContent == "Connect")
-                {
-                    _led_statusTx = RoundBoolLed.IDLE;
-                }
-                else
-                {
-                    TxCount++;
-                    //Debug.WriteLine("Tx: {0}",TxCount);
-                    _led_statusTx = value;
-                }
-                RaisePropertyChanged("LedStatusTx");
-            }
-        }
-        public void Instance_BlinkLedTx(object sender, EventArgs e)
-        {
-            LedStatusTx = ((CustomEventArgs)e).LedTx;
-        }
-
-        private int _led_statusRx;
-        public int LedStatusRx
-        {
-            get
-            {
-                return _led_statusRx;
-            }
-            set
-            {
-                if (_connetButtonContent == "Connect")
-                {
-                    _led_statusRx = RoundBoolLed.IDLE;
-                }
-                else
-                {
-                    RxCount++;
-                    //Debug.WriteLine("Rx: {0}", RxCount);
-                    _led_statusRx = value;
-                }
-                RaisePropertyChanged("LedStatusRx");
-            }
-        }
-        public void Instance_BlinkLedRx(object sender, EventArgs e)
-        {
-            LedStatusRx = ((CustomEventArgs)e).LedRx;
-        }
-        #endregion TXRXLed
 
         #region Send_Button
 
@@ -326,13 +168,13 @@ namespace SuperButton.ViewModels
         {
             if (_xlThread.ThreadState == System.Threading.ThreadState.Running)
             {
-                System.Windows.MessageBox.Show(" Wait until the end of XLS!! thread running)))");
+                MessageBox.Show(" Wait until the end of XLS!! thread running)))");
                 return;
             }
 
             if (_xlThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
             {
-                System.Windows.MessageBox.Show(" Wait until the end of XLS!! thread Sleeping)))");
+                MessageBox.Show(" Wait until the end of XLS!! thread Sleeping)))");
                 return;
             }
 
@@ -496,63 +338,29 @@ namespace SuperButton.ViewModels
         /// </summary>
         public void AutoConnectCommand()
         {
-
             if (Rs232Interface.GetInstance.IsSynced == false)
             {
-                lock (ConnectLock)
+                lock(ConnectLock)
                 {
-
-                    Task task = new Task(Rs232Interface.GetInstance.AutoConnect);
-
-                    task.Start();
+                Rs232Interface comRs232Interface = Rs232Interface.GetInstance;
+                Task task = new Task(comRs232Interface.AutoConnect);
+                
+                task.Start();
+             
                 }
             }
             else
             {
                 lock (ConnectLock)
                 {
-
-                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
+                    Rs232Interface comRs232Interface = Rs232Interface.GetInstance;
+                    Task taskDisconnect = new Task(comRs232Interface.Disconnect);
                     taskDisconnect.Start();
-
+                 
                 }
             }
         }
-
-        private string _logText;
-
-        private void Instance_LoggerEvent(object sender, EventArgs e)
-        {
-            LogText = ((CustomEventArgs)e).Msg + Environment.NewLine + LogText;
-        }
-        public string LogText
-        {
-            get { return _logText; }
-
-            set
-            {
-                _logText = value;
-                RaisePropertyChanged("LogText");
-            }
-        }
-
-        private string _comToolTipText;
-        public string ComToolTipText
-        {
-            get
-            {
-
-                return
-                    _comToolTipText;
-            }
-
-            set
-            {
-                _comToolTipText = value;
-                RaisePropertyChanged("ComToolTipText");
-            }
-
-        }
+  
         public void FStop()
         {
             lock (TableLock)
@@ -620,90 +428,30 @@ namespace SuperButton.ViewModels
         }
         */
 
-        public static bool flag;
-
-        public static ParametarsWindow win;
-        private void ShowParametersWindow()
+        private static bool flag;
+        private void ShowParametarsWindow()
         {
-            if (_connetButtonContent == "Disconnect")
-            {
-                if (ParametarsWindow.WindowsOpen != true)
-                {
-                    win = new ParametarsWindow();
-                    win.Show();
-                    flag = true;
-                    Task task = Task.Run((Action)BackGroundFunc);
-                }
-            }
+            ParametarsWindow win = new ParametarsWindow();
+
+            win.Show();
+            flag = true;
+            Task task = Task.Run((Action)BackGroundFunc);
 
         }
-        public void Close_parmeterWindow()
+        public void Close_parmterWindow()
         {
-            win.Close();
-            //flag = false;
+           flag= false;
         }
-
-        private bool _enRefresh;
-        public bool EnRefresh
+        private static void BackGroundFunc()
         {
-            get
-            {
-                return _enRefresh;
-            }
-            set
-            {
-                _enRefresh = value;
-                OnPropertyChanged("EnRefresh");
-            }
-        }
-        public static void BackGroundFunc()
-        {
+                     
             while (flag)
             {
-                RefreshManger.GetInstance.StartRefresh();
-                Thread.Sleep(1000);
-                //flag = false; // Joseph added
+              RefreshManger.GetInstance.StartRefreash();
+              Thread.Sleep(1000);
             }
-        }
-
-        public static void VerifyDriverCom()
-        {
-            int count = 0;
-#if !DEBUG
-            while (flag)
-            {
-
-                int oldTx = TxCount; int oldRx = RxCount;
-                Thread.Sleep(1000);
-                if (oldTx != 0 && oldTx == TxCount && oldRx == RxCount)
-                    count++;
-                else
-                    count = 0;
-                if (oldRx == RxCount && count == 5)
-                {
-
-                    count = 0;
-                    flag = false;
-                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
-                    taskDisconnect.Start();
-                    EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-                    EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
-                    if (!MessageBoxWrapper.IsOpen)
-                    {
-                        string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
-                        MessageBoxWrapper.Show(msg, "");
-                    }
-                    if (ParametarsWindow.WindowsOpen == true)
-                    {
-                        win.Close();
-                        ParametarsWindow.WindowsOpen = false;
-                    }
-
-                }
-            }
-#endif 
-
         }
         #endregion
     }
 }
+ 

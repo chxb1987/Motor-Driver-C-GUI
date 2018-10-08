@@ -14,8 +14,8 @@
   xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
 
     <!-- Main Colors -->
-    <!---->
-    <!--<Color x:Key="MainColor">#FF595959</Color>-->
+
+    <Color x:Key="MainColor">#FF595959</Color>
     <Color x:Key="HoverColor">#FF393939</Color>
     <Color x:Key="DefaultColor">#FF9BB1C5</Color>
     <SolidColorBrush x:Key="LightBrush" Color="#FF333333" />
@@ -24,12 +24,12 @@
     <Color x:Key="TopGradientSelectColor">#FFFFFFFF</Color>
     <Color x:Key="BottomGradientSelectColor">#FF737373</Color>
 
-    <!--<Color x:Key="BlackColor">#FF000000</Color>-->
+    <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
-    <!---->
+
     <SolidColorBrush x:Key="TabTextBrush" Color="#FD9F25" />
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="NormalBrush" Color="#FF595959"/>
+    <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource MainColor}" />
     <SolidColorBrush x:Key="NormalBorderBrush" Color="#FF333333" />
     <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource HoverColor}" />
     <SolidColorBrush x:Key="GlyphBrush" Color="#FFD1D1D1" />
@@ -51,8 +51,8 @@
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
     <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#FF787878" />
     <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
-    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="Gray" />
-    <!--#FF595959-->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FF595959" />
+
     <!-- EXPRESSION COMMON VALUES -->
 
     <LinearGradientBrush x:Key="ShineBrush" EndPoint="0.5,0.971" StartPoint="0.5,0.042">
@@ -1511,7 +1511,7 @@
         <Setter Property="Template" Value="{DynamicResource TextBoxTemplate}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#FF000000"/>
     </Style>
 
     <ControlTemplate x:Key="TextBoxTemplate" TargetType="{x:Type TextBox}">
@@ -1657,7 +1657,7 @@
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#FF000000"/>
     </Style>
 
     <!--AutoCompleteBox-->
@@ -1706,7 +1706,7 @@
                                 <Border.RenderTransform>
                                     <TranslateTransform X="1" Y="1" />
                                 </Border.RenderTransform>
-                                <ListBox x:Name="Selector" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemTemplate="{TemplateBinding ItemTemplate}" Background="{StaticResource ControlBackgroundBrush}" BorderBrush="Black"/>
+                                <ListBox x:Name="Selector" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemTemplate="{TemplateBinding ItemTemplate}" Background="{StaticResource ControlBackgroundBrush}" BorderBrush="#FF000000" />
                             </Border>
                         </Popup>
                     </Grid>
@@ -1791,7 +1791,7 @@
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#FF000000"/>
     </Style>
     <Style TargetType="{x:Type Label}">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -3080,7 +3080,7 @@
         <Setter Property="Template" Value="{DynamicResource TextBoxTemplate}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#FF000000"/>
     </Style>
 
 
@@ -3268,140 +3268,6 @@
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
     </Style>
-
-    <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
-        <ControlTemplate.Resources>
-            <Storyboard x:Key="Timeline1">
-                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-            <Storyboard x:Key="Timeline2">
-                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-        </ControlTemplate.Resources>
-        <Border BorderBrush="#FFFFFFFF" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" Background="{x:Null}" Opacity="1">
-            <Border x:Name="border" Background="#7F060606" BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.507*"/>
-                        <RowDefinition Height="0.493*"/>
-                    </Grid.RowDefinitions>
-                    <Border Opacity="0" HorizontalAlignment="Stretch" x:Name="glow" Width="Auto" Grid.RowSpan="2" CornerRadius="4,4,4,4">
-                        <Border.Background>
-                            <RadialGradientBrush>
-                                <RadialGradientBrush.RelativeTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
-                                        <SkewTransform AngleX="0" AngleY="0"/>
-                                        <RotateTransform Angle="0"/>
-                                        <TranslateTransform X="-0.368" Y="-0.152"/>
-                                    </TransformGroup>
-                                </RadialGradientBrush.RelativeTransform>
-                                <GradientStop Color="#B28DBDFF" Offset="0"/>
-                                <GradientStop Color="#008DBDFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Border.Background>
-                    </Border>
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Grid.RowSpan="2"/>
-                    <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="shine" Width="Auto" CornerRadius="4,4,0,0">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.494,0.889" StartPoint="0.494,0.028">
-                                <GradientStop Color="#99FFFFFF" Offset="0"/>
-                                <GradientStop Color="#33FFFFFF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                    </Border>
-                </Grid>
-            </Border>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Opacity" TargetName="shine" Value="0.4"/>
-                <Setter Property="Background" TargetName="border" Value="#CC000000"/>
-                <Setter Property="Visibility" TargetName="glow" Value="Hidden"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard Storyboard="{StaticResource Timeline1}"/>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
-                </Trigger.ExitActions>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="PressedButton" TargetType="{x:Type Button}">
-        <ControlTemplate.Resources>
-            <Storyboard x:Key="Timeline1">
-                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-            <Storyboard x:Key="Timeline2">
-                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-        </ControlTemplate.Resources>
-        <Border BorderBrush="#FFFFFFFF" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" Background="{x:Null}" Opacity="1">
-            <Border x:Name="border" Background="#7F060606" BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.507*"/>
-                        <RowDefinition Height="0.493*"/>
-                    </Grid.RowDefinitions>
-                    <Border Opacity="0" HorizontalAlignment="Stretch" x:Name="glow" Width="Auto" Grid.RowSpan="2" CornerRadius="4,4,4,4">
-                        <Border.Background>
-                            <RadialGradientBrush>
-                                <RadialGradientBrush.RelativeTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
-                                        <SkewTransform AngleX="0" AngleY="0"/>
-                                        <RotateTransform Angle="0"/>
-                                        <TranslateTransform X="-0.368" Y="-0.152"/>
-                                    </TransformGroup>
-                                </RadialGradientBrush.RelativeTransform>
-                                <GradientStop Color="#B28DBDFF" Offset="0"/>
-                                <GradientStop Color="#008DBDFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Border.Background>
-                    </Border>
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Grid.RowSpan="2"/>
-                    <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="shine" Width="Auto" CornerRadius="4,4,0,0">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.494,0.889" StartPoint="0.494,0.028">
-                                <GradientStop Color="#99FFFFFF" Offset="0"/>
-                                <GradientStop Color="#33FFFFFF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                    </Border>
-                </Grid>
-            </Border>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-
-                <Setter Property="Opacity" TargetName="shine" Value="0.4"/>
-                <Setter Property="Background" TargetName="border" Value="#CC000000"/>
-                <Setter Property="Visibility" TargetName="glow" Value="Hidden"/>
-            </Trigger>
-
-            <Trigger Property="IsMouseOver" Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard Storyboard="{StaticResource Timeline1}"/>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
-                </Trigger.ExitActions>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-   
 
 </ResourceDictionary>
 

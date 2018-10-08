@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:models="clr-namespace:SuperButton.Models"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Storyboard x:Key="OnMouseEnter1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
@@ -79,7 +79,7 @@
                             </RadialGradientBrush>
                         </Border.Background>
                     </Border>
-                    <Border x:Name="Shine" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0" Width="auto">
+                    <Border x:Name="Shine" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="-0.026,1.005">
                                 <GradientStop Color="#99F7F5F6" Offset="0.998"/>
@@ -106,27 +106,21 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions><!---->
+                </Grid.ColumnDefinitions>
                 <Border BorderBrush="#FF686464" BorderThickness="0.8,0.8,0,0.8" Grid.Row="1" Background="White">
                     <TextBox x:Name="SetValTB"
+                            
                              BorderBrush="{x:Null}" MaxLines="1"
                              HorizontalContentAlignment="Center"
                              VerticalContentAlignment="Center" 
                              Background="#FFFBFBFB"
                              Foreground="#FF111111"
                              FontSize="10.667" 
-                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" >
+                             
+                             Text="{Binding CommandValue}">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
-                                <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseLeave" >
-                                <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendData}"></KeyBinding>
                         </TextBox.InputBindings>
