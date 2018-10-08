@@ -3,6 +3,8 @@ using SuperButton.CommandsDB;
 using System.Windows.Input;
 using SuperButton.Models;
 using System.Windows.Controls;
+using System;
+using System.Threading;
 
 namespace SuperButton.ViewModels
 {
@@ -14,9 +16,20 @@ namespace SuperButton.ViewModels
         private bool _isSsiFeedbackEnabled;
         private bool _isDigitalbackEnabled;
         private bool _isAnalogbackEnabled;
-   
+        private OperationViewModel _operationViewModel;
+        private CalibrationViewModel _calibrationViewModel;
+        private MotionViewModel _motionViewModel;
+        private MaintenanceViewModel _maintenanceViewModel;
+        
 
-
+        public ParametarsWindowViewModel()
+        {
+            _operationViewModel = OperationViewModel.GetInstance;
+            _calibrationViewModel = CalibrationViewModel.GetInstance;
+            _motionViewModel = MotionViewModel.GetInstance;
+            _maintenanceViewModel = MaintenanceViewModel.GetInstance;
+        }
+            
         public ObservableCollection<object> ControlList
         {
 
@@ -70,7 +83,7 @@ namespace SuperButton.ViewModels
         }
 
         private ObservableCollection<object> _qep1FeedBackList;
-
+        private ObservableCollection<object> _qep1FdBckList;
         public ObservableCollection<object> Qep1FeedBackList
         {
 
@@ -85,7 +98,20 @@ namespace SuperButton.ViewModels
             }
 
         }
+        public ObservableCollection<object> Qep1FdBckList
+        {
 
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["Qep1Bis"];
+            }
+            set
+            {
+                _qep1FdBckList = value;
+                OnPropertyChanged();
+            }
+
+        }
         public ObservableCollection<object> Qep2FeedBackList
         {
 
@@ -155,6 +181,8 @@ namespace SuperButton.ViewModels
 
         }
         private ObservableCollection<object> _pidPositionList;
+        private string _motorDriver;
+
         public ObservableCollection<object> PidPositionList
         {
 
@@ -191,6 +219,13 @@ namespace SuperButton.ViewModels
 
         }
 
+        public ObservableCollection<object> HallMapList
+        {
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["HallMap"];
+            }
+        }
         #region enables
 
         public bool IsHallFeedBackEnabled
@@ -314,6 +349,25 @@ namespace SuperButton.ViewModels
             }
         }
 
+        public OperationViewModel OperationViewModel
+        {
+            get { return _operationViewModel; }
+        }
+
+        public CalibrationViewModel CalibrationViewModel
+        {
+            get { return _calibrationViewModel; }
+        }
+
+        public MotionViewModel MotionViewModel
+        {
+            get { return _motionViewModel; }
+        }
+
+        public MaintenanceViewModel MaintenanceViewModel
+        {
+            get { return _maintenanceViewModel; }
+        }
         private void changechekboxvalue()
         {
             IsHallFeedBackEnabled = !IsHallFeedBackEnabled;
@@ -334,12 +388,27 @@ namespace SuperButton.ViewModels
         private void EnumChange()
         {
 
-        //    EnumViewModel tmp = (EnumViewModel)CommandsDB.Commands.GetInstance.CommandsList[new Tuple<string, string>("212", "0")];
-        //    tmp.IsUpdate = true;
-        //    tmp.SelectedValue = "Current Control";
-        //    tmp.IsUpdate = false;
+            //EnumViewModel tmp = (EnumViewModel)CommandsDB.Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(212, 0)];
+            //tmp.IsUpdate = true;
+            //tmp.SelectedValue = "Current Control";
+            //tmp.IsUpdate = false;
         }
 
+        
+
+        //public string MotorDriver
+        //{
+        //    get
+        //    {
+        //        return _motorDriver;
+        //    }
+
+        //    set
+        //    {
+        //        _motorDriver = value;
+        //        OnPropertyChanged("MotorDriver"); //"DriverVersion"
+        //    }
+        //}
 
     }
 }

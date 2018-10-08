@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SuperButton.ViewModels;
+using SuperButton.Views;
 
 namespace SuperButton
 {
@@ -29,6 +30,12 @@ namespace SuperButton
         private void LeftPanelView_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ParametarsWindow.WindowsOpen == true)
+                LeftPanelViewModel.GetInstance.Close_parmeterWindow();
         }
     }
 }

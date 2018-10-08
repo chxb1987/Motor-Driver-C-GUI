@@ -8,18 +8,27 @@ using System.Windows.Input;
 
 namespace SuperButton.Models
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
 
         #region Declarations
 
         readonly Func<Boolean> _canExecute;
         readonly Action _execute;
+        readonly Action<object> _executeWithParam;
+        readonly Predicate<object> _canExecutePredicate;
 
 
         #endregion
 
         #region Constructors
+
+
+
+        public RelayCommand(Action<object> execute)
+        : this(execute, null)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelayCommand&lt;T&gt;"/> class and the command can always be executed.
@@ -44,6 +53,15 @@ namespace SuperButton.Models
             _canExecute = canExecute;
         }
 
+
+        public RelayCommand(Action<object> execute, Func<Boolean> canExecute)
+        {
+
+            if (execute == null)
+                throw new ArgumentNullException("execute");
+            _executeWithParam = execute;
+            _canExecute = canExecute;
+        }
         #endregion
 
         #region ICommand Members
@@ -72,10 +90,12 @@ namespace SuperButton.Models
 
         public void Execute(Object parameter)
         {
-            _execute();
+            if (parameter != null)
+                _executeWithParam(parameter);
+            else _execute();
         }
 
-
+       
 
         #endregion
     }

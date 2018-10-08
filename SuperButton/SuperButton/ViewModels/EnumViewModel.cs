@@ -5,34 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SuperButton.Models;
+using SuperButton.Models.DriverBlock;
 
 namespace SuperButton.ViewModels
 {
-     class EnumViewModel:DataViewModel
+    class EnumViewModel : DataViewModel
     {
 
-       
-        private  readonly List<string> _commandList=new List<string>();
+
+        private readonly List<string> _commandList = new List<string>();
         public bool IsUpdate = false;
+        private int Count = 0;
         private string _selectedValue;
-        private string _selectedindex="0";
-         
+        //private string _selectedindex="0";
+
         public List<string> CommandList
         {
-            
+
             get { return _commandList; }
             set
             {
                 foreach (var str in value)
                 {
-                  _commandList.Add(str);  
+                    _commandList.Add(str);
                 }
-                
+
             }
-            
+
         }
         public EnumViewModel(IEnumerable<string> enumlist)
-            
+
         {
             _commandList.AddRange(enumlist);
 
@@ -45,33 +47,35 @@ namespace SuperButton.ViewModels
             {
 
                 base.CommandValue = value;
-                //if(IsUpdate)
-                //SelectedValue = CommandList[Convert.ToInt16(value) - 1];
-
-
+                if (Count > 0)
+                {
+                    SelectedValue = CommandList[Convert.ToInt16(value) - 1];
+                    Count++;
+                }
+                if (Count == 5)
+                    Count = -1;
             }
         }
-
-
         public virtual ICommand SelectedItemChanged
         {
             get
             {
-                
-
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
 
         private void SendData()
         {
-            if (!IsUpdate)
+            if (Count == 0)
             {
+                Count=0;
                 CommandValue = (CommandList.FindIndex(x => x.StartsWith(SelectedValue)) + 1).ToString();
                 BuildPacketTosend(CommandValue);
             }
-           
+            if (Count == -1)
+                Count = 0;
         }
+
 
         private bool IsEnabled()
         {
@@ -84,61 +88,55 @@ namespace SuperButton.ViewModels
             set
             {
 
-                 _selectedValue = value;
-                
+                _selectedValue = value;
+
                 OnPropertyChanged();
             }
         }
-       
+        //public string SelectedValue
+        //{
+        //    get { return _selectedValue; }
+        //    set
+        //    {
+
+        //        if (_selectedValue != null)
+        //        {
+        //            _selectedValue = value;
+
+        //            var index = (CommandList.FindIndex(x => x.StartsWith(value)) + 1).ToString();
+        //            OnPropertyChanged();
+        //            if (!IsUpdate)
+        //                BuildPacketTosend(index);
+        //            else
+        //            {
+        //                IsUpdate = false;
+
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            _selectedValue = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
+        //public string Selectedindex
+        //{
+        //    get { return _selectedindex; }
+        //    set
+        //    {
+
+        //        if (_selectedindex != null)
+        //        {
+        //            _selectedindex = value;
+
+        //            OnPropertyChanged();
 
 
-          //public string SelectedValue
-          //{
-          //    get { return _selectedValue; }
-          //    set
-          //    {
-
-          //        if (_selectedValue != null)
-          //        {
-          //            _selectedValue = value;
-
-          //            var index = (CommandList.FindIndex(x => x.StartsWith(value)) + 1).ToString();
-          //            OnPropertyChanged();
-          //            if (!IsUpdate)
-          //                BuildPacketTosend(index);
-          //            else
-          //            {
-          //                IsUpdate = false;
-
-          //            }
-
-          //        }
-          //        else
-          //        {
-          //            _selectedValue = value;
-          //            OnPropertyChanged();
-          //        }
-          //    }
-          //}
-          //public string Selectedindex
-          //{
-          //    get { return _selectedindex; }
-          //    set
-          //    {
-
-          //        if (_selectedindex != null)
-          //        {
-          //            _selectedindex = value;
-
-          //            OnPropertyChanged();
-
-
-          //        }
-          //    }
-          //}
-
-        
-        
+        //        }
+        //    }
+        //}
 
         public EnumViewModel()
         {
@@ -148,23 +146,33 @@ namespace SuperButton.ViewModels
 
         private void BuildPacketTosend(string val)
         {
-
-
-            var tmp = new PacketFields
+            if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
-                Data2Send = val,
-                ID = Convert.ToInt16(CommandId),
-                SubID = Convert.ToInt16(CommandSubId),
-                IsSet = true,
-                IsFloat = IsFloat
-            };
-            //Rs232Interface.GetInstance.SendToParser(tmp);
+                var tmp = new PacketFields
+                {
+                    Data2Send = val,
+                    ID = Convert.ToInt16(CommandId),
+                    SubID = Convert.ToInt16(CommandSubId),
+                    IsSet = true,
+                    IsFloat = IsFloat
+                };
+                Rs232Interface.GetInstance.SendToParser(tmp);
+                tmp = new PacketFields
+                {
+                    Data2Send = val,
+                    ID = Convert.ToInt16(CommandId),
+                    SubID = Convert.ToInt16(CommandSubId),
+                    IsSet = false,
+                    IsFloat = IsFloat
+                };
+                Rs232Interface.GetInstance.SendToParser(tmp);
+            }
         }
 
 
-        
 
-       
+
+
 
     }
 }

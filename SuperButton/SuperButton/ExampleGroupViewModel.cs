@@ -14,7 +14,7 @@ namespace SuperButton
         {
             get { return _examples; }
             set 
-            {   
+            {
                 _examples = value;
                 OnPropertyChanged("Examples");
             }

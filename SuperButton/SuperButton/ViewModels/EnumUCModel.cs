@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Ports;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,17 +9,17 @@ using SuperButton.Views;
 
 namespace SuperButton.ViewModels
 {
-	public class EnumUCModel : INotifyPropertyChanged
+    public class EnumUCModel : INotifyPropertyChanged
     {
         #region CommutationSource
 
-        public List<string> CommutetionSrc=new List<string>();
+        public List<string> CommutetionSrc = new List<string>();
         public List<string> PropsList { get; set; }
 
         //private IEnumerable<string> _selectedCommutationDataSource=  new[] {"DC"};
         //public IEnumerable<string> SelectedCommutationDataSource
 
-	    private String _selectedCommutationDataSource;
+        private String _selectedCommutationDataSource;
         public String SelectedCommutationDataSource
         {
             get { return _selectedCommutationDataSource; }
@@ -27,9 +28,9 @@ namespace SuperButton.ViewModels
                 if (_selectedCommutationDataSource == value) return;
                 _selectedCommutationDataSource = value;
 
-                 ;
-                 int Index = CommutetionSrc.FindIndex(x => x.Contains(_selectedCommutationDataSource));
-           
+                ;
+                int Index = CommutetionSrc.FindIndex(x => x.Contains(_selectedCommutationDataSource));
+
                 NotifyPropertyChanged("SelectedCommutationDataSource");
             }
         }
@@ -43,14 +44,14 @@ namespace SuperButton.ViewModels
 
         #endregion
 
-	
+
         #region XLS
-        
+
         public List<string> XlsList = new List<string>(); //List of values within combo
         public List<string> XlsPropsList { get; set; }    //property on List of values within combo (XlsList)
 
-        private string _selectedXls="const_acc_N.xlsx";                      //selected value
-        
+        private string _selectedXls = "const_acc_N.xlsx";                      //selected value
+
         public string SelectedXls                         //property on selected value
         {
             get { return _selectedXls; }
@@ -78,15 +79,13 @@ namespace SuperButton.ViewModels
         //    }
         //}
 
-
-
-		public EnumUCModel()
-		{
+        public EnumUCModel()
+        {
             CommutetionSrc.Add("Default");
             CommutetionSrc.Add("Forced");
             CommutetionSrc.Add("DC");
-		    PropsList = CommutetionSrc;
-		    SelectedCommutationDataSource = CommutetionSrc.Take(1).ToString();
+            PropsList = CommutetionSrc;
+            SelectedCommutationDataSource = CommutetionSrc.Take(1).ToString();
 
             DriveMode.Add("Default");
             DriveMode.Add("Current Mode");
@@ -99,23 +98,23 @@ namespace SuperButton.ViewModels
             XlsList.Add("const_amp_N.xlsx");
             XlsList.Add("Dual_N.xlsx");
             XlsPropsList = XlsList;
-           // string temp = XlsList.Take(1).ToString();
+            // string temp = XlsList.Take(1).ToString();
             SelectedXls = "const_acc_N.xlsx";
             string extension = System.IO.Path.GetExtension(SelectedXls);
             LeftPanelViewModel.name = _selectedXls.Substring(0, SelectedXls.Length - extension.Length);
 
-		}
+        }
 
-		#region INotifyPropertyChanged
-		public event PropertyChangedEventHandler PropertyChanged;
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		private void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}
-		#endregion
-	}
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        #endregion
+    }
 }

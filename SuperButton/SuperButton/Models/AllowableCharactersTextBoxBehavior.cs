@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperButton.ViewModels;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,20 +9,15 @@ namespace SuperButton.Models
 {
     class AllowableCharactersTextBoxBehavior : Behavior<TextBox>
     {
-
-
         protected override void OnAttached()
         {
             base.OnAttached();
             AssociatedObject.PreviewTextInput += OnPreviewTextInput;
-
             DataObject.AddPastingHandler(AssociatedObject, OnPaste);
-
         }
         void OnPreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             var txt = sender as TextBox;
-
             if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text);
         }
 
@@ -45,22 +41,33 @@ namespace SuperButton.Models
 
         private bool IsValid(string newText, bool paste, string currentvalue)
         {
-            int integ;
-
-            if (currentvalue.Contains('.'))
+            if (newText != "\u001b")
             {
+                int integ;
+                if (currentvalue == "" && newText == "-")
+                    return true;
+                if (currentvalue.Contains('.'))
+                {
+                    if (Int32.TryParse(newText, out integ))
+                        return true;
+                    return false;
+                }
+                if (currentvalue.Contains('-') && newText != "-")
+                {
+                    return true;
+                }
                 if (Int32.TryParse(newText, out integ))
                     return true;
+
+                if (newText == "." && currentvalue != "")
+                    return true;
                 return false;
-
             }
-            if (Int32.TryParse(newText, out integ))
-                return true;
-
-            if (newText == "." && currentvalue != "")
-                return true;
-            return false;
+            else
+            {
+                currentvalue = "";
+                return false;
+            }
         }
-
     }
 }

@@ -7,6 +7,18 @@
                       xmlns:ucTB="clr-namespace:UserControlLibrary;assembly=UserControlLibrary"
                      
                     >
+
+    <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#EEE" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+    
     <ControlTemplate x:Key="ConnectButton" TargetType="{x:Type Button}">
         <ControlTemplate.Resources>
             <Storyboard x:Key="Storyboard1">
@@ -75,4 +87,39 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Name="Border"
+          Background="{StaticResource LightBrush}"
+                            
+          BorderBrush="{StaticResource SolidBorderBrush}"
+          BorderThickness="1"
+          Width="{TemplateBinding Width}"
+          Height="{TemplateBinding Height}">
+                        <ContentPresenter
+            Margin="4" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+                   
+                    </Border>
+                  
+                        <ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow" Value="true">
+                            <Setter TargetName="Border" Property="CornerRadius" Value="4"/>
+                            <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="true"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
 </ResourceDictionary>

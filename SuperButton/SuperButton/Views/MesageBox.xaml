@@ -19,14 +19,26 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70*"/>
-            <RowDefinition Height="35*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="pack://siteoforigin:,,,/HomeBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-
-        <TextBlock x:Name="MessageBlock"  Width="200" Height="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" ></TextBlock>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Image Source="pack://application:,,,/Images/Warning.jpg" Width="40" Height="Auto"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               ></Image>
+            </Grid>
+            
+            <TextBlock Grid.Column="1" x:Name="MessageBlock"  Width="200" Height="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left"></TextBlock>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -35,7 +47,8 @@
             </Grid.RowDefinitions>
             <Button Grid.Row="1" Width="100" Height="30" Content="Ok" Foreground="White" Template="{DynamicResource GlassButton}"               
                   Command="{Binding OnCollectionChangeCommand, Mode=OneWay}" 
-                  CommandParameter="{Binding ElementName=MessageBoxWindow}">
+                  CommandParameter="{Binding ElementName=MessageBoxWindow}"
+                    IsDefault="True">
             </Button>
         </Grid>
     </Grid>

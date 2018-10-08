@@ -31,14 +31,14 @@ namespace SuperButton
         public string ExampleDescription { get; set; }
         public StatusGroups Group { get; set; }
 
-        private bool _IsStatus;
+        //private bool _IsStatus;
 
 
 
 
 
         private Dictionary<string, string> _sourceFiles1 = new Dictionary<string, string>();
-        private bool _isLoaded;
+        //private bool _isLoaded;
 
         private string _text = String.Empty;
 

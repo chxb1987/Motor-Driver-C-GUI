@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using SuperButton.ViewModels;
+using System.Windows.Input;
+using System.ComponentModel;
+using MS.Internal.PresentationFramework;
 
 namespace SuperButton.Views
 {
@@ -10,8 +13,9 @@ namespace SuperButton.Views
 	/// <summary>
 	/// Interaction logic for EnumUC.xaml
 	/// </summary>
+
 	public partial class EnumUC : UserControl
-	{
+    {
         #region Label DP
 
         public String Label
@@ -29,7 +33,7 @@ namespace SuperButton.Views
 
         #endregion
 
-        #region Label DP
+        #region Value DP
 
         /// <summary>
         /// Gets or sets the Value which is being displayed
@@ -48,13 +52,7 @@ namespace SuperButton.Views
               typeof(EnumUC), new PropertyMetadata(null));
 
         #endregion
-
-
-
-
-
-
-
+        
         public String SelectedValue
         {
             get { return (String)GetValue(SelectedValueProperty); }
@@ -75,5 +73,10 @@ namespace SuperButton.Views
 			
 			// Insert code required on object creation below this point.
 		}
-	}
+
+        private void ComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

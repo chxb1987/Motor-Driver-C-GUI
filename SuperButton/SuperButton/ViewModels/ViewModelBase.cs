@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 namespace SuperButton.ViewModels
 {
-    internal class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -13,7 +13,7 @@ namespace SuperButton.ViewModels
 
         }
 
-       
+
         //protected virtual void OnPropertyChanged(string value,[CallerMemberName] string propertyName = null)
         //{
         //    PropertyChangedEventHandler handler = PropertyChanged;
@@ -25,13 +25,22 @@ namespace SuperButton.ViewModels
         //          throw new ArgumentException("error");
         //    }
         //}
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
 
 
+        }
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

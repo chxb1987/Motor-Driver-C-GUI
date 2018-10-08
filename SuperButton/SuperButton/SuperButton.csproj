@@ -9,9 +9,9 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperButton</RootNamespace>
-    <AssemblyName>SuperButton</AssemblyName>
+    <AssemblyName>Driver GUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>redler_BOD_icon.ico</ApplicationIcon>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -48,6 +48,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E4034261435741EC5D43DEDFADFAAC17754F4219</ManifestCertificateThumbprint>
@@ -71,10 +74,13 @@
       <HintPath>..\..\..\Lib\net40\Abt.Controls.SciChart3D.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics">
-      <HintPath>..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\ExamplesDepends\MathNet\Net40\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
-    <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="SharpDX, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -109,10 +115,13 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Internals" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
-      <HintPath>..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\ExamplesDepends\WPFToolkit\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+      <HintPath>..\packages\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -122,16 +131,16 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Telerik.Windows.Controls">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.ImageEditor">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input">
-      <HintPath>..\..\..\..\Program Files %28x86%29\Telerik\UI for WPF Q2 2015\Binaries\WPF45\Telerik.Windows.Controls.Input.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
     <Reference Include="TextBoxBehaivior">
-      <HintPath>..\..\UserControls\UserControlLibrary\UserControlLibrary\bin\Debug\TextBoxBehaivior.dll</HintPath>
+      <HintPath>..\packages\TextBoxBehaivior.dll</HintPath>
     </Reference>
     <Reference Include="ToggleSwitch">
       <HintPath>..\packages\ToggleSwitch.1.1.2\lib\net40-client\ToggleSwitch.dll</HintPath>
@@ -139,7 +148,7 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="UserControlLibrary">
-      <HintPath>..\..\UserControls\UserControlLibrary\UserControlLibrary\bin\Debug\UserControlLibrary.dll</HintPath>
+      <HintPath>..\packages\UserControlLibrary.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -158,6 +167,9 @@
     <Compile Include="Behaviors\RtbSyntaxHighlightingBehavior.cs" />
     <Compile Include="Behaviors\TreeViewScrollbarVisibilityBehavior.cs" />
     <Compile Include="Behaviors\TreeViewSelectOnExpandedBehavior.cs" />
+    <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Common\Consts.cs" />
+    <Compile Include="Common\MessageBoxWrapper.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroupViewModel.cs" />
     <Compile Include="ExampleItemViewControl.xaml.cs">
@@ -166,7 +178,11 @@
     <Compile Include="GroupedExamplesViewModel.cs" />
     <Compile Include="Helpers\ActualSizePropertyProxy.cs" />
     <Compile Include="Helpers\AttachableInteractionClasses.cs" />
+    <Compile Include="Helpers\EventRiser.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\NavigationBase.cs" />
+    <Compile Include="Helpers\RecLed.cs" />
+    <Compile Include="Helpers\RoundBoolLed.cs" />
     <Compile Include="Helpers\TransitioningFrame.cs" />
     <Compile Include="Helpers\TreeViewExtension.cs" />
     <Compile Include="HomeControl.xaml.cs">
@@ -175,6 +191,24 @@
     <Compile Include="StatusGroup\StatusesModule.cs" />
     <Compile Include="StatusGroup\StatusGrous.cs" />
     <Compile Include="ViewModels\BottomPanelViewModel.cs" />
+    <Compile Include="ViewModels\CalibrationViewModel.cs" />
+    <Compile Include="ViewModels\ComboBox.cs" />
+    <Compile Include="ViewModels\MaintenanceViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxVM.cs" />
+    <Compile Include="ViewModels\MotionViewModel.cs" />
+    <Compile Include="ViewModels\OperationViewModel.cs" />
+    <Compile Include="Views\DataViewSmallFontInd.xaml.cs">
+      <DependentUpon>DataViewSmallFontInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataViewSmallFont.xaml.cs">
+      <DependentUpon>DataViewSmallFont.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFontInd.xaml.cs">
+      <DependentUpon>EnumViewSmallFontInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFont.xaml.cs">
+      <DependentUpon>EnumViewSmallFont.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\mainWindowPanels\BottomPanel.xaml.cs">
       <DependentUpon>BottomPanel.xaml</DependentUpon>
     </Compile>
@@ -244,6 +278,9 @@
     <Compile Include="Views\IntegerUC.xaml.cs">
       <DependentUpon>IntegerUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MesageBox.xaml.cs">
+      <DependentUpon>MesageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OscilloscopeParameters.cs" />
     <Compile Include="Views\OscilloscopeViewModel.cs" />
     <Compile Include="Data\PriceSeries.cs" />
@@ -254,14 +291,30 @@
     <Compile Include="Views\EnumUC.xaml.cs">
       <DependentUpon>EnumUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ParametarsWindow.xaml.cs">
-      <DependentUpon>ParametarsWindow.xaml</DependentUpon>
+    <Compile Include="ParametersWindow.xaml.cs">
+      <DependentUpon>ParametersWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ExampleItemViewControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFontInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFont.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFontInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFont.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -324,6 +377,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MesageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OscilloscopeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -332,7 +389,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ParametarsWindow.xaml">
+    <Page Include="ParametersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -356,7 +413,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Themes\" />
     <Folder Include="Views\UserControls\" />
   </ItemGroup>
   <ItemGroup>
@@ -535,6 +591,26 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\redler.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="settings_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="redler_BOD_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alt-parameters-icone-9469-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Warning.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

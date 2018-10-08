@@ -15,20 +15,19 @@
         x:Class="SuperButton.MainWindow"
         mc:Ignorable="d"
 	x:Name="Window" 
-	Title="DBox"
-	Width="1000" Height="600" MinWidth="300" IsTabStop="False" ShowInTaskbar="False" WindowState="Maximized">
+	Title="Motor Driver"
+	Width="1000" Height="600" MinWidth="300" MinHeight="300" IsTabStop="False" ShowInTaskbar="True" WindowState="Maximized"
+    Icon="./Themes/redler.jpg"
+    Closing="Window_Closing">
 
-   
-        <i:Interaction.Triggers>
+
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="SizeChanged" >
             <i:InvokeCommandAction Command="{Binding MainWindowResized}" />
         </i:EventTrigger>
-       </i:Interaction.Triggers>
-   
+    </i:Interaction.Triggers>
+
     <Window.Resources>
-
-   
-
     </Window.Resources>
 
     <!--<Window.Background>
@@ -39,10 +38,10 @@
     </Window.Background>-->
 
     <Grid x:Name="LayoutRoot" Margin="0" >
-    	<Grid.Background>
-    		<ImageBrush ImageSource="pack://siteoforigin:,,,/HomeBackground.jpg" Stretch="UniformToFill"/>
-    	</Grid.Background>
-      <!--  <Grid.Background>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://siteoforigin:,,,/HomeBackground.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <!--  <Grid.Background>
             <LinearGradientBrush EndPoint="0.007,0.981" StartPoint="1,-0.006">
                 <GradientStop Color="#FFFBFBFB" Offset="0.009"/>
                 <GradientStop Color="#FFD8FBFB" Offset="1"/>
@@ -55,22 +54,19 @@
             </LinearGradientBrush>
         </Grid.Background>-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="9.036"/>
+            <RowDefinition Height="0"/> <!--50-->
+            <RowDefinition Height="0"/>  <!--9.037-->
             <RowDefinition/>
             <RowDefinition Height="Auto" MaxHeight="{Binding MaxHeight, Mode=TwoWay}" />
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-
             <!--<ColumnDefinition MaxWidth="300" MinWidth="300" Width="15*"/>
         	<ColumnDefinition FrameworkElement.FlowDirection="LeftToRight" MinWidth="500" Width="Auto"/>
         	<ColumnDefinition x:Name="LeftGrid" MaxWidth="187" MinWidth="193"/>-->
-
             <ColumnDefinition Width="Auto" MaxWidth="200" />
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" MaxWidth="189"/>
-            
         </Grid.ColumnDefinitions>
 
         <!-- Left Panel -->
@@ -79,21 +75,18 @@
             DataContext="{Binding LPcontent, UpdateSourceTrigger=PropertyChanged}" 
             Visibility="Visible"  
             HorizontalContentAlignment="Right" 
-            Grid.Row="2" 
-            Grid.RowSpan="2" Margin="0" Loaded="LeftPanelView_Loaded"  />
+            Grid.Row="2"  Height="Auto" Loaded="LeftPanelView_Loaded"
+            Grid.RowSpan="2"/>
 
         <!-- Bottom Panel -->
 
-        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" MaxHeight="Infinity" />
+        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- right Panel -->
 
-        <mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}" />
-
-
+        <!--<mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>-->
+        
         <Grid Grid.Column="1" Margin="0" Grid.Row="2"  >
-
-
             <views:OscilloscopeView 
                 x:Name="Oscilloscope"
                 FlowDirection="LeftToRight"
@@ -102,13 +95,11 @@
                 Margin="0" 
                 VerticalAlignment="Stretch" 
                 HorizontalAlignment="Stretch" 
-                DataContext="{Binding OscilloscopeViewModel}" IsHitTestVisible="True"
-                
-            />
+                DataContext="{Binding OscilloscopeViewModel, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="True" MinHeight="290" />
         </Grid>
 
         <!-- Upper Panel -->
-        <Grid Name="UpGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0" Height="50" >
+        <!--<Grid Name="UpGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0" Height="50" >
             <Grid HorizontalAlignment="Right" Height="40" VerticalAlignment="Center" Width="70" Margin="0,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110" MaxWidth="70"/>
@@ -118,35 +109,20 @@
                     <RowDefinition Height="17"/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Technologies" VerticalAlignment="Top" Grid.Row="1" Height="17" Width="70" Foreground="#FF5499D3"/>
-                <TextBlock TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="23" FontWeight="Bold" FontSize="18.667" Padding="0,0,0,12" Margin="0" Foreground="White"/>
             </Grid>
-        </Grid>
-        <Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" >
-        	<Rectangle.Fill>
-        		<LinearGradientBrush EndPoint="-0.001,0.747" MappingMode="RelativeToBoundingBox" StartPoint="1,0.697">
-        			<GradientStop Color="#00F9F9F9"/>
-        			<GradientStop Color="#00F2F3F7" Offset="1"/>
-        			<GradientStop Color="#FFF5F5F7" Offset="0.455"/>
-        		</LinearGradientBrush>
-        	</Rectangle.Fill>
-        </Rectangle>
+        </Grid>-->
         
+        <!--<Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" >
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="-0.001,0.747" MappingMode="RelativeToBoundingBox" StartPoint="1,0.697">
+                    <GradientStop Color="#00F9F9F9"/>
+                    <GradientStop Color="#00F2F3F7" Offset="1"/>
+                    <GradientStop Color="#FFF5F5F7" Offset="0.455"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- Plot Panel -->
-
+        <!-- Plot Panel -->
 
         <!--<views:OscilloscopeView 
                 x:Name="Oscilloscope"
@@ -155,26 +131,9 @@
                 Grid.Column="1" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
             />-->
 
-
-
-
-
-
         <!--<Grid Grid.Column="1" Margin="0">
-
-      
-
-
-
-
-
-
     		<views:OscilloscopeView x:Name="Oscilloscope" FlowDirection="LeftToRight" />
-
-
     	</Grid>-->
-
-
         <!--<Border BorderBrush="#FF081501" BorderThickness="2" Margin="7,52,0,10" CornerRadius="5">
             <Border BorderThickness="0.5" CornerRadius="5" BorderBrush="#FF071B08" Margin="0.667,0.611,0.833,0">
                 <Border BorderBrush="#FF081501" BorderThickness="2" Margin="0,0,-5.667,-6.167" CornerRadius="5">
@@ -221,12 +180,6 @@
                 </Border>
             </Border>
         </Border>-->
-
-
-
-
-
-
 
     </Grid>
 </Window>

@@ -7,13 +7,13 @@
 	xmlns:superButton="clr-namespace:SuperButton"
 	xmlns:views="clr-namespace:SuperButton.Views"
 	xmlns:behaviors="clr-namespace:SuperButton.Behaviors"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	mc:Ignorable="d"
 	x:Class="SuperButton.BottomPanel"
 	x:Name="UserControl"
 	d:DesignWidth="640">
 
     <UserControl.Resources>
-
 
         <!--  Vertical GridSplitter Handle  -->
         <Style x:Key="VerticalGridSplitterHandleStyle" TargetType="ToggleButton">
@@ -364,9 +364,6 @@
             </Setter>
         </Style>
 
-
-
-
         <!--  ExtendedGridSplitter  -->
         <Style TargetType="common:CollapsableGridSplitter">
             <Setter Property="Background" Value="#FFFFFFFF" />
@@ -483,9 +480,6 @@
             </Setter>
         </Style>
 
-
-
-
         <!--Rectangle style-->
         <Style x:Key="rectangleStyle" TargetType="Rectangle">
             <Setter Property="RadiusX" Value="2" />
@@ -497,76 +491,135 @@
             <Setter Property="StrokeThickness" Value="1" />
         </Style>
 
-
     </UserControl.Resources>
 
+
+
     <Grid x:Name="LayoutRoot">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3.5*"/>
-            <ColumnDefinition Width="123*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Style="{StaticResource rectangleStyle}" Grid.Row="1" Grid.RowSpan="1" Margin="0" Stroke="#33616161" Fill="#19616161" Grid.ColumnSpan="2" />
-        <!--<StackPanel Margin="0" Grid.Row="1">
-
-            -->
-        <!--ComboTest-->
-        <!--
-            <views:EnumUC Height="26" 
-                          Margin="5,5,260,5"
-                          Label="Drive Mode"
-                          Value="{Binding DriveModeprop}" 
-                          >
-            </views:EnumUC>
-            
-            -->
-        <!--ComboTest-->
-        <!--
-            <views:EnumUC Height="26" 
-                          Margin="5,5,260,5"
-                          Label="Commutation Source"
-                          Value="{Binding PropsList}"
-                          SelectedValue="{Binding SelectedCommutationDataSource,Mode=TwoWay}">
-            </views:EnumUC>
-            
-           
-            -->
-        <!--boolean state-->
-        <!--
-            <CheckBox Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource CheckBoxStyle1}"/>
-            
-            -->
-        <!--Integer param Test-->
-        <!--
-
-            <views:IntegerUC LabelIntName="Kp"
-                             LabelIntUnit="[U]"
-                             Margin="5,5,403,5" 
-                             Height="32"
-                             TextMessege="{Binding KPText,Mode=TwoWay}"
-                             behaviors:InputBindingsManager.UpdatePropertySourceWhenEnterPressed="TextBox.Text"
-                             >   
-            </views:IntegerUC>
-
-            
-
-        </StackPanel>-->
-        <superButton:HomeControl Grid.Row="1" Visibility="Visible" Padding="0" Margin="0" Grid.ColumnSpan="2" Grid.Column="1"/>
-     
-        <common:CollapsableGridSplitter
+        <common:CollapsableGridSplitter Grid.Row="0"
                                         ResizeDirection="Rows"   
                                         Margin="0"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
                                         CollapseMode="Next"
                                         IsCollapsed="False"
-                                        IsTabStop="False" Height="8" Grid.ColumnSpan="2"/>
-                 
+                                        IsTabStop="False" Height="8" Grid.ColumnSpan="2"
+                                        Cursor="Hand"
+                                        ResizeBehavior="PreviousAndNext"/>
 
+        <Grid Grid.Row="1">
+            <Grid Margin="0,1,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="0">
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock Height="17" Text="Motion Commands" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                        </Border>
+                        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="33.33*"></ColumnDefinition>
+                                <ColumnDefinition Width="33.33*"></ColumnDefinition>
+                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ItemsControl Width="Auto" 
+                                                  x:Name="MotionCommands"
+                                                  HorizontalContentAlignment="Center" 
+                                                  Grid.Row="0" 
+                                                  VerticalAlignment="Top"  
+                                                  HorizontalAlignment="Left" 
+                                                  ItemsSource="{Binding MotionCommandList}" 
+                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
 
+                                    </ItemsControl>
+                                    <ItemsControl 
+                                             HorizontalContentAlignment="Left"
+                                             Grid.Row="1" 
+                                             Width="215" 
+                                             HorizontalAlignment="Left" 
+                                             ItemsSource="{Binding ProfilerModeList}" 
+                                             ItemTemplate="{StaticResource EnumViewSmallFont}"/>
+                                </Grid>
+                            </ScrollViewer>
+                            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <GroupBox  Header="Signal Generator" Width="Auto" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <ItemsControl 
+                                             HorizontalContentAlignment="Left"
+                                             Grid.Row="0" 
+                                             Width="183" 
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Left" 
+                                             ItemsSource="{Binding SGTypeList}" 
+                                             ItemTemplate="{StaticResource EnumViewSmallFont}"/>
+                                        <ItemsControl Width="Auto" 
+                                                  HorizontalContentAlignment="Left" 
+                                                  Grid.Row="1" 
+                                                  VerticalAlignment="Top"  
+                                                  HorizontalAlignment="Left" 
+                                                  ItemsSource="{Binding SGList}" 
+                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
+                                        </ItemsControl>
+                                    </Grid>
+                                </GroupBox>
+                            </ScrollViewer>
+                            <ScrollViewer Grid.Row="1" Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button Grid.Row="0" Height="22" Width="80" Margin="5,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Stop Motion" Command="{Binding StopMotion}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="1">
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock Height="17" Text="Motion Status" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                        </Border>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <ItemsControl Width="160" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
     </Grid>
+
 </UserControl>

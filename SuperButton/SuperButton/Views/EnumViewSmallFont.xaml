@@ -68,8 +68,8 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="56*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4,0,0,4">
             <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000" d:IsHidden="True">
@@ -77,7 +77,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Border x:Name="SineShine" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
+                    <Border x:Name="SineShine" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0" Width="auto">
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.926,0.497" StartPoint="0.074,0.503">
                                 <GradientStop Color="#00607CF9"/>
@@ -103,6 +103,7 @@
                         </Border.Background>
                     </Border>
                     <Label   Content="{Binding Path=CommandName}"
+                             Width="auto"
                              Foreground="#FFF9F6F6" 
                              FontSize="11.5"
                              HorizontalContentAlignment="Left" 

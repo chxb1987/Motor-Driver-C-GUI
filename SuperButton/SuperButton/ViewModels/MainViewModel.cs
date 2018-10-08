@@ -1,79 +1,71 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using Abt.Controls.SciChart;
-using Abt.Controls.SciChart.Rendering.Common;
-using Abt.Controls.SciChart.Visuals;
 using SuperButton.Models.DriverBlock;
-using SuperButton.Models.ParserBlock;
 using SuperButton.Views;
-using UserControlLibrary;
-using UserControlLibrary.ViewModels;
 using BaseViewModel = SuperButton.Common.BaseViewModel;
+using SuperButton.Helpers;
+//using SharpDX.Design;
 
 namespace SuperButton.ViewModels
 {
     public class MainViewModel : BaseViewModel
-	{
-        OscilloscopeViewModel oscilloscopeViewModel=new OscilloscopeViewModel();
-        public OscilloscopeViewModel OscilloscopeViewModel { get { return oscilloscopeViewModel; }
-            set { ; } 
+    {
+        public OscilloscopeViewModel OscilloscopeViewModel
+        {
+            get { return oscilloscopeViewModel; }
+            set {; }
         }
 
-
-        
         //Friday 08.01
         public ActionCommand MainWindowResized { get { return new ActionCommand(mainWindowResized); } }
 
         private double maxHeight = 240;
         void mainWindowResized()
         {
-            MaxHeight  = (float)Application.Current.MainWindow.ActualHeight-101;
+            MaxHeight = (float)Application.Current.MainWindow.ActualHeight - 101;
         }
-      
+
 
         #region Actions
-        public ActionCommand SetAutoConnectActionCommandCommand { get { return new ActionCommand(AutoConnectCommand); } }
-        
+        public ActionCommand SetAutoConnectActionCommandCommand
+        {
+            get { return new ActionCommand(AutoConnectCommand); }
+        }
+
         #endregion
 
-        public double MaxHeight {
+        public double MaxHeight
+        {
             //get {return maxHeight;}
             set
             {
-                
-                    maxHeight = value;
-                    OnPropertyChanged("MaxHeight");           
+
+                maxHeight = value;
+                OnPropertyChanged("MaxHeight");
             }
         }
 
         //Data content binding between views of panels within main window
         //and their view models, write binding in XAMLs also
 
-        private RightPanelViewModel rightPanelViewModel = new RightPanelViewModel();
-        public RightPanelViewModel RPcontent
+        private BottomPanelViewModel bottomPanelViewModel = new BottomPanelViewModel();
+
+        public BottomPanelViewModel RPcontent
         {
-            get { return rightPanelViewModel; }
-            set {  }
+            get { return bottomPanelViewModel; }
+            set { }
         }
 
-        private LeftPanelViewModel leftPanelViewModel = new LeftPanelViewModel();
+        private LeftPanelViewModel leftPanelViewModel = LeftPanelViewModel.GetInstance;
+        private OscilloscopeViewModel oscilloscopeViewModel = OscilloscopeViewModel.GetInstance;
+
         public LeftPanelViewModel LPcontent
         {
             get { return leftPanelViewModel; }
             set { }
         }
-
-
-
-
-
-
-
-
 
         #region Debug
 
@@ -106,22 +98,22 @@ namespace SuperButton.ViewModels
         //    Left_Grid_Width = 10;
         //}
         #endregion
-
-
-
         public MainViewModel()
-		{
+        {
+            //System.Windows.Media.Color color;
+
 
             leftPanelViewModel.ConnectButtonContent = "Connect";
+            leftPanelViewModel.ConnectTextBoxContent = "Not Connected";
+            //leftPanelViewModel.ConnectButtonBackground = ColorConverter;
+            leftPanelViewModel.ComToolTipText = "Pls Choose CoM";
             Rs232Interface.GetInstance.Driver2Mainmodel += SincronizationPos;
-
-         
 
             leftPanelViewModel.SendButtonContent = "Send";
             leftPanelViewModel.StopButtonContent = "Force Stop";
             /*Left Panel*/
 
-            
+
             //  KUKU();
             //  rightPanel.DataContext = rightPanelViewModel;
 
@@ -129,9 +121,7 @@ namespace SuperButton.ViewModels
 
             //  rightPanel.DataContext = rightPanelViewModel;
 
-
-
-            //rightPanelViewModel=new RightPanelViewModel();
+            bottomPanelViewModel = new BottomPanelViewModel();
             //rightPanel.DataContext = rightPanelViewModel;
             //rightPanelViewModel.ConnetButtonContent = "Disconnect";
 
@@ -139,7 +129,7 @@ namespace SuperButton.ViewModels
             //Test.Label = "kjlljkljkljkljkljkljkljk";
 
             //Test2 = new UserControl1ViewModel();
-            //Test2.Label = "ILIYA POZ";
+
 
             //b2 = new UserControl1();
             //b2.DataContext = Test2;
@@ -157,54 +147,56 @@ namespace SuperButton.ViewModels
 
 
             // Insert code required on object creation below this point.
-
-		}
-		
-
-        private void  SincronizationPos(object sender, Rs232InterfaceEventArgs e)
-        {
-            leftPanelViewModel.ConnectButtonContent = e.ConncteButtonLabel;
         }
 
-   
+        ~MainViewModel()
+        {
+            
+        }
 
-
+        private void SincronizationPos(object sender, Rs232InterfaceEventArgs e)
+        {
+            leftPanelViewModel.ConnectButtonContent = e.ConnecteButtonLabel;
+            leftPanelViewModel.ConnectTextBoxContent = e.ConnecteButtonLabel;
+            leftPanelViewModel.ComToolTipText = "Allready Connected";
+        }
 
         public void AutoConnectCommand()
         {
+            EventRiser.Instance.RiseEevent(string.Format($"You Pressed : button"));
             Rs232Interface comRs232Interface = Rs232Interface.GetInstance;
             Task task = new Task(new Action(comRs232Interface.AutoConnect));
             task.Start();
         }
-		
-		private string viewModelProperty = "Runtime Property Value";
-		/// <summary>
-		/// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-		/// </summary>
-		/// <returns></returns>
-		public string ViewModelProperty
-		{ 
-			get
-			{
-				return this.viewModelProperty;
-			}
-			set
-			{
-				this.viewModelProperty = value;
-				this.NotifyPropertyChanged("ViewModelProperty");
-			}
-		}
-		
-		/// <summary>
-		/// Sample ViewModel method; this method is invoked by a Behavior that is associated with it in the View.
-		/// </summary>
-		public void ViewModelMethod()
-		{ 
-			if(!this.ViewModelProperty.EndsWith("Updated Value", StringComparison.Ordinal)) 
-			{ 
-				this.ViewModelProperty = this.ViewModelProperty + " - Updated Value";
-			}
-		}
+
+        private string viewModelProperty = "Runtime Property Value";
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        public string ViewModelProperty
+        {
+            get
+            {
+                return this.viewModelProperty;
+            }
+            set
+            {
+                this.viewModelProperty = value;
+                this.NotifyPropertyChanged("ViewModelProperty");
+            }
+        }
+
+        /// <summary>
+        /// Sample ViewModel method; this method is invoked by a Behavior that is associated with it in the View.
+        /// </summary>
+        public void ViewModelMethod()
+        {
+            if (!this.ViewModelProperty.EndsWith("Updated Value", StringComparison.Ordinal))
+            {
+                this.ViewModelProperty = this.ViewModelProperty + " - Updated Value";
+            }
+        }
 
         //DirecX10
 
@@ -212,27 +204,5 @@ namespace SuperButton.ViewModels
 
 
 
-
-
-
-
-
-
-
-
-		#region INotifyPropertyChanged
-		public event PropertyChangedEventHandler PropertyChanged;
-
-	    protected void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}
-		#endregion
-
-  
-
-	}
+    }
 }

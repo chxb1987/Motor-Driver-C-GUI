@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
-
+using SuperButton.Helpers;
 
 namespace SuperButton.Models.ParserBlock
 {
@@ -21,13 +21,13 @@ namespace SuperButton.Models.ParserBlock
         public List<byte[]> StandartPacketsList = new List<byte[]>();
         public List<byte[]> PlotPacketsList = new List<byte[]>();
         public List<byte[]> StandartPacketsListNew = new List<byte[]>();
-        private  int DEBCount;
+       // private  int DEBCount;
         private byte[] pack = new byte[11];
         private int plotpacketState = 0;
         private int standpacketState = 0;
         private int standpacketStateNew = 0;
         private int standpacketIndexCounter = 0;
-        private int plotpacketSize = 0;
+       // private int plotpacketSize = 0;
 
         private int _synchAproveState;
         private int _synchAproveIndexCounter;
@@ -76,15 +76,20 @@ namespace SuperButton.Models.ParserBlock
                     {
                         FiilsPlotPackets(data[i]); //Plot packets
                         FiilsStandartPackets(data[i]);//Standart Packets                    
-                        FiilsStandartPacketsNew(data[i]);//Standart Pavkets New
+                        FiilsStandartPacketsNew(data[i]);//Standart Pavkets New Updeted
                     }
                     if (PlotPacketsList.Count > 0)
                     {
+                        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
+                        Thread.Sleep(0);
                         ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
                     }               //send to plot parser              
                     if (StandartPacketsListNew.Count > 0)
                     {
                         ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
+                        StandartPacketsListNew.Clear(); // Joseph add
+
                     } //send to Standart parser                             
                 }
                 else

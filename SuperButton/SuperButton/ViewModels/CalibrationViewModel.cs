@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SuperButton.ViewModels
 {
@@ -21,6 +22,14 @@ namespace SuperButton.ViewModels
         private string _Encoder1CalVal;
         private string _PIPosCalVal;
 
+        private string _PIPosCalContent = "Run";
+
+        private SolidColorBrush _PIPosCalContentCol = new SolidColorBrush(Colors.White);
+
+        private bool _PiPositionCalCheck = false;
+
+        public static bool CalibrationProcessing = false;
+
         #endregion FIELDS
 
 
@@ -29,7 +38,7 @@ namespace SuperButton.ViewModels
         public ActionCommand PiSpeedCal { get { return new ActionCommand(PiSpeedCalCmd); } }
         public ActionCommand HallMapCal { get { return new ActionCommand(HallMapCalCmd); } }
         public ActionCommand EncoderCal { get { return new ActionCommand(EncoderCalCmd); } }
-        public ActionCommand P2PositionCal { get { return new ActionCommand(P2PositionCalCmd); } }
+        public ActionCommand PiPositionCal { get { return new ActionCommand(PiPositionCalCmd); } }
         public static CalibrationViewModel GetInstance
         {
             get
@@ -138,25 +147,70 @@ namespace SuperButton.ViewModels
                 IsFloat = false
             });
         }
-        private void P2PositionCalCmd()
+        private void PiPositionCalCmd()
         {
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            if (PiPositionCalCheck && !CalibrationProcessing)
             {
-                Data2Send = 1,
-                ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(11),
-                IsSet = true,
-                IsFloat = false
-            });
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                CalibrationProcessing = true;
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 1,
+                    ID = Convert.ToInt16(6),
+                    SubID = Convert.ToInt16(11),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    ID = Convert.ToInt16(6),
+                    SubID = Convert.ToInt16(12),
+                    IsSet = false,
+                    IsFloat = false
+                });
+            }
+        }
+        public string PIPosCalContent
+        {
+            get { return _PIPosCalContent; }
+            set
             {
-                ID = Convert.ToInt16(6),
-                SubID = Convert.ToInt16(12),
-                IsSet = false,
-                IsFloat = false
-            });
+                _PIPosCalContent = PIPosCalContent;
+                OnPropertyChanged("PIPosCalContent");
+            }
+        }
+        public SolidColorBrush PIPosCalContentCol
+        {
+            get { return _PIPosCalContentCol; }
+            set
+            {
+                _PIPosCalContentCol = PIPosCalContentCol;
+                OnPropertyChanged("PIPosCalContentCol");
+            }
         }
 
+        public bool PiPositionCalCheck
+        {
+            get { return _PiPositionCalCheck; }
+            set
+            {
+                if (!CalibrationProcessing)
+                {
+                    if (value)
+                    {
+                        PIPosCalContent = _PIPosCalContent = "Running";
+                        PIPosCalContentCol = _PIPosCalContentCol = new SolidColorBrush(Colors.Black);
+                    }
+                    else
+                    {
+                        PIPosCalContent = _PIPosCalContent = "Run";
+                        PIPosCalContentCol = _PIPosCalContentCol = new SolidColorBrush(Colors.White);
+                    }
+                    _PiPositionCalCheck = value;
+                    //_PiPositionCalCheck = !_PiPositionCalCheck;
+                    OnPropertyChanged("PiPositionCalCheck");
+                }
+            }
+        }
         public string offsetCalVal
         {
             get { return _offsetCalValue; }

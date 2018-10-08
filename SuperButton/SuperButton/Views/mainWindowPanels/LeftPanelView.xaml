@@ -8,22 +8,18 @@
              xmlns:Borders="clr-namespace:ToggleSwitch.Borders;assembly=ToggleSwitch" 
              xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch" 
              xmlns:Views="clr-namespace:SuperButton.Views"  
+             xmlns:Helpers="clr-namespace:SuperButton.Helpers"
              x:Class="SuperButton.Views.mainWindowPanels.LeftPanelView"
              x:Name="GsUserControl"
-
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="800"
              d:DesignWidth="1380"
-             mc:Ignorable="d" Height="569" MaxWidth="189" Focusable="True">
-
-
-
-
-
+             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True">
 
     <UserControl.Resources>
         <!--  BackgroundBrush  -->
         <SolidColorBrush x:Key="ControlBackgroundBrush" Color="#FF333333" />
-        
+
         <!--  ExampleListBoxItem  -->
         <ControlTemplate x:Key="ExampleListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
             <Grid x:Name="exampleListItemGrid"
@@ -522,9 +518,6 @@
             </Setter>
         </Style>
 
-
-
-
         <!--  ExtendedGridSplitter  -->
         <Style TargetType="{x:Type common:CollapsableGridSplitter}">
             <Setter Property="Background" Value="#FFFFFFFF" />
@@ -593,13 +586,13 @@
                             <!--  Horizontal Template  -->
                             <Grid x:Name="HorizontalTemplate" Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <!--<ColumnDefinition Width="*" />-->
                                     <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="*" />
+                                    <!--<ColumnDefinition Width="*" />-->
                                 </Grid.ColumnDefinitions>
                                 <!--  Horizontal GridSplitter Handle  -->
                                 <ToggleButton x:Name="HorizontalGridSplitterHandle"
-                        			Grid.Column="1"
+                        			Grid.Column="0"
                         			IsHitTestVisible="True"
                         			RenderTransformOrigin="0.5,0.5"
                         			Style="{TemplateBinding HorizontalHandleStyle}">
@@ -739,123 +732,227 @@
             </Grid>
         </ControlTemplate>
 
-        <!--Glass Button control template-->
+    </UserControl.Resources>
 
-
-        <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
-            <ControlTemplate.Resources>
-                <Storyboard x:Key="Timeline1">
-                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                        <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
-                <Storyboard x:Key="Timeline2">
-                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
-                        <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
-            </ControlTemplate.Resources>
-            <Border BorderBrush="#FFFFFFFF" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4" Background="{x:Null}" Opacity="1">
-                <Border x:Name="border" Background="#7F060606" BorderBrush="#FF000000" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
+    <Grid MaxWidth="170">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161" MaxWidth="161"/>
+            <ColumnDefinition Width="9"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="21"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="33"></RowDefinition>
+                    <RowDefinition Height="130"></RowDefinition>
+                    <RowDefinition Height="33"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="22" FontWeight="Bold" FontSize="19" Foreground="White"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBlock HorizontalAlignment="Left" Text="Technologies     Version V0.0.p" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
+                </Grid>
+                <Grid Grid.Row="2" Width="161" HorizontalAlignment="Left">
+                    <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                        <TextBlock Height="17" Text="Communication" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"></ColumnDefinition>
+                        <ColumnDefinition Width="128"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="COM" 
+                         HorizontalContentAlignment="Left" 
+                         VerticalContentAlignment="Center"
+                         TextWrapping="NoWrap"
+                         IsReadOnly="True"
+                         BorderBrush="Transparent"
+                         ></TextBox>
+                    <ComboBox Grid.Column="1"
+                    x:Name="ComboboxCOM"
+                    ToolTip="Pls Choose Com"
+                    DataContext="{Binding ComboBoxCOM}"
+            	    ItemsSource="{Binding ComList}"
+            	    SelectedValue="{Binding ComString, Mode=TwoWay}"
+                    Height="24" 
+                    Width="Auto"
+                    HorizontalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="DropDownOpened">
+                                <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="4" Width="161" HorizontalAlignment="Left">
+                    <!--Connect superButton-->
+                    <Button
+                Content="{Binding ConnectButtonContent, Mode=TwoWay}"
+                Name="ConnectButton"
+				BorderThickness="5,1" 
+				Command="{Binding SetAutoConnectActionCommandCommand}"
+				Template="{DynamicResource GlassButton}"  
+                Height="30" 
+				FontFamily="Bell MT" 
+				FontSize="12" Width="70" 
+                HorizontalAlignment="Left">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Connect">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Content, ElementName=ConnectButton}" Value="Disconnect">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Helpers:RoundBoolLed Width="10" Height="10" CurrStatus="{Binding LedStatusTx}" VerticalAlignment="Top" Margin="70,2,81,0"/>
+                    <TextBlock HorizontalAlignment="Center" Text="Tx" VerticalAlignment="Top" FontSize="10" Margin="80,0,72,0" Foreground="White"></TextBlock>
+                    <Border BorderBrush="Transparent" 
+                        BorderThickness="1" 
+                        CornerRadius="3" 
+                        Width="90" Height="20" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right">
+                        <TextBox 
+                        Text="{Binding ConnectTextBoxContent, Mode=TwoWay}"  
+                        Background="Transparent" 
+                        BorderBrush="Transparent" 
+                        Width="89" Height="19"
+                        Foreground="White" 
+                        HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center"
+                        TextWrapping="NoWrap"
+                        IsHitTestVisible="False"
+                        IsReadOnly="True">
+                        </TextBox>
+                    </Border>
+                    <Helpers:RoundBoolLed Width="10" Height="10" CurrStatus="{Binding LedStatusRx}" VerticalAlignment="Bottom" Margin="70,0,81,2"/>
+                    <TextBlock HorizontalAlignment="Center" Text="Rx" VerticalAlignment="Bottom" FontSize="10" Margin="80,0,70,1" Foreground="White"></TextBlock>
+                </Grid>
+                <ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+                    <!--<Grid>-->
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.507*"/>
-                            <RowDefinition Height="0.493*"/>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Border Opacity="0" HorizontalAlignment="Stretch" x:Name="glow" Width="Auto" Grid.RowSpan="2" CornerRadius="4,4,4,4">
-                            <Border.Background>
-                                <RadialGradientBrush>
-                                    <RadialGradientBrush.RelativeTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
-                                            <SkewTransform AngleX="0" AngleY="0"/>
-                                            <RotateTransform Angle="0"/>
-                                            <TranslateTransform X="-0.368" Y="-0.152"/>
-                                        </TransformGroup>
-                                    </RadialGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#B28DBDFF" Offset="0"/>
-                                    <GradientStop Color="#008DBDFF" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Grid.RowSpan="2"/>
-                        <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="shine" Width="Auto" CornerRadius="4,4,0,0">
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0.494,0.889" StartPoint="0.494,0.028">
-                                    <GradientStop Color="#99FFFFFF" Offset="0"/>
-                                    <GradientStop Color="#33FFFFFF" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
+                        <ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
+                              Grid.Row="0" 
+                              Width="160" 
+                              HorizontalAlignment="Left" 
+                              ItemsSource="{Binding DriverTypeList}" 
+                              ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
+                        <ItemsControl HorizontalContentAlignment="Left"
+                              Grid.Row="1" 
+                              Width="160" 
+                              HorizontalAlignment="Left"
+                              ItemsSource="{Binding LPCommandsList}" 
+                              ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
                     </Grid>
-                </Border>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Opacity" TargetName="shine" Value="0.4"/>
-                    <Setter Property="Background" TargetName="border" Value="#CC000000"/>
-                    <Setter Property="Visibility" TargetName="glow" Value="Hidden"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource Timeline1}"/>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+                    <!--</Grid>-->
+                </ScrollViewer>
+                <Grid Grid.Row="6">
+                    <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                        <TextBlock Height="17" Text="Log" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="7" Width="161" HorizontalAlignment="Left">
+                    <!-- Log -->
+                    <TextBox Width="auto" IsReadOnly="True" Foreground="White" BorderBrush="White" TextWrapping="Wrap"  Text="{Binding LogText}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.CanContentScroll="True" FontSize="11"/>
+                </Grid>
+                <Grid Grid.Row="8">
+                </Grid>
+                <Grid Grid.Row="9">
+                    <!--Param And Action-->
+                    <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="34" Height="34" 
+                        Background="Transparent" 
+                        Foreground="Transparent"
+                         Padding="0"   >
+                        <Image Source="pack://application:,,,/Images/alt-parameters-icone-9469-64.png" Width="40" Height="40"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                        <!--C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\alt-parameters-icone-9469-64.png-->
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="10">
+                    <CheckBox Content="Enable Refresh"
+                IsChecked="{Binding EnRefresh, Mode=TwoWay}"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="11">
+                    <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
+				BorderBrush="White"
+				Width="160" 
+				UncheckedBackground="#B2B8482F" 
+				UncheckedForeground="#FF333330" 
+                IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
+				ThumbSize="38" 
+                HorizontalAlignment="Center" 
+                CheckedContent="DRIVE ON" 
+                UncheckedContent="DRIVE OFF" 
+                BorderThickness="0.5" Elasticity="0.5" 
+                CheckedBackground="#B277E444" 
+                CheckedForeground="#FFF7F6F6"
+				Style="{DynamicResource MotorOnStyleofTumb}" 
+                ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" 
+                Background="#00000000">
+                        <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF4D4E48"/>
+                                <GradientStop Color="#FF333430" Offset="1"/>
+                                <GradientStop Color="#FF333330" Offset="0.021"/>
+                            </LinearGradientBrush>
+                        </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
+                    </ToggleSwitch:HorizontalToggleSwitch>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        <!--<StackPanel Orientation="Vertical" MaxWidth="160" Grid.ColumnSpan="2" Margin="2,0,8,0">
 
-    </UserControl.Resources>
-    <!-- <UserControl.Background>
-        <ImageBrush ImageSource="/SuperButton;component/Images/Backgrounds/HomeBackground.jpg" TileMode="Tile" Stretch="UniformToFill" Opacity="0.5"/>
-    </UserControl.Background>-->
-
-
-
-    <Grid MaxWidth="189">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MaxWidth="180" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-
-        <Rectangle Width="180" Margin="0"  Style="{StaticResource rectangleStyle}" Opacity="0.6" Fill="#BF616161" StrokeThickness="1.5"  />
-
-
-        <common:CollapsableGridSplitter Grid.Column="1"
-                                        
-			Width="9"
-			Margin="0,0,0,0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Stretch"
-			CollapseMode="Previous"
-			IsCollapsed="False"
-			IsTabStop="False" ResizeDirection="Columns" />
-
-        <StackPanel Margin="0,0,9,0" Width="180">
-            <!--Connect superButton-->
-            <Button Content="{Binding ConnectButtonContent, Mode=TwoWay}"
-				BorderThickness="5,1" 
-				Command="{Binding SetAutoConnectActionCommandCommand}" 
-				Template="{DynamicResource GlassButton}" 
-				Foreground="White" 
-				Height="30" 
-				Margin="0,10,0,100" 
-				FontFamily="Bell MT" 
-				FontSize="18.667" Width="160"/>
-            <!--send superButton-->
-            <Button Content="{Binding SendButtonContent, Mode=TwoWay}"
+            -->
+        <!--COM Enum superButton-->
+        <!--<ComboBox 
+                Name="ComboboxCOM"
+                DataContext="{Binding ComboBoxCOM}"
+                Margin="2"
+                Width="160"
+                ItemsSource="{Binding ComList}"
+                Text="{Binding ComString}"
+                HorizontalContentAlignment="Center"
+                SelectedValue="{Binding ComString}" > 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownOpened">
+                        <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>-->
+        <!--send superButton-->
+        <!--<Button Content="{Binding SendButtonContent, Mode=TwoWay}"
 				BorderThickness="5,1" 
 				Command="{Binding SendActionCommand}" 
-				Template="{DynamicResource GlassButton}" 
+				Template="{DynamicResource GlassButton}"
 				Foreground="White" 
 				Height="30" 
-				Margin="0,7,0,0" 
+				Margin="0,10,0,10" 
 				FontFamily="Bell MT" 
-				FontSize="18.667" Width="160"/>
-            <!--stop superButton-->
+				FontSize="18.667" Width="160"/>-->
+        <!--stop superButton-->
+        <!--
             <Button Content="{Binding StopButtonContent, Mode=TwoWay}"
             	BorderThickness="5,1" 
             	Command="{Binding ForceStop}" 
@@ -864,13 +961,25 @@
             	Margin="0,10,0,0" 
             	FontFamily="Bell MT" 
             	FontSize="18.667" Width="160" Height="30"/>
+            -->
+        <!--XLS Enum superButton-->
+        <!--
             <Views:EnumUC 
-            	Margin="0,9,0,0"
-            	Label="   XLS  "
+            	Margin="0,9,0,5"
+            	Label="XLS"
             	Value="{Binding XlsPropsList}"
-  
-            	SelectedValue="{Binding SelectedXls, Mode=TwoWay}" Height="30" Style="{DynamicResource EnumUCStyleLeftPanel}" Width="160"/>
+            	SelectedValue="{Binding SelectedXls, Mode=TwoWay}" 
+                Height="30" 
+                Style="{DynamicResource EnumUCStyleLeftPanel}" 
+                Width="160"/>-->
+        <!--<ScrollViewer  Width="160" Height="120" Margin="0,2,0,2" FontFamily="Bell MT" FontSize="11">
+                <Border BorderThickness="1" BorderBrush="White">
+                    <TextBlock    ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding LogText}"  TextWrapping="Wrap"/>
+                </Border>
+            </ScrollViewer>-->
+        <!--
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Loger:" VerticalAlignment="Center" Margin="0,92,0,0" Foreground="#FFF1F0F0" Visibility="Collapsed"/>
+
             <RichTextBox HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="164" Margin="0,2,0,10" Visibility="Collapsed">
                 <FlowDocument>
                     <Paragraph>
@@ -878,45 +987,22 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <!--Param And Action-->
-            <Button Command ="{Binding Showwindow}" HorizontalAlignment="Center" Margin="0,19,0,0" Template="{DynamicResource ActionButton}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" MaxWidth="70" MaxHeight="70" >
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <!--ComboTest-->
-            <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
-				BorderBrush="White"
-				Width="160" 
-				UncheckedBackground="#B2B8482F" 
-				UncheckedForeground="#FF333330" 
-                IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
-				ThumbSize="38" HorizontalAlignment="Center" Margin="0,12,0,0" CheckedContent="DRIVE ON" UncheckedContent="DRIVE OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
-				Style="{DynamicResource MotorOnStyleofTumb}" ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" Background="#00000000" >
-                <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF4D4E48"/>
-                        <GradientStop Color="#FF333430" Offset="1"/>
-                        <GradientStop Color="#FF333330" Offset="0.021"/>
-                    </LinearGradientBrush>
-                </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
-            </ToggleSwitch:HorizontalToggleSwitch>
+        </StackPanel>-->
 
-        </StackPanel>
 
+        <common:CollapsableGridSplitter Grid.Column="1"              
+			Width="9"
+			Margin="3,0,0,0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Stretch"
+			CollapseMode="Previous"
+			IsCollapsed="False"
+			IsTabStop="False" 
+            ResizeDirection="Columns"
+            Cursor="Hand"
+            ResizeBehavior="PreviousAndNext"/>
     </Grid>
 
-
     <!--if down grid collapse-->
-
-
-
-
-
 </UserControl>
 

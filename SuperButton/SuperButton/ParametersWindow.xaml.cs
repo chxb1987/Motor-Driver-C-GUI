@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SuperButton.ViewModels;
 using SuperButton.Models.DriverBlock;
-
+using System.Windows.Controls.Primitives;
 
 namespace SuperButton.Views
 {
@@ -47,6 +47,11 @@ namespace SuperButton.Views
         private void ItemsControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+        private void HandleChecked(object sender, RoutedEventArgs e)
+        {
+            ToggleButton toggle = sender as ToggleButton;
+            toggle.Background = new SolidColorBrush(Colors.Orange);
         }
     }
 }

@@ -24,5 +24,15 @@ namespace SuperButton.Views
         {
             InitializeComponent();
         }
+
+        private void KeyBinding_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MerchantReferenceCopyToClipboard(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,34 +1,21 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.RightsManagement;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
-using System.Windows;
-using System.Windows.Input;
 using Abt.Controls.SciChart;
 using Abt.Controls.SciChart.Example.Common;
-using Abt.Controls.SciChart.Example.Data;
 using Abt.Controls.SciChart.Model.DataSeries;
 using Abt.Controls.SciChart.Numerics;
-using Abt.Controls.SciChart.Rendering.Common;
-using Abt.Controls.SciChart.Rendering.HighQualityRasterizer;
-using Abt.Controls.SciChart.Rendering.HighSpeedRasterizer;
-using Abt.Controls.SciChart.Visuals;
 using SuperButton.Common;
-using SuperButton.Data;
 using SuperButton.Models.DriverBlock;
-using SuperButton.Models.ParserBlock;
 using SuperButton.ViewModels;
 using Timer = System.Timers.Timer;
+using SuperButton.Models.ParserBlock;
+
 //Cntl+M and Control+O for close regions
 namespace SuperButton.Views
 {
@@ -48,14 +35,30 @@ namespace SuperButton.Views
         //CH1 ComboBox
         int ch1;
         private string _ch1Title;
-        private List<string> _channel1SourceItems = new List<string>();
-        public List<string> Channel1SourceItems { get; set; }
+        public List<string> _channel1SourceItems = new List<string>();
+        public List<string> Channel1SourceItems
+        {
+            //get; set;
+            get { return _channel1SourceItems; }
+            set
+            {
+                _channel1SourceItems = value;
+                OnPropertyChanged("Channel1SourceItems");
+            }
+        }
         private string _selectedCh1DataSource;
         //CH2 ComboBox
         int ch2;
         private string _ch2Title;
-
-        public List<string> Channel2SourceItems { get; set; }
+        public List<string> Channel2SourceItems
+        {
+            get { return _channel1SourceItems; }
+            set
+            {
+                _channel1SourceItems = value;
+                OnPropertyChanged("Channel2SourceItems");
+            }
+        }
         private string _selectedCh2DataSource;
 
         private UInt16 plotActivationstate;
@@ -83,15 +86,15 @@ namespace SuperButton.Views
 
 
         readonly List<float> AllYData = new List<float>(500000);
-
         readonly List<float> AllYData2 = new List<float>(500000);
-
+        readonly List<float> AllYData3 = new List<float>(500000);
+        readonly List<float> AllYData4 = new List<float>(500000);
 
 
 
 
         //Debug Vars
-        private float Averadge = 0;
+        //private float Averadge = 0;
 
 
         private DoubleRange _xVisibleRange;
@@ -104,7 +107,7 @@ namespace SuperButton.Views
         private ResamplingMode _resamplingMode;
         private bool _canExecuteRollover;
 
-        private Thread SciThread;
+        //private Thread SciThread;
         //  private int FlowControl = 500;
 
         //  private int MinimumChank = 3300/10 ;
@@ -112,8 +115,8 @@ namespace SuperButton.Views
         //  private double _duration = 500;
         //  private int POintstoPlot = 3300; //0.5 sec - 1 channel
 
-        private int MinimumChank = 33000;
-        private int MinimumFillChank = 3300 / 5;
+        //private int MinimumChank = 33000;
+        //private int MinimumFillChank = 3300 / 5;
 
         private int POintstoPlot = 33000; //5 sec min
 
@@ -127,7 +130,7 @@ namespace SuperButton.Views
         private const double TimerIntervalMs = 1;
 
         private int ucarry;
-        private int ustate = 0;
+        //private int ustate = 0;
 
 
         //Umprove
@@ -507,6 +510,21 @@ namespace SuperButton.Views
         //}
 
         #region Constractor
+        private static OscilloscopeViewModel _instance;
+        private static readonly object Synlock = new object(); //Single tone variable
+        public static OscilloscopeViewModel GetInstance
+        {
+            get
+            {
+                lock (Synlock)
+                {
+                    if (_instance != null) return _instance;
+                    _instance = new OscilloscopeViewModel();
+                    return _instance;
+                }
+            }
+        }
+
         public OscilloscopeViewModel()
         {
             //Initial frame duration is 5 seconds
@@ -515,13 +533,12 @@ namespace SuperButton.Views
             xData = new float[0];
             _yFloats = new float[0];
             _yFloats2 = new float[0];
+            _yFloats3 = new float[0];
+            _yFloats4 = new float[0];
 
             FillDictionary();
             Thread.Sleep(100);
             ResetZoom();
-
-
-
         }
         private void FillDictionary()
         {
@@ -553,11 +570,17 @@ namespace SuperButton.Views
             _channel1SourceItems.Add("Cla_filt0");
             _channel1SourceItems.Add("Cmd_Ref");
             _channel1SourceItems.Add("Cmd_Ref_filt");
+            _channel1SourceItems.Add("SinEnc");
+            _channel1SourceItems.Add("CosEnc");
+            _channel1SourceItems.Add("InterAngle");
+            _channel1SourceItems.Add("SpeedRefPI");
+            _channel1SourceItems.Add("SpeedFdb");
+            _channel1SourceItems.Add("CurrentRefPI");
 
             //update Ch1 ComboBox
-            Channel1SourceItems = _channel1SourceItems;
+            //Channel1SourceItems = _channel1SourceItems;
             //update Ch2 ComboBox
-            Channel2SourceItems = _channel1SourceItems;
+            //Channel2SourceItems = Channel1SourceItems;// _channel1SourceItems;
 
 
             ChannelYtitles.Add("Pause", "");
@@ -585,7 +608,13 @@ namespace SuperButton.Views
             ChannelYtitles.Add("Test_Signal", "");
             ChannelYtitles.Add("Cla_filt0", "");
             ChannelYtitles.Add("Cmd_Ref", "");
-            ChannelYtitles.Add("Cmd_Ref_filt", "");
+            ChannelYtitles.Add("Cmd_Ref_filt", "");//28
+            ChannelYtitles.Add("SinEnc", ""); //31
+            ChannelYtitles.Add("CosEnc", ""); //32
+            ChannelYtitles.Add("InterAngle", ""); //33
+            ChannelYtitles.Add("SpeedRefPI", ""); //34
+            ChannelYtitles.Add("SpeedFdb", ""); //35
+            ChannelYtitles.Add("CurrentRefPI", ""); //36
         }
         #endregion
         #region ActionCommnds
@@ -624,16 +653,13 @@ namespace SuperButton.Views
         {
             get { return new ActionCommand(ResetZoom); }
         }
-
-
-
         #endregion
 
         public ActionCommand PlotReset
         {
             get { return new ActionCommand(() => isReset = true); }
         }
-        public new EventHandler doubleClick;
+        //public new EventHandler doubleClick;
         private object isReset = false;
         public object IsReset
         {
@@ -657,9 +683,13 @@ namespace SuperButton.Views
 
         private int _chan1Counter = 0;
         private int _chan2Counter = 0;
+        private int _chan3Counter = 0;
+        private int _chan4Counter = 0;
 
         private IXyDataSeries<float, float> _series1;
         private IXyDataSeries<float, float> _series0;
+        private IXyDataSeries<float, float> _series2;
+        private IXyDataSeries<float, float> _series3;
 
         public string SelectedCh1DataSource
         {
@@ -682,9 +712,10 @@ namespace SuperButton.Views
 
                     //Packetizer.GetInstance.PlotPacketsList.Clear();   
 
-                    ch1 = _channel1SourceItems.FindIndex(x => x.Contains(_selectedCh1DataSource));
-                    //y axle update
+                    ch1 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh1DataSource));
                     ChannelsYaxeMerge(ch1, 1);
+
+                    //y axle update
                     if (Rs232Interface.GetInstance.IsSynced)
                     {
                         //Send command to the target 
@@ -693,7 +724,7 @@ namespace SuperButton.Views
                         RxPacket.IsFloat = false;
                         RxPacket.IsSet = true;
                         RxPacket.SubID = 1;
-                        RxPacket.Data2Send = ch1;
+                        RxPacket.Data2Send = (ch1 >= 28) ? ch1 + 3 : ch1;
                         //rise event
                         Rs232Interface.GetInstance.SendToParser(RxPacket);
                         ChannelsplotActivationMerge();
@@ -716,8 +747,8 @@ namespace SuperButton.Views
                     //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
                     //if (Rs232Interface._comPort != null)
                     //    Rs232Interface.GetInstance.Connect();
-                    OnPropertyChanged("SelectedDataSource");
                 }
+                OnPropertyChanged("SelectedCh1DataSource");
             }
         }
         public string SelectedCh2DataSource
@@ -740,9 +771,10 @@ namespace SuperButton.Views
 
 
 
-                    ch2 = _channel1SourceItems.FindIndex(x => x.Contains(_selectedCh2DataSource));
+                    ch2 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh2DataSource));
                     //y axle update
                     ChannelsYaxeMerge(ch2, 2);
+
                     if (Rs232Interface.GetInstance.IsSynced)
                     {
                         //Send command to the target 
@@ -751,7 +783,7 @@ namespace SuperButton.Views
                         RxPacket.IsFloat = false;
                         RxPacket.IsSet = true;
                         RxPacket.SubID = 2;
-                        RxPacket.Data2Send = ch2;
+                        RxPacket.Data2Send = (ch2 >= 28) ? ch2 + 3 : ch2;
                         //rise event
                         Rs232Interface.GetInstance.SendToParser(RxPacket);
                         ChannelsplotActivationMerge();
@@ -768,7 +800,7 @@ namespace SuperButton.Views
                     ChannelYtitles.TryGetValue(_selectedCh2DataSource, out _ch2Title);
                     //update tittle
                     YaxeTitle = _ch1Title == _ch2Title ? _ch1Title : "";
-                    OnPropertyChanged("SelectedCh2DataSource");
+
 
 
                     //Packetizer.GetInstance.PlotPacketsList.Clear();
@@ -777,6 +809,7 @@ namespace SuperButton.Views
                     //}
                     //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
                 }
+                OnPropertyChanged("SelectedCh2DataSource");
             }
         }
 
@@ -788,6 +821,8 @@ namespace SuperButton.Views
             {
                 _series0 = new XyDataSeries<float, float>();
                 _series1 = new XyDataSeries<float, float>();
+                _series2 = new XyDataSeries<float, float>();
+                _series3 = new XyDataSeries<float, float>();
 
                 // if (ChartModifier == ModifierType.Rollover) SetModifier(ModifierType.CrosshairsCursor);
                 // SeriesResamplingMode = ResamplingMode.Auto;
@@ -797,6 +832,10 @@ namespace SuperButton.Views
                 ChartData = _series0;
                 _series1.Clear();
                 ChartData1 = _series1;
+                //_series2.Clear();
+                //ChartData2 = _series2;
+                //_series3.Clear();
+                //ChartData3 = _series3;
 
                 OnExampleEnter();
                 plotActivationstate = 1;
@@ -841,20 +880,24 @@ namespace SuperButton.Views
         }
         private void ChannelsYaxeMerge(int ch, int comboBox)
         {
-            //Channel One
-            switch (comboBox)
+            if (ch >= 0 && OscilloscopeParameters.ScaleAndGainList.Count != 0)
             {
-                case (1):
-                    _chan1Counter = (ch == 0) ? 0 : 1;
-                    //Update Y axel, gain,fullscale
-                    OscilloscopeParameters.Gain = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item1;
-                    OscilloscopeParameters.FullScale = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item2;
-                    break;
-                case (2):
-                    _chan2Counter = (ch == 0) ? 0 : 1;
-                    OscilloscopeParameters.Gain2 = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item1;
-                    OscilloscopeParameters.FullScale2 = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item2;
-                    break;
+
+                //Channel One
+                switch (comboBox)
+                {
+                    case (1):
+                        _chan1Counter = (ch == 0) ? 0 : 1;
+                        //Update Y axel, gain,fullscale
+                        OscilloscopeParameters.Gain = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item1;
+                        OscilloscopeParameters.FullScale = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item2;
+                        break;
+                    case (2):
+                        _chan2Counter = (ch == 0) ? 0 : 1;
+                        OscilloscopeParameters.Gain2 = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item1;
+                        OscilloscopeParameters.FullScale2 = OscilloscopeParameters.ScaleAndGainList.ElementAt(ch).Item2;
+                        break;
+                }
             }
 
             OscilloscopeParameters.ChanTotalCounter = _chan1Counter + _chan2Counter;
@@ -999,6 +1042,25 @@ namespace SuperButton.Views
                 OnPropertyChanged("ChartData1");
             }
         }
+        public IXyDataSeries<float, float> ChartData2
+        {
+            get { return _series0; }
+            set
+            {
+                _series0 = value;
+                OnPropertyChanged("ChartData2");
+            }
+        }
+        public IXyDataSeries<float, float> ChartData3
+        {
+            get { return _series1; }
+            set
+            {
+                _series1 = value;
+                OnPropertyChanged("ChartData3");
+            }
+        }
+
 
         private void ResetZoom()
         {
@@ -1114,13 +1176,21 @@ namespace SuperButton.Views
 
         private float[] _yFloats;
         private float[] _yFloats2;
+        private float[] _yFloats3;
+        private float[] _yFloats4;
+
         private float[] temp3;
         private float[] temp4;
+        private float[] temp5;
+        private float[] temp6;
         private int carry;
         private int carry2;
+        private int carry3;
+        private int carry4;
         private float[] yDataTemp;
         private float[] yDataTemp2;
-
+        private float[] yDataTemp3;
+        private float[] yDataTemp4;
         /* On ticj function */
 
         private void OnTick(object sender, EventArgs e)
@@ -1252,7 +1322,7 @@ namespace SuperButton.Views
 
                                         utemp3L = new List<float>();
 
-                                        for (int i = 0, j = 0; i < temp.Length; i++)
+                                        for (int i = 0/*, j = 0*/; i < temp.Length; i++)
                                         {
                                             if (_undesampleCounter++ == (_undesample - 1))
                                             {
@@ -1277,7 +1347,7 @@ namespace SuperButton.Views
                                     {
                                         utemp3L = new List<float>();
 
-                                        for (int i = 0, j = 0; i < temp.Length; i++)
+                                        for (int i = 0/*, j = 0*/; i < temp.Length; i++)
                                         {
                                             if (_undesampleCounter++ == (_undesample - 1))
                                             {
@@ -1362,7 +1432,7 @@ namespace SuperButton.Views
                                     utemp3 = AllYData.Take(POintstoPlot).ToArray(); //Take Data
                                     ucarry = utemp3.Length;
 
-                                    for (int i = 0, j = 0; i < utemp3.Length; i++)
+                                    for (int i = 0/*, j = 0*/; i < utemp3.Length; i++)
                                     {
                                         if (_undesampleCounter++ == (_undesample - 1))
                                         {
@@ -1540,6 +1610,7 @@ namespace SuperButton.Views
 
                                 temp3 = AllYData.Take(POintstoPlot).ToArray();
                                 temp4 = AllYData2.Take(POintstoPlot).ToArray();
+
                                 carry = temp3.Length;
                                 carry2 = temp4.Length;
                                 //1
@@ -1553,7 +1624,6 @@ namespace SuperButton.Views
                                 Array.Copy(_yFloats2, carry, yDataTemp2, 0, _yFloats2.Length - (carry2)); //Shift Left
                                 Array.Copy(temp4, 0, yDataTemp2, _yFloats2.Length - carry2, carry2); // Add range
                                 Array.Copy(yDataTemp2, 0, _yFloats2, 0, POintstoPlot);
-
 
                                 for (int i = 0; i < POintstoPlot; i++)
                                 {
@@ -1575,7 +1645,221 @@ namespace SuperButton.Views
 
                                 AllYData.RemoveRange(0, (carry) - 1);
                                 AllYData2.RemoveRange(0, (carry2) - 1);
+                                break;
+                        }
+                    }
+                    #endregion
+                }
+                else if (OscilloscopeParameters.ChanTotalCounter == 3)// Three channels
+                {
+                    #region ThreeChan
+                    if (ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
+                    {
+                        if (AllYData.Count > 1 && _isFull)
+                        {
+                            State = 4;
+                        }
+                        else
+                            return;
+                    }
+                    else if (ActChenCount == 1)//First throw
+                    {
+                        float item;
+                        float item2;
 
+                        //Collect data from first channel
+                        while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
+                        {
+                            ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item2);
+                        }
+                        ActChenCount = 0;
+                    }
+                    else //Collect whole the Data to the single grand list
+                    {
+                        List<float> ytemp = new List<float>();
+                        List<float> ytemp2 = new List<float>();
+                        List<float> ytemp3 = new List<float>();
+                        List<float> ytemp4 = new List<float>();
+                        float item;
+                        float item2;
+                        float item3;
+                        float item4;
+
+                        //Collect data from first channel
+                        while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
+                        {
+                            ytemp.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
+                            ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item2);
+                            ytemp2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
+                            //ParserRayonM1.GetInstanceofParser.FifoplotListCh3.TryDequeue(out item3);
+                            //ytemp3.Add(item3 * OscilloscopeParameters.Gain3 * OscilloscopeParameters.FullScale3);
+                            //ParserRayonM1.GetInstanceofParser.FifoplotListCh4.TryDequeue(out item4);
+                            //ytemp4.Add(item4 * OscilloscopeParameters.Gain4 * OscilloscopeParameters.FullScale4);
+                        }
+
+                        //Collect data from second channel
+                        //    while (ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item))
+                        //    {
+
+                        //     }
+
+                        AllYData.AddRange(ytemp);
+                        AllYData2.AddRange(ytemp2);
+                        AllYData3.AddRange(ytemp3);
+                        AllYData4.AddRange(ytemp4);
+
+                        if (_isFull)
+                        {
+                            State = 4;
+                        }
+                        else if (POintstoPlot > pivot && _isFull == false)
+                        //fills buffer             
+                        {
+                            State = 2;
+                        }
+                        else if (POintstoPlot == pivot && _isFull == false) //buffer is full
+                        {
+                            _isFull = true;
+                            State = 4;
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                        switch (State)
+                        {
+
+                            case (2): //Fills y buffer
+
+                                float[] temp;
+                                float[] temp2;
+
+                                if ((POintstoPlot - pivot) > 0)
+                                {
+                                    temp2 = AllYData2.Take(POintstoPlot - pivot).ToArray();
+                                    temp = AllYData.Take(POintstoPlot - pivot).ToArray();
+
+                                }
+                                else
+                                    return;
+
+
+                                if (_yFloats.Length == 0) //Start fills
+                                {
+                                    _yFloats = new float[temp.Length];
+                                    _yFloats2 = new float[temp2.Length];
+
+                                    xData = new float[temp.Length];
+
+                                    for (int i = 0; i < temp.Length; i++)
+                                    {
+                                        xData[i] = i * OscilloscopeParameters.Step;
+                                    }
+
+                                    Array.Copy(temp, 0, _yFloats, 0, temp.Length);
+                                    Array.Copy(temp2, 0, _yFloats2, 0, temp2.Length);
+                                    pivot = temp.Length;
+                                } //Follow
+                                else
+                                {
+                                    Array.Resize(ref xData, temp.Length + pivot);
+                                    Array.Resize(ref _yFloats, temp.Length + pivot);
+                                    Array.Resize(ref _yFloats2, temp2.Length + pivot);
+
+                                    for (int i = 0; i < pivot + temp.Length; i++)
+                                    {
+                                        xData[i] = i * OscilloscopeParameters.Step;
+                                    }
+                                    Array.Copy(temp, 0, _yFloats, pivot, temp.Length);
+                                    Array.Copy(temp2, 0, _yFloats2, pivot, temp.Length);
+                                    pivot = pivot + temp.Length;
+                                }
+
+
+                                lock (this)
+                                {
+                                    using (this.ChartData.SuspendUpdates())
+                                    {
+                                        using (this.ChartData1.SuspendUpdates())
+                                        {
+                                            _series0.Clear();
+                                            _series1.Clear();
+                                            _series0.Append(xData, _yFloats);
+                                            _series1.Append(xData, _yFloats2);
+                                        }
+                                    }
+                                }
+
+                                AllYData.RemoveRange(0, temp.Length - 1);
+                                AllYData2.RemoveRange(0, temp2.Length - 1);
+
+                                break;
+
+                            case (4):
+
+                                temp3 = AllYData.Take(POintstoPlot).ToArray();
+                                temp4 = AllYData2.Take(POintstoPlot).ToArray();
+                                temp5 = AllYData.Take(POintstoPlot).ToArray();
+                                for (int i = 0; i < temp5.Length; i++)
+                                    temp5[i] = temp5[i] + 10;
+                                temp6 = AllYData2.Take(POintstoPlot).ToArray();
+                                for (int i = 0; i < temp6.Length; i++)
+                                    temp6[i] = temp6[i] - 50;
+                                carry = temp3.Length;
+                                carry2 = temp4.Length;
+                                carry3 = temp5.Length;
+                                carry4 = temp6.Length;
+                                //1
+                                yDataTemp = new float[POintstoPlot];
+                                Array.Copy(_yFloats, carry, yDataTemp, 0, _yFloats.Length - (carry)); //Shift Left
+                                Array.Copy(temp3, 0, yDataTemp, _yFloats.Length - carry, carry); // Add range
+                                Array.Copy(yDataTemp, 0, _yFloats, 0, POintstoPlot);
+
+                                //2
+                                yDataTemp2 = new float[POintstoPlot];
+                                Array.Copy(_yFloats2, carry, yDataTemp2, 0, _yFloats2.Length - (carry2)); //Shift Left
+                                Array.Copy(temp4, 0, yDataTemp2, _yFloats2.Length - carry2, carry2); // Add range
+                                Array.Copy(yDataTemp2, 0, _yFloats2, 0, POintstoPlot);
+
+                                ////3
+                                //yDataTemp3 = new float[POintstoPlot];
+                                //Array.Copy(_yFloats3, carry3, yDataTemp3, 0, _yFloats3.Length - (carry3)); //Shift Left
+                                //Array.Copy(temp5, 0, yDataTemp3, _yFloats3.Length - carry3, carry3); // Add range
+                                //Array.Copy(yDataTemp3, 0, _yFloats3, 0, POintstoPlot);
+
+                                ////4
+                                //yDataTemp4 = new float[POintstoPlot];
+                                //Array.Copy(_yFloats4, carry4, yDataTemp4, 0, _yFloats4.Length - (carry4)); //Shift Left
+                                //Array.Copy(temp6, 0, yDataTemp4, _yFloats4.Length - carry4, carry4); // Add range
+                                //Array.Copy(yDataTemp4, 0, _yFloats4, 0, POintstoPlot);
+
+                                for (int i = 0; i < POintstoPlot; i++)
+                                {
+                                    xData[i] = i * (OscilloscopeParameters.Step * _undesample);
+                                }
+
+
+                                using (this.ChartData.SuspendUpdates())
+                                {
+                                    using (this.ChartData1.SuspendUpdates())
+                                    {
+                                        _series0.Clear();
+                                        _series1.Clear();
+                                        _series2.Clear();
+                                        _series3.Clear();
+                                        _series0.Append(xData, _yFloats);
+                                        _series1.Append(xData, _yFloats2);
+                                        _series2.Append(xData, _yFloats3);
+                                        _series3.Append(xData, _yFloats4);
+                                    }
+                                }
+
+
+                                AllYData.RemoveRange(0, (carry) - 1);
+                                AllYData2.RemoveRange(0, (carry2) - 1);
+                                AllYData3.RemoveRange(0, (carry3) - 1);
+                                AllYData4.RemoveRange(0, (carry4) - 1);
                                 break;
                         }
                     }
@@ -1615,10 +1899,10 @@ namespace SuperButton.Views
         }
 
         private string filePath;
-        private float RecDtx = 0;
-        private int _xlsCounter = 0;
+        //private float RecDtx = 0;
+        //private int _xlsCounter = 0;
         private bool RecFlag = false;
-        private float ChangeValue = 0;
+        //private float ChangeValue = 0;
         string delimiter = ",";
 
         public void Record()
@@ -1648,11 +1932,11 @@ namespace SuperButton.Views
                     Thread.Sleep(100);
                     StringBuilder sb = new StringBuilder();
 
-                        // string[] output = new string[RecList.Count];
+                    // string[] output = new string[RecList.Count];
 
-                        // float[] xxls = new float[RecList.Count];
+                    // float[] xxls = new float[RecList.Count];
 
-                        float[] yxls = RecList.ToArray();
+                    float[] yxls = RecList.ToArray();
 
                     string[] xstring = new string[RecList.Count];
                     string[] ystring = new string[RecList.Count];
@@ -1666,8 +1950,8 @@ namespace SuperButton.Views
 
 
 
-                        // sb.AppendLine(string.Join(delimiter, xstring, ystring));
-                        File.AppendAllText(filePath, sb.ToString());
+                    // sb.AppendLine(string.Join(delimiter, xstring, ystring));
+                    File.AppendAllText(filePath, sb.ToString());
                     sb.Clear();
 
                     RecList.Clear();
@@ -1676,6 +1960,29 @@ namespace SuperButton.Views
 
         }
 
+        private bool _is_recording = false;
+        public bool IsRecording
+        {
+            get { return _is_recording; }
+            set
+            {
+                if (_is_recording == value) { return; }
+                if (LeftPanelViewModel.flag)
+                    _is_recording = value;
+                else
+                {
+                    if (!MessageBoxWrapper.IsOpen)
+                    {
+                        string msg = string.Format("No Serial connection detected !");
+                        MessageBoxWrapper.Show(msg, "");
+                    }
+                    _is_recording = false;
+                }
+                //SaveToDisk.IsRecording = value;
+
+                OnPropertyChanged("IsRecording");
+            }
+        }
 
     }
 
