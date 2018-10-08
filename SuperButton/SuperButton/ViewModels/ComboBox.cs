@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -24,10 +25,10 @@ namespace SuperButton.ViewModels
         }
 
         #region commands
-        public ICommand DropDownOpenedCommand
-        {
-            get { return _dropDownOpenedCommand ?? (_dropDownOpenedCommand = new RelayCommand(UpdateComList)); }
-        }
+        //public ICommand DropDownOpenedCommand
+        //{
+        //    get { return _dropDownOpenedCommand ?? (_dropDownOpenedCommand = new RelayCommand(UpdateComList)); }
+        //}
 
 
         #endregion
@@ -76,19 +77,24 @@ namespace SuperButton.ViewModels
 
         public void UpdateComList()
         {
-            string[] ports = SerialPort.GetPortNames();
-            string temp = ComString;
-            ComList.Clear();
-            foreach (string item in ports)
+            while (true)
             {
-                if ((ComList.Where(x => x == item).FirstOrDefault() == null))
-                {
-                    ComList.Add(item);
-                }
+                //string[] ports = SerialPort.GetPortNames();
+                //string temp = ComString;
+                //ComList.Clear();
+                //foreach (string item in ports)
+                //{
+                    //if ((ComList.Where(x => x == item).FirstOrDefault() == null))
+                    //{
+                        //ComList.Add(item);
+                    //}
 
+                //}
+                //if (ComList.Contains(ComString))
+                    //ComString = temp;
+
+                Thread.Sleep(1000);
             }
-            if (ComList.Contains(ComString))
-                ComString = temp;
         }
         #endregion Methods
 

@@ -8,20 +8,15 @@ namespace SuperButton.Models
 {
     class AllowableCharactersTextBoxBehavior : Behavior<TextBox>
     {
-
-
         protected override void OnAttached()
         {
             base.OnAttached();
             AssociatedObject.PreviewTextInput += OnPreviewTextInput;
-
             DataObject.AddPastingHandler(AssociatedObject, OnPaste);
-
         }
         void OnPreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             var txt = sender as TextBox;
-
             if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text);
         }
 
@@ -46,13 +41,17 @@ namespace SuperButton.Models
         private bool IsValid(string newText, bool paste, string currentvalue)
         {
             int integ;
-
+            if (currentvalue == "" && newText == "-")
+                return true;
             if (currentvalue.Contains('.'))
             {
                 if (Int32.TryParse(newText, out integ))
                     return true;
                 return false;
-
+            }
+            if (currentvalue.Contains('-') && newText != "-")
+            {
+                return true;
             }
             if (Int32.TryParse(newText, out integ))
                 return true;
@@ -61,6 +60,5 @@ namespace SuperButton.Models
                 return true;
             return false;
         }
-
     }
 }

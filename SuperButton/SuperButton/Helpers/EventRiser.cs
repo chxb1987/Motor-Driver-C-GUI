@@ -18,6 +18,8 @@ namespace SuperButton.Helpers
         {
             get
             {
+                if (_instance == null)
+                    return new EventRiser();
                 return _instance;
             }
 

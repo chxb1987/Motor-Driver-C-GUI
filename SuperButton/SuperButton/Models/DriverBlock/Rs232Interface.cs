@@ -152,8 +152,13 @@ namespace SuperButton.Models.DriverBlock
             else
             {
                 _isSynced = false;
+                _comPort.DataReceived -= DataReceived;
+                _comPort.Close();
                 _comPort.Dispose();
+                Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
+
             }
+            LeftPanelViewModel.GetInstance.EnRefresh = false;
         }
 
         #region Auto_Connect
@@ -364,6 +369,8 @@ namespace SuperButton.Models.DriverBlock
                 if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
                 { /*int i = 0; */}
                 // messege.Data2Send = "0.5";
+                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
+
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
                 Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
 
@@ -383,6 +390,8 @@ namespace SuperButton.Models.DriverBlock
                 //catch { }
 
             }
+            EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
+
         }
 
         #endregion

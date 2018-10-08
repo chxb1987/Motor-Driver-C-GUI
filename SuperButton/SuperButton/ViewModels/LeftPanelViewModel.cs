@@ -73,7 +73,9 @@ namespace SuperButton.ViewModels
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
             EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
             EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
-            _comboBox = new ComboBox();            
+            _comboBox = new ComboBox();
+            Task task = Task.Run((Action)_comboBox.UpdateComList);
+
         }
         public ComboBox ComboBoxCOM
         {
@@ -91,6 +93,8 @@ namespace SuperButton.ViewModels
                 {
                     LeftPanelViewModel.flag = true;
                     Task task = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                    Task task1 = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
+
                 }
                 if (_connetButtonContent == value) return;
                 _connetButtonContent = value;
@@ -246,7 +250,7 @@ namespace SuperButton.ViewModels
         #endregion
 
         #region TXRXLed
-        private int TxCount = 0, RxCount = 0;
+        private static int TxCount = 0, RxCount = 0;
         private int _led_statusTx;
         public int LedStatusTx
         {
@@ -637,11 +641,42 @@ namespace SuperButton.ViewModels
         {
             while (flag)
             {
-                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
+                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
                 RefreshManger.GetInstance.StartRefresh();
-                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
+                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
                 Thread.Sleep(1000);
                 //flag = false; // Joseph added
+            }
+        }
+
+        public static void VerifyDriverCom()
+        {
+            int count = 0;
+            while (flag)
+            {
+
+                int oldTx = TxCount; int oldRx = RxCount;
+                Thread.Sleep(1000);
+                if (oldTx!= 0 && oldTx == TxCount && oldRx == RxCount)
+                    count++;
+                else
+                    count = 0;
+                if (oldRx == RxCount && count == 2)
+                {
+
+                    count = 0;
+                    flag = false;
+                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
+                    taskDisconnect.Start();
+                    EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
+                    EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+                    if (!MessageBoxWrapper.IsOpen)
+                    {
+                        string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
+                        MessageBoxWrapper.Show(msg, "");
+                    }
+
+                }
             }
         }
         #endregion

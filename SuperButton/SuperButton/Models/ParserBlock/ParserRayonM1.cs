@@ -464,6 +464,7 @@ namespace SuperButton.Models.ParserBlock
         }
         private bool ParseInputPacket(byte[] data)
         {
+
             var crclsb = data[7];
             var crcmsb = data[8];
 

@@ -23,6 +23,7 @@ namespace SuperButton.Common
             }
             else
             {
+                System.Media.SystemSounds.Asterisk.Play();
                 Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => {
                     SuperButton.Views.MesageBox message = new Views.MesageBox(messageBoxText);
                     message.ShowDialog();

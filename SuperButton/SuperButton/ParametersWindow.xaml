@@ -50,8 +50,7 @@
                         </Grid.RowDefinitions>
                         <GroupBox  Header="Control" Grid.Row="0">
                             <ItemsControl ItemsSource="{Binding ControlList}" 
-                                          ItemTemplate="{StaticResource EnumViewModel}" 
-                                          
+                                          ItemTemplate="{StaticResource EnumViewModel}"
                                           Margin="0,4,0,-4"/>
                         </GroupBox>
                         <GroupBox Header="Motor" Grid.Row="1" Margin="0,10,0,0">

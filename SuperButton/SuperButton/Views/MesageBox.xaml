@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Warning" Height="250" Width="300"
+        Title="Warning" Height="150" Width="300"
         Icon="../Themes/redler.jpg">
     
     <Window.DataContext>
@@ -20,13 +20,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"/>
-            <RowDefinition Height="30*"/>
+            <RowDefinition Height="35*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="pack://siteoforigin:,,,/HomeBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <TextBlock x:Name="MessageBlock"  Width="200" Height="100" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" ></TextBlock>
+        <TextBlock x:Name="MessageBlock"  Width="200" Height="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" ></TextBlock>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
