@@ -360,7 +360,6 @@ namespace SuperButton.Models.DriverBlock
             }
         }
 
-
         public void SendToParser(PacketFields messege)
         {
             if (RxtoParser != null)

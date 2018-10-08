@@ -138,7 +138,7 @@ namespace SuperButton.Models.DriverBlock
                 case 6:
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
-                case 7:
+                case 10: // 7
                     arr = new string[] { "Maintenance List", "MaintenanceBool List" };
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
@@ -233,23 +233,23 @@ namespace SuperButton.Models.DriverBlock
             }
             if (commandidentifier.Item1 == 63)
             {
-                switch (commandidentifier.Item2)
-                {
-                    case 0:
-                        MaintenanceViewModel.GetInstance.Save = (newPropertyValue == 0.ToString()) ? false : true;
-                        break;
-                    case 1:
-                        MaintenanceViewModel.GetInstance.Manufacture = (newPropertyValue == 0.ToString()) ? false : true;
-                        break;
-                    case 2:
-                        MaintenanceViewModel.GetInstance.Reboot = (newPropertyValue == 0.ToString()) ? false : true;
-                        break;
-                    case 10:
-                        MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
-                        break;
-                    default:
-                        break;
-                }
+                //switch (commandidentifier.Item2)
+                //{
+                //    case 0:
+                //        MaintenanceViewModel.GetInstance.Save = (newPropertyValue == 0.ToString()) ? false : true;
+                //        break;
+                //    case 1:
+                //        MaintenanceViewModel.GetInstance.Manufacture = (newPropertyValue == 0.ToString()) ? false : true;
+                //        break;
+                //    case 2:
+                //        MaintenanceViewModel.GetInstance.Reboot = (newPropertyValue == 0.ToString()) ? false : true;
+                //        break;
+                //    case 10:
+                //        MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
             if (commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0)
             {

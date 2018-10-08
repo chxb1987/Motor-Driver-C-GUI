@@ -104,11 +104,14 @@ namespace SuperButton.Models.ParserBlock
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
                 if (LeftPanelViewModel.GetInstance != null)
-                {
+                { // perform Get after "set" function
                     if (LeftPanelViewModel.flag == true && LeftPanelViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
                     {
-                        ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, false,
-                        e.PacketRx.IsFloat);
+                        if (e.PacketRx.ID != 63)
+                        {
+                            ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, false,
+                            e.PacketRx.IsFloat);
+                        }
                     }
                 }
             }//Add Here aditional parsers...

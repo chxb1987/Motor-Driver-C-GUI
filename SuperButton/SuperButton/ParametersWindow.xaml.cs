@@ -32,7 +32,7 @@ namespace SuperButton.Views
             ParametarsWindow.WindowsOpen = true;
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             LeftPanelViewModel.GetInstance.Close_parmeterWindow();
             WindowsOpen = false;

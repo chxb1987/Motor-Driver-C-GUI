@@ -122,6 +122,11 @@
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendData}"></KeyBinding>
                         </TextBox.InputBindings>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </TextBox>
                 </Border>
 

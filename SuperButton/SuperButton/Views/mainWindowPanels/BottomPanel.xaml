@@ -7,6 +7,7 @@
 	xmlns:superButton="clr-namespace:SuperButton"
 	xmlns:views="clr-namespace:SuperButton.Views"
 	xmlns:behaviors="clr-namespace:SuperButton.Behaviors"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	mc:Ignorable="d"
 	x:Class="SuperButton.BottomPanel"
 	x:Name="UserControl"
@@ -537,7 +538,16 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <ItemsControl Width="Auto" HorizontalContentAlignment="Center" Grid.Row="0" VerticalAlignment="Top"  HorizontalAlignment="Left" ItemsSource="{Binding MotionCommandList}" ItemTemplate="{StaticResource DataViewSmallFont}"/>
+                                    <ItemsControl Width="Auto" 
+                                                  x:Name="MotionCommands"
+                                                  HorizontalContentAlignment="Center" 
+                                                  Grid.Row="0" 
+                                                  VerticalAlignment="Top"  
+                                                  HorizontalAlignment="Left" 
+                                                  ItemsSource="{Binding MotionCommandList}" 
+                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
+                                        
+                                    </ItemsControl>
                                     <ItemsControl 
                                              HorizontalContentAlignment="Left"
                                              Grid.Row="1" 

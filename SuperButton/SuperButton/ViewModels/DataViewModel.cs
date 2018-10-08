@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using SuperButton.Models;
 using SuperButton.Models.DriverBlock;
+using MathNet.Numerics;
+
 namespace SuperButton.ViewModels
 {
     public class DataViewModel : ViewModelBase
@@ -9,6 +11,8 @@ namespace SuperButton.ViewModels
 
 
         private readonly BaseModel _baseModel = new BaseModel();
+        ICommand _mouseLeftClickCommand;
+        public event System.Windows.Input.MouseButtonEventHandler MouseLeftButtonDown;
 
         public string CommandName { get { return _baseModel.CommandName; } set { _baseModel.CommandName = value; } }
 
@@ -41,12 +45,11 @@ namespace SuperButton.ViewModels
 
         public bool IsFloat { get { return _baseModel.IsFloat; } set { _baseModel.IsFloat = value; } }
 
+        public bool IsSelected { get { return _baseModel.IsSelected; } set { _baseModel.IsSelected = value; } }
         public virtual ICommand SendData
         {
             get
             {
-
-
                 return new RelayCommand(BuildPacketTosend, CheckValue);
             }
         }
@@ -64,9 +67,22 @@ namespace SuperButton.ViewModels
                 ID = Convert.ToInt16(CommandId),
                 SubID = Convert.ToInt16(CommandSubId),
                 IsSet = true,
-                IsFloat = IsFloat
+                IsFloat = IsFloat,
             };
             Rs232Interface.GetInstance.SendToParser(tmp);
+        }
+
+        public ICommand MouseLeftClickCommand
+        {
+            get
+            {
+                return _mouseLeftClickCommand ?? (_mouseLeftClickCommand = new RelayCommand(MouseLeftClickFunc));
+            }
+        }
+
+        private void MouseLeftClickFunc()
+        {
+            IsSelected = true;
         }
     }
 }

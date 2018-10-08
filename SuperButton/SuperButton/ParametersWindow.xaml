@@ -44,7 +44,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="87"/>
                             <RowDefinition Height="130"/>
                         </Grid.RowDefinitions>
@@ -68,11 +68,11 @@
             <TabItem Header="Feed Backs" TabIndex="2" Background="Black" Foreground="White">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="210"/>
                         <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="210"/>
                         <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -102,8 +102,8 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                    <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>
-                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -118,11 +118,21 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="155"></RowDefinition>
+                                    <!--<RowDefinition Height="30"></RowDefinition>-->
                                 </Grid.RowDefinitions>
                                 <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />
                                 <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep1FdBckList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}"/>
+                                    </Grid>
                                 </ScrollViewer>
+
                             </Grid>
                         </GroupBox>
                         <GroupBox Grid.Row="2" Header="Qep2"  Background="Transparent">
@@ -355,7 +365,7 @@
                             <TextBlock Grid.Column="0">Load Manufacture defaults</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <!--<Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="135"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -379,7 +389,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0">Enable Loader</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableLoder}"/>
-                        </Grid>
+                        </Grid>-->
                     </Grid>
                 </Grid>
             </TabItem>

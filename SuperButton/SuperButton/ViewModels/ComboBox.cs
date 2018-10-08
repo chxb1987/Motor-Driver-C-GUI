@@ -3,11 +3,13 @@ using SuperButton.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SuperButton.ViewModels
@@ -18,18 +20,36 @@ namespace SuperButton.ViewModels
         public event EventHandler DropDownOpened;
         private string _comString;
         ICommand _dropDownOpenedCommand;
+
+        private static ComboBox _instance;
+        private static readonly object Synlock = new object(); //Single tone variable
+
+        public static ComboBox GetInstance
+        {
+            get
+            {
+                lock (Synlock)
+                {
+                    if (_instance != null) return _instance;
+                    _instance = new ComboBox();
+                    return _instance;
+                }
+            }
+        }
+
         public ComboBox()
         {
             InitComList();
-
         }
 
         #region commands
-        //public ICommand DropDownOpenedCommand
-        //{
-        //    get { return _dropDownOpenedCommand ?? (_dropDownOpenedCommand = new RelayCommand(UpdateComList)); }
-        //}
-
+        public ICommand DropDownOpenedCommand
+        {
+            get
+            {
+                return _dropDownOpenedCommand ?? (_dropDownOpenedCommand = new RelayCommand(UpdateComList));
+            }
+        }
 
         #endregion
         #region Properies
@@ -72,29 +92,23 @@ namespace SuperButton.ViewModels
                 foreach (string comport in ports)
                     ComList.Add(comport);
             }
-
         }
 
         public void UpdateComList()
         {
-            while (true)
+            string[] ports = SerialPort.GetPortNames();
+            string temp = ComString;
+            ComList.Clear();
+            foreach (string item in ports)
             {
-                //string[] ports = SerialPort.GetPortNames();
-                //string temp = ComString;
-                //ComList.Clear();
-                //foreach (string item in ports)
-                //{
-                    //if ((ComList.Where(x => x == item).FirstOrDefault() == null))
-                    //{
-                        //ComList.Add(item);
-                    //}
+                if ((ComList.Where(x => x == item).FirstOrDefault() == null))
+                {
+                    ComList.Add(item);
+                }
 
-                //}
-                //if (ComList.Contains(ComString))
-                    //ComString = temp;
-
-                Thread.Sleep(1000);
             }
+            if (ComList.Contains(ComString))
+                ComString = temp;
         }
         #endregion Methods
 

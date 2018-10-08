@@ -63,6 +63,7 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
+
         private void SendData()
         {
             if (Count == 0)
@@ -74,6 +75,7 @@ namespace SuperButton.ViewModels
             if (Count == -1)
                 Count = 0;
         }
+
 
         private bool IsEnabled()
         {

@@ -73,9 +73,8 @@ namespace SuperButton.ViewModels
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
             EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
             EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
-            _comboBox = new ComboBox();
-            Task task = Task.Run((Action)_comboBox.UpdateComList);
-
+            ComboBoxCOM = ComboBox.GetInstance;
+            //Task task = Task.Run((Action)_comboBox.UpdateComList);
         }
         public ComboBox ComboBoxCOM
         {
@@ -124,7 +123,7 @@ namespace SuperButton.ViewModels
                     TxCount = 0; RxCount = 0;
                     return "Connected";
                 }
-                    
+
             }
             set
             {
@@ -609,14 +608,19 @@ namespace SuperButton.ViewModels
         */
 
         public static bool flag;
+
+        public static ParametarsWindow win;
         private void ShowParametersWindow()
         {
             if (_connetButtonContent == "Disconnect")
             {
-                ParametarsWindow win = new ParametarsWindow();
-                win.Show();
-                flag = true;
-                Task task = Task.Run((Action)BackGroundFunc);
+                if (ParametarsWindow.WindowsOpen != true)
+                {
+                    win = new ParametarsWindow();
+                    win.Show();
+                    flag = true;
+                    Task task = Task.Run((Action)BackGroundFunc);
+                }
             }
 
         }
@@ -628,10 +632,12 @@ namespace SuperButton.ViewModels
         private bool _enRefresh;
         public bool EnRefresh
         {
-            get {
+            get
+            {
                 return _enRefresh;
             }
-            set {
+            set
+            {
                 //LeftPanelViewModel.GetInstance.EnRefresh = value;
                 _enRefresh = value;
                 OnPropertyChanged("EnRefresh");
@@ -652,32 +658,37 @@ namespace SuperButton.ViewModels
         public static void VerifyDriverCom()
         {
             int count = 0;
-            while (flag)
-            {
+            //while (flag)
+            //{
 
-                int oldTx = TxCount; int oldRx = RxCount;
-                Thread.Sleep(1000);
-                if (oldTx!= 0 && oldTx == TxCount && oldRx == RxCount)
-                    count++;
-                else
-                    count = 0;
-                if (oldRx == RxCount && count == 2)
-                {
+            //    int oldTx = TxCount; int oldRx = RxCount;
+            //    Thread.Sleep(1000);
+            //    if (oldTx != 0 && oldTx == TxCount && oldRx == RxCount)
+            //        count++;
+            //    else
+            //        count = 0;
+            //    if (oldRx == RxCount && count == 2)
+            //    {
 
-                    count = 0;
-                    flag = false;
-                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
-                    taskDisconnect.Start();
-                    EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-                    EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
-                    if (!MessageBoxWrapper.IsOpen)
-                    {
-                        string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
-                        MessageBoxWrapper.Show(msg, "");
-                    }
+            //        count = 0;
+            //        flag = false;
+            //        Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
+            //        taskDisconnect.Start();
+            //        EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
+            //        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+            //        if (!MessageBoxWrapper.IsOpen)
+            //        {
+            //            string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
+            //            MessageBoxWrapper.Show(msg, "");
+            //        }
+            //        if (ParametarsWindow.WindowsOpen == true)
+            //        {
+            //            win.Close(); 
+            //            ParametarsWindow.WindowsOpen = false;
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
         #endregion
     }

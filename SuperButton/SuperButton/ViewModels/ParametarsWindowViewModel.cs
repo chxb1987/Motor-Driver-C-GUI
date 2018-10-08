@@ -4,6 +4,7 @@ using System.Windows.Input;
 using SuperButton.Models;
 using System.Windows.Controls;
 using System;
+using System.Threading;
 
 namespace SuperButton.ViewModels
 {
@@ -19,6 +20,7 @@ namespace SuperButton.ViewModels
         private CalibrationViewModel _calibrationViewModel;
         private MotionViewModel _motionViewModel;
         private MaintenanceViewModel _maintenanceViewModel;
+        
 
         public ParametarsWindowViewModel()
         {
@@ -81,7 +83,7 @@ namespace SuperButton.ViewModels
         }
 
         private ObservableCollection<object> _qep1FeedBackList;
-
+        private ObservableCollection<object> _qep1FdBckList;
         public ObservableCollection<object> Qep1FeedBackList
         {
 
@@ -96,7 +98,20 @@ namespace SuperButton.ViewModels
             }
 
         }
+        public ObservableCollection<object> Qep1FdBckList
+        {
 
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["Qep1Bis"];
+            }
+            set
+            {
+                _qep1FdBckList = value;
+                OnPropertyChanged();
+            }
+
+        }
         public ObservableCollection<object> Qep2FeedBackList
         {
 
