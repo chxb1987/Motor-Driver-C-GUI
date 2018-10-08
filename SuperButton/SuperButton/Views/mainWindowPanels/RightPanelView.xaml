@@ -881,8 +881,8 @@
             
         </common:CollapsableGridSplitter>
 
-        <StackPanel Orientation="Vertical" MaxWidth="170" Grid.Column="1" Grid.ColumnSpan="2" Margin="0">
-            <Grid HorizontalAlignment="Center" Width="160" Margin="5,2,0,0">
+        <StackPanel Orientation="Vertical" MaxWidth="179" Grid.Column="1" Grid.ColumnSpan="2" Margin="0">
+            <Grid HorizontalAlignment="Center" Width="179" Margin="0,1,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="480"></RowDefinition>
                     <!--<RowDefinition Height="100"></RowDefinition>-->

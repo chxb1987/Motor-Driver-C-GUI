@@ -555,16 +555,18 @@
             
 
         </StackPanel>-->
-        <superButton:HomeControl Grid.Row="1" Visibility="Visible" Padding="0" Margin="0" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <superButton:HomeControl Grid.Row="1" Visibility="Visible" Padding="0" Margin="0" Grid.ColumnSpan="2" Grid.Column="1" Loaded="HomeControl_Loaded"/>
      
-        <common:CollapsableGridSplitter
+        <common:CollapsableGridSplitter Grid.Row="0"
                                         ResizeDirection="Rows"   
                                         Margin="0"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
                                         CollapseMode="Next"
                                         IsCollapsed="False"
-                                        IsTabStop="False" Height="8" Grid.ColumnSpan="2"/>
+                                        IsTabStop="False" Height="8" Grid.ColumnSpan="2"
+                                        Cursor="Hand"
+            ResizeBehavior="PreviousAndNext"/>
                  
 
 

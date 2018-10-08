@@ -53,7 +53,6 @@ namespace SuperButton.ViewModels
         #region Props
         public static LeftPanelViewModel GetInstance
         {
-
             get
             {
                 lock (Synlock)
@@ -82,6 +81,10 @@ namespace SuperButton.ViewModels
             get { return _connetButtonContent; }
             set
             {
+                if(value == "Disconnect") {
+                    LeftPanelViewModel.flag = true;
+                    Task task = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                }
                 if (_connetButtonContent == value) return;
                 _connetButtonContent = value;
                 OnPropertyChanged("ConnectButtonContent");
@@ -160,7 +163,7 @@ namespace SuperButton.ViewModels
             {
                 _motorOnToggleChecked = value;
                 //retrieve the command values
-                var temp = Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(400, 0)];
+                var temp = Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(1, 1)]; // old value: 400, 0
                 //init rxPacket
                 RxPacket.ID = Convert.ToInt16(temp.CommandId);
                 RxPacket.IsFloat = temp.IsFloat;
@@ -484,22 +487,24 @@ namespace SuperButton.ViewModels
         }
         */
 
-        private static bool flag;
+        public static bool flag;
         private void ShowParametersWindow()
         {
-            ParametarsWindow win = new ParametarsWindow();
-            win.Show();
-            flag = true;
-            Task task = Task.Run((Action)BackGroundFunc);
+            if (_connetButtonContent == "Disconnect")
+            {
+                ParametarsWindow win = new ParametarsWindow();
+                win.Show();
+                flag = true;
+                Task task = Task.Run((Action)BackGroundFunc);
+            }
 
         }
         public void Close_parmeterWindow()
         {
-            flag = false;
+            //flag = false;
         }
-        private static void BackGroundFunc()
+        public static void BackGroundFunc()
         {
-
             while (flag)
             {
                 RefreshManger.GetInstance.StartRefresh();

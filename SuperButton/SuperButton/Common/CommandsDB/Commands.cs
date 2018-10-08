@@ -18,6 +18,7 @@ namespace SuperButton.CommandsDB
             GenerateDriverCommands();
             GenerateMainWindowCommands();
             GenerateRPCommands();
+            GenerateCalCommands();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -98,19 +99,11 @@ namespace SuperButton.CommandsDB
                     CommandSubId = i.ToString(CultureInfo.InvariantCulture),
                     CommandValue = "",
                     IsFloat = true,
-
-
                 };
 
                 DataViewCommandsList.Add(new Tuple<int, int>(130, i), data);
                 DataCommandsListbySubGroup["DriverFullScale"].Add(data);
-
             }
-
-
-
-
-
         }
         private void GenerateDeviceCommands()
         {
@@ -467,40 +460,99 @@ namespace SuperButton.CommandsDB
 
             var data = new DataViewModel
             {
-                CommandName = "Current",
-                CommandId = "53",
-                CommandSubId = "4",
+                CommandName = "Current [A]",
+                CommandId = "6",
+                CommandSubId = "7",
                 CommandValue = "",
             };
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Speed",
-                CommandId = "53",
-                CommandSubId = "4",
+                CommandName = "Speed [CPS]",
+                CommandId = "4",
+                CommandSubId = "0",
                 CommandValue = "",
             };
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Speed Position",
-                CommandId = "53",
-                CommandSubId = "4",
+                CommandName = "Speed Position [CPS]",
+                CommandId = "5",
+                CommandSubId = "2",
                 CommandValue = "",
             };
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
             data = new DataViewModel
             {
-                CommandName = "Position",
-                CommandId = "53",
-                CommandSubId = "4",
+                CommandName = "Position [Count]",
+                CommandId = "5",
+                CommandSubId = "0",
                 CommandValue = "",
             };
             DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
+        }
+        public void GenerateCalCommands()
+        {
+            DataCommandsListbySubGroup.Add("CalibrationCommands List", new ObservableCollection<object>());
+
+            var data = new DataViewModel
+            {
+                CommandName = "Current Offset",
+                CommandId = "6",
+                CommandSubId = "1",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "PI Current Loop",
+                CommandId = "6",
+                CommandSubId = "2",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "PI Speed Loop",
+                CommandId = "6",
+                CommandSubId = "5",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Hall Mapping",
+                CommandId = "6",
+                CommandSubId = "3",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Encoder1 Direction",
+                CommandId = "6",
+                CommandSubId = "4",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "PI Position Loop",
+                CommandId = "6",
+                CommandSubId = "6",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["CalibrationCommands List"].Add(data);
+            
         }
     }
 }

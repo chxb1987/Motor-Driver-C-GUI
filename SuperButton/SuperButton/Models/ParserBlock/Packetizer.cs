@@ -85,6 +85,7 @@ namespace SuperButton.Models.ParserBlock
                     if (StandartPacketsListNew.Count > 0)
                     {
                         ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
+                        StandartPacketsListNew.Clear(); // Joseph add
                     } //send to Standart parser                             
                 }
                 else

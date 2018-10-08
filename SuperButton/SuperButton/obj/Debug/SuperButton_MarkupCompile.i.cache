@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Projects\C#_GuiForDriver\SuperButton 30.8.18 V0.0.b\SuperButton\obj\Debug\
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\
 SuperButton
 none
 false
 DEBUG;TRACE
-C:\Projects\C#_GuiForDriver\SuperButton 30.8.18 V0.0.b\SuperButton\App.xaml
+C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\App.xaml
 18-1993596615
 
 961692742803
-44-151637270
+44-1309121284
 ExampleItemViewControl.xaml;HomeControl.xaml;Views\mainWindowPanels\BottomPanel.xaml;EnumPattern.xaml;Views\mainWindowPanels\LeftPanelView.xaml;MainWindow.xaml;Styles\ResourceDictionary1.xaml;Views\mainWindowPanels\RightPanelView.xaml;Styles\Dictionary1.xaml;Views\mainWindowPanels\UpperPanel.xaml;Views\BoolUC.xaml;Views\DataView.xaml;Views\EnumView.xaml;Views\IntegerUC.xaml;Views\MesageBox.xaml;Views\OscilloscopeView.xaml;Views\EnumUC.xaml;ParametersWindow.xaml;
 
-True
+False
 

@@ -37,15 +37,15 @@ public struct PacketFields
 }
 
 //Inter connection between CRC and Parser classes performed by using simple delegates
-public delegate ushort CrcEventhandlerCalcHostFrameCrc(IEnumerable<byte> data, int offset); 
+public delegate ushort CrcEventhandlerCalcHostFrameCrc(IEnumerable<byte> data, int offset);
 
 namespace SuperButton.Models.ParserBlock
 {
-    
+
     internal delegate void Parser2SendHandler(object sender, Parser2SendEventArgs e);//Event declaration, when parser will finish operation. Rise event
 
 
-    class ParserRayonM1 
+    class ParserRayonM1
     {
 
         private static readonly object Synlock = new object();             //Singletone variable
@@ -57,8 +57,8 @@ namespace SuperButton.Models.ParserBlock
         private double _deltaTOneChen = 0;
         private DoubleSeries datasource1 = new DoubleSeries();
         public static ManualResetEvent mre = new ManualResetEvent(false);
-        private float iqFactor = (float) Math.Pow(2.0, -15);
-        
+        private float iqFactor = (float)Math.Pow(2.0, -15);
+
 
         public event Parser2SendHandler Parser2Send;
         public bool StopParser { get { return stop; } set { stop = value; } }
@@ -66,8 +66,8 @@ namespace SuperButton.Models.ParserBlock
         //Simple delegate. calls static function from Crc class
         public static CrcEventhandlerCalcHostFrameCrc CrcInputCalc = CrcBase.CalcHostFrameCrc;
 
-        public  double TimeIntervalChannel1=0;
-        public  DoubleSeries DsCh1 = new DoubleSeries();
+        public double TimeIntervalChannel1 = 0;
+        public DoubleSeries DsCh1 = new DoubleSeries();
         public List<DoubleSeries> PlotDatalistList = new List<DoubleSeries>();
 
         //public Queue<double> FifoplotList = new Queue<double>();
@@ -78,25 +78,25 @@ namespace SuperButton.Models.ParserBlock
         public UInt32 RefreshCounter = 0;
         public UInt32 Ticker = 0;
         public UInt32 TickerC = 1;
-    
+
         public ParserRayonM1()
         {
             Rs232Interface.GetInstance.RxtoParser += parseOutdata;
             Rs232Interface.GetInstance.TxtoParser += parseIndata;
-            Packetizer packetizer = new Packetizer();           
-       //   decodeThread = new Thread(StartParser);
-       //   decodeThread.Start();
+            Packetizer packetizer = new Packetizer();
+            //   decodeThread = new Thread(StartParser);
+            //   decodeThread.Start();
         }
 
 
 
-         #region Parser_Selection
+        #region Parser_Selection
 
         //TODO here will switch between parsers depends on sender object
 
-         void parseOutdata(object sender, Rs232InterfaceEventArgs e)
+        void parseOutdata(object sender, Rs232InterfaceEventArgs e)
         {
-            
+
             if (sender is Rs232Interface)//RayonM3 Parser
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
@@ -104,14 +104,14 @@ namespace SuperButton.Models.ParserBlock
             }//Add Here aditional parsers...
         }
 
-         void parseIndata(object sender, Rs232InterfaceEventArgs e)
-         {
+        void parseIndata(object sender, Rs232InterfaceEventArgs e)
+        {
 
-             if (sender is Rs232Interface)//RayonM3 Parser
-             {
-                 ParseInputData(e.ParseLength, e.InputChank);
-             }//Add Here aditional parsers...
-         }
+            if (sender is Rs232Interface)//RayonM3 Parser
+            {
+                ParseInputData(e.ParseLength, e.InputChank);
+            }//Add Here aditional parsers...
+        }
 
         #endregion
 
@@ -210,7 +210,7 @@ namespace SuperButton.Models.ParserBlock
 
                         if (PlotDataSample != 4.0)
                         {
-                           // int a = 5;
+                            // int a = 5;
                         }
 
                         xyPoint5.Y = (double)PlotDataSample;
@@ -222,7 +222,7 @@ namespace SuperButton.Models.ParserBlock
 
                         i = i + 11;
 
-                 
+
                     }
                     i++;
 
@@ -246,59 +246,59 @@ namespace SuperButton.Models.ParserBlock
         }
 
         //not need func:
-         private void ParseData(int length, byte[] dataInput)
-         {
+        private void ParseData(int length, byte[] dataInput)
+        {
 
 
 
 
 
-         }
+        }
 
         #endregion //TODO 
 
         #region Output_Parse
-        
+
         //Send data to controller
-        public void ParseOutputData(object Data2Send,Int16 Id,Int16 SubId,bool IsSet,bool IsFloat)
-         {
+        public void ParseOutputData(object Data2Send, Int16 Id, Int16 SubId, bool IsSet, bool IsFloat)
+        {
 
             //TODO add try catch here
-            if (Id == 81 && SubId==1 && IsSet==true)
+            if (Id == 81 && SubId == 1 && IsSet == true)
             {
-             //   Data2Send = (float)5.22;
+                //   Data2Send = (float)5.22;
                 //int i = 0;
             }
-            byte[] temp= new byte[11]{0,0,0,0,0,0,0,0,0,0,0};
-            char tempChar = (char) 0;
+            byte[] temp = new byte[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            char tempChar = (char)0;
 
             //Task<ushort> crcTask = new Task<ushort>(()=>CrcInputCalc(temp.Take(9), 2));
-          
- 
+
+
             temp[0] = 0x49;                  //PreambleLSByte
             temp[1] = 0x5d;                   //PreambleMsbyte
             temp[2] = (byte)(Id);       // ID msb
 
             tempChar = (char)(tempChar | ((char)(((Id >> 8)) & 0x3F)) | (((char)(SubId & 0x3)) << 6));
 
-            temp[3] = (byte) tempChar;
+            temp[3] = (byte)tempChar;
 
-            tempChar =(char) 0;
+            tempChar = (char)0;
 
-            tempChar =(char) ( tempChar | (char) (SubId >> 2));
+            tempChar = (char)(tempChar | (char)(SubId >> 2));
 
-            temp[4] = (byte) tempChar;
+            temp[4] = (byte)tempChar;
 
-            if (IsSet==false)                      //Set/Get
+            if (IsSet == false)                      //Set/Get
             {
-                temp[4] |= (1<<4);
+                temp[4] |= (1 << 4);
             }
 
             //if (Data2Send is Double)        //Float/Int
             //{
             //    temp[4] |= (1<<5);  
             //}
-            if (IsFloat )        //Float/Int
+            if (IsFloat)        //Float/Int
             {
                 temp[4] |= (1 << 5);
             }
@@ -307,18 +307,18 @@ namespace SuperButton.Models.ParserBlock
             // 1<<7  -- Color 2
 
             if (IsSet == false)
-             {
-                 //Risng up delegate , to call static function from CRC class
-                 ushort TempGetCrc = CrcInputCalc(temp.Take(5), 2);
-                 temp[5] = (byte)(TempGetCrc & 0xFF);
-                 temp[6] = (byte)((TempGetCrc >> 8) & 0xFF);
-                 if (Parser2Send != null)
-                 {
-                     Parser2Send(this, new Parser2SendEventArgs(temp));
-                 }
-                 return;
-             }
-        
+            {
+                //Risng up delegate , to call static function from CRC class
+                ushort TempGetCrc = CrcInputCalc(temp.Take(5), 2);
+                temp[5] = (byte)(TempGetCrc & 0xFF);
+                temp[6] = (byte)((TempGetCrc >> 8) & 0xFF);
+                if (Parser2Send != null)
+                {
+                    Parser2Send(this, new Parser2SendEventArgs(temp));
+                }
+                return;
+            }
+
 
             if (Data2Send is double)                                           //Data float
             {
@@ -344,7 +344,7 @@ namespace SuperButton.Models.ParserBlock
             {
 
                 //float.Parse((string)Data2Send);
-               
+
                 var datvaluevalue = BitConverter.GetBytes((float)(float.Parse((string)Data2Send)));
                 float newPropertyValuef = System.BitConverter.ToSingle(datvaluevalue, 0);
                 temp[5] = (byte)(datvaluevalue[0]);
@@ -355,29 +355,29 @@ namespace SuperButton.Models.ParserBlock
 
             //Risng up delegate , to call static function from CRC class
             ushort TempCrc = CrcInputCalc(temp.Take(9), 2);   // Delegate won  
-        
-             //crcTask.Start();
+
+            //crcTask.Start();
             // ushort TempCrc = crcTask.Result;
 
-             temp[9] = (byte)(TempCrc & 0xFF);
-             temp[10] = (byte)((TempCrc>>8) & 0xFF);
+            temp[9] = (byte)(TempCrc & 0xFF);
+            temp[10] = (byte)((TempCrc >> 8) & 0xFF);
 
             //Rise another event that sends out to target
-            
 
 
-            if (Parser2Send!=null)
+
+            if (Parser2Send != null)
             {
                 Parser2Send(this, new Parser2SendEventArgs(temp));
             }
-            
 
-         }
-#endregion
 
-         #endregion
+        }
+        #endregion
 
-         #region Start_Parser
+        #endregion
+
+        #region Start_Parser
 
         //not use
         private void StartParser()
@@ -397,11 +397,11 @@ namespace SuperButton.Models.ParserBlock
 
         public void ParseSynchAcktData(List<byte[]> dataList)
         {
-            for(int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < dataList.Count; i++)
             {
                 ParsesynchAckMessege(dataList[i]);
             }
-            
+
         }
         private void ParsesynchAckMessege(byte[] data)
         {
@@ -431,68 +431,72 @@ namespace SuperButton.Models.ParserBlock
 
         public void ParseStandartData(List<byte[]> dataList)
         {
-            for(int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < dataList.Count; i++)
             {
                 ParseInputPacket(dataList[i]);
             }
-        }    
+        }
         private bool ParseInputPacket(byte[] data)
         {
-                var crclsb = data[7];
-                var crcmsb = data[8];
+            var crclsb = data[7];
+            var crcmsb = data[8];
 
-                ushort crc = CrcInputCalc(data.Take(7),0);
+            ushort crc = CrcInputCalc(data.Take(7), 0);
 
-                byte[] crcBytes = BitConverter.GetBytes(crc);
+            byte[] crcBytes = BitConverter.GetBytes(crc);
 
-                if (crcBytes[0] == crclsb && crcBytes[1] == crcmsb)//CHECK
+            if (crcBytes[0] == crclsb && crcBytes[1] == crcmsb)//CHECK
+            {
+                var cmdlIdLsb = data[0];
+                var cmdIdlMsb = data[1] & 0x3F;
+                var subIdLsb = (data[1] >> 6) & 0x03;
+                var subIdMsb = data[2] & 0x07;
+                var getSet = (data[2] >> 4) & 0x01;//ASK
+                var intFloat = (data[2] >> 5) & 0x01;
+                var farmeColor = (data[3] >> 6) & 0x03;
+                bool isInt = (intFloat == 0);//Answer Int=0/////to need check what doing!!!
+                                             //Cmd ID
+                int commandId = Convert.ToInt16(cmdlIdLsb);
+                commandId = commandId + Convert.ToInt16(cmdIdlMsb << 8);
+                //Cmd SubID
+                int commandSubId = Convert.ToInt16(subIdLsb);
+                commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
+                //int newPropertyValueInt=0;
+                float newPropertyValuef = 0;
+
+                if (isInt)
                 {
-                    var cmdlIdLsb = data[0];
-                    var cmdIdlMsb = data[1] & 0x3F;
-                    var subIdLsb = (data[1] >> 6) & 0x03;
-                    var subIdMsb = data[2] & 0x07;
-                    var getSet = (data[2] >> 4) & 0x01;//ASK
-                    var intFloat = (data[2] >> 5) & 0x01;
-                    var farmeColor = (data[3] >> 6) & 0x03;
-                    bool isInt =  (intFloat ==0);//Answer Int=0/////to need check what doing!!!
-                    //Cmd ID
-                    int commandId = Convert.ToInt16(cmdlIdLsb);
-                    commandId = commandId + Convert.ToInt16(cmdIdlMsb << 8);
-                    //Cmd SubID
-                    int commandSubId = Convert.ToInt16(subIdLsb);
-                    commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
-                    //int newPropertyValueInt=0;
-                    float newPropertyValuef = 0;
-                     
-                    if (isInt)
+                    Int32 transit = data[6];
+                    transit <<= 8;
+                    transit |= data[5];
+                    transit <<= 8;
+                    transit |= data[4];
+                    transit <<= 8;
+                    transit |= data[3];
+
+                    RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
+                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, true, false, commandSubId);
+                }
+                else
+                {
+                    var dataAray = new byte[4];
+                    for (int i = 0; i < 4; i++)
                     {
-                        Int32 transit = data[6];
-                        transit <<= 8;
-                        transit |= data[5];
-                        transit <<= 8;
-                        transit |= data[4];
-                        transit <<= 8;
-                        transit |= data[3];
-  
-                        RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
+                        dataAray[i] = data[i + 3];
                     }
-                    else
-                    {
-                        var dataAray = new byte[4];
-                        for (int i = 0; i < 4; i++)
-                        {
-                            dataAray[i] = data[i +3];
-                        }
-                        newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
+                    newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
                     if (commandId == 81 && commandSubId == 1)
                     {
                         //int j = 0;
                     }
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
-                    }
-                    return true;
+                    Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
                 }
-                return false;
+                return true;
+            }
+            return false;
+
+
         }
 
         public static ParserRayonM1 GetInstanceofParser
@@ -501,12 +505,12 @@ namespace SuperButton.Models.ParserBlock
             {
                 if (_parserRayonM1instance != null) return _parserRayonM1instance;
                 lock (Synlock)
-                {              
+                {
                     _parserRayonM1instance = new ParserRayonM1();
                     return _parserRayonM1instance;
                 }
             }
-        }      
+        }
         public void ParsePlot(List<byte[]> PlotList)
         {
 
@@ -524,36 +528,36 @@ namespace SuperButton.Models.ParserBlock
                     //First
                     plotDataSampleLsb = PlotList[i][2];
                     plotDataSampleMsb = PlotList[i][3];
-                    plotDataSample = (short) ((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
-                    FifoplotList.Enqueue(plotDataSample*iqFactor);
+                    FifoplotList.Enqueue(plotDataSample * iqFactor);
 
                     //Second
                     plotDataSampleLsb = PlotList[i][4];
                     plotDataSampleMsb = PlotList[i][5];
-                    plotDataSample = (short) ((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
                     if (OscilloscopeParameters.ChanTotalCounter == 1)
-                        FifoplotList.Enqueue(plotDataSample*iqFactor);
+                        FifoplotList.Enqueue(plotDataSample * iqFactor);
                     else if (OscilloscopeParameters.ChanTotalCounter == 2)
-                        FifoplotListCh2.Enqueue(plotDataSample*iqFactor);
+                        FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
 
                     //Third
                     plotDataSampleLsb = PlotList[i][6];
                     plotDataSampleMsb = PlotList[i][7];
-                    plotDataSample = (short) ((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
-                    FifoplotList.Enqueue(plotDataSample*iqFactor);
+                    FifoplotList.Enqueue(plotDataSample * iqFactor);
 
                     //Fourth
                     plotDataSampleLsb = PlotList[i][8];
                     plotDataSampleMsb = PlotList[i][9];
-                    plotDataSample = (short) ((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
                     if (OscilloscopeParameters.ChanTotalCounter == 1)
-                        FifoplotList.Enqueue(plotDataSample*iqFactor);
+                        FifoplotList.Enqueue(plotDataSample * iqFactor);
                     else if (OscilloscopeParameters.ChanTotalCounter == 2)
-                        FifoplotListCh2.Enqueue(plotDataSample*iqFactor);
+                        FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
                 }
 
             }

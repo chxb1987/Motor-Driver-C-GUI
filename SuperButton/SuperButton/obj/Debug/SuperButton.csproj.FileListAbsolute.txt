@@ -750,5 +750,3 @@ C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\SharpDX.DXGI.dll
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart.Wpf.xml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\bin\Debug\Abt.Controls.SciChart3D.Wpf.xml
 C:\Projects\C#_GuiForDriver\SuperButton\SuperButton\obj\Debug\SuperButton.csprojResolveAssemblyReference.cache
-C:\Projects\C#_GuiForDriver\SuperButton 30.8.18 V0.0.b\SuperButton\obj\Debug\SuperButton.exe
-C:\Projects\C#_GuiForDriver\SuperButton 30.8.18 V0.0.b\SuperButton\obj\Debug\SuperButton.pdb

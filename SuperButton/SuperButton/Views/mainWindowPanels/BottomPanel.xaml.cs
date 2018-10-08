@@ -25,6 +25,5 @@ namespace SuperButton
            GroupedExamplesViewModel GroupedStaus=new GroupedExamplesViewModel();         
 		}
 
-	  
-	}
+    }
 }

@@ -107,6 +107,7 @@ namespace SuperButton.ViewModels
         public MainViewModel()
 		{
             //System.Windows.Media.Color color;
+            
 
             leftPanelViewModel.ConnectButtonContent = "Connect";
             //leftPanelViewModel.ConnectButtonBackground = ColorConverter;

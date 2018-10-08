@@ -230,7 +230,7 @@ namespace SuperButton.Models.DriverBlock
                                         RxtoParser(this, new Rs232InterfaceEventArgs(RxPacket));
                                     }
                                     Thread.Sleep(100);// while with timeout of 1 second
-
+                                    
                                     var Cleaner = tmpcom.ReadExisting();
                                 }
 
@@ -365,6 +365,7 @@ namespace SuperButton.Models.DriverBlock
                 { /*int i = 0; */}
                 // messege.Data2Send = "0.5";
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
+                Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
             }
         }
 

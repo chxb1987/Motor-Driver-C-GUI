@@ -774,6 +774,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>-->
+
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="23" FontWeight="Bold" FontSize="18.667" Padding="0,0,0,12" Margin="0" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Technologies    Version V0.0.c" VerticalAlignment="Top" Grid.Row="1" Height="17" Width="160" Foreground="#FF5499D3"/>
+
             <!--COM Enum superButton-->
             <Views:EnumUC 
                 
@@ -874,14 +878,14 @@
                 </Button.RenderTransform>
             </Button>
             <!--ComboTest-->
-            <!--
+            
             <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
 				BorderBrush="White"
 				Width="160" 
 				UncheckedBackground="#B2B8482F" 
 				UncheckedForeground="#FF333330" 
                 IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
-				ThumbSize="38" HorizontalAlignment="Center" Margin="0,12,0,0" CheckedContent="DRIVE ON" UncheckedContent="DRIVE OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
+				ThumbSize="38" HorizontalAlignment="Center" Margin="0,12,0,0" CheckedContent="MOTOR ON" UncheckedContent="MOTOR OFF" BorderThickness="0.5" Elasticity="0.5" CheckedBackground="#B277E444" CheckedForeground="#FFF7F6F6"
 				Style="{DynamicResource MotorOnStyleofTumb}" ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" Background="#00000000" >
                 <ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -890,7 +894,7 @@
                         <GradientStop Color="#FF333330" Offset="0.021"/>
                     </LinearGradientBrush>
                 </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
-            </ToggleSwitch:HorizontalToggleSwitch>-->
+            </ToggleSwitch:HorizontalToggleSwitch>
         </StackPanel>
         <TextBox IsReadOnly="True" Foreground="White" BorderBrush="White" TextWrapping="Wrap"  Text="{Binding LogText}"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"

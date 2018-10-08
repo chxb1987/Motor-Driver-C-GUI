@@ -281,14 +281,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SuperButton.exe" size="4050920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SuperButton.exe" size="4061160">
       <assemblyIdentity name="SuperButton" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Gd+Im856vXZdUcLePOUeMB0Z18gqqlzOrpRj01/1jM4=</dsig:DigestValue>
+        <dsig:DigestValue>SVrwCsVZger3YVrYL2pz+4+apyTAEfuSie+LJkUfJ1I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

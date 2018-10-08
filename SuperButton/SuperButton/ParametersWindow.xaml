@@ -15,24 +15,30 @@
         <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
     </Window.Background>
 
-
     <Window.DataContext>
         <viewModels:ParametarsWindowViewModel/>
     </Window.DataContext>
-    <Grid Background="#00616161">
+    <Grid >
+        <!--Background="#00616161"-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="687*"/>
             <ColumnDefinition Width="339*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="0"/>
+            <!-- 50* -->
+            <RowDefinition Height="0"/>
+            <!-- 9* -->
             <RowDefinition Height="519*"/>
         </Grid.RowDefinitions>
 
-        <TabControl TabStripPlacement="Left" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,12,0,0" Grid.RowSpan="2" Background="#FF616161">
-            <TabItem Header="Motor" TabIndex="1" Background="Black" Foreground="White">
-                <Grid Background="#FF616161">
+        <TabControl TabStripPlacement="Top" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2"  SelectionChanged="TabSelected">
+            <!-- Background="#FF616161" -->
+            <TabControl.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
+            </TabControl.Background>
+            <TabItem Name="Motor" Header="Motor" TabIndex="1" Background="Black" Foreground="White">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="330"/>
                         <ColumnDefinition Width="160"/>
@@ -56,7 +62,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Feed Backs" TabIndex="2" Background="Black" Foreground="White">
-                <Grid Background="#FF616161">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190"/>
                         <ColumnDefinition Width="190"/>
@@ -125,7 +131,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="PID" TabIndex="3" Background="Black" Foreground="White">
-                <Grid Background="#FF616161">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="160"/>
                         <ColumnDefinition Width="190"/>
@@ -159,7 +165,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Device" TabIndex="4" Background="Black" Foreground="White">
-                <Grid Background="#FF616161">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190"/>
                         <ColumnDefinition Width="160"/>
@@ -177,7 +183,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Driver" TabIndex="5" Background="Black" Foreground="White">
-                <Grid Background="#FF616161">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190"/>
                         <ColumnDefinition Width="160"/>
@@ -194,11 +200,80 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <!--<TabItem Header="Operations" TabIndex="6" DataContext="{Binding OperationViewModel}" Background="Black" Foreground="White" >
+            <TabItem Header="Calibartion" TabIndex="6" DataContext="{Binding CalibrationViewModel}" Background="Black" Foreground="White" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"  Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="27"/>
+                        </Grid.RowDefinitions>
+                        <Grid  Grid.Row="0" Width="200">
+                            <TextBlock Text="Automatic Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Beige" FontFamily="Calibri"></TextBlock>
+                        </Grid>
+                        <StackPanel  Grid.Row="1" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Current Offset" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding OffsetCal}" ToolTip="Chalom" VerticalAlignment="Center"/>
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding offsetCalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Current Loop" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiCurrentCal}" />
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PICurrentCalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Speed Loop" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiSpeedCal}" />
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PISpeedCalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Hall Mapping" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding HallMapCal}" />
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding HallCalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Encoder1 Direction" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding EncoderCal}" />
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding Encoder1CalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="6" Orientation="Horizontal">
+                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Position Loop" HorizontalAlignment="Center"></TextBlock>
+                            </Border>
+                            <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding P2PositionCal}" />
+                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PIPosCalVal}" BorderBrush="White"/>
+                        </StackPanel>
+                        <!--<StackPanel Grid.Row="7" Width="200" HorizontalAlignment="Left">
+                            <ToggleButton Width="150" Style="{DynamicResource DefaultToggleButtonStyle}" Content="P2 Position Calibration" Command="{Binding P2PositionCal}">
+                                
+                            </ToggleButton>
+                        </StackPanel>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Operations" TabIndex="7" DataContext="{Binding OperationViewModel}" Background="Black" Foreground="White" >
                 <Grid Background="#FF616161">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
-                        --><!--<ColumnDefinition Width="160"/>--><!--
+                        <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0"  Grid.Row="0" Background="#FF616161">
                         <Grid.RowDefinitions>
@@ -216,44 +291,9 @@
                     </Grid>
                 </Grid>
             </TabItem>-->
-            <TabItem Header="Calibartion" TabIndex="6" DataContext="{Binding CalibrationViewModel}" Background="Black" Foreground="White" >
-                <Grid Background="#FF616161">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0"  Grid.Row="0" Background="#FF616161">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                        </Grid.RowDefinitions>
-                        <Grid  Grid.Row="0" Width="200">
-                            <Button  Height="22"  Width="120" Margin="2" Foreground="White" Template="{DynamicResource GlassButton}" Content="Offset Calibration" Command="{Binding OffsetCal}" ToolTip="Chalom"/>
-                        </Grid>
-                        <Grid Grid.Row="1" Width="200" HorizontalAlignment="Left">
-                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Pi Current Calibration" Command="{Binding PiCurrentCal}" />
-                        </Grid>
-                        <Grid Grid.Row="2" Width="200" HorizontalAlignment="Left">
-                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Pi Speed Calibration" Command="{Binding PiSpeedCal}" />
-                        </Grid>
-                        <Grid Grid.Row="3" Width="200" HorizontalAlignment="Left">
-                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Hall Map Calibration" Command="{Binding HallMapCal}" />
-                        </Grid>
-                        <Grid Grid.Row="4" Width="200" HorizontalAlignment="Left">
-                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Encoder Calibration" Command="{Binding EncoderCal}" />
-                        </Grid>
-                        <Grid Grid.Row="5" Width="200" HorizontalAlignment="Left">
-                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="X Calibration" Command="{Binding XCal}" />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </TabItem>
         </TabControl>
 
-        <Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" Margin="0,2.4,-0.4,2.4" >
+        <!--<Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" Margin="0,2.4,-0.4,2.4" >
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="-0.001,0.747" MappingMode="RelativeToBoundingBox" StartPoint="1,0.697">
                     <GradientStop Color="#00F9F9F9"/>
@@ -262,7 +302,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Border BorderBrush="#FF616161" BorderThickness="0,0.5" Background="#19616161" Margin="0,2,-0.4,0.6" Grid.ColumnSpan="3"/>
+        <Border BorderBrush="#FF616161" BorderThickness="0,0.5" Background="#19616161" Margin="0,2,-0.4,0.6" Grid.ColumnSpan="3"/>-->
     </Grid>
 </Window>
 
