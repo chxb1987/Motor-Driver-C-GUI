@@ -7,7 +7,7 @@ obj-release/
 # Other files and folders
 .settings/
 Exe/**
-SupperButtonApp/**
+SuperButton/SupperButtonApp/
 Yoav Rejections.txt
 
 # Executables
