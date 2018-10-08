@@ -1,3 +1,0 @@
-﻿<viewModels:MainViewModel xmlns:SuperButton="clr-namespace:SuperButton"
-                           xmlns:viewModels="clr-namespace:SuperButton.ViewModels"
-                           ViewModelProperty="Sample Text Property Value"/>
