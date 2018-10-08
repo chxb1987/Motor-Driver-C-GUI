@@ -115,20 +115,22 @@
                              VerticalContentAlignment="Center"
                              Foreground="White"
                              FontSize="11.5" 
-                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" >
+                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
+                             Background="{Binding Background}">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendData}"></KeyBinding>
+                            <KeyBinding Key="Esc"  Command="{Binding ResetValue}"></KeyBinding>
                         </TextBox.InputBindings>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
                                 <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
                             </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseLeave" >
+                            <!--<i:EventTrigger EventName="MouseLeave" >
                                 <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
-                            </i:EventTrigger>
+                            </i:EventTrigger>-->
                         </i:Interaction.Triggers>
                     </TextBox>
                 </Border>

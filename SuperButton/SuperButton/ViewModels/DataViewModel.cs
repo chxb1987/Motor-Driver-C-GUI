@@ -5,6 +5,8 @@ using SuperButton.Models.DriverBlock;
 using MathNet.Numerics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows.Media;
 
 namespace SuperButton.ViewModels
 {
@@ -15,6 +17,11 @@ namespace SuperButton.ViewModels
         private readonly BaseModel _baseModel = new BaseModel();
         ICommand _mouseLeftClickCommand;
         ICommand _mouseLeaveCommand;
+        private SolidColorBrush _backgroundSelected = new SolidColorBrush(Colors.Gray);
+        private SolidColorBrush _backgroundSelected2 = new SolidColorBrush(Colors.White);
+
+        private string _commandvalueTemp;
+        private bool _escPressed = true;
 
         public string CommandName { get { return _baseModel.CommandName; } set { _baseModel.CommandName = value; } }
 
@@ -55,6 +62,13 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(BuildPacketTosend, CheckValue);
             }
         }
+        public virtual ICommand ResetValue
+        {
+            get
+            {
+                return _mouseLeaveCommand ?? (_mouseLeaveCommand = new RelayCommand(MouseLeaveCommandFunc));
+            }
+        }
         private bool CheckValue()
         {
             return true;
@@ -73,6 +87,11 @@ namespace SuperButton.ViewModels
                     IsFloat = IsFloat,
                 };
                 Rs232Interface.GetInstance.SendToParser(tmp);
+                _escPressed = false;
+                MouseLeaveCommandFunc();
+                _escPressed = true;
+                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), CommandValue, IsFloat ? "F":"I");
+
             }
         }
 
@@ -90,11 +109,16 @@ namespace SuperButton.ViewModels
                 return _mouseLeaveCommand ?? (_mouseLeaveCommand = new RelayCommand(MouseLeaveCommandFunc));
             }
         }
+
+        static string cmdClicked = "";
         private void MouseLeftClickFunc()
         {
             Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
             bool Flag = false, Selected = false;
             string KeyStr = "";
+            this.IsSelected = true;
+            _commandvalueTemp = this.CommandValue;
+            this.Background = this.Background2 = new SolidColorBrush(Colors.Red);
 
             foreach (var group in RefreshManger.BuildGroup)
             {
@@ -107,7 +131,9 @@ namespace SuperButton.ViewModels
                         Flag = true;
                     }
                     else
+                    {
                         Selected = false;
+                    }
                     var data = new DataViewModel
                     {
                         CommandName = ((DataViewModel)sub_list).CommandName,
@@ -157,6 +183,12 @@ namespace SuperButton.ViewModels
             Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
             bool Flag = false, Selected = false;
             string KeyStr = "";
+            this.IsSelected = false;
+            if (_escPressed)
+                this.CommandValue = _commandvalueTemp;
+            this.Background = new SolidColorBrush(Colors.Gray);
+            this.Background2 = new SolidColorBrush(Colors.White);
+            
 
             foreach (var group in RefreshManger.BuildGroup)
             {
@@ -178,7 +210,8 @@ namespace SuperButton.ViewModels
                         CommandValue = ((DataViewModel)sub_list).CommandValue,
                         IsFloat = ((DataViewModel)sub_list).IsFloat,
                         IsSelected = Selected,
-                    };
+                        
+                };
                     try
                     {
                         TempList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
@@ -213,5 +246,42 @@ namespace SuperButton.ViewModels
                 RefreshManger.BuildGroup[KeyStr].Add(data);
             }
         }
+        public SolidColorBrush Background
+        {
+            get {
+                if (!IsSelected)
+                    return new SolidColorBrush(Colors.Gray);
+                else return new SolidColorBrush(Colors.Red);
+            }
+            set
+            {
+                if (IsSelected)
+                    _baseModel.Background = new SolidColorBrush(Colors.Red);
+                else
+                    _baseModel.Background = new SolidColorBrush(Colors.Gray);
+
+                OnPropertyChanged("Background");
+            }
+
+        }
+        public SolidColorBrush Background2
+        {
+            get {
+                if (!IsSelected)
+                    return new SolidColorBrush(Colors.White);
+                else return new SolidColorBrush(Colors.Red);
+            }
+            set
+            {
+                if (IsSelected)
+                    _baseModel.Background = new SolidColorBrush(Colors.Red);
+                else
+                    _baseModel.Background = new SolidColorBrush(Colors.White);
+
+                OnPropertyChanged("Background2");
+            }
+
+        }
+
     }
 }

@@ -367,14 +367,14 @@ namespace SuperButton.Models.DriverBlock
             if (RxtoParser != null)
             {
                 //rise event
-                if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
-                { /*int i = 0; */}
+                //if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
+                //{ /*int i = 0; */}
                 // messege.Data2Send = "0.5";
                 
 
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
                 //Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
-                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set":"Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
+                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set":"Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
                 //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I"));
                 //try
                 //{

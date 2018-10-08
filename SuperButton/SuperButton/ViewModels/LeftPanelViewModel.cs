@@ -138,7 +138,7 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = true
             });
-            Thread.Sleep(10);
+            Thread.Sleep(20);
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -148,7 +148,7 @@ namespace SuperButton.ViewModels
                 IsFloat = true
             });
 
-            Thread.Sleep(10);
+            Thread.Sleep(20);
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -157,7 +157,7 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = false
             });
-            Thread.Sleep(10);
+            Thread.Sleep(20);
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -169,7 +169,7 @@ namespace SuperButton.ViewModels
 
             for (int i = 0; i < 4; i++)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(20);
                 Rs232Interface.GetInstance.SendToParser(new PacketFields
                 {
                     Data2Send = "",
@@ -732,37 +732,37 @@ namespace SuperButton.ViewModels
         {
             int count = 0;
 #if DEBUG
-            while (flag)
-            {
+            //while (flag)
+            //{
 
-                int oldTx = TxCount; int oldRx = RxCount;
-                Thread.Sleep(1000);
-                if (oldTx != 0 && oldTx != TxCount && oldRx == RxCount)
-                    count++;
-                else
-                    count = 0;
-                if (oldRx == RxCount && count == 5)
-                {
-                    count = 0;
-                    flag = false;
-                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
-                    taskDisconnect.Start();
-                    EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-                    EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
-                    Rs232Interface.GetInstance.IsSynced = false;
-                    if (!MessageBoxWrapper.IsOpen)
-                    {
-                        string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
-                        MessageBoxWrapper.Show(msg, "");
-                    }
-                    if (ParametarsWindow.WindowsOpen == true)
-                    {
-                        win.Close();
-                        ParametarsWindow.WindowsOpen = false;
-                    }
+            //    int oldTx = TxCount; int oldRx = RxCount;
+            //    Thread.Sleep(1000);
+            //    if (oldTx != 0 && oldTx != TxCount && oldRx == RxCount)
+            //        count++;
+            //    else
+            //        count = 0;
+            //    if (oldRx == RxCount && count == 5)
+            //    {
+            //        count = 0;
+            //        flag = false;
+            //        Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
+            //        taskDisconnect.Start();
+            //        EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
+            //        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+            //        Rs232Interface.GetInstance.IsSynced = false;
+            //        if (!MessageBoxWrapper.IsOpen)
+            //        {
+            //            string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
+            //            MessageBoxWrapper.Show(msg, "");
+            //        }
+            //        if (ParametarsWindow.WindowsOpen == true)
+            //        {
+            //            win.Close();
+            //            ParametarsWindow.WindowsOpen = false;
+            //        }
 
-                }
-            }
+            //    }
+            //}
 #endif 
 
         }

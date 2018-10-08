@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
 using SuperButton.Helpers;
+using SuperButton.Views;
 
 namespace SuperButton.Models.ParserBlock
 {
@@ -106,7 +107,9 @@ namespace SuperButton.Models.ParserBlock
                     {
                         AproveSynchronization(data[i]); //Plot packets
                     }
-                    if (StandartPacketsListNew.Count > 0) { ParserRayonM1.GetInstanceofParser.ParseSynchAcktData(StandartPacketsListNew); StandartPacketsListNew.Clear(); } 
+                    if (StandartPacketsListNew.Count > 0) {
+                        ParserRayonM1.GetInstanceofParser.ParseSynchAcktData(StandartPacketsListNew);
+                        StandartPacketsListNew.Clear(); } 
              
                 }
             }

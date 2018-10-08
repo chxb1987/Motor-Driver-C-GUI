@@ -34,7 +34,7 @@ namespace SuperButton.Views
 
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            LeftPanelViewModel.flag = false;
+            //LeftPanelViewModel.flag = false;
             WindowsOpen = false;
         }
 

@@ -529,9 +529,9 @@
                         </Border>
                         <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="33.33*"></ColumnDefinition>
-                                <ColumnDefinition Width="33.33*"></ColumnDefinition>
-                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                                <ColumnDefinition Width="40*"></ColumnDefinition>
+                                <ColumnDefinition Width="33*"></ColumnDefinition>
+                                <ColumnDefinition Width="25*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <Grid>

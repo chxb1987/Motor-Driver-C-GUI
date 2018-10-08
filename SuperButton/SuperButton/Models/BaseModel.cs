@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SuperButton.Models
 {
@@ -14,6 +15,7 @@ namespace SuperButton.Models
         private string _commandSubId;
         private bool _isFloat;
         private bool _isSelected;
+        private SolidColorBrush _background;
 
         public string CommandName { get { return _commandName; } set { _commandName = value; } }
 
@@ -24,7 +26,7 @@ namespace SuperButton.Models
         public string CommandSubID { get { return _commandSubId; } set { _commandSubId = value; } }
         public bool IsFloat { get { return _isFloat; } set { _isFloat = value; } }
         public bool IsSelected { get { return _isSelected; } set { _isSelected = value; } }
-
+        public SolidColorBrush Background { get { return _background; } set { _background = value; } }
 
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using SuperButton.Models;
 using SuperButton.Models.DriverBlock;
+using System.Diagnostics;
 
 namespace SuperButton.ViewModels
 {
@@ -157,15 +158,17 @@ namespace SuperButton.ViewModels
                     IsFloat = IsFloat
                 };
                 Rs232Interface.GetInstance.SendToParser(tmp);
-                tmp = new PacketFields
-                {
-                    Data2Send = val,
-                    ID = Convert.ToInt16(CommandId),
-                    SubID = Convert.ToInt16(CommandSubId),
-                    IsSet = false,
-                    IsFloat = IsFloat
-                };
-                Rs232Interface.GetInstance.SendToParser(tmp);
+                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), val, IsFloat?"F":"I");
+
+                //tmp = new PacketFields
+                //{
+                //    Data2Send = val,
+                //    ID = Convert.ToInt16(CommandId),
+                //    SubID = Convert.ToInt16(CommandSubId),
+                //    IsSet = false,
+                //    IsFloat = IsFloat
+                //};
+                //Rs232Interface.GetInstance.SendToParser(tmp);
             }
         }
 

@@ -507,7 +507,7 @@ namespace SuperButton.Models.ParserBlock
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
 
                     //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, false, false, commandSubId);
-                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Get", commandId, commandSubId, transit, "I");
+                    Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, transit, "I");
                     //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", "Drv", commandId, commandSubId, transit, "I"));
                     //try
                     //{
@@ -541,7 +541,7 @@ namespace SuperButton.Models.ParserBlock
                     RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
 
                     //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
-                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Get", commandId, commandSubId, newPropertyValuef, "F");
+                    Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, newPropertyValuef, "F");
                     //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", "Drv", commandId, commandSubId, newPropertyValuef, "F"));
                     //try
                     //{
@@ -588,48 +588,50 @@ namespace SuperButton.Models.ParserBlock
 
             // In order to achive best performance using good old-fashioned for loop: twice faster! then "foreach (byte[] packet in PlotList)"
 
-
-            for (var i = 0; i < PlotList.Count; i++)
+            if (!OscilloscopeViewModel.GetInstance.IsFreeze)
             {
-                lock (PlotListLock)
+                for (var i = 0; i < PlotList.Count; i++)
                 {
-                    //First
-                    plotDataSampleLsb = PlotList[i][2];
-                    plotDataSampleMsb = PlotList[i][3];
-                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                    lock (PlotListLock)
+                    {
+                        //First
+                        plotDataSampleLsb = PlotList[i][2];
+                        plotDataSampleMsb = PlotList[i][3];
+                        plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
-                    FifoplotList.Enqueue(plotDataSample * iqFactor);
-
-                    //Second
-                    plotDataSampleLsb = PlotList[i][4];
-                    plotDataSampleMsb = PlotList[i][5];
-                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
-
-                    if (OscilloscopeParameters.ChanTotalCounter == 1)
                         FifoplotList.Enqueue(plotDataSample * iqFactor);
-                    else if (OscilloscopeParameters.ChanTotalCounter == 2)
-                        FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
 
-                    //Third
-                    plotDataSampleLsb = PlotList[i][6];
-                    plotDataSampleMsb = PlotList[i][7];
-                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                        //Second
+                        plotDataSampleLsb = PlotList[i][4];
+                        plotDataSampleMsb = PlotList[i][5];
+                        plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
-                    FifoplotList.Enqueue(plotDataSample * iqFactor);
+                        if (OscilloscopeParameters.ChanTotalCounter == 1)
+                            FifoplotList.Enqueue(plotDataSample * iqFactor);
+                        else if (OscilloscopeParameters.ChanTotalCounter == 2)
+                            FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
 
-                    //Fourth
-                    plotDataSampleLsb = PlotList[i][8];
-                    plotDataSampleMsb = PlotList[i][9];
-                    plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
+                        //Third
+                        plotDataSampleLsb = PlotList[i][6];
+                        plotDataSampleMsb = PlotList[i][7];
+                        plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
 
-                    if (OscilloscopeParameters.ChanTotalCounter == 1)
                         FifoplotList.Enqueue(plotDataSample * iqFactor);
-                    else if (OscilloscopeParameters.ChanTotalCounter == 2)
-                        FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
+
+                        //Fourth
+                        plotDataSampleLsb = PlotList[i][8];
+                        plotDataSampleMsb = PlotList[i][9];
+                        plotDataSample = (short)((plotDataSampleMsb << 8) | plotDataSampleLsb);
+
+                        if (OscilloscopeParameters.ChanTotalCounter == 1)
+                            FifoplotList.Enqueue(plotDataSample * iqFactor);
+                        else if (OscilloscopeParameters.ChanTotalCounter == 2)
+                            FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
+                    }
+
                 }
-
+                PlotList.Clear();
             }
-            PlotList.Clear();
         }
 
     }//Class

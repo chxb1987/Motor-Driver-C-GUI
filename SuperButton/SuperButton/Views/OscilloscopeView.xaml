@@ -198,7 +198,26 @@
             <Line Grid.Column="9" Margin="5,0"
                   Stroke="Gray"
                   Y2="16" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="10" Command="{Binding SetZoomPanModifierCommand}"
+                <ToggleButton Grid.Column="10" Style="{StaticResource ExampleToolbarToggleButtonStyle}" 
+                              IsChecked="{Binding IsFreeze}" 
+                              BorderThickness="0.5" 
+                              BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
+                    <ToggleButton.Background>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                            <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ToggleButton.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Helpers:RecLed Width="11" Recording="{Binding IsFreeze}"></Helpers:RecLed>
+                        <Grid Width="4"></Grid>
+                        <Label>Freeze</Label>
+                    </StackPanel>
+                </ToggleButton>
+
+                <!--<ToggleButton Grid.Column="10" Command="{Binding SetZoomPanModifierCommand}"
                           s:ToggleButtonExtensions.GroupName="Modifiers"
                           Style="{StaticResource ExampleToolbarToggleButtonStyle}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
             	<ToggleButton.Background>
@@ -215,8 +234,8 @@
                            Stretch="None" />
                     <TextBlock Margin="3" Text="Pan" VerticalAlignment="Center" />
                 </StackPanel>
-            </ToggleButton>
-            <ToggleButton Grid.Column="11" Command="{Binding SetRubberBandZoomModifierCommand}"
+            </ToggleButton>-->
+            <!--<ToggleButton Grid.Column="11" Command="{Binding SetRubberBandZoomModifierCommand}"
                           s:ToggleButtonExtensions.GroupName="Modifiers"
                           IsEnabled="False"
                           Style="{StaticResource ExampleToolbarToggleButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5" BorderBrush="#FFF1F0F0" Height="24.0107">
@@ -226,7 +245,7 @@
                            Stretch="None" VerticalAlignment="Center" />
                     <TextBlock Margin="3" Text="Fit View" VerticalAlignment="Center" />
                 </StackPanel>
-            </ToggleButton>
+            </ToggleButton>-->
             <Line Grid.Column="12" Margin="5,0"
                   Stroke="#FFD6D5D5"
                   Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />

@@ -1,0 +1,1151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SuperButton.App" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.EnumPattern" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnumPattern.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Example" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAADAEAAAAAAAAAEAAAABBAAEAAAACBIAMAAACAAAAA=</HashCode>
+      <FileName>Example.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ExampleGroupViewModel" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>ExampleGroupViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ExampleItemViewControl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExampleItemViewControl.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.GroupedExamplesViewModel" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>GroupedExamplesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.HomeControl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HomeControl.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.BoolUCModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BoolUCModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.BoolUC" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\BoolUC.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.BottomPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\mainWindowPanels\BottomPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.UpperPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\mainWindowPanels\UpperPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Behaviors.BindableSelectedItemBehavior" Collapsed="true">
+    <Position X="25.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\BindableSelectedItemBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.ExampleAutocompleteBehavior" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Behaviors\ExampleAutocompleteBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.HyperlinkButtonBehavior" Collapsed="true">
+    <Position X="28.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAAAAAAAgAAAAAAAAAAAAAACAAAAAAAAgA=</HashCode>
+      <FileName>Behaviors\HyperlinkButtonBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.InputBindingsManager" Collapsed="true">
+    <Position X="30.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAEAAAAAAAAAAAAABAAACEAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\InputBindingsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.ListBoxMouseWheelScrollingBehavior" Collapsed="true">
+    <Position X="27" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\ListBoxMouseWheelScrollingBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.RtbSyntaxHighlightingBehavior" Collapsed="true">
+    <Position X="28.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\RtbSyntaxHighlightingBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.TreeViewScrollbarVisibilityBehavior" Collapsed="true">
+    <Position X="21.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Behaviors\TreeViewScrollbarVisibilityBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Behaviors.TreeViewSelectOnExpandedBehavior" Collapsed="true">
+    <Position X="23.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Behaviors\TreeViewSelectOnExpandedBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Common.BaseViewModel" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SuperButton.Common.CollapsableGridSplitter" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQcAkQAECABlgEJABEAAIAgUgAQIKBAgMADAAgEkSkg=</HashCode>
+      <FileName>Common\CollapsableGridSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Common.IsModifierTypeConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\IsModifierTypeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Common.NewsEvent" Collapsed="true">
+    <Position X="18.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAABAAAABAAAA=</HashCode>
+      <FileName>Common\NewsEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Common.TimeFrame" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAgACAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Common\TimeFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Common.VisibleIfValueConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAQAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\VisibleIfTypeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Common.TrueIfValueConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Common\VisibleIfTypeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Common.VisibleIfTypeConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\VisibleIfTypeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.CommandsDB.Commands" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEACEAEAAAACAAEAAAkAAQBQAAgACJAAQAAAAAAAA=</HashCode>
+      <FileName>Common\CommandsDB\Commands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Common.Instrument" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAgAAIAAAAAAAAAAAAQAAAAAAAAAAAQAAABiAAACAA=</HashCode>
+      <FileName>Common\Instrument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Common.StrongTyped&lt;T&gt;" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAiA=</HashCode>
+      <FileName>Common\StrongTyped.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Common.Trade" Collapsed="true">
+    <Position X="16.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAIAAAAAAAAAAAACAAAQAQAAAAAgAAAAAA=</HashCode>
+      <FileName>Common\Trade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Data.DataManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAEkAAGEAECAIIAAAAQEEAAgAAQkAAAQoAEiUACgCE=</HashCode>
+      <FileName>Data\DataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Data.DoubleSeries" Collapsed="true">
+    <Position X="28.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\DoubleSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Data.MovingAverageExtensions" Collapsed="true">
+    <Position X="14.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\MovingAverage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Data.MovingAverage" Collapsed="true">
+    <Position X="34" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAAAACACAAABAACABAAAABAAABBAACAA=</HashCode>
+      <FileName>Data\MovingAverage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Data.PriceBar" Collapsed="true">
+    <Position X="20" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAgAAAAAAAAgAAAQAAAIAAACAAAA=</HashCode>
+      <FileName>Data\PriceBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Data.PriceSeries" Collapsed="true">
+    <Position X="21.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAACAAAAAAAAAAAAIAEAAFAAAAAAAAIAAACAA=</HashCode>
+      <FileName>Data\PriceSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Data.XYPoint" Collapsed="true">
+    <Position X="18.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Data\XYPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Helpers.ActualSizePropertyProxy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAQAAAgQAAAAgAAAAAoAAQAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Helpers\ActualSizePropertyProxy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Helpers.AttachableInteractionClasses" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAIAAgAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Helpers\AttachableInteractionClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Helpers.BehaviorsCollection" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\AttachableInteractionClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Helpers.NavigationBase" Collapsed="true">
+    <Position X="16.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAEIAAABAAAAAgIAAAAAABQAAABEAE=</HashCode>
+      <FileName>Helpers\NavigationBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Helpers.TransitioningFrame" Collapsed="true">
+    <Position X="18.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAABAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\TransitioningFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Abt.Controls.SciChart.Example.Helpers.TreeViewExtension" Collapsed="true">
+    <Position X="20" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAAgAAQAAAAAA=</HashCode>
+      <FileName>Helpers\TreeViewExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.AllowableCharactersTextBoxBehavior" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAgADAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AllowableCharactersTextBoxBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.BaseModel" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAACABAAAQQAAAAAIAAAIABgAAAAACAAA=</HashCode>
+      <FileName>Models\BaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.RelayCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WindowsFormsApplication1.DriverBlock.CanInterface" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DriverBlock\CanInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.DriverBlock.ConnectionBase" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\DriverBlock\ConnectionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.DriverBlock.RefreshManger" Collapsed="true">
+    <Position X="20" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAEAAAAAAAAAABQAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\DriverBlock\RefreshManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.DriverBlock.Rs232Interface" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAQEACABAIQAAAAUAEAgAoDQDwAIABAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\DriverBlock\Rs232Interface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.DriverBlock.Rs232InterfaceEventArgs" Collapsed="true">
+    <Position X="27" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQAAIAAAIAAAAAEAgAAAAAAgAAAAQAIAAQA=</HashCode>
+      <FileName>Models\DriverBlock\Rs232InterfaceEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.CrcBase" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAABAAAAAAAAAAAAAAAAABAQAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\CrcBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.Packetizer" Collapsed="true">
+    <Position X="30.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAEBBBAAAAAIEAEAgAEDQCBAgACAAASAgEAAKA=</HashCode>
+      <FileName>Models\ParserBlock\Packetizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.PacketizerEventArgs" Collapsed="true">
+    <Position X="32.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAIAAAAAAAAAAABAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\PacketizerEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.Parser2SendEventArgs" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAYAA=</HashCode>
+      <FileName>Models\ParserBlock\Parser2SendEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.ParserBase" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\ParserBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.ParserBlock.ParserRayonM1" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAIRAACAAQEBEEECAAKAICkQIQggABAAAUAAhwCAAAA=</HashCode>
+      <FileName>Models\ParserBlock\ParserRayonM1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.SataticClaass.GuiUpdateQueue" Collapsed="true">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAAAAAAAAAAAAAAAAACCBAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\SataticClaass\GuiUpdateQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Models.SataticClaass.StaticMemebers" Collapsed="true">
+    <Position X="30.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SataticClaass\StaticMemebers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.CanBeNullAttribute" Collapsed="true">
+    <Position X="34" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.NotNullAttribute" Collapsed="true">
+    <Position X="25.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.ItemNotNullAttribute" Collapsed="true">
+    <Position X="21.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.ItemCanBeNullAttribute" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.StringFormatMethodAttribute" Collapsed="true">
+    <Position X="34" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.ValueProviderAttribute" Collapsed="true">
+    <Position X="30.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.InvokerParameterNameAttribute" Collapsed="true">
+    <Position X="16.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.NotifyPropertyChangedInvocatorAttribute" Collapsed="true">
+    <Position X="23.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.ContractAnnotationAttribute" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.LocalizationRequiredAttribute" Collapsed="true">
+    <Position X="28.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.CannotApplyEqualityOperatorAttribute" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.BaseTypeRequiredAttribute" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.UsedImplicitlyAttribute" Collapsed="true">
+    <Position X="28.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.MeansImplicitUseAttribute" Collapsed="true">
+    <Position X="32.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.PublicAPIAttribute" Collapsed="true">
+    <Position X="23.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.InstantHandleAttribute" Collapsed="true">
+    <Position X="32.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.PureAttribute" Collapsed="true">
+    <Position X="25.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.PathReferenceAttribute" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcAreaMasterLocationFormatAttribute" Collapsed="true">
+    <Position X="30.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcAreaPartialViewLocationFormatAttribute" Collapsed="true">
+    <Position X="32.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcAreaViewLocationFormatAttribute" Collapsed="true">
+    <Position X="34" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcMasterLocationFormatAttribute" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcPartialViewLocationFormatAttribute" Collapsed="true">
+    <Position X="25.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcViewLocationFormatAttribute" Collapsed="true">
+    <Position X="30.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcActionAttribute" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcAreaAttribute" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcControllerAttribute" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcMasterAttribute" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcModelTypeAttribute" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcPartialViewAttribute" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcSupressViewErrorAttribute" Collapsed="true">
+    <Position X="27" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcDisplayTemplateAttribute" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcEditorTemplateAttribute" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcTemplateAttribute" Collapsed="true">
+    <Position X="28.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcViewAttribute" Collapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMvcActionSelectorAttribute" Collapsed="true">
+    <Position X="28.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.HtmlElementAttributesAttribute" Collapsed="true">
+    <Position X="27" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.HtmlAttributeValueAttribute" Collapsed="true">
+    <Position X="25.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorSectionAttribute" Collapsed="true">
+    <Position X="34" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.CollectionAccessAttribute" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AssertionMethodAttribute" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AssertionConditionAttribute" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.TerminatesProgramAttribute" Collapsed="true">
+    <Position X="14.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.LinqTunnelAttribute" Collapsed="true">
+    <Position X="25.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.NoEnumerationAttribute" Collapsed="true">
+    <Position X="20" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RegexPatternAttribute" Collapsed="true">
+    <Position X="21.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.XamlItemsControlAttribute" Collapsed="true">
+    <Position X="16.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.XamlItemBindingOfItemsControlAttribute" Collapsed="true">
+    <Position X="14.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspChildControlTypeAttribute" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspDataFieldAttribute" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspDataFieldsAttribute" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspMethodPropertyAttribute" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspRequiredAttributeAttribute" Collapsed="true">
+    <Position X="32.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.AspTypePropertyAttribute" Collapsed="true">
+    <Position X="34" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorImportNamespaceAttribute" Collapsed="true">
+    <Position X="28.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorInjectionAttribute" Collapsed="true">
+    <Position X="30.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorHelperCommonAttribute" Collapsed="true">
+    <Position X="27" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorLayoutAttribute" Collapsed="true">
+    <Position X="32.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorWriteLiteralMethodAttribute" Collapsed="true">
+    <Position X="14.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorWriteMethodAttribute" Collapsed="true">
+    <Position X="16.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.RazorWriteMethodParameterAttribute" Collapsed="true">
+    <Position X="18.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Annotations.NoReorder" Collapsed="true">
+    <Position X="21.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.StatusGroup.StatusesModule" Collapsed="true">
+    <Position X="32.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>StatusGroup\StatusesModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.BottomPanelViewModel" Collapsed="true">
+    <Position X="32.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BottomPanelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.DataViewModel" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAIAAACAAAAAAQAAAAAIAAAYABAAAAAABAAA=</HashCode>
+      <FileName>ViewModels\DataViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.EnumUCModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAASABAAQQgIAAAAAAAAAAgIAAAAAAAAAAAAAAEEA=</HashCode>
+      <FileName>ViewModels\EnumUCModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.ViewModels.EnumViewModel" Collapsed="true">
+    <Position X="2.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAACAIgAACAAAAEAAAAAAAAAQAQAAAAACAAQABA=</HashCode>
+      <FileName>ViewModels\EnumViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.IntegerUCModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEIAAAAACAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IntegerUCModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.ViewModels.LeftPanelViewModel" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJKkADAAACBASIEJMIAAAghQDRgMAUAAoAkQAACIYKA=</HashCode>
+      <FileName>ViewModels\LeftPanelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.MainViewModel" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAARAAIBAEKAARAAAgAAAAAMAAAAQBEAIEAA=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.ParametarsWindowViewModel" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iSQhACAABgQAAACAAACJQCFIAQWIABAAUIAABEAABIk=</HashCode>
+      <FileName>ViewModels\ParametarsWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.RightPanelViewModel" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\RightPanelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SuperButton.Views.DataView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DataView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.EnumUC" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACUAAAAAAAAAgQAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Views\EnumUC.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.EnumView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EnumView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.IntegerUC" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAEgQAAAAA=</HashCode>
+      <FileName>Views\IntegerUC.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.OscilloscopeParameters" Collapsed="true">
+    <Position X="27" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAAAAAACAAlAAAIAAAAABAIAAIAAAAAAAAQA=</HashCode>
+      <FileName>Views\OscilloscopeParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Views.OscilloscopeView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Views\OscilloscopeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.OscilloscopeViewModel" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KUS6EDoBBHAnTABggF6QnwAoxGLBKMAIsAJhRNCFDhk=</HashCode>
+      <FileName>Views\OscilloscopeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperButton.Views.ParametarsWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ParametarsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.mainWindowPanels.LeftPanelView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\mainWindowPanels\LeftPanelView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SuperButton.Views.mainWindowPanels.RightPanel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\mainWindowPanels\RightPanelView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Struct Name="SuperButton.Data.MacdPoint" Collapsed="true">
+    <Position X="14.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\MovingAverage.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PacketFields" Collapsed="true">
+    <Position X="16.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAACAAAAIgACAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\ParserRayonM1.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="SuperButton.Data.IDataManager" Collapsed="true">
+    <Position X="14.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAkAAAAIAAAQAAAAA=</HashCode>
+      <FileName>Data\IDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SuperButton.Common.GridSplitterCollapseMode" Collapsed="true">
+    <Position X="21.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Common\CollapsableGridSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Abt.Controls.SciChart.Example.Common.ModifierType" Collapsed="true">
+    <Position X="27" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAiAAAAAAAAAAAAAAMAAAQAAAA=</HashCode>
+      <FileName>Common\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Abt.Controls.SciChart.Example.Common.ChartType" Collapsed="true">
+    <Position X="18.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAACAAEAAAAAIAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Common\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Abt.Controls.SciChart.Example.Common.BuySell" Collapsed="true">
+    <Position X="16.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Trade.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SuperButton.Annotations.ImplicitUseKindFlags" Collapsed="true">
+    <Position X="23.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABAEAAAAAAIAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SuperButton.Annotations.ImplicitUseTargetFlags" Collapsed="true">
+    <Position X="25.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAEAAAAAAQ=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SuperButton.Annotations.CollectionAccessType" Collapsed="true">
+    <Position X="20" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAgAAAAEAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SuperButton.Annotations.AssertionConditionType" Collapsed="true">
+    <Position X="14.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAACAAAAAAAAgAAAIAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SuperButton.StatusGroup.StatusGroups" Collapsed="true">
+    <Position X="28.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatusGroup\StatusGrous.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="SuperButton.Models.DriverBlock.Rs232RxHandler" Collapsed="true">
+    <Position X="20" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DriverBlock\Rs232Interface.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="SuperButton.Models.ParserBlock.PacketizerEventHandler" Collapsed="true">
+    <Position X="16.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\Packetizer.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="SuperButton.Models.ParserBlock.Parser2SendHandler" Collapsed="true">
+    <Position X="18.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\ParserRayonM1.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CrcEventhandlerCalcHostFrameCrc" Collapsed="true">
+    <Position X="14.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParserBlock\ParserRayonM1.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -235,7 +235,7 @@
     <Compile Include="Views\mainWindowPanels\LeftPanelView.xaml.cs">
       <DependentUpon>LeftPanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AllowableCharactersTextBoxBehavior.cs" />
+    <Compile Include="Models\ParserBlock\AllowableCharactersTextBoxBehavior.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\DriverBlock\CanInterface.cs" />
     <Compile Include="Models\DriverBlock\ConnectionBase.cs" />

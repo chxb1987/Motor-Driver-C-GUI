@@ -1961,6 +1961,7 @@ namespace SuperButton.Views
         }
 
         private bool _is_recording = false;
+        private bool _is_freeze = false;
         public bool IsRecording
         {
             get { return _is_recording; }
@@ -1981,6 +1982,28 @@ namespace SuperButton.Views
                 //SaveToDisk.IsRecording = value;
 
                 OnPropertyChanged("IsRecording");
+            }
+        }
+        public bool IsFreeze
+        {
+            get { return _is_freeze; }
+            set
+            {
+                if (_is_freeze == value) { return; }
+                if (LeftPanelViewModel.flag)
+                    _is_freeze = value;
+                else
+                {
+                    if (!MessageBoxWrapper.IsOpen)
+                    {
+                        string msg = string.Format("No Serial connection detected !");
+                        MessageBoxWrapper.Show(msg, "");
+                    }
+                    _is_freeze = false;
+                }
+                //SaveToDisk.IsRecording = value;
+
+                OnPropertyChanged("IsFreeze");
             }
         }
 

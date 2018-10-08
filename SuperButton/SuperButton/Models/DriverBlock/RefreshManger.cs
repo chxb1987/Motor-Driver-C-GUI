@@ -161,7 +161,7 @@ namespace SuperButton.Models.DriverBlock
 
                 foreach (var list in BuildGroup)
                 {
-                    if (GroupToExecute(tab).Contains(list.Key)) // list.Key == "Control" || list.Key == "Motor" || list.Key == "Motion Limit"
+                    if (GroupToExecute(tab).Contains(list.Key))
                     {
                         foreach (var sub_list in list.Value)
                         {
@@ -199,6 +199,8 @@ namespace SuperButton.Models.DriverBlock
                             IsFloat = command.Value.IsFloat
                         });
                     }
+                    else { }
+
 
                     // }
 
