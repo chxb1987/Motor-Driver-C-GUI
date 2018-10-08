@@ -270,7 +270,7 @@
                         </LinearGradientBrush>
                     </ToggleButton.Background>
                     <StackPanel Orientation="Horizontal">
-                        <!--<customControls:RoundBoolLed Width="11" CurrStatus="{Binding ShowRecordigStatus}"></customControls:RoundBoolLed>-->
+                        <!--<customControls:RoundBoolLed Width="11" CurrStatus="{Binding ShowRecordigStatus}"></customControls:RoundBoolLed> -->
                         <Helpers:RecLed Width="11" Recording="{Binding IsRecording}"></Helpers:RecLed>
                         <Grid Width="4"></Grid>
                         <Label>Rec</Label>

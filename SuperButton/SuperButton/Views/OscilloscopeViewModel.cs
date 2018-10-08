@@ -122,6 +122,7 @@ namespace SuperButton.Views
 
 
         public List<float> RecList = new List<float>();
+        public List<float> RecList2 = new List<float>();
 
 
         private int _undesample = 1;
@@ -1151,6 +1152,7 @@ namespace SuperButton.Views
                     {
                         _timer.Stop();
                         _timer.Elapsed -= OnTick;
+                        _chartRunning = false;
                         _timer = null;
                         Thread.Sleep(10);
                         // ChartData = null;
@@ -1169,6 +1171,7 @@ namespace SuperButton.Views
                     Thread.Sleep(100);
                     _timer = new Timer(TimerIntervalMs) { AutoReset = true };
                     _timer.Elapsed += OnTick;
+                    _chartRunning = true;
                     _timer.Start();
                 });
             }
@@ -1191,31 +1194,27 @@ namespace SuperButton.Views
         private float[] yDataTemp2;
         private float[] yDataTemp3;
         private float[] yDataTemp4;
+        public static bool _chartRunning = false;
         /* On ticj function */
 
         private void OnTick(object sender, EventArgs e)
         {
-
             lock (_timer)
             {
                 State = 0;
-
                 if (OscilloscopeParameters.ChanTotalCounter == 1)
                 {
                     #region SingleChan
                     if (ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
                     {
                         if (AllYData.Count > 1 && _isFull)
-                        {
                             State = 4;
-                        }
                         else
                             return;
                     }
                     else if (ActChenCount == 1)//First throw
                     {
                         float item;
-
                         while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
                         {
                         }
@@ -1225,7 +1224,6 @@ namespace SuperButton.Views
                     {
                         List<float> Ytemp = new List<float>();
                         float item;
-
                         //Record 
                         //if(RecFlag)
                         //{
@@ -1235,57 +1233,36 @@ namespace SuperButton.Views
                         //retrieve all the data
                         while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
                         {
-
-
                             if (ch1 != 0)
                                 Ytemp.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
                             else
                                 Ytemp.Add(item * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
-
                             //Record
                             if (RecFlag)
-                            {
                                 RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
-                            }
                         }
-
-
-
-
-
                         AllYData.AddRange(Ytemp);
 
                         if (_isFull)
-                        {
                             State = 4;
-                        }
-                        else if (POintstoPlot > pivot && _isFull == false)
-                        //fills buffer             
-                        {
+                        else if (POintstoPlot > pivot && _isFull == false)//fills buffer
                             State = 2;
-                        }
                         else if (POintstoPlot == pivot && _isFull == false) //buffer is full
                         {
                             _isFull = true;
                             State = 4;
                         }
                         else
-                        {
                             return;
-                        }
-
+                        #region Switch
                         switch (State)
                         {
-
                             case (2): //Fills y buffer
-
                                 float[] temp;
-
                                 if ((POintstoPlot - pivot) > 0)
                                     temp = AllYData.Take(POintstoPlot - pivot).ToArray();
                                 else
                                     return;
-
                                 if (_undesample == 1)
                                 {
                                     if (_yFloats.Length == 0) //Start fills
@@ -1468,6 +1445,7 @@ namespace SuperButton.Views
                                 }
                                 break;
                         }
+                        #endregion Switch
                     }
                     #endregion
                 }
@@ -1477,9 +1455,7 @@ namespace SuperButton.Views
                     if (ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
                     {
                         if (AllYData.Count > 1 && _isFull)
-                        {
                             State = 4;
-                        }
                         else
                             return;
                     }
@@ -1487,7 +1463,6 @@ namespace SuperButton.Views
                     {
                         float item;
                         float item2;
-
                         //Collect data from first channel
                         while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
                         {
@@ -1508,36 +1483,34 @@ namespace SuperButton.Views
                             ytemp.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
                             ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item2);
                             ytemp2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
+
+                            //Record
+                            if (RecFlag)
+                            {
+                                RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
+                                RecList2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
+                            }
                         }
 
                         //Collect data from second channel
                         //    while (ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item))
                         //    {
-
-                        //     }
-
+                        //    }
                         AllYData.AddRange(ytemp);
                         AllYData2.AddRange(ytemp2);
 
                         if (_isFull)
-                        {
                             State = 4;
-                        }
-                        else if (POintstoPlot > pivot && _isFull == false)
-                        //fills buffer             
-                        {
+                        else if (POintstoPlot > pivot && _isFull == false)//fills buffer
                             State = 2;
-                        }
                         else if (POintstoPlot == pivot && _isFull == false) //buffer is full
                         {
                             _isFull = true;
                             State = 4;
                         }
                         else
-                        {
                             return;
-                        }
-
+                        #region Switch
                         switch (State)
                         {
 
@@ -1647,6 +1620,7 @@ namespace SuperButton.Views
                                 AllYData2.RemoveRange(0, (carry2) - 1);
                                 break;
                         }
+                        #endregion Switch
                     }
                     #endregion
                 }
@@ -1909,9 +1883,13 @@ namespace SuperButton.Views
         {
             if (RecFlag == false)
             {
-
+                string Date = Day(DateTime.Now.Day) + ' ' + MonthTrans(DateTime.Now.Month) + ' ' + DateTime.Now.Year.ToString();
+                string path = "\\Redler\\Charts\\" + Date + ' ' + DateTime.Now.ToString("HH:mm:ss");
+                path = (path.Replace('-', ' ')).Replace(':', '_');
+                path += ".csv";
+                path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + path;
                 string name = LeftPanelViewModel.name;
-                filePath = LeftPanelViewModel.Recordsrootpath + name + "_Record.csv";
+                filePath = path;// LeftPanelViewModel.Recordsrootpath + name + "_Record.csv";
                 if (!File.Exists(filePath))
                 {
                     File.Create(filePath).Close();
@@ -1938,17 +1916,29 @@ namespace SuperButton.Views
 
                     float[] yxls = RecList.ToArray();
 
-                    string[] xstring = new string[RecList.Count];
-                    string[] ystring = new string[RecList.Count];
+                    string[] xstring = new string[RecList.Count + 1];
+                    string[] ystring = new string[RecList.Count + 1];
+                    float[] yxls2 = RecList2.ToArray();
+                    string[] ystring2 = new string[RecList2.Count + 1];
+                    xstring[0] = "Time";
+                    ystring[0] = "Channel 1";
+                    if (RecList2.Count != 0)
+                        ystring2[0] = "Channel 2";
 
-                    for (int i = 0; i < RecList.Count; i++)
+                    for (int i = 1; i < RecList.Count; i++)
                     {
                         xstring[i] = (i * OscilloscopeParameters.Step).ToString(CultureInfo.CurrentCulture);
-                        ystring[i] = yxls[i].ToString(CultureInfo.CurrentCulture);
-                        sb.AppendLine(string.Join(delimiter, xstring[i], ystring[i]));
+                        ystring[i] = yxls[i - 1].ToString(CultureInfo.CurrentCulture);
+                        if (RecList2.Count != 0)
+                        {
+                            ystring2[i] = yxls2[i - 1].ToString(CultureInfo.CurrentCulture);
+                            sb.AppendLine(string.Join(delimiter, xstring[i-1], ystring[i-1], ystring2[i-1]));
+                        }
+                        else
+                            sb.AppendLine(string.Join(delimiter, xstring[i-1], ystring[i-1]));
                     }
-
-
+                    RecList.Clear();
+                    RecList2.Clear();
 
                     // sb.AppendLine(string.Join(delimiter, xstring, ystring));
                     File.AppendAllText(filePath, sb.ToString());
@@ -1957,6 +1947,62 @@ namespace SuperButton.Views
                     RecList.Clear();
                 });
             }
+
+        }
+        public static string MonthTrans(int month)
+        {
+            switch (month)
+            {
+                case 1:
+                    return "January";
+                    break;
+                case 2:
+                    return "February";
+                    break;
+                case 3:
+                    return "March";
+                    break;
+                case 4:
+                    return "April";
+                    break;
+                case 5:
+                    return "May";
+                    break;
+                case 6:
+                    return "June";
+                    break;
+                case 7:
+                    return "July";
+                    break;
+                case 8:
+                    return "August";
+                    break;
+                case 9:
+                    return "Septembre";
+                    break;
+                case 10:
+                    return "Octobre";
+                    break;
+                case 11:
+                    return "Novembre";
+                    break;
+                case 12:
+                    return "Decembre";
+                    break;
+                default:
+                    return "x";
+                    break;
+            }
+
+        }
+        public static string Day(int day)
+        {
+            if (day < 10)
+            {
+                return "0" + day.ToString();
+            }
+            else
+                return day.ToString();
 
         }
 
@@ -1968,13 +2014,16 @@ namespace SuperButton.Views
             set
             {
                 if (_is_recording == value) { return; }
-                if (LeftPanelViewModel.flag)
+                if (OscilloscopeParameters.ChanTotalCounter > 0 && plotActivationstate == 1)
+                {
                     _is_recording = value;
+                    Record();
+                }
                 else
                 {
                     if (!MessageBoxWrapper.IsOpen)
                     {
-                        string msg = string.Format("No Serial connection detected !");
+                        string msg = string.Format("No plot detected !");
                         MessageBoxWrapper.Show(msg, "");
                     }
                     _is_recording = false;
@@ -1990,13 +2039,13 @@ namespace SuperButton.Views
             set
             {
                 if (_is_freeze == value) { return; }
-                if (LeftPanelViewModel.flag)
+                if (OscilloscopeParameters.ChanTotalCounter > 0 && plotActivationstate == 1)
                     _is_freeze = value;
                 else
                 {
                     if (!MessageBoxWrapper.IsOpen)
                     {
-                        string msg = string.Format("No Serial connection detected !");
+                        string msg = string.Format("No plot detected !");
                         MessageBoxWrapper.Show(msg, "");
                     }
                     _is_freeze = false;
