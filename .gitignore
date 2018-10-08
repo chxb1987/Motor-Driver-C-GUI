@@ -1,11 +1,14 @@
 # Build and Release Folders
-bin-debug/
-bin-release/
+obj-debug/
+obj-release/
 [Oo]bj/
 [Bb]in/
 
 # Other files and folders
 .settings/
+SupperButton-Exe/
+SupperButton-SupperButtonApp/
+Yoav Rejections.txt
 
 # Executables
 *.swf

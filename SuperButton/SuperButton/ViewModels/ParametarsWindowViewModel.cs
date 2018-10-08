@@ -15,10 +15,12 @@ namespace SuperButton.ViewModels
         private bool _isDigitalbackEnabled;
         private bool _isAnalogbackEnabled;
         private OperationViewModel _operationViewModel;
+        private CalibrationViewModel _calibrationViewModel;
 
         public ParametarsWindowViewModel()
         {
             _operationViewModel = OperationViewModel.GetInstance;
+            _calibrationViewModel = CalibrationViewModel.GetInstance;
         }
             
         public ObservableCollection<object> ControlList
@@ -323,6 +325,11 @@ namespace SuperButton.ViewModels
         public OperationViewModel OperationViewModel
         {
             get { return _operationViewModel; }
+        }
+
+        public CalibrationViewModel CalibrationViewModel
+        {
+            get { return _calibrationViewModel; }
         }
 
         private void changechekboxvalue()

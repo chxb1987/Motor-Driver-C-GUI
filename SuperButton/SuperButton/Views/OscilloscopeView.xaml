@@ -165,8 +165,8 @@
             	Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
 
                 <ComboBox
-            		
-            		ItemsSource="{Binding Channel1SourceItems}" Width="100" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0"/>
+            		SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" 
+            		ItemsSource="{Binding Channel1SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0"/>
             </Border>
             <Border BorderBrush="White" BorderThickness="0.5" Margin="5,8,0,8" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
                 <TextBlock Margin="0"
@@ -179,7 +179,7 @@
                 >
                 <ComboBox
             		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel2SourceItems}" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0" Width="100"/>
+            		ItemsSource="{Binding Channel2SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0" />
 
             </Border>
 
@@ -271,6 +271,22 @@
 
                 <s:FastLineRenderableSeries DataSeries="{Binding ChartData1}"
                                             SeriesColor="CornflowerBlue"
+                                            AntiAliasing="False"
+                                            IsDigitalLine="False"
+                                            ResamplingMode="MinMax"
+                                            StrokeThickness="1"
+                                            Style="{StaticResource LineSeriesStyle}"   />
+                
+                <s:FastLineRenderableSeries DataSeries="{Binding ChartData2}"
+                                            SeriesColor="Red"
+                                            AntiAliasing="False"
+                                            IsDigitalLine="False"
+                                            ResamplingMode="MinMax"
+                                            StrokeThickness="1"
+                                            Style="{StaticResource LineSeriesStyle}" />
+
+                <s:FastLineRenderableSeries DataSeries="{Binding ChartData3}"
+                                            SeriesColor="Black"
                                             AntiAliasing="False"
                                             IsDigitalLine="False"
                                             ResamplingMode="MinMax"

@@ -1,0 +1,56 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	xmlns:local="clr-namespace:SuperButton"
+	x:Class="SuperButton.BoolUC"
+	    x:Name="parent"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+    <UserControl.Resources>
+        <!--<local:EnumUCModel x:Key="EnumUCModelDataSource" />-->
+
+        <Storyboard x:Key="OnMouseEnter1"/>
+        <Storyboard x:Key="OnMouseEnter2"/>
+    </UserControl.Resources>
+
+
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="360"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <UserControl.LayoutTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="360"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.LayoutTransform>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+            <BeginStoryboard x:Name="OnMouseEnter1_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter1}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+            <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter2}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+
+    <Grid DataContext="{Binding ElementName=parent}">
+
+        <!--<Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource EnumUCModelDataSource}}">-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+    	<CheckBox Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Height="101" Width="307.42"/>
+
+        <!-- ComboBox -->
+    </Grid>
+</UserControl>

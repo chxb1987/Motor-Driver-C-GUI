@@ -185,6 +185,7 @@
     <Compile Include="StatusGroup\StatusesModule.cs" />
     <Compile Include="StatusGroup\StatusGrous.cs" />
     <Compile Include="ViewModels\BottomPanelViewModel.cs" />
+    <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\MessageBoxVM.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />

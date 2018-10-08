@@ -17,6 +17,7 @@ namespace SuperButton.CommandsDB
             GenerateDeviceCommands();
             GenerateDriverCommands();
             GenerateMainWindowCommands();
+            GenerateRPCommands();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -226,10 +227,6 @@ namespace SuperButton.CommandsDB
             DataCommandsListbySubGroup.Add("Analog", new ObservableCollection<object>());
 
 
-
-
-
-
             for (var i = 0; i < names.Length; i++)
             {
 
@@ -319,22 +316,7 @@ namespace SuperButton.CommandsDB
                 DataViewCommandsList.Add(new Tuple<int, int>(76, i), data);
                 if (i != 0)
                     DataCommandsListbySubGroup["Analog"].Add(data);
-
-
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
         }
         public void GenerateMotionCommands()
         {
@@ -397,10 +379,6 @@ namespace SuperButton.CommandsDB
 
             EnumViewCommandsList.Add(new Tuple<int, int>(209, 1), enum2);
             EnumCommandsListbySubGroup["Control"].Add(enum2);
-
-
-
-
 
 
             var data1 = new DataViewModel
@@ -482,9 +460,48 @@ namespace SuperButton.CommandsDB
             };
             DataViewCommandsList.Add(new Tuple<int, int>(53, 4), data6);
             DataCommandsListbySubGroup["Motion Limit"].Add(data6);
+        }
+        public void GenerateRPCommands()
+        {
+            DataCommandsListbySubGroup.Add("RPCommands List", new ObservableCollection<object>());
 
+            var data = new DataViewModel
+            {
+                CommandName = "Current",
+                CommandId = "53",
+                CommandSubId = "4",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
+            data = new DataViewModel
+            {
+                CommandName = "Speed",
+                CommandId = "53",
+                CommandSubId = "4",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Speed Position",
+                CommandId = "53",
+                CommandSubId = "4",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Position",
+                CommandId = "53",
+                CommandSubId = "4",
+                CommandValue = "",
+            };
+            DataCommandsListbySubGroup["RPCommands List"].Add(data);
 
         }
     }
 }
+

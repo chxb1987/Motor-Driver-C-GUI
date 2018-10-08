@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="SuperButton.HomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Common="clr-namespace:Abt.Controls.SciChart.Example.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Example="clr-namespace:Abt.Controls.SciChart.Example"
+             xmlns:Helpers="clr-namespace:Abt.Controls.SciChart.Example.Helpers"
+             xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             xmlns:helpers="clr-namespace:SuperButton.Helpers"
+             xmlns:superButton="clr-namespace:SuperButton"
+             d:DesignHeight="800"
+             d:DesignWidth="1380"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <s:ValueMultiplicatorConverter x:Key="valueMultiplicator" />
+
+        <Style x:Key="groupHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="FontFamily" Value="/Abt.Controls.SciChart.Example;component/Resources/Fonts/NEUROPOL.ttf#Neuropol" />
+            <Setter Property="FontSize" Value="19" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <!--Height="{Binding ActualHeightValue,
+                                           ElementName=proxy,
+                                           Converter={StaticResource valueMultiplicator},
+                                           ConverterParameter=0.3}"-->
+        <!--<Grid Width="{Binding ActualWidthValue,
+                                          ElementName=proxy,
+                                          Converter={StaticResource valueMultiplicator},
+                                          ConverterParameter=0.4755}"-->
+        <helpers:ActualSizePropertyProxy x:Name="proxy" Element="{Binding ElementName=groupsListBox}" />
+
+        <ListBox x:Name="groupsListBox"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 ItemContainerStyle="{StaticResource groupsListBoxItemStyle}"
+                 ItemsSource="{Binding GroupedExamples}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Margin="0"
+                 Style="{StaticResource GroupsListBoxStyle}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="{Binding ActualWidthValue,
+                                          ElementName=proxy,
+                                          Converter={StaticResource valueMultiplicator},
+                                          ConverterParameter=0.475}"
+                          Height="248"
+                          d:DesignHeight="268"
+                          d:DesignWidth="614">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <helpers:ActualSizePropertyProxy x:Name="examplesProxy"
+                                                         Element="{Binding ElementName=examplesListBox}"
+                                                         Visibility="Visible" />
+                        <!--Text="{Binding Group,
+                                                  FallbackValue='Group Name',
+                                                  Converter={StaticResource ChartGroupConverter}}"-->
+                        <TextBlock Grid.Row="0"
+                                   Margin="10,10,0,10"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource groupHeaderTextStyle}"
+                                   Text="Name" />
+
+                        <!--<ListBox x:Name="examplesListBox"
+                                 Grid.Row="1"
+                                 Margin="10,0,0,10"
+                                 HorizontalAlignment="Stretch"
+                                 HorizontalContentAlignment="Stretch"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 ItemContainerStyle="{StaticResource examplesListBoxItemStyle}"
+                                 ItemsSource="{Binding Examples}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                            <Interactivity:Interaction.Triggers>
+                                <Interactivity:EventTrigger EventName="SelectionChanged">
+                                    <Helpers:InvokeSelectCommandAction />
+                                </Interactivity:EventTrigger>
+                            </Interactivity:Interaction.Triggers>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <superButton:ExampleItemViewControl />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+
+                        </ListBox>-->
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+    </Grid>
+</UserControl>
+
+

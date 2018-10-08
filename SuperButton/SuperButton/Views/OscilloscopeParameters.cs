@@ -19,6 +19,10 @@ namespace SuperButton.Views
         public static float Gain;
         public static float FullScale2;
         public static float Gain2;
+        public static float FullScale3;
+        public static float Gain3;
+        public static float FullScale4;
+        public static float Gain4;
         public static int ChanTotalCounter = 0;
 
         static OscilloscopeParameters()

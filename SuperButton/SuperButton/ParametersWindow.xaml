@@ -194,11 +194,11 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Operations" TabIndex="6" DataContext="{Binding OperationViewModel}" Background="Black" Foreground="White" >
+            <!--<TabItem Header="Operations" TabIndex="6" DataContext="{Binding OperationViewModel}" Background="Black" Foreground="White" >
                 <Grid Background="#FF616161">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
-                        <!--<ColumnDefinition Width="160"/>-->
+                        --><!--<ColumnDefinition Width="160"/>--><!--
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0"  Grid.Row="0" Background="#FF616161">
                         <Grid.RowDefinitions>
@@ -213,6 +213,41 @@
                             <Button    Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content=" Get Motor Driver " Command="{Binding GetMotorDriver}" />
                             <TextBlock x:Name="MotorDriver" Foreground="Black"  Margin="2" Width="100" Background="White" TextAlignment="Center" Text="{Binding MotorDriver, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
                         </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>-->
+            <TabItem Header="Calibartion" TabIndex="6" DataContext="{Binding CalibrationViewModel}" Background="Black" Foreground="White" >
+                <Grid Background="#FF616161">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"  Grid.Row="0" Background="#FF616161">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <Grid  Grid.Row="0" Width="200">
+                            <Button  Height="22"  Width="120" Margin="2" Foreground="White" Template="{DynamicResource GlassButton}" Content="Offset Calibration" Command="{Binding OffsetCal}" ToolTip="Chalom"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Width="200" HorizontalAlignment="Left">
+                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Pi Current Calibration" Command="{Binding PiCurrentCal}" />
+                        </Grid>
+                        <Grid Grid.Row="2" Width="200" HorizontalAlignment="Left">
+                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Pi Speed Calibration" Command="{Binding PiSpeedCal}" />
+                        </Grid>
+                        <Grid Grid.Row="3" Width="200" HorizontalAlignment="Left">
+                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Hall Map Calibration" Command="{Binding HallMapCal}" />
+                        </Grid>
+                        <Grid Grid.Row="4" Width="200" HorizontalAlignment="Left">
+                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Encoder Calibration" Command="{Binding EncoderCal}" />
+                        </Grid>
+                        <Grid Grid.Row="5" Width="200" HorizontalAlignment="Left">
+                            <Button  Height="22"  Width="120" Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="X Calibration" Command="{Binding XCal}" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>

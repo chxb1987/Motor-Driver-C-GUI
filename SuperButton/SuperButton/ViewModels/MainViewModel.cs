@@ -125,7 +125,7 @@ namespace SuperButton.ViewModels
 
             //  rightPanel.DataContext = rightPanelViewModel;
 
-            //rightPanelViewModel=new RightPanelViewModel();
+            rightPanelViewModel = new RightPanelViewModel();
             //rightPanel.DataContext = rightPanelViewModel;
             //rightPanelViewModel.ConnetButtonContent = "Disconnect";
 

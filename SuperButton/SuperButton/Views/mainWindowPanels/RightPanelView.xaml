@@ -806,22 +806,18 @@
 
     <Grid x:Name="LayoutRoot" MaxWidth="189">
         <Grid.ColumnDefinitions>
-
-            <ColumnDefinition/>
-
-            <ColumnDefinition Width="Auto" MaxWidth="180"/>
-
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="179"  />
+            <!--<ColumnDefinition/>
+            <ColumnDefinition Width="Auto" MaxWidth="180"/>-->
         </Grid.ColumnDefinitions>
-
-
-
+        
         <Rectangle  Style="{StaticResource rectangleStyle}" Grid.Column="1" Margin="0" Width="180" Opacity="0.3" >
             <Rectangle.Fill>
                 <ImageBrush  ImageSource="/SuperButton;component/Images/Backgrounds/HomeBackground.jpg"   Stretch="UniformToFill"/>
             </Rectangle.Fill>
         </Rectangle>
-
-
+       
         <!--<StackPanel Grid.Column="1" Margin="0" Width="180">
 			<toggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
 				BorderBrush="White"
@@ -873,17 +869,35 @@
 
         <common:CollapsableGridSplitter Grid.Column="0"
 			Width="9"
-			Margin="0,0,0,0"
+			Margin="0"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Stretch"
 			CollapseMode="Next"
 			IsCollapsed="False"
 			IsTabStop="False" 
             ResizeDirection="Columns" 
-            ScrollViewer.HorizontalScrollBarVisibility="Visible" 
-            HorizontalContentAlignment="Right" 
-            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-            Cursor="SizeWE" />
+            Cursor="Hand"
+            ResizeBehavior="PreviousAndNext">
+            
+        </common:CollapsableGridSplitter>
+
+        <StackPanel Orientation="Vertical" MaxWidth="170" Grid.Column="1" Grid.ColumnSpan="2" Margin="0">
+            <Grid HorizontalAlignment="Center" Width="160" Margin="5,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="480"></RowDefinition>
+                    <!--<RowDefinition Height="100"></RowDefinition>-->
+                </Grid.RowDefinitions>
+                <GroupBox Header="Commands" HorizontalContentAlignment="Center" Grid.Row="0" VerticalAlignment="Top">
+                    <ItemsControl ItemsSource="{Binding RPCommandsList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                </GroupBox>
+            </Grid>
+            
+
+        </StackPanel>
+
+
+
+        
 
 
     </Grid>

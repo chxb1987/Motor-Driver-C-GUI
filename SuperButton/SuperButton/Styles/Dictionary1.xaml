@@ -88,6 +88,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+        <Setter Property="Foreground" Value="Black"></Setter>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="HasDropShadow" Value="True"/>
         <Setter Property="Template">
@@ -95,6 +96,7 @@
                 <ControlTemplate TargetType="ToolTip">
                     <Border Name="Border"
           Background="{StaticResource LightBrush}"
+                            
           BorderBrush="{StaticResource SolidBorderBrush}"
           BorderThickness="1"
           Width="{TemplateBinding Width}"

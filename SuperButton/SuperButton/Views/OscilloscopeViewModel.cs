@@ -54,7 +54,6 @@ namespace SuperButton.Views
         //CH2 ComboBox
         int ch2;
         private string _ch2Title;
-
         public List<string> Channel2SourceItems { get; set; }
         private string _selectedCh2DataSource;
 
@@ -83,9 +82,9 @@ namespace SuperButton.Views
 
 
         readonly List<float> AllYData = new List<float>(500000);
-
         readonly List<float> AllYData2 = new List<float>(500000);
-
+        readonly List<float> AllYData3 = new List<float>(500000);
+        readonly List<float> AllYData4 = new List<float>(500000);
 
 
 
@@ -515,13 +514,12 @@ namespace SuperButton.Views
             xData = new float[0];
             _yFloats = new float[0];
             _yFloats2 = new float[0];
+            _yFloats3 = new float[0];
+            _yFloats4 = new float[0];
 
             FillDictionary();
             Thread.Sleep(100);
             ResetZoom();
-
-
-
         }
         private void FillDictionary()
         {
@@ -624,9 +622,6 @@ namespace SuperButton.Views
         {
             get { return new ActionCommand(ResetZoom); }
         }
-
-
-
         #endregion
 
         public ActionCommand PlotReset
@@ -657,9 +652,13 @@ namespace SuperButton.Views
 
         private int _chan1Counter = 0;
         private int _chan2Counter = 0;
+        private int _chan3Counter = 0;
+        private int _chan4Counter = 0;
 
         private IXyDataSeries<float, float> _series1;
         private IXyDataSeries<float, float> _series0;
+        private IXyDataSeries<float, float> _series2;
+        private IXyDataSeries<float, float> _series3;
 
         public string SelectedCh1DataSource
         {
@@ -788,6 +787,8 @@ namespace SuperButton.Views
             {
                 _series0 = new XyDataSeries<float, float>();
                 _series1 = new XyDataSeries<float, float>();
+                _series2 = new XyDataSeries<float, float>();
+                _series3 = new XyDataSeries<float, float>();
 
                 // if (ChartModifier == ModifierType.Rollover) SetModifier(ModifierType.CrosshairsCursor);
                 // SeriesResamplingMode = ResamplingMode.Auto;
@@ -797,6 +798,10 @@ namespace SuperButton.Views
                 ChartData = _series0;
                 _series1.Clear();
                 ChartData1 = _series1;
+                _series2.Clear();
+                ChartData2 = _series2;
+                _series3.Clear();
+                ChartData3 = _series3;
 
                 OnExampleEnter();
                 plotActivationstate = 1;
@@ -999,6 +1004,25 @@ namespace SuperButton.Views
                 OnPropertyChanged("ChartData1");
             }
         }
+        public IXyDataSeries<float, float> ChartData2
+        {
+            get { return _series0; }
+            set
+            {
+                _series0 = value;
+                OnPropertyChanged("ChartData2");
+            }
+        }
+        public IXyDataSeries<float, float> ChartData3
+        {
+            get { return _series1; }
+            set
+            {
+                _series1 = value;
+                OnPropertyChanged("ChartData3");
+            }
+        }
+
 
         private void ResetZoom()
         {
@@ -1114,13 +1138,21 @@ namespace SuperButton.Views
 
         private float[] _yFloats;
         private float[] _yFloats2;
+        private float[] _yFloats3;
+        private float[] _yFloats4;
+
         private float[] temp3;
         private float[] temp4;
+        private float[] temp5;
+        private float[] temp6;
         private int carry;
         private int carry2;
+        private int carry3;
+        private int carry4;
         private float[] yDataTemp;
         private float[] yDataTemp2;
-
+        private float[] yDataTemp3;
+        private float[] yDataTemp4;
         /* On ticj function */
 
         private void OnTick(object sender, EventArgs e)
@@ -1429,8 +1461,12 @@ namespace SuperButton.Views
                     {
                         List<float> ytemp = new List<float>();
                         List<float> ytemp2 = new List<float>();
+                        List<float> ytemp3 = new List<float>();
+                        List<float> ytemp4 = new List<float>();
                         float item;
                         float item2;
+                        float item3;
+                        float item4;
 
                         //Collect data from first channel
                         while (ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
@@ -1438,6 +1474,10 @@ namespace SuperButton.Views
                             ytemp.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
                             ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out item2);
                             ytemp2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
+                            ParserRayonM1.GetInstanceofParser.FifoplotListCh3.TryDequeue(out item3);
+                            ytemp3.Add(item3 * OscilloscopeParameters.Gain3 * OscilloscopeParameters.FullScale3);
+                            ParserRayonM1.GetInstanceofParser.FifoplotListCh4.TryDequeue(out item4);
+                            ytemp4.Add(item4 * OscilloscopeParameters.Gain4 * OscilloscopeParameters.FullScale4);
                         }
 
                         //Collect data from second channel
@@ -1448,6 +1488,8 @@ namespace SuperButton.Views
 
                         AllYData.AddRange(ytemp);
                         AllYData2.AddRange(ytemp2);
+                        AllYData3.AddRange(ytemp3);
+                        AllYData4.AddRange(ytemp4);
 
                         if (_isFull)
                         {
@@ -1480,6 +1522,7 @@ namespace SuperButton.Views
                                 {
                                     temp2 = AllYData2.Take(POintstoPlot - pivot).ToArray();
                                     temp = AllYData.Take(POintstoPlot - pivot).ToArray();
+
                                 }
                                 else
                                     return;
@@ -1540,8 +1583,16 @@ namespace SuperButton.Views
 
                                 temp3 = AllYData.Take(POintstoPlot).ToArray();
                                 temp4 = AllYData2.Take(POintstoPlot).ToArray();
+                                temp5 = AllYData.Take(POintstoPlot).ToArray();
+                                for (int i = 0; i < temp5.Length; i++)
+                                    temp5[i] = temp5[i] + 10;
+                                temp6 = AllYData2.Take(POintstoPlot).ToArray();
+                                for (int i = 0; i < temp6.Length; i++)
+                                    temp6[i] = temp6[i] - 50;
                                 carry = temp3.Length;
                                 carry2 = temp4.Length;
+                                carry3 = temp5.Length;
+                                carry4 = temp6.Length;
                                 //1
                                 yDataTemp = new float[POintstoPlot];
                                 Array.Copy(_yFloats, carry, yDataTemp, 0, _yFloats.Length - (carry)); //Shift Left
@@ -1554,6 +1605,17 @@ namespace SuperButton.Views
                                 Array.Copy(temp4, 0, yDataTemp2, _yFloats2.Length - carry2, carry2); // Add range
                                 Array.Copy(yDataTemp2, 0, _yFloats2, 0, POintstoPlot);
 
+                                //3
+                                yDataTemp3 = new float[POintstoPlot];
+                                Array.Copy(_yFloats3, carry3, yDataTemp3, 0, _yFloats3.Length - (carry3)); //Shift Left
+                                Array.Copy(temp5, 0, yDataTemp3, _yFloats3.Length - carry3, carry3); // Add range
+                                Array.Copy(yDataTemp3, 0, _yFloats3, 0, POintstoPlot);
+
+                                //4
+                                yDataTemp4 = new float[POintstoPlot];
+                                Array.Copy(_yFloats4, carry4, yDataTemp4, 0, _yFloats4.Length - (carry4)); //Shift Left
+                                Array.Copy(temp6, 0, yDataTemp4, _yFloats4.Length - carry4, carry4); // Add range
+                                Array.Copy(yDataTemp4, 0, _yFloats4, 0, POintstoPlot);
 
                                 for (int i = 0; i < POintstoPlot; i++)
                                 {
@@ -1567,15 +1629,20 @@ namespace SuperButton.Views
                                     {
                                         _series0.Clear();
                                         _series1.Clear();
+                                        _series2.Clear();
+                                        _series3.Clear();
                                         _series0.Append(xData, _yFloats);
                                         _series1.Append(xData, _yFloats2);
+                                        _series2.Append(xData, _yFloats3);
+                                        _series3.Append(xData, _yFloats4);
                                     }
                                 }
 
 
                                 AllYData.RemoveRange(0, (carry) - 1);
                                 AllYData2.RemoveRange(0, (carry2) - 1);
-
+                                AllYData3.RemoveRange(0, (carry3) - 1);
+                                AllYData4.RemoveRange(0, (carry4) - 1);
                                 break;
                         }
                     }

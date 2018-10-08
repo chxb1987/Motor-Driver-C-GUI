@@ -88,7 +88,7 @@
 
         <!-- right Panel -->
 
-        <mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}" />
+        <mainWindowPanels:RightPanel  Visibility="Visible"  HorizontalContentAlignment="Left" Grid.Row="2" Grid.Column="2" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}" />
 
 
         <Grid Grid.Column="1" Margin="0" Grid.Row="2"  >
@@ -109,6 +109,7 @@
 
         <!-- Upper Panel -->
         <Grid Name="UpGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0" Height="50" >
+            <TextBlock Foreground="Wheat"> Version V0.0.b</TextBlock>
             <Grid HorizontalAlignment="Right" Height="40" VerticalAlignment="Center" Width="70" Margin="0,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110" MaxWidth="70"/>

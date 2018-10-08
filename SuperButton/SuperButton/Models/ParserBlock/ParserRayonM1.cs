@@ -73,6 +73,8 @@ namespace SuperButton.Models.ParserBlock
         //public Queue<double> FifoplotList = new Queue<double>();
         public ConcurrentQueue<float> FifoplotList = new ConcurrentQueue<float>();
         public ConcurrentQueue<float> FifoplotListCh2 = new ConcurrentQueue<float>();
+        public ConcurrentQueue<float> FifoplotListCh3 = new ConcurrentQueue<float>();
+        public ConcurrentQueue<float> FifoplotListCh4 = new ConcurrentQueue<float>();
         public UInt32 RefreshCounter = 0;
         public UInt32 Ticker = 0;
         public UInt32 TickerC = 1;
