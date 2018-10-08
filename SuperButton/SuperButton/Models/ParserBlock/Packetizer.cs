@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
-
+using SuperButton.Helpers;
 
 namespace SuperButton.Models.ParserBlock
 {
@@ -80,12 +80,16 @@ namespace SuperButton.Models.ParserBlock
                     }
                     if (PlotPacketsList.Count > 0)
                     {
+                        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
+                        Thread.Sleep(0);
                         ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
                     }               //send to plot parser              
                     if (StandartPacketsListNew.Count > 0)
                     {
                         ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
                         StandartPacketsListNew.Clear(); // Joseph add
+
                     } //send to Standart parser                             
                 }
                 else

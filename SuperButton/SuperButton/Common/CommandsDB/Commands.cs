@@ -513,7 +513,6 @@ namespace SuperButton.CommandsDB
                 CommandSubId = "0",
                 CommandValue = "",
                 IsFloat = true,
-                IsSelected = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(3, 0), data);
             DataCommandsListbySubGroup["MotionCommand List"].Add(data);
@@ -547,6 +546,7 @@ namespace SuperButton.CommandsDB
                 CommandSubId = "0",
                 CommandValue = "",
                 IsFloat = false,
+                IsSelected = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(5, 0), data);
             DataCommandsListbySubGroup["MotionCommand List"].Add(data);

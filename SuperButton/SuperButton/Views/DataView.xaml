@@ -119,11 +119,14 @@
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                <i:InvokeCommandAction Command="{Binding MouseLeftButtonDown}" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
+                            <i:EventTrigger EventName="MouseLeave" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendData}"></KeyBinding>
                         </TextBox.InputBindings>

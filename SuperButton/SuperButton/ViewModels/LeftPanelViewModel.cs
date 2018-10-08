@@ -83,6 +83,9 @@ namespace SuperButton.ViewModels
         }
         #region Connect_Button
         private String _connetButtonContent;
+
+        Task Background;
+        Task Connection;
         public String ConnectButtonContent
         {
             get { return _connetButtonContent; }
@@ -91,9 +94,14 @@ namespace SuperButton.ViewModels
                 if (value == "Disconnect")
                 {
                     LeftPanelViewModel.flag = true;
-                    Task task = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
-                    Task task1 = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
+                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                    Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
 
+                }
+                else
+                {
+                    LeftPanelViewModel.flag = false;
+                    
                 }
                 if (_connetButtonContent == value) return;
                 _connetButtonContent = value;
@@ -109,7 +117,11 @@ namespace SuperButton.ViewModels
             get
             {
                 if (_connetButtonContent == "Connect")
+                {
+                    if (ParametarsWindow.WindowsOpen)
+                        Close_parmeterWindow();
                     return "Not Connected";
+                }
                 else
                 {
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
@@ -499,6 +511,7 @@ namespace SuperButton.ViewModels
             {
                 lock (ConnectLock)
                 {
+
                     Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
                     taskDisconnect.Start();
 
@@ -626,6 +639,7 @@ namespace SuperButton.ViewModels
         }
         public void Close_parmeterWindow()
         {
+            win.Close();
             //flag = false;
         }
 
@@ -638,7 +652,6 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                //LeftPanelViewModel.GetInstance.EnRefresh = value;
                 _enRefresh = value;
                 OnPropertyChanged("EnRefresh");
             }
@@ -647,9 +660,7 @@ namespace SuperButton.ViewModels
         {
             while (flag)
             {
-                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
                 RefreshManger.GetInstance.StartRefresh();
-                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
                 Thread.Sleep(1000);
                 //flag = false; // Joseph added
             }
@@ -658,37 +669,40 @@ namespace SuperButton.ViewModels
         public static void VerifyDriverCom()
         {
             int count = 0;
-            //while (flag)
-            //{
+#if !DEBUG
+            while (flag)
+            {
 
-            //    int oldTx = TxCount; int oldRx = RxCount;
-            //    Thread.Sleep(1000);
-            //    if (oldTx != 0 && oldTx == TxCount && oldRx == RxCount)
-            //        count++;
-            //    else
-            //        count = 0;
-            //    if (oldRx == RxCount && count == 2)
-            //    {
+                int oldTx = TxCount; int oldRx = RxCount;
+                Thread.Sleep(1000);
+                if (oldTx != 0 && oldTx == TxCount && oldRx == RxCount)
+                    count++;
+                else
+                    count = 0;
+                if (oldRx == RxCount && count == 5)
+                {
 
-            //        count = 0;
-            //        flag = false;
-            //        Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
-            //        taskDisconnect.Start();
-            //        EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-            //        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
-            //        if (!MessageBoxWrapper.IsOpen)
-            //        {
-            //            string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
-            //            MessageBoxWrapper.Show(msg, "");
-            //        }
-            //        if (ParametarsWindow.WindowsOpen == true)
-            //        {
-            //            win.Close(); 
-            //            ParametarsWindow.WindowsOpen = false;
-            //        }
+                    count = 0;
+                    flag = false;
+                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
+                    taskDisconnect.Start();
+                    EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
+                    EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+                    if (!MessageBoxWrapper.IsOpen)
+                    {
+                        string msg = string.Format("Serial connection ended !" + "\n" + "Please connect the device");
+                        MessageBoxWrapper.Show(msg, "");
+                    }
+                    if (ParametarsWindow.WindowsOpen == true)
+                    {
+                        win.Close();
+                        ParametarsWindow.WindowsOpen = false;
+                    }
 
-            //    }
-            //}
+                }
+            }
+#endif 
+
         }
         #endregion
     }

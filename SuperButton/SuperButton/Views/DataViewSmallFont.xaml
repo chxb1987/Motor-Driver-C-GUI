@@ -126,6 +126,9 @@
                             <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
                                 <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
                             </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeave" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
+                            </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
                 </Border>

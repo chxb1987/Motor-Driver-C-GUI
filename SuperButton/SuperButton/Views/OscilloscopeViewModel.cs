@@ -29,6 +29,7 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.Models.ParserBlock;
 using SuperButton.ViewModels;
 using Timer = System.Timers.Timer;
+
 //Cntl+M and Control+O for close regions
 namespace SuperButton.Views
 {
@@ -1922,6 +1923,29 @@ namespace SuperButton.Views
 
         }
 
+        private bool _is_recording = false;
+        public bool IsRecording
+        {
+            get { return _is_recording; }
+            set
+            {
+                if (_is_recording == value) { return; }
+                if(LeftPanelViewModel.flag)
+                    _is_recording = value;
+                else
+                {
+                    if (!MessageBoxWrapper.IsOpen)
+                    {
+                        string msg = string.Format("No Serial connection detected !");
+                        MessageBoxWrapper.Show(msg, "");
+                    }
+                    _is_recording = false;
+                }
+                //SaveToDisk.IsRecording = value;
+
+                OnPropertyChanged("IsRecording");
+            }
+        }
 
     }
 

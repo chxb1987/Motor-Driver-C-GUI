@@ -118,19 +118,19 @@ namespace SuperButton.Models.DriverBlock
             switch (tabIndex)
             {
                 case 0:
-                    string[] arr = new string[] { "Control", "Motor", "Motion Limit"};
+                    string[] arr = new string[] { "Control", "Motor", "Motion Limit" };
                     return arr.Concat(PanelElements).ToArray();
                 case 1:
-                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback"};
+                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback" };
                     return arr.Concat(PanelElements).ToArray();
                 case 2:
-                    arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition"};
+                    arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition" };
                     return arr.Concat(PanelElements).ToArray();
                 case 3:
-                    arr = new string[] { "DeviceSerial"};
+                    arr = new string[] { "DeviceSerial" };
                     return arr.Concat(PanelElements).ToArray();
                 case 4:
-                    arr = new string[] { "DriverFullScale"};
+                    arr = new string[] { "DriverFullScale" };
                     return arr.Concat(PanelElements).ToArray();
                 case 5:
                     arr = new string[] { "CalibrationCommands List" };
@@ -170,6 +170,7 @@ namespace SuperButton.Models.DriverBlock
                                 CommandSubId = ((DataViewModel)sub_list).CommandSubId,
                                 CommandValue = ((DataViewModel)sub_list).CommandValue,
                                 IsFloat = ((DataViewModel)sub_list).IsFloat,
+                                IsSelected = ((DataViewModel)sub_list).IsSelected,
                             };
                             BuildList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
                         }
@@ -185,15 +186,18 @@ namespace SuperButton.Models.DriverBlock
 
                     //  if (command.Value.CommandName == "Serial Number")
                     //{
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    if (!command.Value.IsSelected)
                     {
-                        Data2Send = command.Value.CommandValue,
-                        ID = Convert.ToInt16(command.Value.CommandId),
-                        SubID = Convert.ToInt16(command.Value.CommandSubId),
-                        IsSet = false,
-                        IsFloat = command.Value.IsFloat
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = command.Value.CommandValue,
+                            ID = Convert.ToInt16(command.Value.CommandId),
+                            SubID = Convert.ToInt16(command.Value.CommandSubId),
+                            IsSet = false,
+                            IsFloat = command.Value.IsFloat
+                        });
                     }
-                    );
+
                     // }
 
                     Thread.Sleep(10);
@@ -279,7 +283,7 @@ namespace SuperButton.Models.DriverBlock
             }
             if (commandidentifier.Item1 == 1)
             {
-                if(commandidentifier.Item2 == 0)
+                if (commandidentifier.Item2 == 0)
                 {
                     LeftPanelViewModel.MotorOnOff_flag = true;
                     LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;

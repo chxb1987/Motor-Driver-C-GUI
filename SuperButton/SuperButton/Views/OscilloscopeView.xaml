@@ -5,7 +5,8 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:s="http://schemas.abtsoftware.co.uk/scichart"         
              xmlns:common="clr-namespace:SuperButton.Common"    
-            xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D" 
+             xmlns:Helpers="clr-namespace:SuperButton.Helpers"
+             xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D" 
              d:DesignHeight="768"
              d:DesignWidth="1024"
              mc:Ignorable="d">
@@ -237,10 +238,26 @@
                     <TextBlock Margin="3" Text="Zoom Reset" />
                 </StackPanel>
             </Button>
-            <Button Grid.Column="14" Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
+            <!--<Button Grid.Column="14" Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                 <TextBlock Margin="3" Text="Rec" />
-            </Button>
-        </Grid>
+            </Button>  -->
+                <ToggleButton Grid.Column="14" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
+                    <ToggleButton.Background>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                            <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ToggleButton.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <!--<customControls:RoundBoolLed Width="11" CurrStatus="{Binding ShowRecordigStatus}"></customControls:RoundBoolLed>-->
+                        <Helpers:RecLed Width="11" Recording="{Binding IsRecording}"></Helpers:RecLed>
+                        <Grid Width="4"></Grid>
+                        <Label>Rec</Label>
+                    </StackPanel>
+                </ToggleButton>
+            </Grid>
         </ScrollViewer>
 
         <!--http://support.scichart.com/index.php?/Knowledgebase/Article/View/17227/36/performance-tips-and-tricks-->

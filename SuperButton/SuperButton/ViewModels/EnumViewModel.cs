@@ -68,7 +68,7 @@ namespace SuperButton.ViewModels
         {
             if (Count == 0)
             {
-                Count++;
+                Count=0;
                 CommandValue = (CommandList.FindIndex(x => x.StartsWith(SelectedValue)) + 1).ToString();
                 BuildPacketTosend(CommandValue);
             }

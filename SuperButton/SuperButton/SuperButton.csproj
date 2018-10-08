@@ -181,6 +181,7 @@
     <Compile Include="Helpers\EventRiser.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\NavigationBase.cs" />
+    <Compile Include="Helpers\RecLed.cs" />
     <Compile Include="Helpers\RoundBoolLed.cs" />
     <Compile Include="Helpers\TransitioningFrame.cs" />
     <Compile Include="Helpers\TreeViewExtension.cs" />

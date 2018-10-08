@@ -352,11 +352,14 @@ namespace SuperButton.Models.DriverBlock
         {
             lock (Sendlock)
             {
+                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
                 var serialPort = comPort as SerialPort;
                 if (serialPort != null && serialPort.IsOpen)
                     serialPort.Write(packetToSend, 0, packetToSend.Length); // Send through RS232 cable
                 var port = comPort as SerialPort;
                 if (port != null) port.DiscardOutBuffer();
+                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
+
             }
         }
 
@@ -368,7 +371,7 @@ namespace SuperButton.Models.DriverBlock
                 if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
                 { /*int i = 0; */}
                 // messege.Data2Send = "0.5";
-                EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
+                
 
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
                 Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
@@ -389,7 +392,6 @@ namespace SuperButton.Models.DriverBlock
                 //catch { }
 
             }
-            EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
 
         }
 
