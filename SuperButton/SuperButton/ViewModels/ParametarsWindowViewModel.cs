@@ -16,11 +16,15 @@ namespace SuperButton.ViewModels
         private bool _isAnalogbackEnabled;
         private OperationViewModel _operationViewModel;
         private CalibrationViewModel _calibrationViewModel;
+        private MotionViewModel _motionViewModel;
+        private MaintenanceViewModel _maintenanceViewModel;
 
         public ParametarsWindowViewModel()
         {
             _operationViewModel = OperationViewModel.GetInstance;
             _calibrationViewModel = CalibrationViewModel.GetInstance;
+            _motionViewModel = MotionViewModel.GetInstance;
+            _maintenanceViewModel = MaintenanceViewModel.GetInstance;
         }
             
         public ObservableCollection<object> ControlList
@@ -332,6 +336,15 @@ namespace SuperButton.ViewModels
             get { return _calibrationViewModel; }
         }
 
+        public MotionViewModel MotionViewModel
+        {
+            get { return _motionViewModel; }
+        }
+
+        public MaintenanceViewModel MaintenanceViewModel
+        {
+            get { return _maintenanceViewModel; }
+        }
         private void changechekboxvalue()
         {
             IsHallFeedBackEnabled = !IsHallFeedBackEnabled;

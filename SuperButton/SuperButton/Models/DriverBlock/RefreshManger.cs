@@ -111,7 +111,7 @@ namespace SuperButton.Models.DriverBlock
         }
         private string[] GroupToExecute(int tabIndex)
         {
-            string[] PanelElements = new string[] { "RPCommands List", "Profiler Mode", "LPCommands List", "Driver Type" };
+            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "LPCommands List", "Driver Type", "MotionStatus List" };
 
             switch (tabIndex)
             {
@@ -132,6 +132,12 @@ namespace SuperButton.Models.DriverBlock
                     return arr.Concat(PanelElements).ToArray();
                 case 5:
                     arr = new string[] { "CalibrationCommands List" };
+                    return arr.Concat(PanelElements).ToArray();
+                case 6:
+                    arr = new string[] { "CurrentLimit List" };
+                    return arr.Concat(PanelElements).ToArray();
+                case 7:
+                    arr = new string[] { "Maintenance List", "MaintenanceBool List" };
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
                     return PanelElements;
@@ -219,6 +225,30 @@ namespace SuperButton.Models.DriverBlock
                     default:
                         break;
                 }
+            }
+            if (commandidentifier.Item1 == 63)
+            {
+                switch (commandidentifier.Item2)
+                {
+                    case 0:
+                        MaintenanceViewModel.GetInstance.Save = (newPropertyValue == 0.ToString()) ? false : true;
+                        break;
+                    case 1:
+                        MaintenanceViewModel.GetInstance.Manufacture = (newPropertyValue == 0.ToString()) ? false : true;
+                        break;
+                    case 2:
+                        MaintenanceViewModel.GetInstance.Reboot = (newPropertyValue == 0.ToString()) ? false : true;
+                        break;
+                    case 10:
+                        MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0)
+            {
+                MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
             }
 
             if (commandidentifier.Item1 == 53 || commandidentifier.Item1 == 70)

@@ -32,8 +32,7 @@
             <RowDefinition Height="519*"/>
         </Grid.RowDefinitions>
 
-        <TabControl TabStripPlacement="Top" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2"  SelectionChanged="TabSelected">
-            <!-- Background="#FF616161" -->
+        <TabControl TabStripPlacement="Top" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"  SelectionChanged="TabSelected" Margin="1,0,-1,0">
             <TabControl.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
             </TabControl.Background>
@@ -65,67 +64,100 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="190"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="170"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0"   Header="Hall" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Visible" >
-                            <StackPanel    Orientation="Vertical" Margin="0,4,0,-4">
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}"     IsChecked="{Binding IsHallFeedBackEnabled}">
+                        <GroupBox Grid.Row="0" Header="Hall" HorizontalContentAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="155"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsHallFeedBackEnabled}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Checked">
                                             <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </CheckBox>
-                                <ItemsControl     ItemsSource="{Binding HallFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            </StackPanel>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding HallFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="1" Header="SSI Feedback"  Background="Transparent" Margin="0,10,0,0">
-                            <StackPanel  Background="Transparent" Orientation="Vertical" Margin="0,4,0,-4">
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>
-                                <ItemsControl     ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            </StackPanel>
-                        </GroupBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="160"/>
-                            <RowDefinition Height="210"/>
-                        </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0"    Header="Qep1" Margin="30,0,-30,0">
-                            <StackPanel  Background="Transparent" Orientation="Vertical" >
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />
-                                <ItemsControl     ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Grid.Row="1"    Header="Qep2"  Background="Transparent" Margin="30,50,-30,0">
-                            <StackPanel  Background="Transparent" Orientation="Vertical" >
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsQep2FeedBackEnabled}" />
-                                <ItemsControl     ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                            </StackPanel>
+                        <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                    <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </Grid>
                         </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="160"/>
-                            <RowDefinition Height="210"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0"    Header="Digital"  Background="Transparent" Margin="60,0,-60,0">
-                            <StackPanel  Background="Transparent" Orientation="Vertical" >
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsDigitalFeedbackEnabled}"/>
-                                <ItemsControl     ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                            </StackPanel>
+                        <GroupBox Grid.Row="0" Header="Qep1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="155"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />
+                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                </ScrollViewer>
+                            </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="1"    Header="Analog"  Background="Transparent" Margin="60,50,-60,0">
-                            <StackPanel  Background="Transparent" Orientation="Vertical" >
-                                <CheckBox   Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsAnalogFeddbackEnabled}"/>
-                                <ItemsControl     ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                            </StackPanel>
+                        <GroupBox Grid.Row="2" Header="Qep2"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsQep2FeedBackEnabled}" />
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Digital"  Background="Transparent" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="155"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsDigitalFeedbackEnabled}"/>
+                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2"    Header="Analog"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsAnalogFeddbackEnabled}"/>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                            </Grid>
                         </GroupBox>
                     </Grid>
                 </Grid>
@@ -200,7 +232,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Calibartion" TabIndex="6" DataContext="{Binding CalibrationViewModel}" Background="Black" Foreground="White" >
+            <TabItem Header="Calibration" TabIndex="6" DataContext="{Binding CalibrationViewModel}" Background="Black" Foreground="White" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
@@ -220,43 +252,43 @@
                             <TextBlock Text="Automatic Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Beige" FontFamily="Calibri"></TextBlock>
                         </Grid>
                         <StackPanel  Grid.Row="1" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Current Offset" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Current Offset" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding OffsetCal}" ToolTip="Chalom" VerticalAlignment="Center"/>
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding offsetCalVal}" BorderBrush="White"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Current Loop" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Current Loop" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiCurrentCal}" />
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PICurrentCalVal}" BorderBrush="White"/>
                         </StackPanel>
                         <StackPanel Grid.Row="5" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Speed Loop" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Speed Loop" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiSpeedCal}" />
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PISpeedCalVal}" BorderBrush="White"/>
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Hall Mapping" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Hall Mapping" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding HallMapCal}" />
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding HallCalVal}" BorderBrush="White"/>
                         </StackPanel>
                         <StackPanel Grid.Row="4" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Encoder1 Direction" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="Encoder1 Direction" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding EncoderCal}" />
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding Encoder1CalVal}" BorderBrush="White"/>
                         </StackPanel>
                         <StackPanel Grid.Row="6" Orientation="Horizontal">
-                            <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Position Loop" HorizontalAlignment="Center"></TextBlock>
+                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock Height="17" Text="PI Position Loop" HorizontalAlignment="Left"></TextBlock>
                             </Border>
                             <Button  Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding P2PositionCal}" />
                             <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PIPosCalVal}" BorderBrush="White"/>
@@ -266,6 +298,83 @@
                                 
                             </ToggleButton>
                         </StackPanel>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Motion" TabIndex="7" DataContext="{Binding MotionViewModel}" Background="Black" Foreground="White" Margin="-1,0,1,0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Current Limit" >
+                            <StackPanel Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl ItemsSource="{Binding CurrentLimitList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Maintenance" TabIndex="8" DataContext="{Binding MaintenanceViewModel}" Background="Black" Foreground="White" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Save</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Save}"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Load Manufacture defaults</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Reboot Driver</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reboot}"/>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Enable Protected Write</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableWrite}"/>
+                        </Grid>
+                        <ItemsControl Grid.Row="4" ItemsSource="{Binding MaintenanceList}" ItemTemplate="{StaticResource DataViewSmallFontInd}" Foreground="White"/>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Enable Loader</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableLoder}"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>

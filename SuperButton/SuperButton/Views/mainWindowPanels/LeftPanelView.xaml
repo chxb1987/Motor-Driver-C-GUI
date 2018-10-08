@@ -760,7 +760,7 @@
                 <TextBlock HorizontalAlignment="Left" Text="Technologies     Version V0.0.c" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
             </Grid>
             <Grid Grid.Row="2">
-                <Border BorderBrush="Gray"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
                     <TextBlock Height="17" Text="Communication" HorizontalAlignment="Center" Foreground="White"></TextBlock>
                 </Border>
             </Grid>
@@ -808,10 +808,10 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Border BorderBrush="White"  BorderThickness="1" CornerRadius="3" Width="90" Height="30" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right">
+                <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="90" Height="30" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right">
                     <TextBox 
                         Text="{Binding ConnectTextBoxContent, Mode=TwoWay}"  
-                        Background="Black" 
+                        Background="Transparent" 
                         BorderBrush="Transparent" 
                         Foreground="White" 
                         HorizontalContentAlignment="Center" 
@@ -821,7 +821,7 @@
                 </Border>
             </Grid>
             <ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
-                <Grid>
+                <!--<Grid>-->
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
@@ -840,10 +840,10 @@
                               ItemsSource="{Binding LPCommandsList}" 
                               ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
                     </Grid>
-                </Grid>
+                <!--</Grid>-->
             </ScrollViewer>
             <Grid Grid.Row="6">
-                <Border BorderBrush="Gray"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
                     <TextBlock Height="17" Text="Log" HorizontalAlignment="Center" Foreground="White"></TextBlock>
                 </Border>
             </Grid>

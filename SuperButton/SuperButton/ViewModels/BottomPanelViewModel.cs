@@ -14,23 +14,38 @@ namespace SuperButton.ViewModels
         {
 
         }
-        private ObservableCollection<object> _rpCommandsList;
-        public ObservableCollection<object> RPCommandsList
+        private ObservableCollection<object> _motionCommandList;
+        private ObservableCollection<object> _motionStatusList; 
+        public ObservableCollection<object> MotionCommandList
         {
 
             get
             {
-                return Commands.GetInstance.DataCommandsListbySubGroup["RPCommands List"]; //Motion Limit
+                return Commands.GetInstance.DataCommandsListbySubGroup["MotionCommand List"]; //Motion Limit
             }
             set
             {
-                _rpCommandsList = value;
+                _motionCommandList = value;
                 OnPropertyChanged();
             }
 
 
         }
+        public ObservableCollection<object> MotionStatusList
+        {
 
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["MotionStatus List"];
+            }
+            set
+            {
+                _motionStatusList = value;
+                OnPropertyChanged();
+            }
+
+
+        }
         public ObservableCollection<object> ProfilerModeList
         {
             get
