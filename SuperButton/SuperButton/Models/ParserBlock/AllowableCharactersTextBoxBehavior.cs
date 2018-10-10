@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
+using System.Windows.Media;
 
 namespace SuperButton.Models
 {
@@ -19,7 +20,13 @@ namespace SuperButton.Models
         {
             var txt = sender as TextBox;
             string selection = txt.SelectedText;
-            if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text, selection == "" ? false : true);
+            if (txt.Background.ToString() == "#FFFF0000") {
+                if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text, selection == "" ? false : true);
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e)

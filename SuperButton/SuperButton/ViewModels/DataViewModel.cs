@@ -79,22 +79,29 @@ namespace SuperButton.ViewModels
         {
             if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
-                Task.Factory.StartNew(action: () =>
+                if (CommandValue != "")
                 {
-                    var tmp = new PacketFields
+                    Task.Factory.StartNew(action: () =>
                     {
-                        Data2Send = CommandValue,
-                        ID = Convert.ToInt16(CommandId),
-                        SubID = Convert.ToInt16(CommandSubId),
-                        IsSet = true,
-                        IsFloat = IsFloat,
-                    };
-                    Rs232Interface.GetInstance.SendToParser(tmp);
-                    _escPressed = false;
-                    MouseLeaveCommandFunc();
-                    _escPressed = true;
+                        var tmp = new PacketFields
+                        {
+                            Data2Send = CommandValue,
+                            ID = Convert.ToInt16(CommandId),
+                            SubID = Convert.ToInt16(CommandSubId),
+                            IsSet = true,
+                            IsFloat = IsFloat,
+                        };
+                        Rs232Interface.GetInstance.SendToParser(tmp);
+                        _escPressed = false;
+                        MouseLeaveCommandFunc();
+                        _escPressed = true;
                     //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), CommandValue, IsFloat ? "F":"I");
                 });
+                }
+                else
+                {
+                    MouseLeaveCommandFunc();
+                }
             }
         }
 
@@ -318,6 +325,6 @@ namespace SuperButton.ViewModels
             get { if (!IsSelected) return true; else return false; }
             set { if (!IsSelected) _baseModel.ReadOnly = true; else _baseModel.ReadOnly = false; OnPropertyChanged("ReadOnly"); }
         }
-        public bool EnableTextBox { get { return _baseModel.EnableTextBox; } set { if (IsSelected) _baseModel.EnableTextBox = true; else _baseModel.EnableTextBox = false; OnPropertyChanged("EnableTextBox"); } }
+        public bool EnableTextBox { get { return true; } set { if (IsSelected) _baseModel.EnableTextBox = true; else _baseModel.EnableTextBox = false; OnPropertyChanged("EnableTextBox"); } }
     }
 }
