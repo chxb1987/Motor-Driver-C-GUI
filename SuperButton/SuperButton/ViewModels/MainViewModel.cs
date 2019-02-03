@@ -163,7 +163,7 @@ namespace SuperButton.ViewModels
 
         public void AutoConnectCommand()
         {
-            EventRiser.Instance.RiseEevent(string.Format($"You Pressed : button"));
+            //EventRiser.Instance.RiseEevent(string.Format($"You Pressed : button"));
             Rs232Interface comRs232Interface = Rs232Interface.GetInstance;
             Task task = new Task(new Action(comRs232Interface.AutoConnect));
             task.Start();

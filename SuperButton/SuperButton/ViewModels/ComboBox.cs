@@ -60,11 +60,8 @@ namespace SuperButton.ViewModels
             {
                 if (value != null)
                 {
-                    if (_comString != value)
-                    {
-                        Configuration.SelectedCom = _comString = value;
-                        RaisePropertyChanged("ComString");
-                    }
+                    Configuration.SelectedCom = _comString = value;
+                    RaisePropertyChanged("ComString");
                 }
             }
         }

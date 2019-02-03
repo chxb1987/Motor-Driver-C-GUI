@@ -75,7 +75,7 @@
             DataContext="{Binding LPcontent, UpdateSourceTrigger=PropertyChanged}" 
             Visibility="Visible"  
             HorizontalContentAlignment="Right" 
-            Grid.Row="2"  Height="Auto" Loaded="LeftPanelView_Loaded"
+            Grid.Row="2"  Height="Auto"
             Grid.RowSpan="2"/>
 
         <!-- Bottom Panel -->

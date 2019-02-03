@@ -31,7 +31,7 @@ namespace SuperButton.Views
 
             
 
-            var type=this.OscilloscopeChart.RenderSurface;
+            //var type=this.OscilloscopeChart.RenderSurface;
         }
 
         private void FrameworkElement_OnInitialized(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace SuperButton.Views
         {
             //throw new NotImplementedException();
            
-           var type = this.OscilloscopeChart.RenderSurface;
+              var type = this.OscilloscopeChart.RenderSurface;
         }
 
    

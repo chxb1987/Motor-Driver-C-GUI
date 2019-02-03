@@ -323,22 +323,6 @@
                                             ResamplingMode="MinMax"
                                             StrokeThickness="1"
                                             Style="{StaticResource LineSeriesStyle}"/>
-                
-                <s:FastLineRenderableSeries DataSeries="{Binding ChartData2}"
-                                            SeriesColor="Red"
-                                            AntiAliasing="False"
-                                            IsDigitalLine="False"
-                                            ResamplingMode="MinMax"
-                                            StrokeThickness="1"
-                                            Style="{StaticResource LineSeriesStyle}" />
-
-                <s:FastLineRenderableSeries DataSeries="{Binding ChartData3}"
-                                            SeriesColor="Black"
-                                            AntiAliasing="False"
-                                            IsDigitalLine="False"
-                                            ResamplingMode="MinMax"
-                                            StrokeThickness="1"
-                                            Style="{StaticResource LineSeriesStyle}"   />
             </s:SciChartSurface.RenderableSeries>
 
 

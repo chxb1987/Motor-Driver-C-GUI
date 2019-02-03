@@ -96,7 +96,7 @@ namespace SuperButton.ViewModels
                 {
                     LeftPanelViewModel.flag = true;
                     Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
-                    //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
+                    Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
 
                 }
@@ -563,9 +563,7 @@ namespace SuperButton.ViewModels
             {
                 lock (ConnectLock)
                 {
-
                     Task task = new Task(Rs232Interface.GetInstance.AutoConnect);
-
                     task.Start();
                 }
             }
@@ -573,10 +571,8 @@ namespace SuperButton.ViewModels
             {
                 lock (ConnectLock)
                 {
-
                     Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
                     taskDisconnect.Start();
-
                 }
             }
         }

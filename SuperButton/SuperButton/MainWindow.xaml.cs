@@ -27,11 +27,6 @@ namespace SuperButton
 			// Insert code required on object creation below this point.
 		}
 
-        private void LeftPanelView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (ParametarsWindow.WindowsOpen == true)

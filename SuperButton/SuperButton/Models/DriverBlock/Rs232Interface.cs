@@ -156,7 +156,7 @@ namespace SuperButton.Models.DriverBlock
                 _comPort.Close();
                 _comPort.Dispose();
                 Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
-                
+
             }
             LeftPanelViewModel.GetInstance.EnRefresh = false;
         }
@@ -345,7 +345,7 @@ namespace SuperButton.Models.DriverBlock
         {
             //Task.Factory.StartNew(action: () =>
             //{
-                SendData(parser2SendEventArgs.BytesTosend, _comPort);
+            SendData(parser2SendEventArgs.BytesTosend, _comPort);
             //});
         }
 
@@ -361,7 +361,6 @@ namespace SuperButton.Models.DriverBlock
                 var port = comPort as SerialPort;
                 if (port != null) port.DiscardOutBuffer();
                 EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
-
             }
         }
 
@@ -373,11 +372,11 @@ namespace SuperButton.Models.DriverBlock
                 //if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
                 //{ /*int i = 0; */}
                 // messege.Data2Send = "0.5";
-                
+
 
                 RxtoParser(this, new Rs232InterfaceEventArgs(messege));
                 //Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
-                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set":"Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
+                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
                 //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I"));
                 //try
                 //{
@@ -418,7 +417,6 @@ namespace SuperButton.Models.DriverBlock
             //Create new parent Task
             // Task.Factory.StartNew(() => ProcessRecievedData( sender,e));
             SerialPort port = (SerialPort)sender;
-
             if (port != null)
             {
                 byte[] buffer = new byte[port.BytesToRead];

@@ -12,6 +12,7 @@
              x:Class="SuperButton.Views.mainWindowPanels.LeftPanelView"
              x:Name="GsUserControl"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             DataContext="{Binding LeftPanelViewModel}"
              d:DesignHeight="800"
              d:DesignWidth="1380"
              mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True">
@@ -780,6 +781,7 @@
                          ></TextBox>
                     <ComboBox Grid.Column="1"
                     x:Name="ComboboxCOM"
+                    SelectedIndex="1"
                     ToolTip="Pls Choose Com"
                     DataContext="{Binding ComboBoxCOM}"
             	    ItemsSource="{Binding ComList}"
@@ -805,7 +807,7 @@
                 Height="30" 
 				FontFamily="Bell MT" 
 				FontSize="12" Width="70" 
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Style.Triggers>
@@ -898,15 +900,15 @@
                     <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
 				BorderBrush="White"
 				Width="160" 
-				UncheckedBackground="#B2B8482F" 
+				UncheckedBackground="#B277E444" 
 				UncheckedForeground="#FF333330" 
                 IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
 				ThumbSize="38" 
                 HorizontalAlignment="Center" 
-                CheckedContent="DRIVE ON" 
-                UncheckedContent="DRIVE OFF" 
+                CheckedContent="DRIVE OFF" 
+                UncheckedContent="DRIVE ON" 
                 BorderThickness="0.5" Elasticity="0.5" 
-                CheckedBackground="#B277E444" 
+                CheckedBackground="#B2B8482F" 
                 CheckedForeground="#FFF7F6F6"
 				Style="{DynamicResource MotorOnStyleofTumb}" 
                 ThumbTemplate="{DynamicResource ThumbControlTemplateMotorOn2}" 

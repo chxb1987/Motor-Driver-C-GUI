@@ -25,7 +25,7 @@ namespace SuperButton.Models.DriverBlock
 
         public static Dictionary<string, ObservableCollection<object>> BuildGroup = new Dictionary<string, ObservableCollection<object>>();
         public static Dictionary<Tuple<int, int>, DataViewModel> BuildList;
-
+        public static int TempTab = 0;
         public static RefreshManger GetInstance
         {
             get
@@ -153,38 +153,41 @@ namespace SuperButton.Models.DriverBlock
         {
             if (LeftPanelViewModel.GetInstance.EnRefresh)
             {
-                BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
-
                 tab = Views.ParametarsWindow.ParametersWindowTabSelected;
                 if (ParametarsWindow.WindowsOpen == false)
                     tab = -1;
 
-                foreach (var list in BuildGroup)
+                if (tab != TempTab)
                 {
-                    if (GroupToExecute(tab).Contains(list.Key))
+                    BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
+                    foreach (var list in BuildGroup)
                     {
-                        foreach (var sub_list in list.Value)
+                        if (GroupToExecute(tab).Contains(list.Key))
                         {
-                            var data = new DataViewModel
+                            foreach (var sub_list in list.Value)
                             {
-                                CommandName = ((DataViewModel)sub_list).CommandName,
-                                CommandId = ((DataViewModel)sub_list).CommandId,
-                                CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                                CommandValue = ((DataViewModel)sub_list).CommandValue,
-                                IsFloat = ((DataViewModel)sub_list).IsFloat,
-                                IsSelected = ((DataViewModel)sub_list).IsSelected,
-                            };
-                            BuildList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+                                var data = new DataViewModel
+                                {
+                                    CommandName = ((DataViewModel)sub_list).CommandName,
+                                    CommandId = ((DataViewModel)sub_list).CommandId,
+                                    CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+                                    CommandValue = ((DataViewModel)sub_list).CommandValue,
+                                    IsFloat = ((DataViewModel)sub_list).IsFloat,
+                                    IsSelected = ((DataViewModel)sub_list).IsSelected,
+                                };
+                                BuildList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+                            }
                         }
                     }
+                    TempTab = tab;
                 }
-
+                
                 foreach (var command in BuildList)
                 {
-                    if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
-                    {
-                        //int k = 0;
-                    }//|| (command.Value.CommandId == "83"))
+                    //if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
+                    //{
+                    //    //int k = 0;
+                    //}//|| (command.Value.CommandId == "83"))
 
                     //  if (command.Value.CommandName == "Serial Number")
                     //{
@@ -208,7 +211,7 @@ namespace SuperButton.Models.DriverBlock
 
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-            EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
+            //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
             //Thread.Sleep(1);
             if (commandidentifier.Item1 == 6)
             {
@@ -238,11 +241,11 @@ namespace SuperButton.Models.DriverBlock
             }
             if (commandidentifier.Item1 == 100 && commandidentifier.Item2 == 12)
             {
-                CalibrationViewModel.CalibrationProcessing = false;
-                Application.Current.Dispatcher.BeginInvoke(new ThreadStart(() =>
-                {
-                    CalibrationViewModel.GetInstance.PiPositionCalCheck = false;
-                }));
+                //CalibrationViewModel.CalibrationProcessing = false;
+                //Application.Current.Dispatcher.BeginInvoke(new ThreadStart(() =>
+                //{
+                //    CalibrationViewModel.GetInstance.PiPositionCalCheck = false;
+                //}));
             }
 
             if (commandidentifier.Item1 == 63)
@@ -330,7 +333,7 @@ namespace SuperButton.Models.DriverBlock
             {
                 //OperationViewModel.GetInstance.MotorDriver = newPropertyValue;
             }
-            EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
+            //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
 
         }
 
