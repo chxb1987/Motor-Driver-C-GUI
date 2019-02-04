@@ -83,7 +83,10 @@ namespace SuperButton.ViewModels
         }
 
         private ObservableCollection<object> _qep1FeedBackList;
+        private ObservableCollection<object> _qep2FeedBackList;
         private ObservableCollection<object> _qep1FdBckList;
+        private ObservableCollection<object> _qep2FdBckList;
+
         public ObservableCollection<object> Qep1FeedBackList
         {
 
@@ -112,12 +115,32 @@ namespace SuperButton.ViewModels
             }
 
         }
+        public ObservableCollection<object> Qep2FdBckList
+        {
+
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["Qep2Bis"];
+            }
+            set
+            {
+                _qep2FdBckList = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public ObservableCollection<object> Qep2FeedBackList
         {
 
             get
             {
                 return Commands.GetInstance.DataCommandsListbySubGroup["Qep2"];
+            }
+            set
+            {
+                _qep2FeedBackList = value;
+                OnPropertyChanged();
             }
 
         }

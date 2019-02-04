@@ -239,35 +239,7 @@ namespace SuperButton.Models.DriverBlock
                         break;
                 }
             }
-            if (commandidentifier.Item1 == 100 && commandidentifier.Item2 == 12)
-            {
-                //CalibrationViewModel.CalibrationProcessing = false;
-                //Application.Current.Dispatcher.BeginInvoke(new ThreadStart(() =>
-                //{
-                //    CalibrationViewModel.GetInstance.PiPositionCalCheck = false;
-                //}));
-            }
 
-            if (commandidentifier.Item1 == 63)
-            {
-                //switch (commandidentifier.Item2)
-                //{
-                //    case 0:
-                //        MaintenanceViewModel.GetInstance.Save = (newPropertyValue == 0.ToString()) ? false : true;
-                //        break;
-                //    case 1:
-                //        MaintenanceViewModel.GetInstance.Manufacture = (newPropertyValue == 0.ToString()) ? false : true;
-                //        break;
-                //    case 2:
-                //        MaintenanceViewModel.GetInstance.Reboot = (newPropertyValue == 0.ToString()) ? false : true;
-                //        break;
-                //    case 10:
-                //        MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
-                //        break;
-                //    default:
-                //        break;
-                //}
-            }
             if(commandidentifier.Item1 == 60)
             {
                 if (Int32.Parse(newPropertyValue) >= 0)
@@ -299,16 +271,6 @@ namespace SuperButton.Models.DriverBlock
             {
                 MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
             }
-
-            if (commandidentifier.Item1 == 53 || commandidentifier.Item1 == 70)
-            {
-                //int k=0;
-                //k = 0;
-            }
-            if (commandidentifier.Item1 == 122 || commandidentifier.Item1 == 0x64)
-            {
-
-            }
             if (Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
                 Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue =
@@ -317,9 +279,12 @@ namespace SuperButton.Models.DriverBlock
 
             if (Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
-                Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue =
-                    newPropertyValue;
-
+                int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
+                if (index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
+                {
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedValue =
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                }
             }
             if (commandidentifier.Item1 == 1)
             {
@@ -329,13 +294,25 @@ namespace SuperButton.Models.DriverBlock
                     LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;
                 }
             }
-            else
+            if (commandidentifier.Item1 == 62)
             {
-                //OperationViewModel.GetInstance.MotorDriver = newPropertyValue;
+                switch (commandidentifier.Item2)
+                {
+                    case 0:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 1:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 2:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 3:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+
+                }
             }
-            //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.IDLE);
-
         }
-
     }
 }

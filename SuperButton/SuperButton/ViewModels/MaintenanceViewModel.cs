@@ -47,9 +47,10 @@ namespace SuperButton.ViewModels
             get { return _save; }
             set
             {
-                _save = value;
-                if (value)
+                
+                if (value && !GetInstance.Manufacture)
                 {
+                    _save = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
                         Data2Send = true ? 1 : 0,
@@ -61,6 +62,10 @@ namespace SuperButton.ViewModels
                     );
                     Task WaitSave = Task.Run((Action)GetInstance.Wait);
                 }
+                else if(!value && !GetInstance.Manufacture)
+                {
+                    _save = value;
+                }
                 
                 OnPropertyChanged();
             }
@@ -70,6 +75,7 @@ namespace SuperButton.ViewModels
         {
             Thread.Sleep(1000);
             Save = false;
+            Manufacture = false;
         }
         private bool _manufacture = false;
         public bool Manufacture
@@ -77,9 +83,10 @@ namespace SuperButton.ViewModels
             get { return _manufacture; }
             set
             {
-                _manufacture = value;
-                if (value)
+
+                if (value && !GetInstance.Save)
                 {
+                    _manufacture = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
                         Data2Send = true ? 1 : 0,
@@ -91,7 +98,11 @@ namespace SuperButton.ViewModels
                     );
                     Task WaitManufacture = Task.Run((Action)GetInstance.Wait);
                 }
-                OnPropertyChanged();
+                else if (!value && !GetInstance.Save)
+                {
+                    _manufacture = value;
+                }
+                    OnPropertyChanged();
             }
         }
         private bool _reboot;

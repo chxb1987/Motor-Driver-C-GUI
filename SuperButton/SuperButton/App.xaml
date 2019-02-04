@@ -179,8 +179,8 @@
                                     <Setter Property="Content" Value="hello"/>
                                 </Label>-->
                                 <Grid Margin="5,0,0,0" Width="53.875" Background="{x:Null}" HorizontalAlignment="Right">
-                                    <TextBlock Text="ON" TextWrapping="Wrap" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" Margin="0,0,2,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="0" FontSize="12" FontWeight="Bold" Text="OFF" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Text="I" TextWrapping="Wrap" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" Margin="0,0,15,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="12" FontWeight="Bold" Text="O" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Center"/>
                                     <Border HorizontalAlignment="Left" x:Name="slider" Width="24" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="0,1">
                                         <Border.RenderTransform>
                                             <TransformGroup>

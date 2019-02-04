@@ -67,11 +67,20 @@ namespace SuperButton.ViewModels
 
         private void SendData()
         {
-            if (Count == 0)
+            if (Count == 0 && SelectedValue != null)
             {
                 Count=0;
-                CommandValue = (CommandList.FindIndex(x => x.StartsWith(SelectedValue)) + 1).ToString();
-                BuildPacketTosend(CommandValue);
+                int StartIndex = 0;
+                int ListIndex = CommandList.FindIndex(x => x.StartsWith(SelectedValue));
+                foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
+                {
+                    if ((ListIndex < List.Value.CommandList.Count() &&  List.Value.CommandList[ListIndex] == SelectedValue) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
+                    {
+                        StartIndex = Convert.ToInt16(List.Value.CommandValue);
+                    }
+                }
+                //CommandValue = (ListIndex + StartIndex).ToString();
+                BuildPacketTosend((ListIndex + StartIndex).ToString());
             }
             if (Count == -1)
                 Count = 0;

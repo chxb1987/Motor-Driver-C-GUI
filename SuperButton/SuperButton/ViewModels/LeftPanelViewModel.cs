@@ -95,10 +95,9 @@ namespace SuperButton.ViewModels
                 if (value == "Disconnect")
                 {
                     LeftPanelViewModel.flag = true;
-                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
-                    Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
+                    //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
-
+                    EnRefresh = false;
                 }
                 else
                 {
@@ -710,13 +709,16 @@ namespace SuperButton.ViewModels
             }
             set
             {
+                if(value)
+                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+
                 _enRefresh = value;
                 OnPropertyChanged("EnRefresh");
             }
         }
         public static void BackGroundFunc()
         {
-            while (flag)
+            while (flag && LeftPanelViewModel.GetInstance.EnRefresh)
             {
                 RefreshManger.GetInstance.StartRefresh();
                 Thread.Sleep(1000);
