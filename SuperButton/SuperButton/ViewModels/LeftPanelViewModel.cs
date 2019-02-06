@@ -71,8 +71,8 @@ namespace SuperButton.ViewModels
         public LeftPanelViewModel()
         {
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
-            EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
-            EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
+            //EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
+            //EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
             ComboBoxCOM = ComboBox.GetInstance;
             //Task task = Task.Run((Action)_comboBox.UpdateComList);
         }
@@ -97,15 +97,15 @@ namespace SuperButton.ViewModels
                     LeftPanelViewModel.flag = true;
                     //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
-                    EnRefresh = false;
+                    EnRefresh = true;
                 }
                 else
                 {
                     if (flag)
                     {
 
-                        EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-                        EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+                        //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
+                        //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
                     }
                     LeftPanelViewModel.flag = false;
                 }
@@ -332,25 +332,18 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                if (_connetButtonContent == "Connect")
-                {
-                    _led_statusTx = RoundBoolLed.IDLE;
-                }
-                else
-                {
-                    TxCount++;
-                    //Debug.WriteLine("Tx: {0}",TxCount);
-                    _led_statusTx = value;
-                }
+                _led_statusTx = value;
                 RaisePropertyChanged("LedStatusTx");
+                Thread.Sleep(1);
             }
         }
         public void Instance_BlinkLedTx(object sender, EventArgs e)
         {
-            LedStatusTx = ((CustomEventArgs)e).LedTx;
+            //LedStatusTx = ((CustomEventArgs)e).LedTx;
         }
 
         private int _led_statusRx;
+
         public int LedStatusRx
         {
             get
@@ -359,17 +352,9 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                if (_connetButtonContent == "Connect")
-                {
-                    _led_statusRx = RoundBoolLed.IDLE;
-                }
-                else
-                {
-                    RxCount++;
-                    //Debug.WriteLine("Rx: {0}", RxCount);
-                    _led_statusRx = value;
-                }
+                _led_statusRx = value;
                 RaisePropertyChanged("LedStatusRx");
+                Thread.Sleep(1);
             }
         }
         public void Instance_BlinkLedRx(object sender, EventArgs e)
@@ -709,11 +694,14 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                if(value)
-                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                if (flag)
+                {
+                    if (value)
+                        Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
 
-                _enRefresh = value;
-                OnPropertyChanged("EnRefresh");
+                    _enRefresh = value;
+                    OnPropertyChanged("EnRefresh");
+                }
             }
         }
         public static void BackGroundFunc()

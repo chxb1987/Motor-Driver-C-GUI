@@ -289,7 +289,7 @@
                     <Rectangle Height="8" x:Name="IndeterminateIcon" Width="10" Opacity="0" Fill="{StaticResource GlyphBrush}" />
                     <Rectangle Height="14" x:Name="DisabledVisualElement" Width="14" Opacity="0" Fill="{StaticResource DisabledBackgroundBrush}" />
                     <Rectangle Height="16" x:Name="ContentFocusVisualElement" Width="16" IsHitTestVisible="false" Opacity="0" Stroke="{StaticResource HoverShineBrush}" StrokeThickness="1" />
-                    <Rectangle Height="12" x:Name="ShineRectangle" Width="14" IsHitTestVisible="false" Opacity="1" Stroke="{x:Null}" StrokeThickness="1" Fill="{StaticResource ShineBrush}" Margin="2,2,2,2" />
+                    <Rectangle Height="12" x:Name="ShineRectangle" Width="12" IsHitTestVisible="false" Opacity="1" Stroke="{x:Null}" StrokeThickness="1" Fill="{StaticResource ShineBrush}" Margin="2,2,2,2" />
                 </Grid>
             </BulletDecorator.Bullet>
             <ContentPresenter RecognizesAccessKey="True" Margin="5,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
@@ -2731,15 +2731,22 @@
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true"/>
                         <Trigger Property="IsChecked" Value="true">
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource CheckedOff}" x:Name="CheckedOff_BeginStoryboard"/>
-                            </Trigger.ExitActions>
-                            <Trigger.EnterActions>
+                            <!--<Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource CheckedOn}" x:Name="CheckedOn_BeginStoryboard"/>
-                            </Trigger.EnterActions>
-                            <Setter TargetName="Border"
-                                        Property="Background"
-                                        Value="GreenYellow" />
+                            </Trigger.EnterActions>-->
+                            <Setter  TargetName="Border"
+                                     Property="Background"
+                                     Value="GreenYellow" />
+                            
+                            <!-- Set color on the background button when pressed-->
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="false">
+                            <!--<Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource CheckedOff}" x:Name="CheckedOff_BeginStoryboard"/>
+                            </Trigger.ExitActions>-->
+                            <Setter  TargetName="Border"
+                                     Property="Background"
+                                     Value="Gray"/>
                             <!-- Set color on the background button when pressed-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">

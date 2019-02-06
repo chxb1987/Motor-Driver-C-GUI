@@ -528,6 +528,7 @@ namespace SuperButton.Views
 
         public OscilloscopeViewModel()
         {
+            IsFreeze = RecFlag = false;
             //Initial frame duration is 5 seconds
             POintstoPlot = (int)(OscilloscopeParameters.SingleChanelFreqC * 5);//20Khz/3*5Seconds
 
@@ -697,59 +698,62 @@ namespace SuperButton.Views
             get { return _selectedCh1DataSource; }
             set
             {
-                if (_selectedCh1DataSource == value) return;
-                _selectedCh1DataSource = value;
-
-                lock (ParserRayonM1.PlotListLock)
+                if (!IsFreeze)
                 {
-                    //if (Rs232Interface._comPort != null)
-                    //    Rs232Interface.GetInstance.Disconnect();
-                    //Rs232Interface.GetInstance.Rx2Packetizer -= Packetizer.GetInstance.MakePacketsBuff;
+                    if (_selectedCh1DataSource == value) return;
+                    _selectedCh1DataSource = value;
 
-                    //lock(Packetizer.Packetizerlock)
-                    //{
-                    // Packetizer.GetInstance.length = 0;
-                    // Packetizer.GetInstance.data = null;
-
-                    //Packetizer.GetInstance.PlotPacketsList.Clear();   
-
-                    ch1 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh1DataSource));
-                    ChannelsYaxeMerge(ch1, 1);
-
-                    //y axle update
-                    if (Rs232Interface.GetInstance.IsSynced)
+                    lock (ParserRayonM1.PlotListLock)
                     {
-                        //Send command to the target 
-                        PacketFields RxPacket;
-                        RxPacket.ID = 60;
-                        RxPacket.IsFloat = false;
-                        RxPacket.IsSet = true;
-                        RxPacket.SubID = 1;
-                        RxPacket.Data2Send = (ch1 >= 28) ? ch1 + 3 : ch1;
-                        //rise event
-                        Rs232Interface.GetInstance.SendToParser(RxPacket);
-                        ChannelsplotActivationMerge();
-                    }
-                    else
-                    {
-                        _yzoom = OscilloscopeParameters.ScaleAndGainList[ch1].Item2;
-                        YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
-                        YVisibleRange = YLimit;
-                    }
-                    //update step
-                    StepRecalcMerge();
-                    //update y axes
-                    ChannelYtitles.TryGetValue(_selectedCh1DataSource, out _ch1Title);
-                    YaxeTitle = _ch1Title == _ch2Title ? _ch1Title : "";
+                        //if (Rs232Interface._comPort != null)
+                        //    Rs232Interface.GetInstance.Disconnect();
+                        //Rs232Interface.GetInstance.Rx2Packetizer -= Packetizer.GetInstance.MakePacketsBuff;
 
-                    //  Packetizer.GetInstance.PlotPacketsList.Clear();
-                    //  }
+                        //lock(Packetizer.Packetizerlock)
+                        //{
+                        // Packetizer.GetInstance.length = 0;
+                        // Packetizer.GetInstance.data = null;
 
-                    //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
-                    //if (Rs232Interface._comPort != null)
-                    //    Rs232Interface.GetInstance.Connect();
+                        //Packetizer.GetInstance.PlotPacketsList.Clear();   
+
+                        ch1 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh1DataSource));
+                        ChannelsYaxeMerge(ch1, 1);
+
+                        //y axle update
+                        if (Rs232Interface.GetInstance.IsSynced)
+                        {
+                            //Send command to the target 
+                            PacketFields RxPacket;
+                            RxPacket.ID = 60;
+                            RxPacket.IsFloat = false;
+                            RxPacket.IsSet = true;
+                            RxPacket.SubID = 1;
+                            RxPacket.Data2Send = (ch1 >= 28) ? ch1 + 3 : ch1;
+                            //rise event
+                            Rs232Interface.GetInstance.SendToParser(RxPacket);
+                            ChannelsplotActivationMerge();
+                        }
+                        else
+                        {
+                            _yzoom = OscilloscopeParameters.ScaleAndGainList[ch1].Item2;
+                            YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
+                            YVisibleRange = YLimit;
+                        }
+                        //update step
+                        StepRecalcMerge();
+                        //update y axes
+                        ChannelYtitles.TryGetValue(_selectedCh1DataSource, out _ch1Title);
+                        YaxeTitle = _ch1Title == _ch2Title ? _ch1Title : "";
+
+                        //  Packetizer.GetInstance.PlotPacketsList.Clear();
+                        //  }
+
+                        //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
+                        //if (Rs232Interface._comPort != null)
+                        //    Rs232Interface.GetInstance.Connect();
+                    }
+                    OnPropertyChanged("SelectedCh1DataSource");
                 }
-                OnPropertyChanged("SelectedCh1DataSource");
             }
         }
         public string SelectedCh2DataSource
@@ -757,58 +761,61 @@ namespace SuperButton.Views
             get { return _selectedCh2DataSource; }
             set
             {
-                if (_selectedCh2DataSource == value) return;
-                _selectedCh2DataSource = value;
-
-                lock (ParserRayonM1.PlotListLock)
+                if (!IsFreeze)
                 {
-                    //if (Rs232Interface._comPort!=null)
-                    //   Rs232Interface.GetInstance.Disconnect();
-                    //Rs232Interface.GetInstance.Rx2Packetizer -= Packetizer.GetInstance.MakePacketsBuff;
-                    //lock (Packetizer.Packetizerlock)
-                    //{
-                    // Packetizer.GetInstance.length = 0;
-                    // Packetizer.GetInstance.data = null;
+                    if (_selectedCh2DataSource == value) return;
+                    _selectedCh2DataSource = value;
 
-
-
-                    ch2 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh2DataSource));
-                    //y axle update
-                    ChannelsYaxeMerge(ch2, 2);
-
-                    if (Rs232Interface.GetInstance.IsSynced)
+                    lock (ParserRayonM1.PlotListLock)
                     {
-                        //Send command to the target 
-                        PacketFields RxPacket;
-                        RxPacket.ID = 60;
-                        RxPacket.IsFloat = false;
-                        RxPacket.IsSet = true;
-                        RxPacket.SubID = 2;
-                        RxPacket.Data2Send = (ch2 >= 28) ? ch2 + 3 : ch2;
-                        //rise event
-                        Rs232Interface.GetInstance.SendToParser(RxPacket);
-                        ChannelsplotActivationMerge();
+                        //if (Rs232Interface._comPort!=null)
+                        //   Rs232Interface.GetInstance.Disconnect();
+                        //Rs232Interface.GetInstance.Rx2Packetizer -= Packetizer.GetInstance.MakePacketsBuff;
+                        //lock (Packetizer.Packetizerlock)
+                        //{
+                        // Packetizer.GetInstance.length = 0;
+                        // Packetizer.GetInstance.data = null;
+
+
+
+                        ch2 = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh2DataSource));
+                        //y axle update
+                        ChannelsYaxeMerge(ch2, 2);
+
+                        if (Rs232Interface.GetInstance.IsSynced)
+                        {
+                            //Send command to the target 
+                            PacketFields RxPacket;
+                            RxPacket.ID = 60;
+                            RxPacket.IsFloat = false;
+                            RxPacket.IsSet = true;
+                            RxPacket.SubID = 2;
+                            RxPacket.Data2Send = (ch2 >= 28) ? ch2 + 3 : ch2;
+                            //rise event
+                            Rs232Interface.GetInstance.SendToParser(RxPacket);
+                            ChannelsplotActivationMerge();
+                        }
+                        else
+                        {
+                            _yzoom = OscilloscopeParameters.ScaleAndGainList[ch2].Item2;
+                            YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
+                            YVisibleRange = YLimit;
+                        }
+                        //update step
+                        StepRecalcMerge();
+                        //update y axes
+                        ChannelYtitles.TryGetValue(_selectedCh2DataSource, out _ch2Title);
+                        //update tittle
+                        YaxeTitle = _ch1Title == _ch2Title ? _ch1Title : "";
+
+
+
+                        //Packetizer.GetInstance.PlotPacketsList.Clear();
+                        //if (Rs232Interface._comPort != null)
+                        //    Rs232Interface.GetInstance.Connect();
+                        //}
+                        //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
                     }
-                    else
-                    {
-                        _yzoom = OscilloscopeParameters.ScaleAndGainList[ch2].Item2;
-                        YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
-                        YVisibleRange = YLimit;
-                    }
-                    //update step
-                    StepRecalcMerge();
-                    //update y axes
-                    ChannelYtitles.TryGetValue(_selectedCh2DataSource, out _ch2Title);
-                    //update tittle
-                    YaxeTitle = _ch1Title == _ch2Title ? _ch1Title : "";
-
-
-
-                    //Packetizer.GetInstance.PlotPacketsList.Clear();
-                    //if (Rs232Interface._comPort != null)
-                    //    Rs232Interface.GetInstance.Connect();
-                    //}
-                    //Rs232Interface.GetInstance.Rx2Packetizer += Packetizer.GetInstance.MakePacketsBuff;
                 }
                 OnPropertyChanged("SelectedCh2DataSource");
             }
@@ -1701,7 +1708,7 @@ namespace SuperButton.Views
             }
             else
             {
-                Task.Factory.StartNew(action: () =>
+                Task.Factory.StartNew(() =>
                 {
                     RecFlag = false;
                     Thread.Sleep(100);
@@ -1922,6 +1929,8 @@ namespace SuperButton.Views
                 OnPropertyChanged("IsRecording");
             }
         }
+        static int Ch1Value = 0;
+        static int Ch2Value = 0;
         public bool IsFreeze
         {
             get { return _is_freeze; }
@@ -1929,7 +1938,50 @@ namespace SuperButton.Views
             {
                 if (_is_freeze == value) { return; }
                 if (OscilloscopeParameters.ChanTotalCounter > 0 && plotActivationstate == 1)
+                {
                     _is_freeze = value;
+                    OnPropertyChanged("IsFreeze");
+                    Ch1Value = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh1DataSource));
+                    Ch2Value = _channel1SourceItems.FindIndex(x => x.Equals(_selectedCh2DataSource));
+                    if (value)
+                    {
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = 0,
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(1),
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = 0,
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(2),
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                    }
+                    else
+                    {
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = Ch1Value,
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(1),
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = Ch2Value,
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(2),
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                    }
+                }
                 else
                 {
                     if (!MessageBoxWrapper.IsOpen)

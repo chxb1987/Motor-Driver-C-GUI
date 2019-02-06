@@ -48,10 +48,10 @@ namespace SuperButton.Views
         {
 
         }
-        private void HandleChecked(object sender, RoutedEventArgs e)
-        {
-            ToggleButton toggle = sender as ToggleButton;
-            toggle.Background = new SolidColorBrush(Colors.Orange);
-        }
+        //private void HandleChecked(object sender, RoutedEventArgs e)
+        //{
+        //    ToggleButton toggle = sender as ToggleButton;
+        //    toggle.Background = new SolidColorBrush(Colors.Orange);
+        //}
     }
 }

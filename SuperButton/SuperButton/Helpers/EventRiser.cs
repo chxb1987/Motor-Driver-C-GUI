@@ -33,17 +33,11 @@ namespace SuperButton.Helpers
         }
         public void RiseEventLedTx(int led)
         {
-            //Task.Factory.StartNew(action: () =>
-            //{ 
-                LedEventTx(null, new CustomEventArgs() { LedTx = led });
-            //});
+           LedEventTx(null, new CustomEventArgs() { LedTx = led });
         }
         public void RiseEventLedRx(int led)
         {
-            //Task.Factory.StartNew(action: () =>
-            //{
-                LedEventRx(null, new CustomEventArgs() { LedRx = led });
-            //});
+            LedEventRx(null, new CustomEventArgs() { LedRx = led });
         }
 
     }

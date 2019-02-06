@@ -162,7 +162,7 @@ namespace SuperButton.Helpers
         public void setStatus()
         {
 
-            if (_worker != null && _worker.IsBusy && CurrStatus != Consts.BOOL_RUNNING) _worker.CancelAsync();
+            //if (_worker != null && _worker.IsBusy && CurrStatus != Consts.BOOL_RUNNING) _worker.CancelAsync();
             switch (CurrStatus)
             {
                 case Consts.BOOL_RUNNING:

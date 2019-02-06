@@ -95,7 +95,7 @@ namespace SuperButton.ViewModels
                         _escPressed = false;
                         MouseLeaveCommandFunc();
                         _escPressed = true;
-                    Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), CommandValue, IsFloat ? "F":"I");
+                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), CommandValue, IsFloat ? "F":"I");
                 });
                 }
                 else

@@ -131,16 +131,16 @@ namespace SuperButton.Models.DriverBlock
                 case 3:
                     arr = new string[] { "DeviceSerial" };
                     return arr.Concat(PanelElements).ToArray();
+                //case 4:
+                //    arr = new string[] { "DriverFullScale" };
+                //    return arr.Concat(PanelElements).ToArray();
                 case 4:
-                    arr = new string[] { "DriverFullScale" };
-                    return arr.Concat(PanelElements).ToArray();
-                case 5:
                     arr = new string[] { "CalibrationCommands List" };
                     return arr.Concat(PanelElements).ToArray();
-                case 6:
+                case 5:
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
-                case 10: // 7
+                case 6: // 7
                     arr = new string[] { "Maintenance List", "MaintenanceBool List" };
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
@@ -181,7 +181,7 @@ namespace SuperButton.Models.DriverBlock
                     }
                     TempTab = tab;
                 }
-                
+
                 foreach (var command in BuildList)
                 {
                     //if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
@@ -209,38 +209,263 @@ namespace SuperButton.Models.DriverBlock
             }
         }
 
+        string CalibrationGetStatus(string returnedValue)
+        {
+            switch (Convert.ToInt16(returnedValue))
+            {
+                case 0:
+                    return "Idle";
+                case 1:
+                    return "in process";
+                case 2:
+                    return "failure";
+                case 3:
+                    return "success";
+                default:
+                    return "no info(" + returnedValue + ")";
+            }
+        }
+        string CalibrationGetError(string returnedValue)
+        {
+            switch (Convert.ToInt32(returnedValue))
+            {
+                //uint16_t hallFeedlErr:1;         // 0x01 - 1
+                //uint16_t encPhaseErr:1;          // 0x02 - 2
+                //uint16_t encoderHallMismach:1;  // 0x04  - 4
+                //uint16_t overTemperature:1;     // 0x08  - 8
+                //uint16_t overVoltage:1;         // 0x010 - 16
+                //uint16_t underVoltage:1;        //0x20   - 32
+                //uint16_t speedRangeErr:1;       //0x40   - 64
+                //uint16_t positionErr:1;         //0x80   - 128
+                //uint16_t gateDriverFault:1;     //0x0100 - 256
+                //uint16_t nOCTW:1;               //0x0200 - 512
+                //uint16_t gateDriverInit:1;      //0x0400 - 1024
+                //uint16_t motorStall:1;           //0x0800 - 2048
+                //uint16_t Reserved3:1;           //0x1000 - 4096
+                //uint16_t Reserved4:1;           //0x2000 - 8192
+                //uint16_t ADCoffset:1;           //0x4000 - 16384
+                //uint16_t FetShort:1;            //0x8000 - 32768
+
+                case 1:
+                    return "hallFeedlErr";
+                case 2:
+                    return "encPhaseErr";
+                case 4:
+                    return "encoderHallMismach";
+                case 8:
+                    return "overTemperature";
+                case 16:
+                    return "overVoltage";
+                case 32:
+                    return "underVoltage";
+                case 64:
+                    return "speedRangeErr";
+                case 128:
+                    return "positionErr";
+                case 256:
+                    return "gateDriverFault";
+                case 512:
+                    return "nOCTW";
+                case 1024:
+                    return "gateDriverInit";
+                case 2048:
+                    return "motorStall";
+                case 4096:
+                    return "Reserved3";
+                case 8192:
+                    return "Reserved4";
+                case 16384:
+                    return "ADCoffset";
+                case 32768:
+                    return "FetShort";
+                default:
+                    return "no info";
+            }
+        }
+        public static int CalibrationTimeOut = 10;
+        private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-            //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.PASSED);
-            //Thread.Sleep(1);
             if (commandidentifier.Item1 == 6)
             {
                 switch (commandidentifier.Item2)
                 {
                     case 2:
-                        CalibrationViewModel.GetInstance.offsetCalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.OffsetCalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(2),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if(CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.OffsetCalContent = "Run";
+                            CalibrationViewModel.GetInstance.OffsetCalVal = "TimeOut";
+                        }
                         break;
                     case 4:
-                        CalibrationViewModel.GetInstance.PICurrentCalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.PiCurrentCalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(4),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if (CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.PiCurrentCalContent = "Run";
+                            CalibrationViewModel.GetInstance.PiCurrentCalVal = "TimeOut";
+                        }
                         break;
                     case 6:
-                        CalibrationViewModel.GetInstance.HallCalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.HallMapCalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(6),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if (CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.HallMapCalContent = "Run";
+                            CalibrationViewModel.GetInstance.HallMapCalVal = "TimeOut";
+                        }
                         break;
                     case 8:
-                        CalibrationViewModel.GetInstance.Encoder1CalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.Encoder1CalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(8),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if (CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.Encoder1CalContent = "Run";
+                            CalibrationViewModel.GetInstance.Encoder1CalVal = "TimeOut";
+                        }
                         break;
                     case 10:
-                        CalibrationViewModel.GetInstance.PISpeedCalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.PiSpeedCalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(10),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if (CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.PiSpeedCalContent = "Run";
+                            CalibrationViewModel.GetInstance.PiSpeedCalVal = "TimeOut";
+                        }
                         break;
                     case 12:
-                        CalibrationViewModel.GetInstance.PIPosCalVal = newPropertyValue.ToString();
+                        CalibrationViewModel.GetInstance.PiPosCalVal = CalibrationGetStatus(newPropertyValue);
+                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                        {
+                            Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            {
+                                ID = Convert.ToInt16(6),
+                                SubID = Convert.ToInt16(12),
+                                IsSet = false,
+                                IsFloat = false
+                            });
+                            Thread.Sleep(100);
+                            CalibrationTimeOut--;
+                        }
+                        else if (CalibrationTimeOut <= 0)
+                        {
+                            CalibrationViewModel.CalibrationProcessing = false;
+                            CalibrationViewModel.GetInstance.PiPosCalContent = "Run";
+                            CalibrationViewModel.GetInstance.PiPosCalVal = "TimeOut";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if (newPropertyValue == "2")
+                {
+                    PrecedentIdx = commandidentifier.Item2;
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        ID = Convert.ToInt16(33),
+                        SubID = Convert.ToInt16(1),
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                }
+            }
+            if (commandidentifier.Item1 == 33)
+            {
+                CalibrationViewModel.CalibrationProcessing = false;
+                switch (PrecedentIdx)
+                {
+                    case 2:
+                        CalibrationViewModel.GetInstance.OffsetCalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.OffsetCalContent = "Run";
+                        break;
+                    case 4:
+                        CalibrationViewModel.GetInstance.PiCurrentCalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.PiCurrentCalContent = "Run";
+                        break;
+                    case 6:
+                        CalibrationViewModel.GetInstance.HallMapCalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.HallMapCalContent = "Run";
+                        break;
+                    case 8:
+                        CalibrationViewModel.GetInstance.Encoder1CalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.Encoder1CalContent = "Run";
+                        break;
+                    case 10:
+                        CalibrationViewModel.GetInstance.PiSpeedCalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.PiSpeedCalContent = "Run";
+                        break;
+                    case 12:
+                        CalibrationViewModel.GetInstance.PiPosCalVal = CalibrationGetError(newPropertyValue);
+                        CalibrationViewModel.GetInstance.PiPosCalContent = "Run";
                         break;
                     default:
                         break;
                 }
             }
 
-            if(commandidentifier.Item1 == 60)
+            if (commandidentifier.Item1 == 60)
             {
                 if (Int32.Parse(newPropertyValue) >= 0)
                 {
@@ -260,9 +485,9 @@ namespace SuperButton.Models.DriverBlock
             }
             if (commandidentifier.Item1 == 66)
             {
-                    if (commandidentifier.Item2 == 0)
+                if (commandidentifier.Item2 == 0)
                     OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
-                    if (commandidentifier.Item2 == 1)
+                if (commandidentifier.Item2 == 1)
                     OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
 
                 OscilloscopeParameters.InitList();
