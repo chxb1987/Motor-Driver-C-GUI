@@ -33,6 +33,7 @@ namespace SuperButton.ViewModels
 
 
         }
+
         public ObservableCollection<object> MotionStatusList
         {
 
@@ -46,6 +47,26 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged();
             }
 
+
+        }
+        public ObservableCollection<object> ControlList
+        {
+
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["Control"];
+            }
+
+
+        }
+
+        public ObservableCollection<object> MotorlList
+        {
+
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["Motor"];
+            }
 
         }
         public ObservableCollection<object> ProfilerModeList

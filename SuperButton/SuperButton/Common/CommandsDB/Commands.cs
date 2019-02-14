@@ -15,7 +15,7 @@ namespace SuperButton.CommandsDB
             GenerateFeedBakcCommands();
             GeneratePidCommands();
             GenerateDeviceCommands();
-            GenerateDriverCommands();
+            //GenerateDriverCommands();
             GenerateMainWindowCommands();
             GenerateBPCommands();
             GenerateCalCommands();
@@ -23,6 +23,7 @@ namespace SuperButton.CommandsDB
             GenerateMotionTabCommands();
             GenerateMaintenanceList();
             UpperMainPannelList();
+            CalibrationCmd();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -39,12 +40,16 @@ namespace SuperButton.CommandsDB
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsList = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsListLP = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, EnumViewModel> EnumViewCommandsList = new Dictionary<Tuple<int, int>, EnumViewModel>();
+        public Dictionary<Tuple<int, int>, CalibrationButtonModel> CalibartionCommandsList = new Dictionary<Tuple<int, int>, CalibrationButtonModel>();
+
         public Dictionary<string, List<string>> Enums = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> EnumsQep1 = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> EnumsQep2 = new Dictionary<string, List<string>>();
 
         public Dictionary<string, ObservableCollection<object>> EnumCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> DataCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
+        public Dictionary<string, ObservableCollection<object>> CalibartionCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
+
         private static readonly object Synlock = new object(); //Single tone variable
         private static Commands _instance;
         public float _pidcurr;
@@ -60,7 +65,6 @@ namespace SuperButton.CommandsDB
         }
         public static Commands GetInstance
         {
-
             get
             {
                 lock (Synlock)
@@ -76,7 +80,7 @@ namespace SuperButton.CommandsDB
         {
             DataViewModel temp = new DataViewModel
             {
-                CommandId = "400",
+                CommandId = "100",
                 CommandSubId = "0",
                 CommandName = "DriveOn",
                 IsFloat = false,
@@ -199,30 +203,13 @@ namespace SuperButton.CommandsDB
                 DataViewCommandsList.Add(new Tuple<int, int>(83, (i + 1)), data);
                 DataCommandsListbySubGroup["PIDPosition"].Add(data);
             }
-
-            DataCommandsListbySubGroup.Add("HallMap", new ObservableCollection<object>());
-
-            for(int i = 0; i < 6; i++)
-            {
-                var data = new DataViewModel
-                {
-                    CommandName = "H" + i.ToString(),
-                    CommandId = "84",
-                    CommandSubId = (i + 1).ToString(CultureInfo.InvariantCulture),
-                    CommandValue = "",
-                    IsFloat = false
-                };
-                DataViewCommandsList.Add(new Tuple<int, int>(84, (i + 1)), data);
-                DataCommandsListbySubGroup["HallMap"].Add(data);
-            }
-
         }
         private void GenerateFeedBakcCommands()
         {
             var names = new[]
             {
                 "Enable", "Roll UP", "Sample Period",
-                "Direction", "Counts Per Rev", "Speed LPF Cut-Off", "Hall Angle"
+                "Direction", "Counts Per Rev", "Speed LPF Cut-Off", "Index Mode"
             };
 
             DataCommandsListbySubGroup.Add("Hall", new ObservableCollection<object>());
@@ -264,10 +251,38 @@ namespace SuperButton.CommandsDB
                     DataCommandsListbySubGroup["SSI_Feedback"].Add(data);
             }
 
+            for(int i = 1; i < 5; i++)
+            {
+                var data = new DataViewModel
+                {
+                    CommandName = "Hall Angle " + i.ToString(),
+                    CommandId = "70",
+                    CommandSubId = (i + 6).ToString(CultureInfo.InvariantCulture),
+                    CommandValue = "",
+                    IsFloat = false
+                };
+                DataViewCommandsList.Add(new Tuple<int, int>(70, i + 6), data);
+                DataCommandsListbySubGroup["Hall"].Add(data);
+            }
+
+            for(int i = 0; i < 6; i++)
+            {
+                var data = new DataViewModel
+                {
+                    CommandName = "Hall Map" + i.ToString(),
+                    CommandId = "84",
+                    CommandSubId = (i + 1).ToString(CultureInfo.InvariantCulture),
+                    CommandValue = "",
+                    IsFloat = false
+                };
+                DataViewCommandsList.Add(new Tuple<int, int>(84, (i + 1)), data);
+                DataCommandsListbySubGroup["Hall"].Add(data);
+            }
+
             names = new[]
             {
                 "Enable", "Roll High", "Roll Low", "Direction", "Counts Per Rev",
-                "Speed LPF", "Hall Angle", "Reset Value", "Set Position Value"
+                "Speed LPF", "Index Mode", "Reset Value", "Set Position Value"
             };
             bool[] IsFloat = new[] {false, false, false, false, false, true, false, false, false };
             for (int i = 0, k = 1; i < names.Length; i++, k++)
@@ -311,16 +326,16 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(73, 14), dataB);
             DataCommandsListbySubGroup["Qep1"].Add(dataB);
 
-            dataB = new DataViewModel
-            {
-                CommandName = "Resolution Sin/Cos",
-                CommandId = "72",
-                CommandSubId = 14.ToString(CultureInfo.InvariantCulture),
-                CommandValue = "",
-                IsFloat = false,
-            };
-            DataViewCommandsList.Add(new Tuple<int, int>(72, 14), dataB);
-            DataCommandsListbySubGroup["Qep2"].Add(dataB);
+            //dataB = new DataViewModel
+            //{
+            //    CommandName = "Resolution Sin/Cos",
+            //    CommandId = "72",
+            //    CommandSubId = 14.ToString(CultureInfo.InvariantCulture),
+            //    CommandValue = "",
+            //    IsFloat = false,
+            //};
+            //DataViewCommandsList.Add(new Tuple<int, int>(72, 14), dataB);
+            //DataCommandsListbySubGroup["Qep2"].Add(dataB);
 
             //Qep1FdBckList Qep1Bis
             var tmp1 = new List<string>
@@ -457,7 +472,7 @@ namespace SuperButton.CommandsDB
                 CommandName = "Speed fdbck Source",
                 CommandId = "50",
                 CommandSubId = "3",
-                CommandValue = "0", //first enum in list
+                CommandValue = "1", //first enum in list
                 CommandList = Enums["Speed fdbck Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 3), enum3);
@@ -475,7 +490,7 @@ namespace SuperButton.CommandsDB
                 CommandName = "Position fdbck Source",
                 CommandId = "50",
                 CommandSubId = "4",
-                CommandValue = "0", //first enum in list
+                CommandValue = "1", //first enum in list
                 CommandList = Enums["Position fdbck Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 4), enum4);
@@ -719,7 +734,7 @@ namespace SuperButton.CommandsDB
 
             
             #endregion Commands4
-            #region Status
+            #region Status_1
             DataCommandsListbySubGroup.Add("MotionStatus List", new ObservableCollection<object>());
 
             data = new DataViewModel
@@ -788,7 +803,7 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(30, 12), data);
             DataCommandsListbySubGroup["MotionStatus List"].Add(data);
 
-            #endregion Status
+            #endregion Status_1
         }
         public void GenerateCalCommands()
         {
@@ -922,7 +937,18 @@ namespace SuperButton.CommandsDB
               ProfilerModeCmd
             });
             #endregion Commands2
-            
+            #region Command3
+            data = new DataViewModel
+            {
+                CommandName = "MotorStatus",
+                CommandId = "1",
+                CommandSubId = "0",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(1, 0), data);
+            DataCommandsListbySubGroup["MotionStatus List"].Add(data);
+            #endregion Command3
         }
         private void GenerateMotionTabCommands()
         {
@@ -1009,6 +1035,30 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(60, 2), data);
             DataCommandsListbySubGroup["UpperMainPan List"].Add(data);
 
+        }
+
+        private void CalibrationCmd()
+        {
+            CalibartionCommandsListbySubGroup.Add("Calibration List", new ObservableCollection<object>());
+
+            var names = new[]
+            {
+                "Current Offset", "PI Current Loop", "Hall Mapping", "Encoder1 Direction", "PI Speed Loop", "PI Position Loop"
+            };
+            for(int i = 0; i < names.Length; i++)
+            {
+                var data = new CalibrationButtonModel
+                {
+                    CommandName = names[i],
+                    CommandId = "6",
+                    CommandSubId = (i*2 + 1).ToString(CultureInfo.InvariantCulture),
+                    CommandValue = "",
+                    IsFloat = false,
+                };
+
+                CalibartionCommandsList.Add(new Tuple<int, int>(6, Convert.ToInt16(data.CommandSubId)), data);
+                CalibartionCommandsListbySubGroup["Calibration List"].Add(data);
+            }
         }
     }
 }

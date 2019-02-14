@@ -15,9 +15,12 @@
              DataContext="{Binding LeftPanelViewModel}"
              d:DesignHeight="800"
              d:DesignWidth="1380"
-             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True">
+             mc:Ignorable="d" Height="569" MaxWidth="180" Focusable="True"
+             >
+    <!--MouseLeftButtonDown="{Binding MouseClick}"-->
 
     <UserControl.Resources>
+
         <!--  BackgroundBrush  -->
         <SolidColorBrush x:Key="ControlBackgroundBrush" Color="#FF333333" />
 
@@ -736,6 +739,7 @@
     </UserControl.Resources>
 
     <Grid MaxWidth="170">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161" MaxWidth="161"/>
             <ColumnDefinition Width="9"/>
@@ -760,7 +764,7 @@
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="22" FontWeight="Bold" FontSize="19" Foreground="White"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock HorizontalAlignment="Left" Text="Technologies    Version V0.0.w" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
+                    <TextBlock HorizontalAlignment="Left" Text="Technologies    Version V0.1.a" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
                 </Grid>
                 <Grid Grid.Row="2" Width="161" HorizontalAlignment="Left">
                     <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
@@ -897,13 +901,16 @@
                               IsChecked="{Binding EnRefresh, Mode=TwoWay}"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center">
-                              
                     </CheckBox>
                 </Grid>
                 <Grid Grid.Row="11">
-                    <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75*"></ColumnDefinition>
+                        <ColumnDefinition Width="25*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ToggleSwitch:HorizontalToggleSwitch x:Name="horizontalToggleSwitch" Grid.Column="0"
 				BorderBrush="White"
-				Width="160" 
+				Width="120" 
 				UncheckedBackground="#B277E444" 
 				UncheckedForeground="#FF333330" 
                 IsChecked="{Binding MotorOnToggleChecked, Mode=TwoWay}"                                     
@@ -925,6 +932,9 @@
                             </LinearGradientBrush>
                         </ToggleSwitch:HorizontalToggleSwitch.ThumbBrush>
                     </ToggleSwitch:HorizontalToggleSwitch>
+                    <TextBlock Grid.Column="1" Text="Motor" FontSize="14" Foreground="White" Margin="0,-8,0,0" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="Status" FontSize="14" Foreground="White" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                    <Helpers:RoundBoolLed Grid.Column="1" Width="16" Height="16" CurrStatus="{Binding LedMotorStatus}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
         </ScrollViewer>

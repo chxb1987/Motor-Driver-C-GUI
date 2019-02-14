@@ -26,13 +26,16 @@ namespace SuperButton.Models.DriverBlock
         public static Dictionary<string, ObservableCollection<object>> BuildGroup = new Dictionary<string, ObservableCollection<object>>();
         public static Dictionary<Tuple<int, int>, DataViewModel> BuildList;
         public static int TempTab = 0;
+        private static bool _dataPressed = false;
+        public static bool DataPressed { get { return _dataPressed; } set { _dataPressed = value; } }
         public static RefreshManger GetInstance
         {
             get
             {
-                lock (Synlock)
+                lock(Synlock)
                 {
-                    if (_instance != null) return _instance;
+                    if(_instance != null)
+                        return _instance;
                     _instance = new RefreshManger();
                     buildGroup();
                     return _instance;
@@ -48,10 +51,10 @@ namespace SuperButton.Models.DriverBlock
             var AllEnumList = CommandsDB.Commands.GetInstance.EnumCommandsListbySubGroup;
 
 
-            foreach (var list in AllEnumList)
+            foreach(var list in AllEnumList)
             {
                 BuildGroup.Add(list.Key, new ObservableCollection<object>());
-                foreach (var sub_list in list.Value)
+                foreach(var sub_list in list.Value)
                 {
                     var data = new DataViewModel
                     {
@@ -65,10 +68,10 @@ namespace SuperButton.Models.DriverBlock
                 }
             }
 
-            foreach (var list in AllDataList)
+            foreach(var list in AllDataList)
             {
                 BuildGroup.Add(list.Key, new ObservableCollection<object>());
-                foreach (var sub_list in list.Value)
+                foreach(var sub_list in list.Value)
                 {
                     var data = new DataViewModel
                     {
@@ -113,20 +116,20 @@ namespace SuperButton.Models.DriverBlock
             //    }
             //}
         }
-        private string[] GroupToExecute(int tabIndex)
+        public string[] GroupToExecute(int tabIndex)
         {
-            string[] PanelElements = new string[] { "UpperMainPan List", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Driver Type", "MotionStatus List" };
+            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "MotionStatus List", "Control", "Motor" };// , "Driver Type" "UpperMainPan List",
             // , "LPCommands List"
-            switch (tabIndex)
+            switch(tabIndex)
             {
                 case 0:
-                    string[] arr = new string[] { "Control", "Motor", "Motion Limit" };
+                    string[] arr = new string[] { "Motion Limit" }; // "Control", "Motor", already in PanelElements array
                     return arr.Concat(PanelElements).ToArray();
                 case 1:
                     arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback" };
                     return arr.Concat(PanelElements).ToArray();
                 case 2:
-                    arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition", "HallMap" };
+                    arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition" };
                     return arr.Concat(PanelElements).ToArray();
                 case 3:
                     arr = new string[] { "DeviceSerial" };
@@ -135,8 +138,9 @@ namespace SuperButton.Models.DriverBlock
                 //    arr = new string[] { "DriverFullScale" };
                 //    return arr.Concat(PanelElements).ToArray();
                 case 4:
-                    arr = new string[] { "CalibrationCommands List" };
-                    return arr.Concat(PanelElements).ToArray();
+                    //arr = new string[] { "CalibrationCommands List" };
+                    //return arr.Concat(PanelElements).ToArray();
+                    return PanelElements;
                 case 5:
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
@@ -151,20 +155,21 @@ namespace SuperButton.Models.DriverBlock
         }
         public void StartRefresh()
         {
-            if (LeftPanelViewModel.GetInstance.EnRefresh)
+            if(!RefreshManger.DataPressed)//LeftPanelViewModel.GetInstance.EnRefresh && 
             {
                 tab = Views.ParametarsWindow.ParametersWindowTabSelected;
-                if (ParametarsWindow.WindowsOpen == false)
+                if(ParametarsWindow.WindowsOpen == false)
                     tab = -1;
 
-                if (tab != TempTab)
+                Debug.WriteLine("1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                if(tab != TempTab)
                 {
                     BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
-                    foreach (var list in BuildGroup)
+                    foreach(var list in BuildGroup)
                     {
-                        if (GroupToExecute(tab).Contains(list.Key))
+                        if(GroupToExecute(tab).Contains(list.Key))
                         {
-                            foreach (var sub_list in list.Value)
+                            foreach(var sub_list in list.Value)
                             {
                                 var data = new DataViewModel
                                 {
@@ -180,18 +185,13 @@ namespace SuperButton.Models.DriverBlock
                         }
                     }
                     TempTab = tab;
+                    Debug.WriteLine(" --- Tab --- ");
                 }
 
-                foreach (var command in BuildList)
+                Debug.WriteLine("2: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                foreach(var command in BuildList)
                 {
-                    //if (command.Value.CommandId == "70" || (command.Value.CommandId == "53"))
-                    //{
-                    //    //int k = 0;
-                    //}//|| (command.Value.CommandId == "83"))
-
-                    //  if (command.Value.CommandName == "Serial Number")
-                    //{
-                    if (!command.Value.IsSelected)
+                    if(!command.Value.IsSelected)
                     {
                         Rs232Interface.GetInstance.SendToParser(new PacketFields
                         {
@@ -202,16 +202,18 @@ namespace SuperButton.Models.DriverBlock
                             IsFloat = command.Value.IsFloat
                         });
                     }
-                    else { }
-                    // }
+                    else
+                    {
+                    }
                     Thread.Sleep(10);
                 }
+                Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
             }
         }
 
         string CalibrationGetStatus(string returnedValue)
         {
-            switch (Convert.ToInt16(returnedValue))
+            switch(Convert.ToInt16(returnedValue))
             {
                 case 0:
                     return "Idle";
@@ -227,7 +229,7 @@ namespace SuperButton.Models.DriverBlock
         }
         string CalibrationGetError(string returnedValue)
         {
-            switch (Convert.ToInt32(returnedValue))
+            switch(Convert.ToInt32(returnedValue))
             {
                 //uint16_t hallFeedlErr:1;         // 0x01 - 1
                 //uint16_t encPhaseErr:1;          // 0x02 - 2
@@ -286,140 +288,28 @@ namespace SuperButton.Models.DriverBlock
         private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-            if (commandidentifier.Item1 == 6)
+            #region Calibration
+            if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)))
             {
-                switch (commandidentifier.Item2)
+                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = CalibrationGetStatus(newPropertyValue);
+                if(newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
                 {
-                    case 2:
-                        CalibrationViewModel.GetInstance.OffsetCalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(2),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if(CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.OffsetCalContent = "Run";
-                            CalibrationViewModel.GetInstance.OffsetCalVal = "TimeOut";
-                        }
-                        break;
-                    case 4:
-                        CalibrationViewModel.GetInstance.PiCurrentCalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(4),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if (CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.PiCurrentCalContent = "Run";
-                            CalibrationViewModel.GetInstance.PiCurrentCalVal = "TimeOut";
-                        }
-                        break;
-                    case 6:
-                        CalibrationViewModel.GetInstance.HallMapCalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(6),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if (CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.HallMapCalContent = "Run";
-                            CalibrationViewModel.GetInstance.HallMapCalVal = "TimeOut";
-                        }
-                        break;
-                    case 8:
-                        CalibrationViewModel.GetInstance.Encoder1CalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(8),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if (CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.Encoder1CalContent = "Run";
-                            CalibrationViewModel.GetInstance.Encoder1CalVal = "TimeOut";
-                        }
-                        break;
-                    case 10:
-                        CalibrationViewModel.GetInstance.PiSpeedCalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(10),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if (CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.PiSpeedCalContent = "Run";
-                            CalibrationViewModel.GetInstance.PiSpeedCalVal = "TimeOut";
-                        }
-                        break;
-                    case 12:
-                        CalibrationViewModel.GetInstance.PiPosCalVal = CalibrationGetStatus(newPropertyValue);
-                        if (newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                ID = Convert.ToInt16(6),
-                                SubID = Convert.ToInt16(12),
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(100);
-                            CalibrationTimeOut--;
-                        }
-                        else if (CalibrationTimeOut <= 0)
-                        {
-                            CalibrationViewModel.CalibrationProcessing = false;
-                            CalibrationViewModel.GetInstance.PiPosCalContent = "Run";
-                            CalibrationViewModel.GetInstance.PiPosCalVal = "TimeOut";
-                        }
-                        break;
-                    default:
-                        break;
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        ID = Convert.ToInt16(commandidentifier.Item1),
+                        SubID = Convert.ToInt16(commandidentifier.Item2),
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                    Thread.Sleep(100);
+                    CalibrationTimeOut--;
                 }
-                if (newPropertyValue == "2")
+                else if(CalibrationTimeOut <= 0)
+                {
+                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent = "Run";
+                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = "TimeOut";
+                }
+                else if(newPropertyValue == "2")
                 {
                     PrecedentIdx = commandidentifier.Item2;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
@@ -430,98 +320,83 @@ namespace SuperButton.Models.DriverBlock
                         IsFloat = false
                     });
                 }
+                else if(newPropertyValue == "3")
+                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
             }
-            if (commandidentifier.Item1 == 33)
+            else if(commandidentifier.Item1 == 33) // Calibraion Status
             {
-                CalibrationViewModel.CalibrationProcessing = false;
-                switch (PrecedentIdx)
-                {
-                    case 2:
-                        CalibrationViewModel.GetInstance.OffsetCalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.OffsetCalContent = "Run";
-                        break;
-                    case 4:
-                        CalibrationViewModel.GetInstance.PiCurrentCalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.PiCurrentCalContent = "Run";
-                        break;
-                    case 6:
-                        CalibrationViewModel.GetInstance.HallMapCalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.HallMapCalContent = "Run";
-                        break;
-                    case 8:
-                        CalibrationViewModel.GetInstance.Encoder1CalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.Encoder1CalContent = "Run";
-                        break;
-                    case 10:
-                        CalibrationViewModel.GetInstance.PiSpeedCalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.PiSpeedCalContent = "Run";
-                        break;
-                    case 12:
-                        CalibrationViewModel.GetInstance.PiPosCalVal = CalibrationGetError(newPropertyValue);
-                        CalibrationViewModel.GetInstance.PiPosCalContent = "Run";
-                        break;
-                    default:
-                        break;
-                }
+                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].CommandValue = CalibrationGetError(newPropertyValue);
+                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
             }
-
-            if (commandidentifier.Item1 == 60)
+            #endregion Calibration
+            #region Plot_Channels
+            else if(commandidentifier.Item1 == 60)
             {
-                if (Int32.Parse(newPropertyValue) >= 0)
+                if(Int32.Parse(newPropertyValue) >= 0)
                 {
                     int Sel = 0;
-                    if (Int32.Parse(newPropertyValue) > 30)
+                    if(Int32.Parse(newPropertyValue) > 30)
                     {
                         Sel = Int32.Parse(newPropertyValue) - 3;
                     }
                     else
                         Sel = Int32.Parse(newPropertyValue);
 
-                    if (commandidentifier.Item2 == 1)
-                        OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel); //newPropertyValue;
-                    if (commandidentifier.Item2 == 2)
+                    if(commandidentifier.Item2 == 1)
+                        OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
+                    if(commandidentifier.Item2 == 2)
                         OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
                 }
             }
-            if (commandidentifier.Item1 == 66)
+            else if(commandidentifier.Item1 == 66)
             {
-                if (commandidentifier.Item2 == 0)
+                if(commandidentifier.Item2 == 0)
                     OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
-                if (commandidentifier.Item2 == 1)
+                if(commandidentifier.Item2 == 1)
                     OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
 
                 OscilloscopeParameters.InitList();
             }
-            if (commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0)
+            #endregion Plot_Channels
+            #region DataView_EnumView
+            else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
+            {
+                LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
+            }
+            else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
             {
                 MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
             }
-            if (Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
-                Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue =
-                    newPropertyValue;
+                Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                if(commandidentifier.Item1 == 62 && commandidentifier.Item2 < 3)
+                    Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
             }
-
-            if (Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            else if(Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
                 int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
-                if (index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
+                if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
                 {
                     Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedValue =
                     Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
                 }
             }
-            if (commandidentifier.Item1 == 1)
+            #endregion DataView_EnumView
+            #region Motor_ON/OFF
+            //else if(commandidentifier.Item1 == 1)
+            //{
+            //    if(commandidentifier.Item2 == 0)
+            //    {
+            //        LeftPanelViewModel.MotorOnOff_flag = true;
+            //        LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;
+            //    }
+            //}
+            #endregion Motor_ON/OFF
+            #region StartUpAPP
+            else if(commandidentifier.Item1 == 62)
             {
-                if (commandidentifier.Item2 == 0)
-                {
-                    LeftPanelViewModel.MotorOnOff_flag = true;
-                    LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;
-                }
-            }
-            if (commandidentifier.Item1 == 62)
-            {
-                switch (commandidentifier.Item2)
+                switch(commandidentifier.Item2)
                 {
                     case 0:
                         Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
@@ -535,9 +410,9 @@ namespace SuperButton.Models.DriverBlock
                     case 3:
                         Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
                         break;
-
                 }
             }
+            #endregion StartUpAPP
         }
     }
 }

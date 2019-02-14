@@ -121,9 +121,16 @@
         <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
             <ComboBox  
                       FontSize="11.5"
-                      SelectedItem="{Binding Path=SelectedValue,Mode=TwoWay}"
+                      SelectedItem="{Binding Path=SelectedValue, Mode=TwoWay}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=CommandList}" SelectedIndex="0">
+                      ItemsSource="{Binding Path=CommandList}" 
+                      SelectedIndex="0">
+                <!--<ComboBox.ItemContainerStyle>
+                    <Style>
+                        <EventSetter Event="ComboBoxItem.PreviewMouseDown"
+                                     Handler="cmbItem_PreviewMouseDown"/>
+                    </Style>
+                </ComboBox.ItemContainerStyle>-->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectedItemChanged}" />

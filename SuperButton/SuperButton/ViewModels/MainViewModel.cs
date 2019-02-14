@@ -27,6 +27,10 @@ namespace SuperButton.ViewModels
             MaxHeight = (float)Application.Current.MainWindow.ActualHeight - 101;
         }
 
+        public static void mouseClickMainWindow()
+        {
+
+        }
 
         #region Actions
         public ActionCommand SetAutoConnectActionCommandCommand

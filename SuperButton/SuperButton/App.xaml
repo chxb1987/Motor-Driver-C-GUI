@@ -48,6 +48,9 @@
             <DataTemplate x:Key="IntegerUCModel">
                 <views:IntegerUC></views:IntegerUC>
             </DataTemplate>
+            <DataTemplate x:Key="CalibrationButtonModel">
+                <views:CalibrationButton></views:CalibrationButton>
+            </DataTemplate>
 
             <!--<DataTemplate x:Key="LeftPanelViewModel">
                 <local:GridSplitter></local:GridSplitter>
@@ -173,7 +176,7 @@
                                     </ColorAnimationUsingKeyFrames>
                                 </Storyboard>
                             </ControlTemplate.Resources>
-                            
+
                             <DockPanel x:Name="dockPanel" Margin="0,0,0.25,0">
                                 <!--<Label VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="0">
                                     <Setter Property="Content" Value="hello"/>
@@ -223,7 +226,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            
             <ControlTemplate x:Key="ActionButton" TargetType="{x:Type Button}">
             <Border x:Name="border1" BorderBrush="#FFFFFFFF" BorderThickness="1.2" CornerRadius="4,4,4,4" Background="{x:Null}" Opacity="0.8" OpacityMask="Black" Width="70" Height="70">
                 <Border x:Name="border" Background="#7F060606" BorderBrush="{x:Null}" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
@@ -632,10 +634,6 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="12" />
             </Style>
-            
-            
-            
-            
             <Style x:Key="GroupsListBoxStyle" TargetType="ListBox">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
@@ -652,9 +650,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <SolidColorBrush x:Key="listItemBorderBrush" Color="#FF616161" />
-            
             <Style x:Key="groupsListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3"/>
@@ -708,8 +704,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-               <!--<Style x:Key="exampleTooltipStyle" TargetType="ToolTip">
+            <!--<Style x:Key="exampleTooltipStyle" TargetType="ToolTip">
         <Setter Property="Background" Value="#FFBDBEBE" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="0" />
@@ -774,35 +769,11 @@
             </Setter.Value>
         </Setter>
     </Style>-->
-            
             <!--<Style x:Key="groupHeaderTextStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
                 <Setter Property="FontFamily" Value="/Abt.Controls.SciChart.Example;component/Resources/Fonts/NEUROPOL.ttf#Neuropol" />
                 <Setter Property="FontSize" Value="25" />
             </Style>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <!--<Style x:Key="exampleTooltipStyle" TargetType="ToolTip">
                 <Setter Property="Background" Value="#FFBDBEBE" />
                 <Setter Property="BorderBrush" Value="Black" />
@@ -867,8 +838,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>-->
-
-           
             <!--<SolidColorBrush x:Key="listBoxItemHoverStyle" Color="#7FFFFFFF" />
             <Style x:Key="examplesListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="Padding" Value="0,0,10,2" />
@@ -889,7 +858,9 @@
                                     Margin="20,0,0,0"
                                     Orientation="Horizontal">
 
-                                    --><!--  Bullet marker  --><!--
+                                    -->
+            <!--  Bullet marker  -->
+            <!--
                                     <Ellipse Width="5"
                                      Height="5"
                                      Margin="0,2,10,2"
@@ -945,7 +916,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>-->
-
             <!--Stroke="#FF616161"
                    Margin="0,1" 
                    Height="5" 

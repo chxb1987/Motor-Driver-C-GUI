@@ -97,15 +97,21 @@ namespace SuperButton.ViewModels
                     LeftPanelViewModel.flag = true;
                     //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
-                    EnRefresh = true;
                 }
                 else
                 {
                     if (flag)
                     {
-
-                        //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.FAILED);
-                        //EventRiser.Instance.RiseEventLedRx(RoundBoolLed.FAILED);
+                        foreach(var element in Commands.GetInstance.DataViewCommandsList)
+                        {
+                            element.Value.CommandValue = "";
+                        }
+                        foreach(var element in Commands.GetInstance.CalibartionCommandsList)
+                        {
+                            element.Value.ButtonContent = "Run";
+                            element.Value.CommandValue = "";
+                        }
+                        LogText = "";
                     }
                     LeftPanelViewModel.flag = false;
                 }
@@ -119,20 +125,20 @@ namespace SuperButton.ViewModels
         private void StarterOperation()
         {
             //Thread.Sleep(1000);
-            //Rs232Interface.GetInstance.SendToParser(new PacketFields
-            //{
-            //    Data2Send = _motorOnToggleChecked ? 1 : 0,
-            //    ID = Convert.ToInt16(1),
-            //    SubID = Convert.ToInt16(0),
-            //    IsSet = false,
-            //    IsFloat = false
-            //});
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                Data2Send = "",
+                ID = Convert.ToInt16(1),
+                SubID = Convert.ToInt16(0),
+                IsSet = false,
+                IsFloat = false
+            });
 
             //Thread.Sleep(1000);
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
-                ID = Convert.ToInt16(66),
+                ID = Convert.ToInt16(66), // IfullScale
                 SubID = Convert.ToInt16(0),
                 IsSet = false,
                 IsFloat = true
@@ -141,7 +147,7 @@ namespace SuperButton.ViewModels
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
-                ID = Convert.ToInt16(66),
+                ID = Convert.ToInt16(66), // VfullScale
                 SubID = Convert.ToInt16(1),
                 IsSet = false,
                 IsFloat = true
@@ -152,7 +158,7 @@ namespace SuperButton.ViewModels
             {
                 Data2Send = "",
                 ID = Convert.ToInt16(60),
-                SubID = Convert.ToInt16(1),
+                SubID = Convert.ToInt16(1), // SelectedCh1DataSource
                 IsSet = false,
                 IsFloat = false
             });
@@ -161,7 +167,7 @@ namespace SuperButton.ViewModels
             {
                 Data2Send = "",
                 ID = Convert.ToInt16(60),
-                SubID = Convert.ToInt16(2),
+                SubID = Convert.ToInt16(2), // SelectedCh2DataSource
                 IsSet = false,
                 IsFloat = false
             });
@@ -179,6 +185,10 @@ namespace SuperButton.ViewModels
                 });
             }
 
+            if(EnRefresh)
+            {
+               Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+            }
         }
         private String _connectTextBoxContent;
         public String ConnectTextBoxContent
@@ -193,7 +203,6 @@ namespace SuperButton.ViewModels
                 }
                 else
                 {
-                    TxCount = 0; RxCount = 0;
                     return "Connected";
                 }
 
@@ -287,6 +296,8 @@ namespace SuperButton.ViewModels
         #region MotorON_Switch
         public static bool MotorOnOff_flag = false;
         private bool _motorOnToggleChecked = false;
+        private int _ledMotorStatus;
+
         public bool MotorOnToggleChecked
         {
             get
@@ -315,14 +326,29 @@ namespace SuperButton.ViewModels
                 }
             }
         }
-
+        public int LedMotorStatus
+        {
+            get
+            {
+                return _ledMotorStatus;
+            }
+            set
+            {
+                if(value == 0)
+                {
+                    MotorOnOff_flag = true;
+                    MotorOnToggleChecked = false;
+                }
+                _ledMotorStatus = value;
+                RaisePropertyChanged("LedMotorStatus");
+            }
+        }
 
         #endregion
 
         #endregion
 
         #region TXRXLed
-        private static int TxCount = 0, RxCount = 0;
         private int _led_statusTx;
         public int LedStatusTx
         {
@@ -555,8 +581,7 @@ namespace SuperButton.ViewModels
             {
                 lock (ConnectLock)
                 {
-                    Task taskDisconnect = new Task(Rs232Interface.GetInstance.Disconnect);
-                    taskDisconnect.Start();
+                    Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
                 }
             }
         }
@@ -676,6 +701,10 @@ namespace SuperButton.ViewModels
                     flag = true;
                     //Task task = Task.Run((Action)BackGroundFunc);
                 }
+                else
+                {
+                    win.Activate();
+                }
             }
 
         }
@@ -694,14 +723,10 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                if (flag)
-                {
-                    if (value)
-                        Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
-
-                    _enRefresh = value;
-                    OnPropertyChanged("EnRefresh");
-                }
+                _enRefresh = value;
+                OnPropertyChanged("EnRefresh");
+                if(value && flag)
+                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
             }
         }
         public static void BackGroundFunc()

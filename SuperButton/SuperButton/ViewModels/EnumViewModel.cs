@@ -64,17 +64,25 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
-
-        private void SendData()
+        public virtual ICommand MouseLeftClick
         {
-            if (Count == 0 && SelectedValue != null)
+            get
             {
-                Count=0;
+                return new RelayCommand(SendData, IsEnabled);
+            }
+        }
+
+        private new void SendData()
+        {
+            
+            if(Count == 0 && SelectedValue != null)
+            {
+                Count = 0;
                 int StartIndex = 0;
                 int ListIndex = CommandList.FindIndex(x => x.StartsWith(SelectedValue));
                 foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
                 {
-                    if ((ListIndex < List.Value.CommandList.Count() &&  List.Value.CommandList[ListIndex] == SelectedValue) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
+                    if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == SelectedValue) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
                     {
                         StartIndex = Convert.ToInt16(List.Value.CommandValue);
                     }
@@ -82,7 +90,7 @@ namespace SuperButton.ViewModels
                 //CommandValue = (ListIndex + StartIndex).ToString();
                 BuildPacketTosend((ListIndex + StartIndex).ToString());
             }
-            if (Count == -1)
+            if(Count == -1)
                 Count = 0;
         }
 
@@ -152,8 +160,6 @@ namespace SuperButton.ViewModels
         {
             // TODO: Complete member initialization
         }
-
-
         private void BuildPacketTosend(string val)
         {
             if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")

@@ -24,5 +24,9 @@ namespace SuperButton.Views
         {
             InitializeComponent();
         }
+        void cmbItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("OK");
+        }
     }
 }

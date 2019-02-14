@@ -2731,29 +2731,28 @@
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true"/>
                         <Trigger Property="IsChecked" Value="true">
-                            <!--<Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource CheckedOn}" x:Name="CheckedOn_BeginStoryboard"/>
-                            </Trigger.EnterActions>-->
                             <Setter  TargetName="Border"
                                      Property="Background"
                                      Value="GreenYellow" />
-                            
                             <!-- Set color on the background button when pressed-->
                         </Trigger>
                         <Trigger Property="IsChecked" Value="false">
-                            <!--<Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource CheckedOff}" x:Name="CheckedOff_BeginStoryboard"/>
-                            </Trigger.ExitActions>-->
                             <Setter  TargetName="Border"
                                      Property="Background"
                                      Value="Gray"/>
                             <!-- Set color on the background button when pressed-->
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="#ADADAD" />
-                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource DisabledBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource DisabledBorderBrush}"/>
-                            <Setter Property="Opacity" TargetName="grid" Value="0.5"/>
+                        <Trigger Property="Content" Value="Run">
+                            <Setter  TargetName="Border"
+                                     Property="Background"
+                                     Value="Gray"/>
+                            <!-- Set color on the background button when pressed-->
+                        </Trigger>
+                        <Trigger Property="Content" Value="Running">
+                            <Setter  TargetName="Border"
+                                     Property="Background"
+                                     Value="GreenYellow"/>
+                            <!-- Set color on the background button when pressed-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

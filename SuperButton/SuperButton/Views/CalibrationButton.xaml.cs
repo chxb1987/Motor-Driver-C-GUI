@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SuperButton.Views
 {
     /// <summary>
-    /// Interaction logic for DataView.xaml
+    /// Interaction logic for CalibrationButton.xaml
     /// </summary>
-    public partial class DataView : UserControl
+    public partial class CalibrationButton : UserControl
     {
-        public DataView()
+        public CalibrationButton()
         {
             InitializeComponent();
         }

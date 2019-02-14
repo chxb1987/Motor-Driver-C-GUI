@@ -33,7 +33,6 @@ namespace SuperButton.ViewModels
 
         private  OperationViewModel()
         {
-            
         }
 
         private void GetDriverVersionCmd()
@@ -47,7 +46,6 @@ namespace SuperButton.ViewModels
                     IsFloat = false
                 }
             );
-            
         }
 
         private void GetMotorDriverCmd()

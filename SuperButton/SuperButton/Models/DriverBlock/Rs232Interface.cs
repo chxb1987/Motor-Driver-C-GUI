@@ -158,7 +158,7 @@ namespace SuperButton.Models.DriverBlock
                 Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
 
             }
-            LeftPanelViewModel.GetInstance.EnRefresh = false;
+            //LeftPanelViewModel.GetInstance.EnRefresh = false;
         }
 
         #region Auto_Connect
@@ -343,10 +343,7 @@ namespace SuperButton.Models.DriverBlock
         //********************************************************
         public void SendDataHendler(object sender, Parser2SendEventArgs parser2SendEventArgs)
         {
-            //Task.Factory.StartNew(action: () =>
-            //{
             SendData(parser2SendEventArgs.BytesTosend, _comPort);
-            //});
         }
 
 

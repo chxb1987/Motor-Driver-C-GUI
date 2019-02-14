@@ -497,78 +497,45 @@ namespace SuperButton.Models.ParserBlock
                 commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
                 //int newPropertyValueInt=0;
                 float newPropertyValuef = 0;
-
-                if (isInt)
+                if (commandId != 100)
                 {
-                    Int32 transit = data[6];
-                    transit <<= 8;
-                    transit |= data[5];
-                    transit <<= 8;
-                    transit |= data[4];
-                    transit <<= 8;
-                    transit |= data[3];
+                    if (isInt)
+                    {
+                        Int32 transit = data[6];
+                        transit <<= 8;
+                        transit |= data[5];
+                        transit <<= 8;
+                        transit |= data[4];
+                        transit <<= 8;
+                        transit |= data[3];
 
-                    RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
+                        RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
 
-                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, false, false, commandSubId);
-                    Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, transit, "I");
-                    //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", "Drv", commandId, commandSubId, transit, "I"));
-                    //try
-                    //{
-                    //    foreach (var List in RefreshManger.BuildList)
-                    //    {
+                        //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, false, false, commandSubId);
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, transit, "I");
+                    }
+                    else
+                    {
+                        var dataAray = new byte[4];
+                        for (int i = 0; i < 4; i++)
+                        {
+                            dataAray[i] = data[i + 3];
+                        }
+                        newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
 
-                    //        if (List.Value.CommandId.ToString() == commandId.ToString())
-                    //        {
-                    //            EventRiser.Instance.RiseEevent("Rx: " + List.Value.CommandName + ' ' + commandId + '[' + commandSubId + "] " + transit.ToString());
-                    //        }
+                        RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
 
-                    //    }
-                    //}
-                    //catch
-                    //{
-
-                    //}
+                        //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, newPropertyValuef, "F");
+                    }
                 }
                 else
                 {
-                    var dataAray = new byte[4];
-                    for (int i = 0; i < 4; i++)
-                    {
-                        dataAray[i] = data[i + 3];
-                    }
-                    newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
-                    if (commandId == 81 && commandSubId == 1)
-                    {
-                        //int j = 0;
-                    }
-                    RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
-
-                    //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
-                    Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, newPropertyValuef, "F");
-                    //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", "Drv", commandId, commandSubId, newPropertyValuef, "F"));
-                    //try
-                    //{
-                    //    foreach (var List in RefreshManger.BuildList)
-                    //    {
-
-                    //        if (List.Value.CommandId.ToString() == commandId.ToString())
-                    //        {
-                    //            EventRiser.Instance.RiseEevent("Rx: " + List.Value.CommandName + ' ' + commandId + '[' + commandSubId + "] " + newPropertyValuef.ToString() + ".0");
-                    //        }
-                    //    }
-                    //}
-                    //catch
-                    //{
-
-                    //}
-
+                    EventRiser.Instance.RiseEevent(string.Format($"Error"));
                 }
                 return true;
             }
             return false;
-
-
         }
 
         public static ParserRayonM1 GetInstanceofParser

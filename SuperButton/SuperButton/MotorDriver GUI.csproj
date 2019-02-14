@@ -191,12 +191,16 @@
     <Compile Include="StatusGroup\StatusesModule.cs" />
     <Compile Include="StatusGroup\StatusGrous.cs" />
     <Compile Include="ViewModels\BottomPanelViewModel.cs" />
+    <Compile Include="ViewModels\CalibrationButtonModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\MaintenanceViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxVM.cs" />
     <Compile Include="ViewModels\MotionViewModel.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
+    <Compile Include="Views\CalibrationButton.xaml.cs">
+      <DependentUpon>CalibrationButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DataViewSmallFontInd.xaml.cs">
       <DependentUpon>DataViewSmallFontInd.xaml</DependentUpon>
     </Compile>
@@ -301,6 +305,10 @@
     <Page Include="HomeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CalibrationButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataViewSmallFontInd.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -15,6 +15,7 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
 using Timer = System.Timers.Timer;
 using SuperButton.Models.ParserBlock;
+using System.Diagnostics;
 
 //Cntl+M and Control+O for close regions
 namespace SuperButton.Views
@@ -24,21 +25,21 @@ namespace SuperButton.Views
     {
         #region members
         //    private const float _singleChanelFreq = 6600;
-
-
         //Y axle title
-        private string _yaxeTitle;
-        readonly Dictionary<string, string> ChannelYtitles = new Dictionary<string, string>();
         //   private float step = (float) 0.151515;
 
         // private float delta = (float) (1.0/_singleChanelFreq);
+        
+
+        private string _yaxeTitle;
+        readonly Dictionary<string, string> ChannelYtitles = new Dictionary<string, string>();
+        
         //CH1 ComboBox
         int ch1;
         private string _ch1Title;
         public List<string> _channel1SourceItems = new List<string>();
         public List<string> Channel1SourceItems
         {
-            //get; set;
             get { return _channel1SourceItems; }
             set
             {
@@ -47,6 +48,7 @@ namespace SuperButton.Views
             }
         }
         private string _selectedCh1DataSource;
+        
         //CH2 ComboBox
         int ch2;
         private string _ch2Title;
@@ -77,28 +79,20 @@ namespace SuperButton.Views
 
         // private int countert = 0;
         // private int Aountert = 0;
-
-
-
+        
         // private static readonly object PointstoplotLOCK = new object();   //Semapophor;
         // private int PlotFifoLenth = 0;
         private int pivot = 0;
-
-
-        readonly List<float> AllYData = new List<float>(500000);
+        
+        readonly List<float> AllYData = new List<float>(500000); 
         readonly List<float> AllYData2 = new List<float>(500000);
-        //readonly List<float> AllYData3 = new List<float>(500000);
-        //readonly List<float> AllYData4 = new List<float>(500000);
-
-
-
-
+       
         //Debug Vars
         //private float Averadge = 0;
-
-
+        
         private DoubleRange _xVisibleRange;
         private DoubleRange _yVisibleRange;
+
         private ModifierType _chartModifier;
         private bool _isDigitalLine = true;
 
@@ -146,7 +140,6 @@ namespace SuperButton.Views
         {
 
         }
-
         #region Yzoom
         private double _yzoom = 0;
         public ActionCommand YPlus
@@ -176,7 +169,6 @@ namespace SuperButton.Views
             }
         }
         #endregion
-
         #region Duration
         private float _duration = 5000;
         public ActionCommand DirectionPlus
@@ -535,8 +527,6 @@ namespace SuperButton.Views
             xData = new float[0];
             _yFloats = new float[0];
             _yFloats2 = new float[0];
-            //_yFloats3 = new float[0];
-            //_yFloats4 = new float[0];
 
             FillDictionary();
             Thread.Sleep(100);
@@ -655,12 +645,12 @@ namespace SuperButton.Views
         {
             get { return new ActionCommand(ResetZoom); }
         }
-        #endregion
 
         public ActionCommand PlotReset
         {
             get { return new ActionCommand(() => isReset = true); }
         }
+        #endregion
         //public new EventHandler doubleClick;
         private object isReset = false;
         public object IsReset
@@ -679,19 +669,13 @@ namespace SuperButton.Views
         }
 
         private int ActChenCount = 0;
-
-
+        
         #region Channels
-
         private int _chan1Counter = 0;
         private int _chan2Counter = 0;
-        //private int _chan3Counter = 0;
-        //private int _chan4Counter = 0;
 
         private IXyDataSeries<float, float> _series1;
         private IXyDataSeries<float, float> _series0;
-        //private IXyDataSeries<float, float> _series2;
-        //private IXyDataSeries<float, float> _series3;
 
         public string SelectedCh1DataSource
         {
@@ -820,8 +804,6 @@ namespace SuperButton.Views
                 OnPropertyChanged("SelectedCh2DataSource");
             }
         }
-
-
         private void ChannelsplotActivationMerge()
         {
             //Activate plot
@@ -829,8 +811,6 @@ namespace SuperButton.Views
             {
                 _series0 = new XyDataSeries<float, float>();
                 _series1 = new XyDataSeries<float, float>();
-                //_series2 = new XyDataSeries<float, float>();
-                //_series3 = new XyDataSeries<float, float>();
 
                 // if (ChartModifier == ModifierType.Rollover) SetModifier(ModifierType.CrosshairsCursor);
                 // SeriesResamplingMode = ResamplingMode.Auto;
@@ -840,15 +820,9 @@ namespace SuperButton.Views
                 ChartData = _series0;
                 _series1.Clear();
                 ChartData1 = _series1;
-                //_series2.Clear();
-                //ChartData2 = _series2;
-                //_series3.Clear();
-                //ChartData3 = _series3;
 
                 OnExampleEnter();
                 plotActivationstate = 1;
-
-
             }
             if (OscilloscopeParameters.ChanTotalCounter == 0 && plotActivationstate == 1)
             {
@@ -986,7 +960,6 @@ namespace SuperButton.Views
                 AllYData.Clear();
             }
         }
-
         private void StepRecalcMerge()
         {
             if (_timer != null)
@@ -1009,9 +982,7 @@ namespace SuperButton.Views
                     (float)(OscilloscopeParameters.SingleChanelFreqC * (1.0 / OscilloscopeParameters.ChanTotalCounter));
             }
         }
-
-
-        #endregion
+        #endregion Channels
 
         public bool IsRolloverSelected
         {
@@ -1186,21 +1157,13 @@ namespace SuperButton.Views
 
         private float[] _yFloats;
         private float[] _yFloats2;
-        //private float[] _yFloats3;
-        //private float[] _yFloats4;
 
         private float[] temp3;
         private float[] temp4;
-        //private float[] temp5;
-        //private float[] temp6;
         private int carry;
         private int carry2;
-        //private int carry3;
-        //private int carry4;
         private float[] yDataTemp;
         private float[] yDataTemp2;
-        //private float[] yDataTemp3;
-        //private float[] yDataTemp4;
         public static bool _chartRunning = false;
         /* On ticj function */
 
@@ -1464,7 +1427,9 @@ namespace SuperButton.Views
                 else if (OscilloscopeParameters.ChanTotalCounter == 2)// Two channels
                 {
                     #region DoubleChan
-                    if (ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
+                    Debug.WriteLine("Plot 1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+
+                    if(ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
                     {
                         if (AllYData.Count > 1 && _isFull)
                             State = 4;
@@ -1641,6 +1606,8 @@ namespace SuperButton.Views
                         //});
                         #endregion Switch
                     }
+                    Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
+
                     #endregion
                 }
             }
@@ -1998,13 +1965,4 @@ namespace SuperButton.Views
         }
 
     }
-
-    #region XLS
-
-
-
-
-    #endregion
-
-
 }

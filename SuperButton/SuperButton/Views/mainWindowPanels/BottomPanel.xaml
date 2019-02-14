@@ -615,6 +615,23 @@
                                     <ItemsControl Width="160" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
                                 </Grid>
                             </ScrollViewer>
+                            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60*"></RowDefinition>
+                                        <RowDefinition Height="40*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Header="Control" Grid.Row="0">
+                                        <ItemsControl ItemsSource="{Binding ControlList}" 
+                                          ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
+                                    </GroupBox>
+                                    <GroupBox Header="Motor" Grid.Row="1">
+                                        <ItemsControl ItemsSource="{Binding MotorlList}" 
+                                          ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                    </GroupBox>
+                                </Grid>
+                            </ScrollViewer>
+
                         </Grid>
                     </Grid>
                 </Border>

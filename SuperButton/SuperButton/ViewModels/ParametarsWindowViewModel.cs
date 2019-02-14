@@ -29,7 +29,7 @@ namespace SuperButton.ViewModels
             _motionViewModel = MotionViewModel.GetInstance;
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
         }
-            
+
         public ObservableCollection<object> ControlList
         {
 

@@ -25,6 +25,10 @@ namespace SuperButton.ViewModels
                     return _instance;
                 }
             }
+            set
+            {
+                _instance = value;
+            }
         }
         private MotionViewModel()
         {

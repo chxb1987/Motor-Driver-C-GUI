@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Threading.Tasks;
+using System.Linq;
+using SuperButton.CommandsDB;
 
 namespace SuperButton.ViewModels
 {
@@ -34,18 +36,8 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                //if (LeftPanelViewModel.flag == true)
-                //{
-                //    if (_baseModel.CommandName == "Pole Pair" && (Int32.Parse(value) < 0))
-                //        _baseModel.CommandValue = "0";
-                //    else
-                //        _baseModel.CommandValue = value;
-                //}
-                //else
                 _baseModel.CommandValue = value;
                 OnPropertyChanged();
-
-
             }
         }
 
@@ -55,7 +47,12 @@ namespace SuperButton.ViewModels
 
         public bool IsFloat { get { return _baseModel.IsFloat; } set { _baseModel.IsFloat = value; } }
 
-        public bool IsSelected { get { return _baseModel.IsSelected; } set { _baseModel.IsSelected = value; OnPropertyChanged(); } }
+        public bool IsSelected {
+            get { return _baseModel.IsSelected; }
+            set { _baseModel.IsSelected = value;                    
+                OnPropertyChanged();
+            }
+        }
         public virtual ICommand SendData
         {
             get
@@ -77,26 +74,33 @@ namespace SuperButton.ViewModels
 
         private void BuildPacketTosend()
         {
-            if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
+            if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
-                if (CommandValue != "")
+                Debug.WriteLine("Enter to Send");
+
+                RefreshManger.DataPressed = false;
+                if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))))
                 {
-                    Task.Factory.StartNew(action: () =>
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].IsSelected = false;
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background = new SolidColorBrush(Colors.Gray);
+                    this.ReadOnly = true;
+                    this.EnableTextBox = false;
+                }
+                if(CommandValue != "")
+                {
+                    var tmp = new PacketFields
                     {
-                        var tmp = new PacketFields
-                        {
-                            Data2Send = CommandValue,
-                            ID = Convert.ToInt16(CommandId),
-                            SubID = Convert.ToInt16(CommandSubId),
-                            IsSet = true,
-                            IsFloat = IsFloat,
-                        };
-                        Rs232Interface.GetInstance.SendToParser(tmp);
-                        _escPressed = false;
-                        MouseLeaveCommandFunc();
-                        _escPressed = true;
-                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), CommandValue, IsFloat ? "F":"I");
-                });
+                        Data2Send = CommandValue,
+                        ID = Convert.ToInt16(CommandId),
+                        SubID = Convert.ToInt16(CommandSubId),
+                        IsSet = true,
+                        IsFloat = IsFloat,
+                    };
+                    Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
+                    _escPressed = false;
+                    MouseLeaveCommandFunc();
+                    _escPressed = true;
                 }
                 else
                 {
@@ -121,178 +125,236 @@ namespace SuperButton.ViewModels
         }
 
         static string cmdClicked = "";
+
+        int cmdID = 0, cmdSubID = 0;
+
         private void MouseLeftClickFunc()
         {
-            if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
+            if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
-                Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
-                bool Flag = false, Selected = false;
-                string KeyStr = "";
-                this.IsSelected = true;
-                this.EnableTextBox = false;
-                this.ReadOnly = true;
-                _commandvalueTemp = this.CommandValue;
-                bool selectExist = false;
-                foreach (var group in RefreshManger.BuildGroup)
+                RefreshManger.DataPressed = true;
+                foreach(var list in Commands.GetInstance.DataViewCommandsList)
                 {
-                    foreach (var sub_list in group.Value)
+                    try
                     {
-                        if (this.CommandName != ((DataViewModel)sub_list).CommandName)
-                        {
-                            if (((DataViewModel)sub_list).IsSelected)
-                            {
-                                selectExist = true;
-                                break;
-                            }
-                        }
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].IsSelected = false;
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background = new SolidColorBrush(Colors.Gray);
+                    }
+                    catch(Exception e)
+                    {
                     }
                 }
-                if (!selectExist)
+                if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))))
                 {
-                    this.Background = this.Background2 = new SolidColorBrush(Colors.Red);
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].IsSelected = true;
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background2 = new SolidColorBrush(Colors.Red);
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background = new SolidColorBrush(Colors.Red);
                     this.ReadOnly = false;
                     this.EnableTextBox = true;
-
-
-                    foreach (var group in RefreshManger.BuildGroup)
-                    {
-                        TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
-                        foreach (var sub_list in group.Value)
-                        {
-                            if (this.CommandName == ((DataViewModel)sub_list).CommandName)
-                            {
-                                Selected = true;
-                                Flag = true;
-                            }
-                            else
-                            {
-                                Selected = false;
-                            }
-                            var data = new DataViewModel
-                            {
-                                CommandName = ((DataViewModel)sub_list).CommandName,
-                                CommandId = ((DataViewModel)sub_list).CommandId,
-                                CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                                CommandValue = ((DataViewModel)sub_list).CommandValue,
-                                IsFloat = ((DataViewModel)sub_list).IsFloat,
-                                IsSelected = Selected,
-                            };
-                            try
-                            {
-                                TempList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
-                            }
-                            catch (Exception e)
-                            {
-
-                            }
-
-                        }
-                        if (Flag)
-                        {
-                            KeyStr = group.Key;
-                            Flag = false;
-                            break;
-                        }
-                    }
-
-                    RefreshManger.BuildGroup.Remove(KeyStr);
-                    RefreshManger.BuildGroup.Add(KeyStr, new ObservableCollection<object>());
-                    foreach (var sub_list in TempList.Values)
-                    {
-                        var data = new DataViewModel
-                        {
-                            CommandName = ((DataViewModel)sub_list).CommandName,
-                            CommandId = ((DataViewModel)sub_list).CommandId,
-                            CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                            CommandValue = ((DataViewModel)sub_list).CommandValue,
-                            IsFloat = ((DataViewModel)sub_list).IsFloat,
-                            IsSelected = ((DataViewModel)sub_list).IsSelected,
-                        };
-                        RefreshManger.BuildGroup[KeyStr].Add(data);
-                    }
                 }
             }
+            #region Not_Enabled
+            //int i = 0;
+            //if(i == 1)
+            //{
+            //    if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
+            //    {
+            //        //int tab = Views.ParametarsWindow.ParametersWindowTabSelected;
+            //        //RefreshManger.GroupToExecute(tab);
+            //        //var result = RefreshManger.BuildGroup.
+            //        Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
+            //        bool Flag = false, Selected = false;
+            //        string KeyStr = "";
+            //        this.IsSelected = true;
+            //        this.EnableTextBox = false;
+            //        this.ReadOnly = true;
+            //        _commandvalueTemp = this.CommandValue;
+            //        bool selectExist = false;
+            //        //RefreshManger.BuildGroup.Where(x => x.Key.Where(x => x.).ToList().ForEach(b => ((DataViewModel)sub_list).Background2 = new SolidColorBrush(Colors.Red));
+
+            //        foreach(var group in RefreshManger.BuildGroup)
+            //        {
+            //            foreach(var sub_list in group.Value)
+            //            {
+            //                if(this.CommandName != ((DataViewModel)sub_list).CommandName)
+            //                {
+            //                    if(((DataViewModel)sub_list).IsSelected)
+            //                    {
+            //                        selectExist = true;
+            //                        break;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        if(!selectExist)
+            //        {
+            //            this.Background = this.Background2 = new SolidColorBrush(Colors.Red);
+            //            this.ReadOnly = false;
+            //            this.EnableTextBox = true;
+
+
+            //            foreach(var group in RefreshManger.BuildGroup)
+            //            {
+            //                TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
+            //                foreach(var sub_list in group.Value)
+            //                {
+            //                    if(this.CommandName == ((DataViewModel)sub_list).CommandName)
+            //                    {
+            //                        Selected = true;
+            //                        Flag = true;
+            //                    }
+            //                    else
+            //                    {
+            //                        Selected = false;
+            //                    }
+            //                    var data = new DataViewModel
+            //                    {
+            //                        CommandName = ((DataViewModel)sub_list).CommandName,
+            //                        CommandId = ((DataViewModel)sub_list).CommandId,
+            //                        CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+            //                        CommandValue = ((DataViewModel)sub_list).CommandValue,
+            //                        IsFloat = ((DataViewModel)sub_list).IsFloat,
+            //                        IsSelected = Selected,
+            //                    };
+            //                    try
+            //                    {
+            //                        TempList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+            //                    }
+            //                    catch(Exception e)
+            //                    {
+
+            //                    }
+
+            //                }
+            //                if(Flag)
+            //                {
+            //                    KeyStr = group.Key;
+            //                    Flag = false;
+            //                    break;
+            //                }
+            //            }
+
+            //            RefreshManger.BuildGroup.Remove(KeyStr);
+            //            RefreshManger.BuildGroup.Add(KeyStr, new ObservableCollection<object>());
+            //            foreach(var sub_list in TempList.Values)
+            //            {
+            //                var data = new DataViewModel
+            //                {
+            //                    CommandName = ((DataViewModel)sub_list).CommandName,
+            //                    CommandId = ((DataViewModel)sub_list).CommandId,
+            //                    CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+            //                    CommandValue = ((DataViewModel)sub_list).CommandValue,
+            //                    IsFloat = ((DataViewModel)sub_list).IsFloat,
+            //                    IsSelected = ((DataViewModel)sub_list).IsSelected,
+            //                };
+            //                RefreshManger.BuildGroup[KeyStr].Add(data);
+            //            }
+            //        }
+            //    }
+            //}
+            #endregion Not_Enabled
         }
 
         private void MouseLeaveCommandFunc()
         {
-            Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
-            bool Flag = false, Selected = false;
-            string KeyStr = "";
-            this.IsSelected = false;
-            if (_escPressed)
-                this.CommandValue = _commandvalueTemp;
-            this.Background = new SolidColorBrush(Colors.Gray);
-            this.Background2 = new SolidColorBrush(Colors.White);
-
-
-            foreach (var group in RefreshManger.BuildGroup)
+            RefreshManger.DataPressed = false;
+            //if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))))
+            //{
+            //    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].IsSelected = false;
+            //    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
+            //}
+            foreach(var list in Commands.GetInstance.DataViewCommandsList)
             {
-                TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
-                foreach (var sub_list in group.Value)
+                try
                 {
-                    if (this.CommandName == ((DataViewModel)sub_list).CommandName)
-                    {
-                        Selected = false;
-                        Flag = true;
-                    }
-                    else
-                        Selected = false;
-                    var data = new DataViewModel
-                    {
-                        CommandName = ((DataViewModel)sub_list).CommandName,
-                        CommandId = ((DataViewModel)sub_list).CommandId,
-                        CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                        CommandValue = ((DataViewModel)sub_list).CommandValue,
-                        IsFloat = ((DataViewModel)sub_list).IsFloat,
-                        IsSelected = Selected,
-
-                    };
-                    try
-                    {
-                        TempList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].IsSelected = false;
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background = new SolidColorBrush(Colors.Gray);
+                }
+                catch(Exception e)
+                {
 
                 }
-                if (Flag)
-                {
-                    KeyStr = group.Key;
-                    Flag = false;
-                    break;
-                }
             }
+            //Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
+            //bool Flag = false, Selected = false;
+            //string KeyStr = "";
+            //this.IsSelected = false;
+            //if(_escPressed)
+            //    this.CommandValue = _commandvalueTemp;
+            //this.Background = new SolidColorBrush(Colors.Gray);
+            //this.Background2 = new SolidColorBrush(Colors.White);
 
-            RefreshManger.BuildGroup.Remove(KeyStr);
-            RefreshManger.BuildGroup.Add(KeyStr, new ObservableCollection<object>());
-            foreach (var sub_list in TempList.Values)
-            {
-                var data = new DataViewModel
-                {
-                    CommandName = ((DataViewModel)sub_list).CommandName,
-                    CommandId = ((DataViewModel)sub_list).CommandId,
-                    CommandSubId = ((DataViewModel)sub_list).CommandSubId,
-                    CommandValue = ((DataViewModel)sub_list).CommandValue,
-                    IsFloat = ((DataViewModel)sub_list).IsFloat,
-                    IsSelected = ((DataViewModel)sub_list).IsSelected,
-                };
-                RefreshManger.BuildGroup[KeyStr].Add(data);
-            }
+
+            //foreach(var group in RefreshManger.BuildGroup)
+            //{
+            //    TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
+            //    foreach(var sub_list in group.Value)
+            //    {
+            //        if(this.CommandName == ((DataViewModel)sub_list).CommandName)
+            //        {
+            //            Selected = false;
+            //            Flag = true;
+            //        }
+            //        else
+            //            Selected = false;
+            //        var data = new DataViewModel
+            //        {
+            //            CommandName = ((DataViewModel)sub_list).CommandName,
+            //            CommandId = ((DataViewModel)sub_list).CommandId,
+            //            CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+            //            CommandValue = ((DataViewModel)sub_list).CommandValue,
+            //            IsFloat = ((DataViewModel)sub_list).IsFloat,
+            //            IsSelected = Selected,
+
+            //        };
+            //        try
+            //        {
+            //            TempList.Add(new Tuple<int, int>(Int32.Parse(((DataViewModel)sub_list).CommandId), Int32.Parse(((DataViewModel)sub_list).CommandSubId)), data);
+            //        }
+            //        catch(Exception e)
+            //        {
+
+            //        }
+
+            //    }
+            //    if(Flag)
+            //    {
+            //        KeyStr = group.Key;
+            //        Flag = false;
+            //        break;
+            //    }
+            //}
+
+            //RefreshManger.BuildGroup.Remove(KeyStr);
+            //RefreshManger.BuildGroup.Add(KeyStr, new ObservableCollection<object>());
+            //foreach(var sub_list in TempList.Values)
+            //{
+            //    var data = new DataViewModel
+            //    {
+            //        CommandName = ((DataViewModel)sub_list).CommandName,
+            //        CommandId = ((DataViewModel)sub_list).CommandId,
+            //        CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+            //        CommandValue = ((DataViewModel)sub_list).CommandValue,
+            //        IsFloat = ((DataViewModel)sub_list).IsFloat,
+            //        IsSelected = ((DataViewModel)sub_list).IsSelected,
+            //    };
+            //    RefreshManger.BuildGroup[KeyStr].Add(data);
+            //}
         }
         public SolidColorBrush Background
         {
             get
             {
-                if (!IsSelected)
+                if(!IsSelected)
                     return new SolidColorBrush(Colors.Gray);
-                else return new SolidColorBrush(Colors.Red);
+                else
+                    return new SolidColorBrush(Colors.Red);
             }
             set
             {
-                if (IsSelected)
+                if(IsSelected)
                     _baseModel.Background = new SolidColorBrush(Colors.Red);
                 else
                     _baseModel.Background = new SolidColorBrush(Colors.Gray);
@@ -305,13 +367,14 @@ namespace SuperButton.ViewModels
         {
             get
             {
-                if (!IsSelected)
+                if(!IsSelected)
                     return new SolidColorBrush(Colors.White);
-                else return new SolidColorBrush(Colors.Red);
+                else
+                    return new SolidColorBrush(Colors.Red);
             }
             set
             {
-                if (IsSelected)
+                if(IsSelected)
                     _baseModel.Background = new SolidColorBrush(Colors.Red);
                 else
                     _baseModel.Background = new SolidColorBrush(Colors.White);
@@ -322,9 +385,28 @@ namespace SuperButton.ViewModels
         }
         public bool ReadOnly
         {
-            get { if (!IsSelected) return true; else return false; }
-            set { if (!IsSelected) _baseModel.ReadOnly = true; else _baseModel.ReadOnly = false; OnPropertyChanged("ReadOnly"); }
+            get { if(!IsSelected) return true; else return false; }
+            set { if(!IsSelected) _baseModel.ReadOnly = true; else _baseModel.ReadOnly = false; OnPropertyChanged("ReadOnly"); }
         }
-        public bool EnableTextBox { get { return true; } set { if (IsSelected) _baseModel.EnableTextBox = true; else _baseModel.EnableTextBox = false; OnPropertyChanged("EnableTextBox"); } }
+        public bool EnableTextBox { get { return true; } set { if(IsSelected) _baseModel.EnableTextBox = true; else _baseModel.EnableTextBox = false; OnPropertyChanged("EnableTextBox"); } }
+    }
+
+
+    public class Beam
+    {
+        public double Width { get; set; }
+        public bool IsJoist { get; set; }
+
+        public static void Func()
+        {
+            var bm1 = new Beam { Width = 40 };
+            var bm2 = new Beam { Width = 50 };
+            var bm3 = new Beam { Width = 30 };
+            var bm4 = new Beam { Width = 60 };
+
+            var Beams = new List<Beam> { bm1, bm2, bm3, bm4 };
+
+            Beams.Where(x => x.Width > 40).ToList().ForEach(b => b.IsJoist = true);
+        }
     }
 }

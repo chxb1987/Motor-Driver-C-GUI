@@ -116,16 +116,6 @@
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding HallFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
                             </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>-->
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            </Grid>
-                        </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -152,6 +142,16 @@
                                           ItemTemplate="{StaticResource EnumViewModel}"/>
                                     </Grid>
                                 </ScrollViewer>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>-->
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -240,11 +240,11 @@
                                 <ItemsControl     ItemsSource="{Binding PidPositionList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Grid.Row="1" Header="Hall Map" Margin="30,10,0,0">
+                        <!--<GroupBox Grid.Row="1" Header="Hall Map" Margin="30,10,0,0">
                             <StackPanel Background="Transparent" Orientation="Vertical">
                                 <ItemsControl ItemsSource="{Binding HallMapList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
                             </StackPanel>
-                        </GroupBox>
+                        </GroupBox>-->
                     </Grid>
                 </Grid>
             </TabItem>
@@ -287,130 +287,27 @@
             <TabItem Header="Calibration" TabIndex="5" DataContext="{Binding CalibrationViewModel}" Foreground="White">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0"  Grid.Row="0">
+                    <Grid Grid.Column="0" Width="Auto">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid  Grid.Row="0" Width="200">
-                            <TextBlock Text="Automatic Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Beige" FontFamily="Calibri"></TextBlock>
-                        </Grid>
-                        <StackPanel  Grid.Row="1" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Current Offset" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button Height="22" Width="60" Margin="10,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding OffsetCal}" ToolTip="Chalom" VerticalAlignment="Center"/>-->
-                            <ToggleButton x:Name="Run1" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding OffsetCal}"  
-                                          Content="{Binding OffsetCalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding OffsetCalCheck}"
-                                          IsEnabled="{Binding OffsetCalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding OffsetCalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Current Loop" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button  Height="22" Width="60" Margin="10,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiCurrentCal}" />-->
-                            <ToggleButton x:Name="Run2" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding PiCurrentCal}"  
-                                          Content="{Binding PiCurrentCalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding PiCurrentCalCheck}"
-                                          IsEnabled="{Binding PiCurrentCalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PiCurrentCalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="5" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Speed Loop" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button  Height="22" Width="60" Margin="10,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding PiSpeedCal}" />-->
-                            <ToggleButton x:Name="Run5" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding PiSpeedCal}"  
-                                          Content="{Binding PiSpeedCalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding PiSpeedCalCheck}"
-                                          IsEnabled="{Binding PiSpeedCalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PiSpeedCalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="3" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Hall Mapping" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button  Height="22" Width="60" Margin="10,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding HallMapCal}" />-->
-                            <ToggleButton x:Name="Run3" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding HallMapCal}"  
-                                          Content="{Binding HallMapCalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding HallMapCalCheck}"
-                                          IsEnabled="{Binding HallMapCalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding HallMapCalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="4" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="Encoder1 Direction" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button  Height="22" Width="60" Margin="10,3,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding EncoderCal}" VerticalAlignment="Top" />-->
-                            <ToggleButton x:Name="Run4" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding Encoder1Cal}"  
-                                          Content="{Binding Encoder1CalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding Encoder1CalCheck}"
-                                          IsEnabled="{Binding Encoder1CalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding Encoder1CalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="6" Orientation="Horizontal">
-                            <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Height="17" Text="PI Position Loop" HorizontalAlignment="Left"></TextBlock>
-                            </Border>
-                            <!--<Button Height="22" Width="50" Margin="20,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Run" Command="{Binding P2PositionCal}" IsChecked="{Binding IsRecording}"/>-->
-                            <ToggleButton x:Name="Run6" Grid.Column="14" Height="22" Width="60" Margin="10,0,0,0" 
-                                          Style="{StaticResource CalToggleButtonStyle}" 
-                                          Command="{Binding PiPositionCal}"  
-                                          Content="{Binding PiPosCalContent}" 
-                                          BorderThickness="0.5" 
-                                          VerticalAlignment="Center"
-                                          Foreground="Black"
-                                          IsChecked="{Binding PiPositionCalCheck}"
-                                          IsEnabled="{Binding PiPositionCalEn}">
-                            </ToggleButton>
-                            <TextBox Height="22" Margin="10,0,0,0" Foreground="Wheat" Width="100" TextAlignment="Center" Text="{Binding PiPosCalVal}" BorderBrush="White" IsReadOnly="True"/>
-                        </StackPanel>
-
-                        <!--<StackPanel Grid.Row="7" Width="200" HorizontalAlignment="Left">
-                            <ToggleButton Width="150" Style="{DynamicResource DefaultToggleButtonStyle}" Content="P2 Position Calibration" Command="{Binding P2PositionCal}">
-                                
-                            </ToggleButton>
-                        </StackPanel>-->
+                        <Border Grid.Row="1">
+                            <GroupBox>
+                                <GroupBox.Header>
+                                    <Border Width="299">
+                                        <Grid Width="Auto">
+                                            <TextBlock Text="Automatic Calibration Menu" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </GroupBox.Header>
+                                <StackPanel Background="Transparent" Orientation="Vertical" >
+                                    <ItemsControl ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}" />
+                                </StackPanel>
+                            </GroupBox>
+                        </Border>
                     </Grid>
                 </Grid>
 
