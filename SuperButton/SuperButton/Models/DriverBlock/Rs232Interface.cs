@@ -147,7 +147,6 @@ namespace SuperButton.Models.DriverBlock
                         }
                     }
                 }
-
             }
             else
             {
@@ -237,9 +236,7 @@ namespace SuperButton.Models.DriverBlock
 
                                     var Cleaner = tmpcom.ReadExisting();
                                 }
-
                             }
-
                         }
                         tmpcom.Close();
                     }
@@ -252,11 +249,12 @@ namespace SuperButton.Models.DriverBlock
                 }
                 else
                 {
-                    if (!MessageBoxWrapper.IsOpen)
-                    {
-                        msg = string.Format("No COM Port Selected!");
-                        MessageBoxWrapper.Show(msg, "");
-                    }
+                    EventRiser.Instance.RiseEevent(string.Format($"No COM Port Selected!"));
+                    //if (!MessageBoxWrapper.IsOpen)
+                    //{
+                    //    msg = string.Format("No COM Port Selected!");
+                    //    MessageBoxWrapper.Show(msg, "");
+                    //}
                 }
             }
             else if (_isSynced == true)
@@ -351,50 +349,22 @@ namespace SuperButton.Models.DriverBlock
         {
             lock (Sendlock)
             {
-                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.PASSED);
                 var serialPort = comPort as SerialPort;
-                if (serialPort != null && serialPort.IsOpen)
+                if(serialPort != null && serialPort.IsOpen)
+                {
                     serialPort.Write(packetToSend, 0, packetToSend.Length); // Send through RS232 cable
+                }
                 var port = comPort as SerialPort;
-                if (port != null) port.DiscardOutBuffer();
-                //EventRiser.Instance.RiseEventLedTx(RoundBoolLed.IDLE);
+                if (port != null)
+                    port.DiscardOutBuffer();
                 LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
             }
-            LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.IDLE;
         }
 
         public void SendToParser(PacketFields messege)
         {
-            //if (RxtoParser != null)
-            //{
-            //    //rise event
-            //    //if (messege.ID == 82 && messege.SubID == 1 && messege.IsSet == true)
-            //    //{ /*int i = 0; */}
-            //    // messege.Data2Send = "0.5";
-
-
-            //    RxtoParser(this, new Rs232InterfaceEventArgs(messege));
-            //    //Debug.WriteLine("SendToDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", messege.Data2Send, messege.ID, messege.IsFloat, messege.IsSet, messege.SubID);
-            //    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
-            //    //EventRiser.Instance.RiseEevent(String.Format("{0} {1}[{2}]={3} {4}", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I"));
-            //    //try
-            //    //{
-            //    //    foreach (var List in RefreshManger.BuildList)
-            //    //    {
-            //    //        if (List.Value.CommandId.ToString() == messege.ID.ToString())
-            //    //        {
-            //    //            if (messege.IsSet)
-            //    //                EventRiser.Instance.RiseEevent("Tx: Set " + List.Value.CommandName.ToString() + ' ' + messege.ID + '[' + messege.SubID + "]=" + messege.Data2Send + " (" + (messege.IsFloat ? ".0" : "") + ')');
-            //    //            else
-            //    //                EventRiser.Instance.RiseEevent("Tx: Get " + List.Value.CommandName.ToString() + ' ' + messege.ID + '[' + messege.SubID + "]");
-            //    //        }
-            //    //    }
-            //    //}
-            //    //catch { }
-
-            //}
             RxtoParser?.Invoke(this, new Rs232InterfaceEventArgs(messege));
-            Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
+            //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", messege.IsSet ? "Set" : "Get", messege.ID, messege.SubID, messege.Data2Send, messege.IsFloat ? "F" : "I");
         }
 
         #endregion
@@ -415,7 +385,6 @@ namespace SuperButton.Models.DriverBlock
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //Create new parent Task
-            // Task.Factory.StartNew(() => ProcessRecievedData( sender,e));
             SerialPort port = (SerialPort)sender;
             if (port != null)
             {
@@ -427,7 +396,6 @@ namespace SuperButton.Models.DriverBlock
                     Rx2Packetizer(this, new Rs232InterfaceEventArgs(buffer));
                     LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
                 }
-                LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.IDLE;
             }
         }
         public void Connect()

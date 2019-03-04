@@ -115,7 +115,8 @@
                              Foreground="#FF111111"
                              FontSize="10.667" 
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
-                             Background="{Binding Background2}">
+                             Background="{Binding Background2}"
+                             >
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>
@@ -137,8 +138,8 @@
                     </TextBox>
                 </Border>
 
-                <Border BorderThickness="1" Grid.Column="1" CornerRadius="0,4,0,0" Background="#7F000000" Grid.RowSpan="2">
-                    <Label Content="{Binding Path=LabelIntUnit}"
+                <Border BorderThickness="1" Grid.Column="1" CornerRadius="0,4,0,0" Background="#7F000000" Grid.RowSpan="2"><!--Content="{Binding Path=LabelIntUnit}"-->
+                    <Label 
                            Foreground="White" 
                            HorizontalContentAlignment="Center" 
                            VerticalContentAlignment="Center" 

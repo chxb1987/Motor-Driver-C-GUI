@@ -6,7 +6,7 @@
       xmlns:models="clr-namespace:SuperButton.Models"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="30" d:DesignWidth="305">
+      d:DesignHeight="30" d:DesignWidth="205">
     <UserControl.Resources>
         <Storyboard x:Key="OnMouseEnter1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
@@ -73,7 +73,7 @@
             <ColumnDefinition Width="0"/>
             <ColumnDefinition Width="90"/>
             <ColumnDefinition Width="0"/>
-            <ColumnDefinition Width="100"/>
+            <!--<ColumnDefinition Width="100"/>-->
         </Grid.ColumnDefinitions>
         <Border BorderBrush="White" BorderThickness="1" CornerRadius="4,0,0,4" Grid.Column="0">
             <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000">
@@ -120,7 +120,7 @@
         </Border>
         <Border BorderBrush="White" BorderThickness="1" Grid.Column="4" CornerRadius="0,2,2,0">
             <Grid>
-                <TextBox x:Name="SetValTB"
+                <!--<TextBox x:Name="SetValTB"
                              BorderBrush="{x:Null}" MaxLines="1"
                              HorizontalContentAlignment="Center"
                              VerticalContentAlignment="Center"
@@ -129,7 +129,11 @@
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
                              Background="White"
                              IsReadOnly="True">
-                </TextBox>
+                </TextBox>-->
+                <!--<ItemsControl ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewModel}"/>-->
+                <!--<StackPanel Background="Transparent" Orientation="Vertical" >
+                    <ItemsControl ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                </StackPanel>-->
             </Grid>
         </Border>
     </Grid>

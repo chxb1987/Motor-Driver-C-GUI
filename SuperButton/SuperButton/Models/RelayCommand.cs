@@ -92,7 +92,8 @@ namespace SuperButton.Models
         {
             if (parameter != null)
                 _executeWithParam(parameter);
-            else _execute();
+            else if(_execute!=null)
+                _execute();
         }
 
        

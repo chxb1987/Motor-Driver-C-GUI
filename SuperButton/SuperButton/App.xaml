@@ -45,6 +45,9 @@
             <DataTemplate x:Key="DataViewSmallFontInd">
                 <views:DataViewSmallFontInd></views:DataViewSmallFontInd>
             </DataTemplate>
+            <DataTemplate x:Key="DataViewInd">
+                <views:DataViewInd></views:DataViewInd>
+            </DataTemplate>
             <DataTemplate x:Key="IntegerUCModel">
                 <views:IntegerUC></views:IntegerUC>
             </DataTemplate>

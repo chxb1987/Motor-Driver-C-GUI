@@ -6,6 +6,7 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.Views;
 using BaseViewModel = SuperButton.Common.BaseViewModel;
 using SuperButton.Helpers;
+using System.Diagnostics;
 //using SharpDX.Design;
 
 namespace SuperButton.ViewModels
@@ -24,7 +25,7 @@ namespace SuperButton.ViewModels
         private double maxHeight = 240;
         void mainWindowResized()
         {
-            MaxHeight = (float)Application.Current.MainWindow.ActualHeight - 101;
+            maxHeight = (float)Application.Current.MainWindow.ActualHeight - 101;
         }
 
         public static void mouseClickMainWindow()
@@ -42,7 +43,7 @@ namespace SuperButton.ViewModels
 
         public double MaxHeight
         {
-            //get {return maxHeight;}
+            get {return maxHeight;}
             set
             {
 
@@ -105,7 +106,6 @@ namespace SuperButton.ViewModels
         public MainViewModel()
         {
             //System.Windows.Media.Color color;
-
 
             leftPanelViewModel.ConnectButtonContent = "Connect";
             leftPanelViewModel.ConnectTextBoxContent = "Not Connected";

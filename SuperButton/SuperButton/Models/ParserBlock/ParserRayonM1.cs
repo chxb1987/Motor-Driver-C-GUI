@@ -22,13 +22,6 @@ using SuperButton.Models.SataticClaass;
 using SuperButton.Views;
 using SuperButton.Helpers;
 using SuperButton.ViewModels;
-
-
-//TODO add interface
-//TODO TODO add interface   
-//TODO TODO add interface   
-//TODO TODO add interface   
-
 public struct PacketFields
 {
     public object Data2Send;
@@ -43,13 +36,9 @@ public delegate ushort CrcEventhandlerCalcHostFrameCrc(IEnumerable<byte> data, i
 
 namespace SuperButton.Models.ParserBlock
 {
-
     internal delegate void Parser2SendHandler(object sender, Parser2SendEventArgs e);//Event declaration, when parser will finish operation. Rise event
-
-
     class ParserRayonM1
     {
-
         private static readonly object Synlock = new object();             //Singletone variable
         public static readonly object PlotListLock = new object();             //Singletone variable
         private static ParserRayonM1 _parserRayonM1instance;               //Singletone variable
@@ -89,9 +78,6 @@ namespace SuperButton.Models.ParserBlock
             //   decodeThread = new Thread(StartParser);
             //   decodeThread.Start();
         }
-
-
-
         #region Parser_Selection
 
         //TODO here will switch between parsers depends on sender object
@@ -103,7 +89,9 @@ namespace SuperButton.Models.ParserBlock
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
-                if (LeftPanelViewModel.GetInstance != null)
+                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
+
+                if(LeftPanelViewModel.GetInstance != null)
                 { // perform Get after "set" function
                     if (LeftPanelViewModel.flag == true && LeftPanelViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
                     {
@@ -127,7 +115,6 @@ namespace SuperButton.Models.ParserBlock
         }
 
         #endregion
-
         #region RayonM2_Parser
 
         //TODO add try/catch
@@ -234,38 +221,17 @@ namespace SuperButton.Models.ParserBlock
                         datasource1.Add(xyPoint5);
 
                         i = i + 11;
-
-
                     }
                     i++;
-
-
-
-
-
-
                 }
-
-
                 Parser2Plot(this, new Parser2SendEventArgs(datasource1));
                 datasource1.Clear();
-
             }
-
-
-
-
-
         }
 
         //not need func:
         private void ParseData(int length, byte[] dataInput)
         {
-
-
-
-
-
         }
 
         #endregion //TODO 
@@ -405,7 +371,6 @@ namespace SuperButton.Models.ParserBlock
         #endregion
 
         #endregion
-
         #region Start_Parser
 
         //not use
@@ -457,7 +422,6 @@ namespace SuperButton.Models.ParserBlock
                 mre.Set();
             }
         }
-
         public void ParseStandartData(List<byte[]> dataList)
         {
             for (int i = 0; i < dataList.Count; i++)
@@ -510,8 +474,6 @@ namespace SuperButton.Models.ParserBlock
                         transit |= data[3];
 
                         RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
-
-                        //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", transit, commandId, false, false, commandSubId);
                         Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, transit, "I");
                     }
                     else
@@ -524,8 +486,6 @@ namespace SuperButton.Models.ParserBlock
                         newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
 
                         RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
-
-                        //Debug.WriteLine("ReceiveFromDriver=> Data: {0}, ID: {1}, isFloat: {2}, isSet: {3}, SubID: {4}.", newPropertyValuef, commandId, true, false, commandSubId);
                         Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, newPropertyValuef, "F");
                     }
                 }
@@ -537,7 +497,6 @@ namespace SuperButton.Models.ParserBlock
             }
             return false;
         }
-
         public static ParserRayonM1 GetInstanceofParser
         {
             get

@@ -57,6 +57,7 @@ namespace SuperButton.ViewModels
                     Count = -1;
             }
         }
+
         public virtual ICommand SelectedItemChanged
         {
             get
@@ -71,8 +72,8 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
-
-        private new void SendData()
+     
+        private new void SendData( )
         {
             
             if(Count == 0 && SelectedValue != null)

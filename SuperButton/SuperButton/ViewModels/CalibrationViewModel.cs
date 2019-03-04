@@ -52,6 +52,19 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<object> _calibrationResultList;
+        public ObservableCollection<object> CalibrationResultList
+        {
+            get
+            {
+                return Commands.GetInstance.CalibartionCommandsListbySubGroup["Calibration Result List"];
+            }
+            set
+            {
+                _calibrationResultList = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }
 

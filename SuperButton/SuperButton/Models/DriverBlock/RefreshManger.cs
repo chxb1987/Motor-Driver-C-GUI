@@ -49,7 +49,7 @@ namespace SuperButton.Models.DriverBlock
             //var EnumViewlist = CommandsDB.Commands.GetInstance.EnumViewCommandsList;
             var AllDataList = CommandsDB.Commands.GetInstance.DataCommandsListbySubGroup;
             var AllEnumList = CommandsDB.Commands.GetInstance.EnumCommandsListbySubGroup;
-
+            var AllCalList = CommandsDB.Commands.GetInstance.CalibartionCommandsListbySubGroup;
 
             foreach(var list in AllEnumList)
             {
@@ -84,7 +84,41 @@ namespace SuperButton.Models.DriverBlock
                     BuildGroup[list.Key].Add(data);
                 }
             }
-
+            foreach(var list in AllCalList)
+            {
+                BuildGroup.Add(list.Key, new ObservableCollection<object>());
+                foreach(var sub_list in list.Value)
+                {
+                    if(list.Key == "Calibration List")
+                    {
+                        CalibrationButtonModel temp = sub_list as CalibrationButtonModel;
+                        string CommandName = temp.CommandName;
+                        string CommandId = temp.CommandId;
+                        string CommandSubId = temp.CommandSubId;
+                        bool IsFloat = temp.IsFloat;
+                        var data = new DataViewModel
+                        {
+                            CommandName = CommandName,
+                            CommandId = CommandId,
+                            CommandSubId = CommandSubId,
+                            IsFloat = IsFloat,
+                        };
+                        BuildGroup[list.Key].Add(data);
+                    }
+                    else
+                    {
+                        var data = new DataViewModel
+                        {
+                            CommandName = ((DataViewModel)sub_list).CommandName,
+                            CommandId = ((DataViewModel)sub_list).CommandId,
+                            CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+                            CommandValue = ((DataViewModel)sub_list).CommandValue,
+                            IsFloat = ((DataViewModel)sub_list).IsFloat,
+                        };
+                        BuildGroup[list.Key].Add(data);
+                    }
+                }
+            }
             //foreach (var list in AllEnumList)
             //{
             //    foreach (var sub_list in list.Value)
@@ -138,9 +172,9 @@ namespace SuperButton.Models.DriverBlock
                 //    arr = new string[] { "DriverFullScale" };
                 //    return arr.Concat(PanelElements).ToArray();
                 case 4:
-                    //arr = new string[] { "CalibrationCommands List" };
-                    //return arr.Concat(PanelElements).ToArray();
-                    return PanelElements;
+                    arr = new string[] { "Calibration Result List", "Calibration List" };
+                    return arr.Concat(PanelElements).ToArray();
+                //return PanelElements;
                 case 5:
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
@@ -205,7 +239,7 @@ namespace SuperButton.Models.DriverBlock
                     else
                     {
                     }
-                    Thread.Sleep(10);
+                    Thread.Sleep(3);
                 }
                 Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
             }
@@ -247,7 +281,8 @@ namespace SuperButton.Models.DriverBlock
                 //uint16_t Reserved4:1;           //0x2000 - 8192
                 //uint16_t ADCoffset:1;           //0x4000 - 16384
                 //uint16_t FetShort:1;            //0x8000 - 32768
-
+                case 0:
+                    return "All OK !";
                 case 1:
                     return "hallFeedlErr";
                 case 2:
@@ -281,54 +316,81 @@ namespace SuperButton.Models.DriverBlock
                 case 32768:
                     return "FetShort";
                 default:
-                    return "no info";
+                    return "no info(" + returnedValue + ")";
             }
         }
-        public static int CalibrationTimeOut = 10;
+        //public static int CalibrationTimeOut = 10;
         private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-            #region Calibration
-            if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)))
+            #region Calibration_old
+            //if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            //{
+            //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = CalibrationGetStatus(newPropertyValue);
+            //    if(LeftPanelViewModel.GetInstance.EnRefresh == false && Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent == "Running")//newPropertyValue != "2" && newPropertyValue != "3"&& CalibrationTimeOut > 0
+            //    {
+            //        Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //        {
+            //            ID = Convert.ToInt16(commandidentifier.Item1),
+            //            SubID = Convert.ToInt16(commandidentifier.Item2),
+            //            IsSet = false,
+            //            IsFloat = false
+            //        });
+            //        //Thread.Sleep(100);
+            //        //CalibrationTimeOut--;
+            //    }
+            //    //else if(CalibrationTimeOut <= 0)
+            //    //{
+            //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent = "Run";
+            //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = "TimeOut";
+            //    //}
+            //    //else
+            //    if(newPropertyValue == "2")
+            //    {
+            //        PrecedentIdx = commandidentifier.Item2;
+            //        Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //        {
+            //            ID = Convert.ToInt16(33),
+            //            SubID = Convert.ToInt16(1),
+            //            IsSet = false,
+            //            IsFloat = false
+            //        });
+            //    }
+            //    else if(newPropertyValue == "3")
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2 - 1)].ButtonContent = "Run";
+            //}
+            //else if(commandidentifier.Item1 == 33) // Calibraion Status
+            //{
+            //    if(PrecedentIdx != 0)
+            //    {
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].CommandValue = CalibrationGetError(newPropertyValue);
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
+            //        PrecedentIdx = 0;
+            //    }
+            //    else
+            //    {
+            //        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
+            //    }
+            //}
+            #endregion Calibration_old
+            #region Calibration_new
+            if(commandidentifier.Item1 == 6)
             {
-                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = CalibrationGetStatus(newPropertyValue);
-                if(newPropertyValue != "2" && newPropertyValue != "3" && CalibrationTimeOut > 0)
+                if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
                 {
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                    {
-                        ID = Convert.ToInt16(commandidentifier.Item1),
-                        SubID = Convert.ToInt16(commandidentifier.Item2),
-                        IsSet = false,
-                        IsFloat = false
-                    });
-                    Thread.Sleep(100);
-                    CalibrationTimeOut--;
+                    if(Convert.ToInt16(newPropertyValue) == 0)
+                        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Run";
+                    else if(Convert.ToInt16(newPropertyValue) == 1)
+                        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Running";
                 }
-                else if(CalibrationTimeOut <= 0)
+                else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
                 {
-                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent = "Run";
-                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = "TimeOut";
+                    //if(Convert.ToInt16(newPropertyValue) < 2)
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetStatus(newPropertyValue);
                 }
-                else if(newPropertyValue == "2")
-                {
-                    PrecedentIdx = commandidentifier.Item2;
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                    {
-                        ID = Convert.ToInt16(33),
-                        SubID = Convert.ToInt16(1),
-                        IsSet = false,
-                        IsFloat = false
-                    });
-                }
-                else if(newPropertyValue == "3")
-                    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
+
             }
-            else if(commandidentifier.Item1 == 33) // Calibraion Status
-            {
-                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].CommandValue = CalibrationGetError(newPropertyValue);
-                Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
-            }
-            #endregion Calibration
+            #endregion Calibration_new
             #region Plot_Channels
             else if(commandidentifier.Item1 == 60)
             {
@@ -359,9 +421,14 @@ namespace SuperButton.Models.DriverBlock
             }
             #endregion Plot_Channels
             #region DataView_EnumView
+            else if(commandidentifier.Item1 == 33)
+            {
+                Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
+            }
             else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
             {
-                LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
+                if(newPropertyValue == "1" || newPropertyValue == "0")
+                    LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
             }
             else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
             {

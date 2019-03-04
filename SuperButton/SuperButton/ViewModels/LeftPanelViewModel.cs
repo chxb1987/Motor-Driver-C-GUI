@@ -5,26 +5,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Abt.Controls.SciChart;
 using SuperButton.CommandsDB;
-using SuperButton.Common;
 using SuperButton.Models.DriverBlock;
 using SuperButton.Views;
-using System.IO.Ports;
-using Application = System.Windows.Application;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using SuperButton.Views.mainWindowPanels;
 using SuperButton.Helpers;
-using System.Drawing;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using SuperButton.Models;
 
 
 namespace SuperButton.ViewModels
@@ -46,9 +32,12 @@ namespace SuperButton.ViewModels
         {
             get { return new ActionCommand(AutoConnectCommand); }
         }
-
         public ActionCommand ForceStop { get { return new ActionCommand(FStop); } }
         public ActionCommand Showwindow { get { return new ActionCommand(ShowParametersWindow); } }
+        public ActionCommand ClearLogCommand
+        {
+            get { return new ActionCommand(ClearLog); }
+        }
         private static LeftPanelViewModel _instance;
         private static readonly object Synlock = new object(); //Single tone variabl
                                                                //   public ActionCommand GetPidCurr { get { return new ActionCommand(GPC); } }
@@ -71,8 +60,6 @@ namespace SuperButton.ViewModels
         public LeftPanelViewModel()
         {
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
-            //EventRiser.Instance.LedEventTx += Instance_BlinkLedTx;
-            //EventRiser.Instance.LedEventRx += Instance_BlinkLedRx;
             ComboBoxCOM = ComboBox.GetInstance;
             //Task task = Task.Run((Action)_comboBox.UpdateComList);
         }
@@ -187,7 +174,10 @@ namespace SuperButton.ViewModels
 
             if(EnRefresh)
             {
-               Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                //Task.Run((Action)LeftPanelViewModel.
+                    BackGroundFunc();
+
+                //Timer timer = new Timer(BackGroundFunc, "", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
             }
         }
         private String _connectTextBoxContent;
@@ -361,6 +351,11 @@ namespace SuperButton.ViewModels
                 _led_statusTx = value;
                 RaisePropertyChanged("LedStatusTx");
                 Thread.Sleep(1);
+                if(value == 1)
+                {
+                    _led_statusTx = 0;
+                    RaisePropertyChanged("LedStatusTx");
+                }
             }
         }
         public void Instance_BlinkLedTx(object sender, EventArgs e)
@@ -381,11 +376,12 @@ namespace SuperButton.ViewModels
                 _led_statusRx = value;
                 RaisePropertyChanged("LedStatusRx");
                 Thread.Sleep(1);
+                if(value == 1)
+                {
+                    _led_statusRx = 0;
+                    RaisePropertyChanged("LedStatusRx");
+                }
             }
-        }
-        public void Instance_BlinkLedRx(object sender, EventArgs e)
-        {
-            LedStatusRx = ((CustomEventArgs)e).LedRx;
         }
         #endregion TXRXLed
 
@@ -561,11 +557,6 @@ namespace SuperButton.ViewModels
         #endregion
 
         #region Action methods
-
-        /// <summary>
-        /// public void AutoConnectCommand()
-        /// description:
-        /// </summary>
         public void AutoConnectCommand()
         {
 
@@ -692,7 +683,7 @@ namespace SuperButton.ViewModels
         public static ParametarsWindow win;
         private void ShowParametersWindow()
         {
-            if (_connetButtonContent == "Disconnect")
+            //if (_connetButtonContent == "Disconnect")
             {
                 if (ParametarsWindow.WindowsOpen != true)
                 {
@@ -726,16 +717,23 @@ namespace SuperButton.ViewModels
                 _enRefresh = value;
                 OnPropertyChanged("EnRefresh");
                 if(value && flag)
-                    Background = Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                {
+                    //Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
+                    //Timer timer = new Timer(BackGroundFunc, "", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+                    BackGroundFunc();
+                }
             }
         }
-        public static void BackGroundFunc()
+        private void ClearLog()
+        {
+            LogText = "";
+        }
+        private async Task BackGroundFunc()//object state)
         {
             while (flag && LeftPanelViewModel.GetInstance.EnRefresh)
             {
                 RefreshManger.GetInstance.StartRefresh();
-                Thread.Sleep(1000);
-                //flag = false; // Joseph added
+                await Task.Delay(500);
             }
         }
 

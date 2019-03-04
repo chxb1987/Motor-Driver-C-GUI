@@ -61,7 +61,7 @@
                         <ColumnDefinition Width="330"/>
                         <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid Grid.Column="0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="87"/>
@@ -72,7 +72,8 @@
                                           ItemTemplate="{StaticResource EnumViewModel}"
                                           Margin="0,4,0,-4"/>
                         </GroupBox>
-                        <GroupBox Header="Motor" Grid.Row="1" Margin="0,10,0,0">
+                        <GroupBox Header="Motor" Grid.Row="1" Margin="0,10,0,0" 
+                            FocusManager.IsFocusScope="True">
                             <ItemsControl ItemsSource="{Binding MotorlList}" 
                                           ItemTemplate="{StaticResource DataViewModel}" 
                                           Margin="0,4,0,-4"
@@ -290,7 +291,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Width="Auto">
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -303,9 +304,17 @@
                                         </Grid>
                                     </Border>
                                 </GroupBox.Header>
-                                <StackPanel Background="Transparent" Orientation="Vertical" >
-                                    <ItemsControl ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}" />
-                                </StackPanel>
+                                <Grid Width="Auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl Grid.Column="0" Width="Auto" ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}"/>
+                                    <ItemsControl Grid.Column="1" Width="Auto" ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewInd}"/>
+                                </Grid>
+                                <!--<StackPanel Background="Transparent" Orientation="Vertical" >
+                                    <ItemsControl ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}"/>
+                                </StackPanel>-->
                             </GroupBox>
                         </Border>
                     </Grid>
