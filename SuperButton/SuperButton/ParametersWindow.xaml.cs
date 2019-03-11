@@ -26,6 +26,22 @@ namespace SuperButton.Views
         public static int ParametersWindowTabSelected = -1;
         public static bool WindowsOpen = false;
 
+        private static readonly object Synlock = new object();
+        private static ParametarsWindow _instance;
+        public static ParametarsWindow GetInstance
+        {
+            get
+            {
+                lock(Synlock)
+                {
+                    if(_instance != null)
+                        return _instance;
+                    _instance = new ParametarsWindow();
+                    return _instance;
+                }
+            }
+        }
+
         public ParametarsWindow()
         {
             InitializeComponent();
@@ -36,6 +52,7 @@ namespace SuperButton.Views
         {
             //LeftPanelViewModel.flag = false;
             WindowsOpen = false;
+            _instance = null;
         }
 
 

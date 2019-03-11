@@ -182,7 +182,7 @@ namespace SuperButton.Models.DriverBlock
                 if (Configuration.SelectedCom != null && Configuration.SelectedCom != "")//foreach (var comDevice in _comDevicesList)
                 {
                     // Add text to logger panel
-                    EventRiser.Instance.RiseEevent(string.Format($"Try to establish connection with the driver at {Configuration.SelectedCom}"));
+                    EventRiser.Instance.RiseEevent(string.Format($"Trying to establish connection with the driver at {Configuration.SelectedCom}"));
                     var tmpcom = new SerialPort
                     {
                         PortName = Configuration.SelectedCom,

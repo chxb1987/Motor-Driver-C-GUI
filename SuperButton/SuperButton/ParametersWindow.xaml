@@ -4,7 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewModels="clr-namespace:SuperButton.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" 
         x:Class="SuperButton.Views.ParametarsWindow"
         ResizeMode="NoResize"
         Title="Driver Parameters" Height="500" Width="700"
@@ -85,7 +87,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Feed Backs" TabIndex="2" Background="Black" Foreground="White">
+            <TabItem Header="Feed Backs" TabIndex="2" Background="Black" Foreground="White" DataContext="{Binding FeedBackViewModel}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="210"/>
@@ -107,13 +109,6 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsHallFeedBackEnabled}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Checked">
-                                            <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </CheckBox>-->
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding HallFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
                             </Grid>
                         </GroupBox>
@@ -217,8 +212,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="110"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox  Grid.Row="0" Header="Current">
                             <StackPanel  Background="Transparent" Orientation="Vertical" >
@@ -233,7 +228,7 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0"    Header="Possition"  Background="Transparent" Margin="30,0,0,0">
@@ -241,11 +236,6 @@
                                 <ItemsControl     ItemsSource="{Binding PidPositionList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
                             </StackPanel>
                         </GroupBox>
-                        <!--<GroupBox Grid.Row="1" Header="Hall Map" Margin="30,10,0,0">
-                            <StackPanel Background="Transparent" Orientation="Vertical">
-                                <ItemsControl ItemsSource="{Binding HallMapList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
-                            </StackPanel>
-                        </GroupBox>-->
                     </Grid>
                 </Grid>
             </TabItem>
@@ -319,7 +309,6 @@
                         </Border>
                     </Grid>
                 </Grid>
-
             </TabItem>
             <TabItem Header="Motion" TabIndex="6" DataContext="{Binding MotionViewModel}" Background="Black" Foreground="White" Margin="-1,0,1,0" >
                 <Grid>
@@ -370,15 +359,15 @@
                             <TextBlock Grid.Column="0">Load Manufacturer defaults</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
                         </Grid>
-                        <!--<Grid Grid.Row="2">
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Reboot Driver</TextBlock>
-                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reboot}"/>
+                            <TextBlock Grid.Column="0">Reset</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reset}"/>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <!--<Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="135"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -421,7 +410,6 @@
                 </Grid>
             </TabItem>-->
         </TabControl>
-
         <!--<Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" Margin="0,2.4,-0.4,2.4" >
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="-0.001,0.747" MappingMode="RelativeToBoundingBox" StartPoint="1,0.697">

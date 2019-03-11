@@ -194,6 +194,7 @@
     <Compile Include="ViewModels\CalibrationButtonModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
+    <Compile Include="ViewModels\FeedBackViewModel.cs" />
     <Compile Include="ViewModels\MaintenanceViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxVM.cs" />
     <Compile Include="ViewModels\MotionViewModel.cs" />

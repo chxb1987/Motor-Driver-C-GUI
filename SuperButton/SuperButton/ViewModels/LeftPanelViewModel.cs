@@ -11,7 +11,7 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.Views;
 using SuperButton.Helpers;
 using System.Collections.ObjectModel;
-
+using System.Windows.Media;
 
 namespace SuperButton.ViewModels
 {
@@ -171,6 +171,7 @@ namespace SuperButton.ViewModels
                     IsFloat = false
                 });
             }
+            RefreshManger.GetInstance.VerifyConnection();
 
             if(EnRefresh)
             {
@@ -687,8 +688,17 @@ namespace SuperButton.ViewModels
             {
                 if (ParametarsWindow.WindowsOpen != true)
                 {
-                    win = new ParametarsWindow();
-                    win.Show();
+                    
+                    win = ParametarsWindow.GetInstance; // new ParametarsWindow();
+                    if(win.ActualHeight != 0)
+                    {
+                        win.Activate();
+                    }
+                    else
+                    {
+                        win.Show();
+                    }
+                    
                     flag = true;
                     //Task task = Task.Run((Action)BackGroundFunc);
                 }
@@ -721,6 +731,22 @@ namespace SuperButton.ViewModels
                     //Task.Run((Action)LeftPanelViewModel.BackGroundFunc);
                     //Timer timer = new Timer(BackGroundFunc, "", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
                     BackGroundFunc();
+                }
+                else if(!value)
+                {
+                    RefreshManger.DataPressed = false;
+                    foreach(var list in Commands.GetInstance.DataViewCommandsList)
+                    {
+                        try
+                        {
+                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].IsSelected = false;
+                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
+                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background = new SolidColorBrush(Colors.Gray);
+                        }
+                        catch(Exception e)
+                        {
+                        }
+                    }
                 }
             }
         }

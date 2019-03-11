@@ -118,7 +118,8 @@
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
                              Background="{Binding Background}"
                              IsReadOnly="{Binding ReadOnly}"
-                             IsEnabled="{Binding EnableTextBox}">
+                             IsEnabled="{Binding EnableTextBox}"
+                             MouseDoubleClick="SetValTB_MouseDoubleClick">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>
                         </i:Interaction.Behaviors>

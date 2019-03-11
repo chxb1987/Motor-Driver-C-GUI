@@ -5,7 +5,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="30" d:DesignWidth="300">
     <UserControl.Resources>
         <!--<local:EnumUCModel x:Key="EnumUCModelDataSource" />-->
 
@@ -71,7 +71,7 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4,0,0,4">
+        <Border BorderBrush="#FF686464" BorderThickness="1" CornerRadius="4,0,0,4">
             <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000" d:IsHidden="True">
                 <Grid Margin="0,-1">
                     <Grid.RowDefinitions>
@@ -117,8 +117,8 @@
 
         <!-- ComboBox -->
 
-        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
-            <ComboBox  
+        <Border BorderBrush="#FF686464" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
+            <ComboBox  Style="{StaticResource ComboboxIndicator}"
                       FontSize="11.5"
                       SelectedItem="{Binding Path=SelectedValue,Mode=TwoWay}"
                       d:IsHidden="False" 
@@ -126,12 +126,14 @@
                 IsHitTestVisible="False"
                 Focusable="False"
                 IsReadOnly="True"
-                IsEditable="False">
-                <i:Interaction.Triggers>
+                IsEditable="False"
+                       Foreground="White"
+                >
+                <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectedItemChanged}" />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers>-->
             </ComboBox>
 
         </Border>

@@ -58,34 +58,27 @@ namespace SuperButton.ViewModels
             }
         }
 
-        public virtual ICommand SelectedItemChanged
+        public virtual ICommand SelectedItemChanged1
         {
             get
             {
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
-        public virtual ICommand MouseLeftClick
-        {
-            get
-            {
-                return new RelayCommand(SendData, IsEnabled);
-            }
-        }
-     
+
         private new void SendData( )
         {
             
             if(Count == 0 && SelectedValue != null)
             {
-                Count = 0;
                 int StartIndex = 0;
                 int ListIndex = CommandList.FindIndex(x => x.StartsWith(SelectedValue));
                 foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
                 {
                     if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == SelectedValue) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
                     {
-                        StartIndex = Convert.ToInt16(List.Value.CommandValue);
+                        if(List.Value.CommandValue != "")
+                            StartIndex = Convert.ToInt16(List.Value.CommandValue);
                     }
                 }
                 //CommandValue = (ListIndex + StartIndex).ToString();
@@ -109,7 +102,7 @@ namespace SuperButton.ViewModels
 
                 _selectedValue = value;
 
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedValue");
             }
         }
         //public string SelectedValue
@@ -176,17 +169,6 @@ namespace SuperButton.ViewModels
                         IsFloat = IsFloat
                     };
                     Rs232Interface.GetInstance.SendToParser(tmp);
-                    //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Set", Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId), val, IsFloat?"F":"I");
-
-                    //tmp = new PacketFields
-                    //{
-                    //    Data2Send = val,
-                    //    ID = Convert.ToInt16(CommandId),
-                    //    SubID = Convert.ToInt16(CommandSubId),
-                    //    IsSet = false,
-                    //    IsFloat = IsFloat
-                    //};
-                    //Rs232Interface.GetInstance.SendToParser(tmp);
                 });
             }
         }

@@ -170,7 +170,7 @@ namespace SuperButton.Views
         }
         #endregion
         #region Duration
-        private float _duration = 5000;
+        private float _duration = 10000;
         public ActionCommand DirectionPlus
         {
             get { return new ActionCommand(DirPlus); }

@@ -491,7 +491,19 @@ namespace SuperButton.Models.ParserBlock
                 }
                 else
                 {
-                    EventRiser.Instance.RiseEevent(string.Format($"Error"));
+                    string result;
+                    Int32 transit = data[6];
+                    transit <<= 8;
+                    transit |= data[5];
+                    transit <<= 8;
+                    transit |= data[4];
+                    transit <<= 8;
+                    transit |= data[3];
+                    if(Commands.GetInstance.ErrorList.TryGetValue(transit, out result)){
+                        EventRiser.Instance.RiseEevent(string.Format($"Com. Error: {0}", result));
+                    }
+                    else
+                        EventRiser.Instance.RiseEevent(string.Format($"Error: {0}", transit.ToString()));
                 }
                 return true;
             }

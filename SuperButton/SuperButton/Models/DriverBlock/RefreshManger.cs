@@ -152,7 +152,7 @@ namespace SuperButton.Models.DriverBlock
         }
         public string[] GroupToExecute(int tabIndex)
         {
-            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "MotionStatus List", "Control", "Motor" };// , "Driver Type" "UpperMainPan List",
+            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor" };// , "Driver Type" "UpperMainPan List",, "MotionStatus List"
             // , "LPCommands List"
             switch(tabIndex)
             {
@@ -244,7 +244,27 @@ namespace SuperButton.Models.DriverBlock
                 Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
             }
         }
-
+        static int ConnectionCount = 0;
+        public async Task VerifyConnection()
+        {
+            while(true)
+            {
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = "",
+                    ID = Convert.ToInt16(1),
+                    SubID = Convert.ToInt16(0),
+                    IsSet = false,
+                    IsFloat = false
+                });
+                Thread.Sleep(500);
+                ConnectionCount++;
+                if(ConnectionCount == 5)
+                {
+                    EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
+                }
+            }
+        }
         string CalibrationGetStatus(string returnedValue)
         {
             switch(Convert.ToInt16(returnedValue))
@@ -428,7 +448,11 @@ namespace SuperButton.Models.DriverBlock
             else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
             {
                 if(newPropertyValue == "1" || newPropertyValue == "0")
+                {
+                    ConnectionCount = 0;
                     LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                }
             }
             else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
             {
@@ -450,16 +474,6 @@ namespace SuperButton.Models.DriverBlock
                 }
             }
             #endregion DataView_EnumView
-            #region Motor_ON/OFF
-            //else if(commandidentifier.Item1 == 1)
-            //{
-            //    if(commandidentifier.Item2 == 0)
-            //    {
-            //        LeftPanelViewModel.MotorOnOff_flag = true;
-            //        LeftPanelViewModel.GetInstance.MotorOnToggleChecked = (newPropertyValue == 0.ToString()) ? false : true;
-            //    }
-            //}
-            #endregion Motor_ON/OFF
             #region StartUpAPP
             else if(commandidentifier.Item1 == 62)
             {

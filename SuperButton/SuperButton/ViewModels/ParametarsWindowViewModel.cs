@@ -16,11 +16,12 @@ namespace SuperButton.ViewModels
         private bool _isSsiFeedbackEnabled;
         private bool _isDigitalbackEnabled;
         private bool _isAnalogbackEnabled;
+
         private OperationViewModel _operationViewModel;
         private CalibrationViewModel _calibrationViewModel;
         private MotionViewModel _motionViewModel;
         private MaintenanceViewModel _maintenanceViewModel;
-        
+        private FeedBackViewModel _feedBackViewModel;
 
         public ParametarsWindowViewModel()
         {
@@ -28,6 +29,7 @@ namespace SuperButton.ViewModels
             _calibrationViewModel = CalibrationViewModel.GetInstance;
             _motionViewModel = MotionViewModel.GetInstance;
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
+            _feedBackViewModel = FeedBackViewModel.GetInstance;
         }
 
         public ObservableCollection<object> ControlList
@@ -65,95 +67,6 @@ namespace SuperButton.ViewModels
             }
 
         }
-
-        private ObservableCollection<object> _hallFeedBackList;
-        public ObservableCollection<object> HallFeedBackList
-        {
-
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["Hall"];
-            }
-            set
-            {
-                _hallFeedBackList = value;
-                OnPropertyChanged();
-            }
-
-        }
-
-        private ObservableCollection<object> _qep1FeedBackList;
-        private ObservableCollection<object> _qep2FeedBackList;
-        private ObservableCollection<object> _qep1FdBckList;
-        private ObservableCollection<object> _qep2FdBckList;
-
-        public ObservableCollection<object> Qep1FeedBackList
-        {
-
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["Qep1"];
-            }
-            set
-            {
-                _qep1FeedBackList = value;
-                OnPropertyChanged();
-            }
-
-        }
-        public ObservableCollection<object> Qep1FdBckList
-        {
-
-            get
-            {
-                return Commands.GetInstance.EnumCommandsListbySubGroup["Qep1Bis"];
-            }
-            set
-            {
-                _qep1FdBckList = value;
-                OnPropertyChanged();
-            }
-
-        }
-        public ObservableCollection<object> Qep2FdBckList
-        {
-
-            get
-            {
-                return Commands.GetInstance.EnumCommandsListbySubGroup["Qep2Bis"];
-            }
-            set
-            {
-                _qep2FdBckList = value;
-                OnPropertyChanged();
-            }
-
-        }
-
-        public ObservableCollection<object> Qep2FeedBackList
-        {
-
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["Qep2"];
-            }
-            set
-            {
-                _qep2FeedBackList = value;
-                OnPropertyChanged();
-            }
-
-        }
-
-        public ObservableCollection<object> SsiFeedbackFeedBackList
-        {
-
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["SSI_Feedback"];
-            }
-
-        }
         public ObservableCollection<object> DigitalFeedbackFeedBackList
         {
 
@@ -163,7 +76,6 @@ namespace SuperButton.ViewModels
             }
 
         }
-
         public ObservableCollection<object> AnalogFeedbackFeedBackList
         {
 
@@ -173,7 +85,6 @@ namespace SuperButton.ViewModels
             }
 
         }
-
         private ObservableCollection<object> _pidCurrentList;
         public ObservableCollection<object> PidCurrentList
         {
@@ -241,105 +152,9 @@ namespace SuperButton.ViewModels
             }
 
         }
-
-        public ObservableCollection<object> HallMapList
-        {
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["HallMap"];
-            }
-        }
+        
         #region enables
-
-        public bool IsHallFeedBackEnabled
-        {
-
-            get { return _isHallEnabled; }
-
-            set
-            {
-                _isHallEnabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-
-        public bool IsQep1FeedBackEnabled
-        {
-
-            get
-            {
-                return _isQep1Enabled;
-            }
-
-            set
-            {
-                _isQep1Enabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-        public bool IsQep2FeedBackEnabled
-        {
-
-            get
-            {
-                return _isQep2Enabled;
-            }
-
-            set
-            {
-                _isQep2Enabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-        public bool IsSsiFeedbackEnabled
-        {
-
-            get
-            {
-                return _isSsiFeedbackEnabled;
-            }
-
-            set
-            {
-                _isSsiFeedbackEnabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-        public bool IsDigitalFeedbackEnabled
-        {
-
-            get
-            {
-                return _isDigitalbackEnabled;
-            }
-
-            set
-            {
-                _isDigitalbackEnabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-        public bool IsAnalogFeddbackEnabled
-        {
-
-            get
-            {
-                return _isAnalogbackEnabled;
-            }
-
-            set
-            {
-                _isAnalogbackEnabled = value;
-                OnPropertyChanged();
-
-            }
-        }
-
+        
         #endregion
 
 
@@ -352,26 +167,7 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(EnumChange, CheckValue);
             }
         }
-
-        public virtual ICommand SelectedItemChangedCommand
-        {
-            get
-            {
-
-
-                return new RelayCommand(CheckBox, CheckValue);
-            }
-        }
-        public virtual ICommand ChangeChekBox
-        {
-            get
-            {
-
-
-                return new RelayCommand(changechekboxvalue, CheckValue);
-            }
-        }
-
+        
         public OperationViewModel OperationViewModel
         {
             get { return _operationViewModel; }
@@ -391,12 +187,11 @@ namespace SuperButton.ViewModels
         {
             get { return _maintenanceViewModel; }
         }
-        private void changechekboxvalue()
+        
+        public FeedBackViewModel FeedBackViewModel
         {
-            IsHallFeedBackEnabled = !IsHallFeedBackEnabled;
+            get { return _feedBackViewModel; }
         }
-
-
 
         private void CheckBox()
         {
@@ -410,28 +205,6 @@ namespace SuperButton.ViewModels
 
         private void EnumChange()
         {
-
-            //EnumViewModel tmp = (EnumViewModel)CommandsDB.Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(212, 0)];
-            //tmp.IsUpdate = true;
-            //tmp.SelectedValue = "Current Control";
-            //tmp.IsUpdate = false;
         }
-
-        
-
-        //public string MotorDriver
-        //{
-        //    get
-        //    {
-        //        return _motorDriver;
-        //    }
-
-        //    set
-        //    {
-        //        _motorDriver = value;
-        //        OnPropertyChanged("MotorDriver"); //"DriverVersion"
-        //    }
-        //}
-
     }
 }

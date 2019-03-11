@@ -24,6 +24,7 @@ namespace SuperButton.CommandsDB
             GenerateMaintenanceList();
             UpperMainPannelList();
             CalibrationCmd();
+            BuildErrorList();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -50,6 +51,7 @@ namespace SuperButton.CommandsDB
         public Dictionary<string, ObservableCollection<object>> DataCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> CalibartionCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
 
+        public Dictionary<int, string> ErrorList = new Dictionary<int, string>();
         private static readonly object Synlock = new object(); //Single tone variable
         private static Commands _instance;
         public float _pidcurr;
@@ -160,7 +162,7 @@ namespace SuperButton.CommandsDB
         {
             var names = new[]
             {
-                "Kp [A]", "Ki [A]", "Kc [A]"
+                "Kp", "Ki"//, "Kc"
             };
 
             DataCommandsListbySubGroup.Add("PIDCurrent", new ObservableCollection<object>());
@@ -475,7 +477,7 @@ namespace SuperButton.CommandsDB
                 CommandName = "Speed fdbck Source",
                 CommandId = "50",
                 CommandSubId = "3",
-                CommandValue = "1", //first enum in list
+                CommandValue = "0", //first enum in list
                 CommandList = Enums["Speed fdbck Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 3), enum3);
@@ -493,7 +495,7 @@ namespace SuperButton.CommandsDB
                 CommandName = "Position fdbck Source",
                 CommandId = "50",
                 CommandSubId = "4",
-                CommandValue = "1", //first enum in list
+                CommandValue = "0", //first enum in list
                 CommandList = Enums["Position fdbck Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 4), enum4);
@@ -701,7 +703,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "7",
                 CommandSubId = "1",
                 CommandList = Enums["S.G.Type"],
-                CommandValue = "0",//first enum in list start at 0
+                CommandValue = "1",//first enum in list start at 0
             };
             DataViewCommandsList.Add(new Tuple<int, int>(7, 1), SignalgeneratorTypeCmd);
             EnumViewCommandsList.Add(new Tuple<int, int>(7, 1), SignalgeneratorTypeCmd);
@@ -923,32 +925,32 @@ namespace SuperButton.CommandsDB
             #endregion Commands1
 
             #region Commands2
-            var ProfilerModeEnum = new List<string>
-              {
-                "uRayon",
-                "Rayon 30A",
-                "uRayon SB",
-                "Rayon HP",
-                "Rayon MK6",
-                "Rayon 70A"
+            //var ProfilerModeEnum = new List<string>
+            //  {
+            //    "uRayon",
+            //    "Rayon 30A",
+            //    "uRayon SB",
+            //    "Rayon HP",
+            //    "Rayon MK6",
+            //    "Rayon 70A"
 
-              };
-            Enums.Add("Driver Type", ProfilerModeEnum);
+            //  };
+            //Enums.Add("Driver Type", ProfilerModeEnum);
 
-            var ProfilerModeCmd = new EnumViewModel
-            {
-                CommandName = "Driver Type",
-                CommandId = "62",
-                CommandSubId = "0",
-                CommandList = Enums["Driver Type"],
-                CommandValue = "1",//first enum in list
-            };
-            DataViewCommandsListLP.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
-            EnumViewCommandsList.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
-            EnumCommandsListbySubGroup.Add("Driver Type", new ObservableCollection<object>
-            {
-              ProfilerModeCmd
-            });
+            //var ProfilerModeCmd = new EnumViewModel
+            //{
+            //    CommandName = "Driver Type",
+            //    CommandId = "62",
+            //    CommandSubId = "0",
+            //    CommandList = Enums["Driver Type"],
+            //    CommandValue = "1",//first enum in list
+            //};
+            //DataViewCommandsListLP.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
+            //EnumViewCommandsList.Add(new Tuple<int, int>(62, 0), ProfilerModeCmd);
+            //EnumCommandsListbySubGroup.Add("Driver Type", new ObservableCollection<object>
+            //{
+            //  ProfilerModeCmd
+            //});
             #endregion Commands2
             #region Command3
             data = new DataViewModel
@@ -1049,7 +1051,6 @@ namespace SuperButton.CommandsDB
             DataCommandsListbySubGroup["UpperMainPan List"].Add(data);
 
         }
-
         private void CalibrationCmd()
         {
             CalibartionCommandsListbySubGroup.Add("Calibration List", new ObservableCollection<object>());
@@ -1083,6 +1084,43 @@ namespace SuperButton.CommandsDB
                 DataViewCommandsList.Add(new Tuple<int, int>(6, Convert.ToInt16(i * 2 + 2)), TextBoxResult);
                 CalibartionCommandsListbySubGroup["Calibration Result List"].Add(TextBoxResult);
             }
+        }
+        private void BuildErrorList()
+        {
+            // Com. Error: 
+            ErrorList.Add(2,  "BAD_COMMAND"               );
+            ErrorList.Add(3,  "BAD_INDEX"                 );
+            ErrorList.Add(5,  "NO_INTERPRETER_MEANING"    );
+            ErrorList.Add(6,  "PROGRAM_NOT_RUNNING"       );
+            ErrorList.Add(7,  "MODE_NOT_STARTED"          );
+            ErrorList.Add(11, "CANNOT_WRITE_TO_FLASH"     );
+            ErrorList.Add(12, "COMMAND_NOT_AVAILABLE"     );
+            ErrorList.Add(13, "UART_BUSY"                 );
+            ErrorList.Add(18, "EMPTY_ASSIGN"              );
+            ErrorList.Add(19, "BAD_COMMAND_FORMAT"        );
+            ErrorList.Add(21, "OPERAND_OUT_OF_RANGE"      );
+            ErrorList.Add(22, "ZERO_DIVISION"             );
+            ErrorList.Add(23, "COMMAND_NOT_ASSIGNED"      );
+            ErrorList.Add(24, "BAD_OPERAND"               );
+            ErrorList.Add(25, "COMMAND_NOT_VALID"         );
+            ErrorList.Add(26, "MOTION_MODE_NOT_VALID"     );
+            ErrorList.Add(28, "OUT_OF_LIMIT_RANGE"        );
+            ErrorList.Add(30, "NO_PROGRAM_TO_CONTINUE"    );
+            ErrorList.Add(32, "COMMUNICATION_ERROR"       );
+            ErrorList.Add(37, "HALL_DEFINED_SAME_LOCATION");
+            ErrorList.Add(38, "HALL_READING_ERROR"        );
+            ErrorList.Add(39, "MOTION_START_PAST"         );
+            ErrorList.Add(41, "COMMAND_NOT_SUPPORTED"     );
+            ErrorList.Add(42, "NO_SUCH_LABEL"             );
+            ErrorList.Add(57, "MOTOR_MUST_BE_OFF"         );
+            ErrorList.Add(58, "MOTOR_MUST_BE_ON"          );
+            ErrorList.Add(60, "BAD_UNIT_MODE"             );
+            ErrorList.Add(66, "DRIVE_NOT_READY"           );
+            ErrorList.Add(71, "HOMING_BUSY"               );
+            ErrorList.Add(72, "MODULO_MUST_EVEN"          );
+            ErrorList.Add(73, "SET_POSITION"              );
+            ErrorList.Add(127,"MODULO_RANGE_MUST_POSITIVE");
+            ErrorList.Add(166, "OUT_OF_MODULO_RANGE"      );
         }
     }
 }

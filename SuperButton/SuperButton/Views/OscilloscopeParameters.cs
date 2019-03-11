@@ -39,7 +39,7 @@ namespace SuperButton.Views
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, IfullScale));//I_PhaseA         
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, IfullScale));//I_PhaseB         
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, IfullScale));//I_PhaseC
-            ScaleAndGainList.Add(new Tuple<float, float>((float)2.0, VfullScale));//VDC_Motor
+            ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, VfullScale));//VDC_Motor // 2.0
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, VfullScale));//BEMF_PhaseA
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, VfullScale));//BEMF_PhaseB
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, VfullScale));//BEMF_PhaseC

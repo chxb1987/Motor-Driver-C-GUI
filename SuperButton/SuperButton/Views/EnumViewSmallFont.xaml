@@ -121,13 +121,13 @@
         <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
             <ComboBox  x:Name="Test"
                       FontSize="11.5"
-                      SelectedItem="{Binding Path=SelectedValue, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=SelectedValue}"
+                       SelectedValue="{Binding Path=SelectedValue}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=CommandList}" 
-                      SelectedIndex="0">               
+                      ItemsSource="{Binding Path=CommandList}">               
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                       <i:InvokeCommandAction Command="{Binding SelectedItemChanged}"  />
+                       <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>

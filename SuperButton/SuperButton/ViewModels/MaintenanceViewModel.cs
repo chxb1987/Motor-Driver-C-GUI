@@ -15,9 +15,10 @@ namespace SuperButton.ViewModels
         {
             get
             {
-                lock (Synlock)
+                lock(Synlock)
                 {
-                    if (_instance != null) return _instance;
+                    if(_instance != null)
+                        return _instance;
                     _instance = new MaintenanceViewModel();
                     return _instance;
                 }
@@ -51,17 +52,17 @@ namespace SuperButton.ViewModels
             get { return _save; }
             set
             {
-                
-                if (value && !GetInstance.Manufacture)
+
+                if(value && !GetInstance.Manufacture)
                 {
                     _save = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
-                        Data2Send = true ? 1 : 0,
+                        Data2Send = _save ? 1 : 0,
                         ID = 63,
                         SubID = Convert.ToInt16(0),
                         IsSet = true,
-                        IsFloat = true
+                        IsFloat = false
                     }
                     );
                     Task WaitSave = Task.Run((Action)GetInstance.Wait);
@@ -70,7 +71,7 @@ namespace SuperButton.ViewModels
                 {
                     _save = value;
                 }
-                
+
                 OnPropertyChanged();
             }
         }
@@ -87,42 +88,41 @@ namespace SuperButton.ViewModels
             get { return _manufacture; }
             set
             {
-
-                if (value && !GetInstance.Save)
+                if(value && !GetInstance.Save)
                 {
                     _manufacture = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
-                        Data2Send = true ? 1 : 0,
+                        Data2Send = _manufacture ? 1 : 0,
                         ID = 63,
                         SubID = Convert.ToInt16(1),
                         IsSet = true,
-                        IsFloat = true
+                        IsFloat = false
                     }
                     );
                     Task WaitManufacture = Task.Run((Action)GetInstance.Wait);
                 }
-                else if (!value && !GetInstance.Save)
+                else if(!value && !GetInstance.Save)
                 {
                     _manufacture = value;
                 }
-                    OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
-        private bool _reboot;
-        public bool Reboot
+        private bool _reset;
+        public bool Reset
         {
-            get { return _reboot; }
+            get { return _reset; }
             set
             {
-                _reboot = value;
+                _reset = value;
                 Rs232Interface.GetInstance.SendToParser(new PacketFields
                 {
-                    Data2Send = true ? 1 : 0,
+                    Data2Send = _reset ? 1 : 0,
                     ID = 63,
-                    SubID = Convert.ToInt16(2),
+                    SubID = Convert.ToInt16(9),
                     IsSet = true,
-                    IsFloat = true
+                    IsFloat = false
                 }
                 );
                 OnPropertyChanged();
