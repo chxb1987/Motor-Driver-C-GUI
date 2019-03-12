@@ -170,7 +170,7 @@ namespace SuperButton.Views
         }
         #endregion
         #region Duration
-        private float _duration = 10000;
+        private float _duration = 5000;
         public ActionCommand DirectionPlus
         {
             get { return new ActionCommand(DirPlus); }
@@ -673,7 +673,7 @@ namespace SuperButton.Views
             }
         }
 
-        private int ActChenCount = 0;
+        //private int ActChenCount = 0;
 
         #region Channels
         private int _chan1Counter = 0;
@@ -708,13 +708,27 @@ namespace SuperButton.Views
                         RxPacket.Data2Send = (ch1 >= 28) ? ch1 + 3 : ch1;
                         //rise event
                         Rs232Interface.GetInstance.SendToParser(RxPacket);
+                        //if(ch1 != 0)
+                        //{
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = "",
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(9), // Get Units Name
+                            IsSet = false,
+                            IsFloat = false
+                        });
+                        //}
                         ChannelsplotActivationMerge();
                     }
                     else
                     {
-                        _yzoom = OscilloscopeParameters.ScaleAndGainList[ch1].Item2;
-                        YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
-                        YVisibleRange = YLimit;
+                        if(OscilloscopeParameters.ScaleAndGainList.Count != 0)
+                        {
+                            _yzoom = OscilloscopeParameters.ScaleAndGainList[ch1].Item2;
+                            YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
+                            YVisibleRange = YLimit;
+                        }
                     }
                     //update step
                     StepRecalcMerge();
@@ -751,13 +765,27 @@ namespace SuperButton.Views
                         RxPacket.Data2Send = (ch2 >= 28) ? ch2 + 3 : ch2;
                         //rise event
                         Rs232Interface.GetInstance.SendToParser(RxPacket);
+                        //if(ch2 != 0)
+                        //{
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = "",
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(10), // Get Units Name
+                            IsSet = false,
+                            IsFloat = false
+                        });
+                        //}
                         ChannelsplotActivationMerge();
                     }
                     else
                     {
-                        _yzoom = OscilloscopeParameters.ScaleAndGainList[ch2].Item2;
-                        YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
-                        YVisibleRange = YLimit;
+                        if(OscilloscopeParameters.ScaleAndGainList.Count != 0)
+                        {
+                            _yzoom = OscilloscopeParameters.ScaleAndGainList[ch2].Item2;
+                            YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
+                            YVisibleRange = YLimit;
+                        }
                     }
                     //update step
                     StepRecalcMerge();
@@ -968,8 +996,9 @@ namespace SuperButton.Views
             {
                 if(_yaxeTitle == value)
                     return;
-
-                _yaxeTitle = value;
+                else
+                {
+                }
                 OnPropertyChanged("YaxeTitle");
             }
         }
@@ -1007,6 +1036,51 @@ namespace SuperButton.Views
 
                 _yVisibleRange = value;
                 OnPropertyChanged("YVisibleRange");
+            }
+        }
+        private string _yAxisUnits = "";
+        public string YAxisUnits
+        {
+            get { return _yAxisUnits; }
+            set
+            {
+                if(_yAxisUnits == value)
+                    return;
+                if(_yAxisUnits == "")
+                {
+                    _yAxisUnits = value;
+                }
+                else if(_yAxisUnits != null)
+                {
+                    char[] separator = { ':', ',' };
+                    string[] words = _yAxisUnits.Split(separator);
+                    string[] newWords = value.Split(separator);
+                    if(words[0] == "CH1" && newWords[0] == "CH1")
+                    {
+                        if(words.Length < 3)
+                            value = "CH1:" + newWords[1];
+                        else
+                            value = "CH1:" + newWords[1] + ", CH2:" + words[3];
+                        _yAxisUnits = value;
+                    }
+                    else if(words[0] == "CH1" && newWords[0] == "CH2")
+                    {
+                        value = "CH1:" + words[1] + ", CH2:" + newWords[1];
+                        _yAxisUnits = value;
+                    }
+                    else if(words[0] == "CH2" && newWords[0] == "CH1")
+                    {
+                        value = "CH1:" + newWords[1] + ", CH2:" + words[1];
+                        _yAxisUnits = value;
+                    }
+                    else if(words[0] == "CH2" && newWords[0] == "CH2")
+                    {
+                        value = "CH2:" + newWords[1];
+                        _yAxisUnits = value;
+                    }
+                }
+
+                OnPropertyChanged("YAxisUnits");
             }
         }
         public ModifierType ChartModifier
@@ -1338,7 +1412,7 @@ namespace SuperButton.Views
                     else if(OscilloscopeParameters.ChanTotalCounter == 2)// Two channels
                     {
                         #region DoubleChan
-                        Debug.WriteLine("Plot 1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                        // Debug.WriteLine("Plot 1: " + DateTime.Now.ToString("h:mm:ss.fff"));
 
                         if(ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
                             return;
@@ -1493,9 +1567,9 @@ namespace SuperButton.Views
                             }
                             #endregion Switch
                         }
-                        Debug.WriteLine("POintstoPlot {0}, pivot {1}: ", POintstoPlot, pivot);
+                        //Debug.WriteLine("POintstoPlot {0}, pivot {1}: ", POintstoPlot, pivot);
 
-                        Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                        //Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
                         #endregion
                     }
                 }
@@ -1710,43 +1784,30 @@ namespace SuperButton.Views
             {
                 case 1:
                     return "January";
-                    break;
                 case 2:
                     return "February";
-                    break;
                 case 3:
                     return "March";
-                    break;
                 case 4:
                     return "April";
-                    break;
                 case 5:
                     return "May";
-                    break;
                 case 6:
                     return "June";
-                    break;
                 case 7:
                     return "July";
-                    break;
                 case 8:
                     return "August";
-                    break;
                 case 9:
                     return "Septembre";
-                    break;
                 case 10:
                     return "Octobre";
-                    break;
                 case 11:
                     return "Novembre";
-                    break;
                 case 12:
                     return "Decembre";
-                    break;
                 default:
                     return "x";
-                    break;
             }
 
         }

@@ -705,7 +705,7 @@ namespace SuperButton.CommandsDB
                 CommandList = Enums["S.G.Type"],
                 CommandValue = "1",//first enum in list start at 0
             };
-            DataViewCommandsList.Add(new Tuple<int, int>(7, 1), SignalgeneratorTypeCmd);
+            //DataViewCommandsList.Add(new Tuple<int, int>(7, 1), SignalgeneratorTypeCmd);
             EnumViewCommandsList.Add(new Tuple<int, int>(7, 1), SignalgeneratorTypeCmd);
             EnumCommandsListbySubGroup.Add("S.G.Type", new ObservableCollection<object>
             {

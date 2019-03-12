@@ -35,7 +35,7 @@ namespace SuperButton.Models.DriverBlock
 
         public Rs232InterfaceEventArgs(byte[] dataChunk)
         {
-            DataChunk = dataChunk;     
+            DataChunk = dataChunk;      //Receive packet
         }
 
         public Rs232InterfaceEventArgs(string connecteButtonLabel)
@@ -48,7 +48,7 @@ namespace SuperButton.Models.DriverBlock
 
         public Rs232InterfaceEventArgs(PacketFields packetRx)
         {
-            PacketRx = packetRx;    
+            PacketRx = packetRx;     // Send Packet
         }
 
 

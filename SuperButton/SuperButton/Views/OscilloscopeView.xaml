@@ -343,23 +343,19 @@
                                DrawMinorGridLines="False"
                                 DrawMajorTicks="False"
                                DrawMinorTicks="False"
-                               StrokeThickness="1"
-                               
-                                 
-                                />
+                               StrokeThickness="1"/>
             </s:SciChartSurface.XAxis>
 
             <s:SciChartSurface.YAxis>
                 <s:NumericAxis AnimatedVisibleRange="{Binding YVisibleRange, Mode=TwoWay}"
+                               AxisAlignment="Right"
                                DrawMajorBands="False"
                                DrawMinorGridLines="False"
                                DrawMinorTicks="False"
-                                DrawMajorTicks="False"
+                               DrawMajorTicks="False"
                                StrokeThickness="1"
-                               AxisTitle=""
-                                />
+                               AxisTitle="{Binding YAxisUnits, Mode=OneWay}" />
             </s:SciChartSurface.YAxis>
-
 
             <!--Create ChartModifiers, which are enabled or disabled from the ViewModel via the ChartModifier property and IsModifierTypeConverter-->
             <s:SciChartSurface.ChartModifier>

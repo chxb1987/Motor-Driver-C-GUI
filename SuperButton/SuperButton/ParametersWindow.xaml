@@ -11,7 +11,8 @@
         ResizeMode="NoResize"
         Title="Driver Parameters" Height="500" Width="700"
         Closing="Window_Closing"
-        Icon="./Themes/redler.jpg">
+        Icon="./Themes/redler.jpg"
+        WindowStartupLocation="CenterOwner">
 
     <Window.Background>
         <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>

@@ -97,7 +97,7 @@ namespace SuperButton.Models.DriverBlock
 
         public delegate void DataRecived(byte[] dataBytes);
         //Defining event based on the above delegate
-        public event DataRecived DataRecivedEvent;
+        //public event DataRecived DataRecivedEvent;
 
         //Contsractor
 
@@ -169,7 +169,7 @@ namespace SuperButton.Models.DriverBlock
         //
         //
         //********************************************************
-        string msg = "";
+        //string msg = "";
         public override void AutoConnect()
         {
             if (_isSynced == false) //Driver is not synchronized

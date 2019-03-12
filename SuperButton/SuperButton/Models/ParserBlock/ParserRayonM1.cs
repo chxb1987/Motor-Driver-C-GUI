@@ -473,8 +473,11 @@ namespace SuperButton.Models.ParserBlock
                         transit <<= 8;
                         transit |= data[3];
 
-                        RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
-                        Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, transit, "I");
+                        if(getSet == 1)
+                        {
+                            RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
+                        }
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
                     }
                     else
                     {
@@ -484,9 +487,11 @@ namespace SuperButton.Models.ParserBlock
                             dataAray[i] = data[i + 3];
                         }
                         newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
-
-                        RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
-                        Debug.WriteLine("{0} {1}[{2}]={3} {4}.", "Drv", commandId, commandSubId, newPropertyValuef, "F");
+                        if(getSet == 1)
+                        {
+                            RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
+                        }
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
                     }
                 }
                 else
@@ -500,10 +505,10 @@ namespace SuperButton.Models.ParserBlock
                     transit <<= 8;
                     transit |= data[3];
                     if(Commands.GetInstance.ErrorList.TryGetValue(transit, out result)){
-                        EventRiser.Instance.RiseEevent(string.Format($"Com. Error: {0}", result));
+                        EventRiser.Instance.RiseEevent(string.Format($"Com. Error: " + result));
                     }
                     else
-                        EventRiser.Instance.RiseEevent(string.Format($"Error: {0}", transit.ToString()));
+                        EventRiser.Instance.RiseEevent(string.Format($"Error: " + transit.ToString()));
                 }
                 return true;
             }

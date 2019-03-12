@@ -43,7 +43,7 @@ namespace SuperButton.Models.ParserBlock
         Int32 TempA = 0;
 
         public static readonly object Packetizerlock = new object(); //Single tone variable
-        public event PacketizerEventHandler ToPacketizer;
+        //public event PacketizerEventHandler ToPacketizer;
 
         public static Packetizer GetInstance
         {

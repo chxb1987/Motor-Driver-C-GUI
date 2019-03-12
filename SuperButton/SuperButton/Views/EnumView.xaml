@@ -117,10 +117,11 @@
 
         <!-- ComboBox -->
 
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1"><!-- -->
-            <ComboBox MinWidth="100"  
-                      SelectedItem="{Binding Path=SelectedValue}" 
-                      SelectedValue="{Binding Path=SelectedValue}"
+        <Border BorderBrush="White" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1"><!--" 
+                      SelectedValue="{Binding Path=SelectedValue}" -->
+            <ComboBox x:Name="EnumCombobox"
+                       MinWidth="100"  
+                      SelectedItem="{Binding Path=SelectedValue}"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}">
                 <i:Interaction.Triggers>

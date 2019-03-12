@@ -62,7 +62,7 @@ namespace SuperButton
             if((string)comboBox.SelectedValue == (string)item.Content)
             {
                 comboBox.IsDropDownOpen = false;
-                comboBox.RaiseEvent(new SelectionChangedEventArgs(Selector.SelectionChangedEvent, new List<object>(),new List<object>()));
+                comboBox.RaiseEvent(new SelectionChangedEventArgs(Selector.SelectionChangedEvent, new List<object>(), new List<object>()));
             }
         }
 

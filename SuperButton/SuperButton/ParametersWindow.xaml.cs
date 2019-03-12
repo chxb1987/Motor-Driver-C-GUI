@@ -14,13 +14,14 @@ using System.Windows.Shapes;
 using SuperButton.ViewModels;
 using SuperButton.Models.DriverBlock;
 using System.Windows.Controls.Primitives;
+using System.Diagnostics;
+using System.Windows.Interop;
 
 namespace SuperButton.Views
 {
     /// <summary>
     /// Interaction logic for ParametarsWindow.xaml
     /// </summary>
-
     public partial class ParametarsWindow : Window
     {
         public static int ParametersWindowTabSelected = -1;
@@ -37,6 +38,8 @@ namespace SuperButton.Views
                     if(_instance != null)
                         return _instance;
                     _instance = new ParametarsWindow();
+                    var vaultHwnd = Process.GetCurrentProcess().MainWindowHandle; //Vault window handle
+                    new WindowInteropHelper(_instance) { Owner = vaultHwnd };
                     return _instance;
                 }
             }
@@ -52,9 +55,12 @@ namespace SuperButton.Views
         {
             //LeftPanelViewModel.flag = false;
             WindowsOpen = false;
+            ParametersWindowTabSelected = -1;
             _instance = null;
         }
 
+        ~ParametarsWindow() {
+        }
 
         private void TabSelected(object sender, SelectionChangedEventArgs e)
         {

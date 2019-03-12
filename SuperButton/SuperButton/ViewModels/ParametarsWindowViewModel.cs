@@ -10,13 +10,6 @@ namespace SuperButton.ViewModels
 {
     internal class ParametarsWindowViewModel : ViewModelBase
     {
-        private bool _isHallEnabled;
-        private bool _isQep1Enabled;
-        private bool _isQep2Enabled;
-        private bool _isSsiFeedbackEnabled;
-        private bool _isDigitalbackEnabled;
-        private bool _isAnalogbackEnabled;
-
         private OperationViewModel _operationViewModel;
         private CalibrationViewModel _calibrationViewModel;
         private MotionViewModel _motionViewModel;
@@ -31,7 +24,7 @@ namespace SuperButton.ViewModels
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
             _feedBackViewModel = FeedBackViewModel.GetInstance;
         }
-
+        ~ParametarsWindowViewModel() { }
         public ObservableCollection<object> ControlList
         {
 
@@ -115,7 +108,7 @@ namespace SuperButton.ViewModels
 
         }
         private ObservableCollection<object> _pidPositionList;
-        private string _motorDriver;
+        //private string _motorDriver;
 
         public ObservableCollection<object> PidPositionList
         {

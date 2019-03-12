@@ -16,7 +16,7 @@ namespace SuperButton.Models
         readonly Func<Boolean> _canExecute;
         readonly Action _execute;
         readonly Action<object> _executeWithParam;
-        readonly Predicate<object> _canExecutePredicate;
+        //readonly Predicate<object> _canExecutePredicate;
 
 
         #endregion
@@ -90,10 +90,11 @@ namespace SuperButton.Models
 
         public void Execute(Object parameter)
         {
-            if (parameter != null)
+            if(parameter != null)
                 _executeWithParam(parameter);
-            else if(_execute!=null)
-                _execute();
+            else {
+                _execute?.Invoke();
+            }
         }
 
        

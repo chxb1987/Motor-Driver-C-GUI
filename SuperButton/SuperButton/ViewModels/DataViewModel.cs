@@ -23,8 +23,8 @@ namespace SuperButton.ViewModels
         private SolidColorBrush _backgroundSelected = new SolidColorBrush(Colors.Gray);
         private SolidColorBrush _backgroundSelected2 = new SolidColorBrush(Colors.White);
 
-        private string _commandvalueTemp;
-        private bool _escPressed = true;
+        //private string _commandvalueTemp;
+        
 
         public string CommandName { get { return _baseModel.CommandName; } set { _baseModel.CommandName = value; } }
 
@@ -74,8 +74,10 @@ namespace SuperButton.ViewModels
 
         private void BuildPacketTosend()
         {
+            
             if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
+               
                 Debug.WriteLine("Enter to Send");
 
                 RefreshManger.DataPressed = false;
@@ -89,6 +91,7 @@ namespace SuperButton.ViewModels
                 }
                 if(CommandValue != "")
                 {
+                    //bool _escPressed = true;
                     var tmp = new PacketFields
                     {
                         Data2Send = CommandValue,
@@ -98,9 +101,9 @@ namespace SuperButton.ViewModels
                         IsFloat = IsFloat,
                     };
                     Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
-                    _escPressed = false;
+                    //_escPressed = false;
                     MouseLeaveCommandFunc();
-                    _escPressed = true;
+                    //_escPressed = true;
                 }
                 else
                 {
@@ -124,9 +127,9 @@ namespace SuperButton.ViewModels
             }
         }
 
-        static string cmdClicked = "";
+        //static string cmdClicked = "";
 
-        int cmdID = 0, cmdSubID = 0;
+        //int cmdID = 0, cmdSubID = 0;
 
         private void MouseLeftClickFunc()
         {

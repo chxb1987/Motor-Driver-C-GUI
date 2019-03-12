@@ -17,7 +17,7 @@ namespace SuperButton.ViewModels
     public class ComboBox : ViewModelBase
     {
         private ObservableCollection<string> _comList;
-        public event EventHandler DropDownOpened;
+        //public event EventHandler DropDownOpened;
         private string _comString;
         ICommand _dropDownOpenedCommand;
 

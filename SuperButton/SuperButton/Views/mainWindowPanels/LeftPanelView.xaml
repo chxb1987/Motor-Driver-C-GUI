@@ -866,12 +866,12 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
+                        <!--<ItemsControl HorizontalContentAlignment="Left" Margin="0,10,0,0"
                               Grid.Row="0" 
                               Width="160" 
                               HorizontalAlignment="Left" 
                               ItemsSource="{Binding DriverTypeList}" 
-                              ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
+                              ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>-->
                         <ItemsControl HorizontalContentAlignment="Left"
                               Grid.Row="1" 
                               Width="160" 

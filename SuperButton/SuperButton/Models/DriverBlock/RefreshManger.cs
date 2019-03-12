@@ -245,7 +245,7 @@ namespace SuperButton.Models.DriverBlock
             }
         }
         static int ConnectionCount = 0;
-        public async Task VerifyConnection()
+        public Task VerifyConnection()
         {
             while(true)
             {
@@ -262,6 +262,7 @@ namespace SuperButton.Models.DriverBlock
                 if(ConnectionCount == 5)
                 {
                     EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
+                    Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
                 }
             }
         }
@@ -339,8 +340,44 @@ namespace SuperButton.Models.DriverBlock
                     return "no info(" + returnedValue + ")";
             }
         }
+
+        string YAxisUnits(string channel, string returnedValue)
+        {
+            string value = "";
+            switch(Convert.ToInt32(returnedValue))
+            {
+                case 0:
+                    value = "[A]";
+                    break;
+                case 1:
+                    value = "[V]";
+                    break;
+                case 5:
+                    value = "[Elec_Angle]";
+                    break;
+                case 6:
+                    value = "[Mech_Angle]";
+                    break;
+                case 10:
+                    value = "[RPM/V]";
+                    break;
+                case 11:
+                    value = "[Count/Sec]";
+                    break;
+                case 12:
+                    value = "[Round/Min]";
+                    break;
+                case 13:
+                    value = "[Counts]";
+                    break;
+                default:
+                    value = "";
+                    break;
+            }
+            return channel + ": " + value;
+        }
         //public static int CalibrationTimeOut = 10;
-        private static int PrecedentIdx = 0;
+        //private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
             #region Calibration_old
@@ -412,7 +449,7 @@ namespace SuperButton.Models.DriverBlock
             }
             #endregion Calibration_new
             #region Plot_Channels
-            else if(commandidentifier.Item1 == 60)
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 <= 2)
             {
                 if(Int32.Parse(newPropertyValue) >= 0)
                 {
@@ -429,6 +466,14 @@ namespace SuperButton.Models.DriverBlock
                     if(commandidentifier.Item2 == 2)
                         OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
                 }
+            }
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
+            {
+                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH1", newPropertyValue);
+            }
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 10)
+            {
+                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH2", newPropertyValue);
             }
             else if(commandidentifier.Item1 == 66)
             {
@@ -493,7 +538,7 @@ namespace SuperButton.Models.DriverBlock
                         break;
                 }
             }
-            #endregion StartUpAPP
+#endregion StartUpAPP
         }
     }
 }

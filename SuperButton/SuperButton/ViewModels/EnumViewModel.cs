@@ -7,6 +7,7 @@ using System.Windows.Input;
 using SuperButton.Models;
 using SuperButton.Models.DriverBlock;
 using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace SuperButton.ViewModels
 {
@@ -58,17 +59,15 @@ namespace SuperButton.ViewModels
             }
         }
 
-        public virtual ICommand SelectedItemChanged1
+        public ICommand SelectedItemChanged1
         {
             get
             {
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
-
-        private new void SendData( )
+        private new void SendData()
         {
-            
             if(Count == 0 && SelectedValue != null)
             {
                 int StartIndex = 0;
@@ -81,14 +80,12 @@ namespace SuperButton.ViewModels
                             StartIndex = Convert.ToInt16(List.Value.CommandValue);
                     }
                 }
-                //CommandValue = (ListIndex + StartIndex).ToString();
                 BuildPacketTosend((ListIndex + StartIndex).ToString());
             }
             if(Count == -1)
                 Count = 0;
         }
-
-
+        
         private bool IsEnabled()
         {
             return true;
@@ -99,9 +96,7 @@ namespace SuperButton.ViewModels
             get { return _selectedValue; }
             set
             {
-
                 _selectedValue = value;
-
                 OnPropertyChanged("SelectedValue");
             }
         }
@@ -172,12 +167,6 @@ namespace SuperButton.ViewModels
                 });
             }
         }
-
-
-
-
-
-
     }
 }
 
