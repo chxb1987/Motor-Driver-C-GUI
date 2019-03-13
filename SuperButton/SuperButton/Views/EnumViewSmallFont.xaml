@@ -124,10 +124,11 @@
                       SelectedItem="{Binding Path=SelectedValue}"
                        SelectedValue="{Binding Path=SelectedValue}"
                       d:IsHidden="False" 
-                      ItemsSource="{Binding Path=CommandList}">               
+                      ItemsSource="{Binding Path=CommandList}"
+                       SelectedIndex="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                       <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}"  />
+                        <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>

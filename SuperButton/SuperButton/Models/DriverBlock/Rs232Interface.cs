@@ -357,7 +357,7 @@ namespace SuperButton.Models.DriverBlock
                 var port = comPort as SerialPort;
                 if (port != null)
                     port.DiscardOutBuffer();
-                LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
+                //LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
             }
         }
 
@@ -394,7 +394,7 @@ namespace SuperButton.Models.DriverBlock
                 if (Rx2Packetizer != null && buffer.Length > 0)
                 {
                     Rx2Packetizer(this, new Rs232InterfaceEventArgs(buffer));
-                    LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
+                    //LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
                 }
             }
         }

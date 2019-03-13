@@ -114,7 +114,6 @@ namespace SuperButton.Models.ParserBlock
                 }
             
         }
-
         private void FiilsStandartPacketsNew(byte ch)
         {
             switch (standpacketStateNew)

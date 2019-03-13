@@ -32,9 +32,11 @@ namespace SuperButton.Models.DriverBlock
             PMagicSecond = pmagicSecond;
         }
 
-
+        
         public Rs232InterfaceEventArgs(byte[] dataChunk)
         {
+            foreach(var b in dataChunk)
+                RefreshManger.GetInstance.arr.Add(b);
             DataChunk = dataChunk;      //Receive packet
         }
 

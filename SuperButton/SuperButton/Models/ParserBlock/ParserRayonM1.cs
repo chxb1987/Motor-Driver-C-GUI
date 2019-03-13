@@ -435,6 +435,10 @@ namespace SuperButton.Models.ParserBlock
         }
         private bool ParseInputPacket(byte[] data)
         {
+            RefreshManger.GetInstance.arr2.Add(139);
+            RefreshManger.GetInstance.arr2.Add(60);
+            foreach(var b in data)
+                RefreshManger.GetInstance.arr2.Add(b);
 
             var crclsb = data[7];
             var crcmsb = data[8];

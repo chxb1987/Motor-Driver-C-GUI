@@ -152,7 +152,7 @@ namespace SuperButton.Models.DriverBlock
         }
         public string[] GroupToExecute(int tabIndex)
         {
-            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor" };// , "Driver Type" "UpperMainPan List",, "MotionStatus List"
+            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor", "MotionStatus List" };// , "Driver Type" "UpperMainPan List",
             // , "LPCommands List"
             switch(tabIndex)
             {
@@ -179,7 +179,7 @@ namespace SuperButton.Models.DriverBlock
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
                 case 6: // 7
-                    arr = new string[] { "Maintenance List", "MaintenanceBool List" };
+                    arr = new string[] { };// "Maintenance List", "MaintenanceBool List"
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
                     return PanelElements;
@@ -187,8 +187,13 @@ namespace SuperButton.Models.DriverBlock
                     return new string[] { };
             }
         }
+        public List<byte> arr = new List<byte>();
+        public List<byte> arr2 = new List<byte>();
+
         public void StartRefresh()
         {
+            arr.Clear();
+            arr2.Clear();
             if(!RefreshManger.DataPressed)//LeftPanelViewModel.GetInstance.EnRefresh && 
             {
                 tab = Views.ParametarsWindow.ParametersWindowTabSelected;
@@ -240,6 +245,7 @@ namespace SuperButton.Models.DriverBlock
                     {
                     }
                     Thread.Sleep(3);
+                    //Thread.SpinWait(1000);
                 }
                 Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
             }
@@ -261,6 +267,8 @@ namespace SuperButton.Models.DriverBlock
                 ConnectionCount++;
                 if(ConnectionCount == 5)
                 {
+
+                    EventRiser.Instance.RiseEevent(string.Format("CountDebug: {0}", CountDebug));
                     EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
                     Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
                 }
@@ -376,6 +384,7 @@ namespace SuperButton.Models.DriverBlock
             }
             return channel + ": " + value;
         }
+        public int CountDebug = 0;
         //public static int CalibrationTimeOut = 10;
         //private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
@@ -494,6 +503,7 @@ namespace SuperButton.Models.DriverBlock
             {
                 if(newPropertyValue == "1" || newPropertyValue == "0")
                 {
+                    CountDebug++;
                     ConnectionCount = 0;
                     LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
                     Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;

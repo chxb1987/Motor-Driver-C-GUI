@@ -328,7 +328,7 @@ namespace SuperButton.CommandsDB
                 CommandValue = "",
                 IsFloat = false,
             };
-            DataViewCommandsList.Add(new Tuple<int, int>(73, 14), dataB);
+            DataViewCommandsList.Add(new Tuple<int, int>(71, 14), dataB);
             DataCommandsListbySubGroup["Qep1"].Add(dataB);
 
             //dataB = new DataViewModel

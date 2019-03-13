@@ -102,6 +102,7 @@ namespace SuperButton.ViewModels
         private void StarterOperation()
         {
             //Thread.Sleep(1000);
+            #region Operations
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -179,6 +180,7 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = false
             });
+            #endregion  Operations
             LeftPanelViewModel.flag = true;
 
             if(EnRefresh)
@@ -359,7 +361,10 @@ namespace SuperButton.ViewModels
             {
                 _led_statusTx = value;
                 RaisePropertyChanged("LedStatusTx");
+                //Debug.WriteLine("Tx1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                //Thread.SpinWait(10000);
                 Thread.Sleep(1);
+                //Debug.WriteLine("Tx2: " + DateTime.Now.ToString("h:mm:ss.fff"));
                 if(value == 1)
                 {
                     _led_statusTx = 0;
@@ -384,7 +389,10 @@ namespace SuperButton.ViewModels
             {
                 _led_statusRx = value;
                 RaisePropertyChanged("LedStatusRx");
+                //Debug.WriteLine("Rx1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                //Thread.SpinWait(10000);
                 Thread.Sleep(1);
+                //Debug.WriteLine("Rx2: " + DateTime.Now.ToString("h:mm:ss.fff"));
                 if(value == 1)
                 {
                     _led_statusRx = 0;
@@ -777,10 +785,14 @@ namespace SuperButton.ViewModels
         }
         private async Task BackGroundFunc()//object state)
         {
-            while (flag && LeftPanelViewModel.GetInstance.EnRefresh)
+            int count = 0;
+            while (flag && LeftPanelViewModel.GetInstance.EnRefresh && count != 1)// 
             {
+                LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
                 RefreshManger.GetInstance.StartRefresh();
+                LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
                 await Task.Delay(500);
+                count++;
             }
         }
 #endregion

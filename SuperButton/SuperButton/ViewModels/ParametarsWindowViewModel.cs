@@ -27,13 +27,10 @@ namespace SuperButton.ViewModels
         ~ParametarsWindowViewModel() { }
         public ObservableCollection<object> ControlList
         {
-
             get
             {
                 return Commands.GetInstance.EnumCommandsListbySubGroup["Control"];
             }
-
-
         }
 
         public ObservableCollection<object> MotorlList
@@ -109,7 +106,6 @@ namespace SuperButton.ViewModels
         }
         private ObservableCollection<object> _pidPositionList;
         //private string _motorDriver;
-
         public ObservableCollection<object> PidPositionList
         {
 
@@ -146,17 +142,10 @@ namespace SuperButton.ViewModels
 
         }
         
-        #region enables
-        
-        #endregion
-
-
         public virtual ICommand TestEnumChange
         {
             get
             {
-
-
                 return new RelayCommand(EnumChange, CheckValue);
             }
         }
@@ -185,11 +174,7 @@ namespace SuperButton.ViewModels
         {
             get { return _feedBackViewModel; }
         }
-
-        private void CheckBox()
-        {
-
-        }
+        
 
         private bool CheckValue()
         {
