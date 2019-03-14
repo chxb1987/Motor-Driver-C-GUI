@@ -1,6 +1,8 @@
 ﻿using System;
 using Abt.Controls.SciChart.Example.Data;
 using SuperButton.Data;
+using SuperButton.ViewModels;
+using SuperButton.Helpers;
 
 namespace SuperButton.Models.DriverBlock
 {
@@ -35,8 +37,9 @@ namespace SuperButton.Models.DriverBlock
         
         public Rs232InterfaceEventArgs(byte[] dataChunk)
         {
-            foreach(var b in dataChunk)
-                RefreshManger.GetInstance.arr.Add(b);
+            //foreach(var b in dataChunk)
+            //    RefreshManger.GetInstance.arr.Add(b);
+            LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
             DataChunk = dataChunk;      //Receive packet
         }
 
@@ -50,6 +53,7 @@ namespace SuperButton.Models.DriverBlock
 
         public Rs232InterfaceEventArgs(PacketFields packetRx)
         {
+            LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
             PacketRx = packetRx;     // Send Packet
         }
 

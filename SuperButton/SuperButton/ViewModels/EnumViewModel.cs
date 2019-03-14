@@ -18,7 +18,7 @@ namespace SuperButton.ViewModels
         private readonly List<string> _commandList = new List<string>();
         public bool IsUpdate = false;
         private int Count = 0;
-        private string _selectedValue;
+        private string _selectedValue = "0";
         //private string _selectedindex="0";
 
         public List<string> CommandList
@@ -66,15 +66,20 @@ namespace SuperButton.ViewModels
                 return new RelayCommand(SendData, IsEnabled);
             }
         }
+
         private new void SendData()
         {
-            if(Count == 0 && SelectedValue != null)
+            if(Convert.ToInt16(SelectedValue) < 0)
+            {
+                SelectedValue = "0";
+            }
+            if(Count == 0 && SelectedValue != null && Convert.ToInt16(SelectedValue) > 0)
             {
                 int StartIndex = 0;
-                int ListIndex = CommandList.FindIndex(x => x.StartsWith(SelectedValue));
+                int ListIndex = Convert.ToInt16(SelectedValue);
                 foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
                 {
-                    if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == SelectedValue) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
+                    if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == CommandList[Convert.ToInt16(SelectedValue)]) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
                     {
                         if(List.Value.CommandValue != "")
                             StartIndex = Convert.ToInt16(List.Value.CommandValue);
@@ -93,11 +98,31 @@ namespace SuperButton.ViewModels
 
         public string SelectedValue
         {
-            get { return _selectedValue; }
+            get { return _selectedValue != null ? (CommandList.FindIndex(x => x.StartsWith(_selectedValue))).ToString() : _selectedValue; }
             set
             {
-                _selectedValue = value;
-                OnPropertyChanged("SelectedValue");
+                if(_selectedValue == value)
+                    return;
+                if(_selectedValue != null)
+                {
+                    try
+                    {
+                        if(Convert.ToInt16(value) > 0 && Convert.ToInt16(value) < CommandList.Count)
+                        {
+                            _selectedValue = CommandList[Convert.ToInt16(value)];
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        _selectedValue = value;
+                        OnPropertyChanged("SelectedValue");
+                    }
+                }
+                else
+                {
+                    _selectedValue = value;
+                    OnPropertyChanged("SelectedValue");
+                }
             }
         }
         //public string SelectedValue

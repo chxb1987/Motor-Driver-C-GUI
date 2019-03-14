@@ -331,17 +331,6 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(71, 14), dataB);
             DataCommandsListbySubGroup["Qep1"].Add(dataB);
 
-            //dataB = new DataViewModel
-            //{
-            //    CommandName = "Resolution Sin/Cos",
-            //    CommandId = "72",
-            //    CommandSubId = 14.ToString(CultureInfo.InvariantCulture),
-            //    CommandValue = "",
-            //    IsFloat = false,
-            //};
-            //DataViewCommandsList.Add(new Tuple<int, int>(72, 14), dataB);
-            //DataCommandsListbySubGroup["Qep2"].Add(dataB);
-
             //Qep1FdBckList Qep1Bis
             var tmp1 = new List<string>
               {
@@ -677,7 +666,7 @@ namespace SuperButton.CommandsDB
                 CommandId = "54",
                 CommandSubId = "1",
                 CommandList = Enums["Profiler Mode"],
-                CommandValue = "",//first enum in list
+                CommandValue = "1",//first enum in list
             };
             DataViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
             EnumViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);

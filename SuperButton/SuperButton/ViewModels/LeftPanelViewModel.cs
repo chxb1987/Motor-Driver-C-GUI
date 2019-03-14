@@ -785,14 +785,12 @@ namespace SuperButton.ViewModels
         }
         private async Task BackGroundFunc()//object state)
         {
-            int count = 0;
-            while (flag && LeftPanelViewModel.GetInstance.EnRefresh && count != 1)// 
+            //int count = 0;
+            while (flag && LeftPanelViewModel.GetInstance.EnRefresh )// && count != 1
             {
-                LeftPanelViewModel.GetInstance.LedStatusRx = RoundBoolLed.PASSED;
                 RefreshManger.GetInstance.StartRefresh();
-                LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
                 await Task.Delay(500);
-                count++;
+                //count++;
             }
         }
 #endregion

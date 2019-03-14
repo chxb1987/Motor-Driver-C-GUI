@@ -47,7 +47,6 @@ namespace SuperButton
 
         private static void ComboBoxSelfSelection(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("App Event");
             var item = sender as ComboBoxItem;
 
             if(item == null)

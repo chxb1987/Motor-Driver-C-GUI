@@ -136,7 +136,8 @@
                                         </Grid.RowDefinitions>
                                         <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
                                         <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep1FdBckList}" 
-                                          ItemTemplate="{StaticResource EnumViewModel}"/>
+                                          ItemTemplate="{StaticResource EnumViewModel}">
+                                        </ItemsControl>
                                     </Grid>
                                 </ScrollViewer>
                             </Grid>

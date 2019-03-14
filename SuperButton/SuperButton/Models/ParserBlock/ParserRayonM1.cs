@@ -424,21 +424,26 @@ namespace SuperButton.Models.ParserBlock
         }
         public void ParseStandartData(List<byte[]> dataList)
         {
+            //RefreshManger.GetInstance.arr3.Add(139);
+            //RefreshManger.GetInstance.arr3.Add(60);
+            
             for (int i = 0; i < dataList.Count; i++)
             {
+            //    foreach(var b in dataList[i])
+            //        RefreshManger.GetInstance.arr3.Add(b);
                 //Task.Factory.StartNew(action: () =>
                 //{
                 //    Thread.Sleep(1);
-                    ParseInputPacket(dataList[i]);
+                ParseInputPacket(dataList[i]);
                 //});
             }
         }
-        private bool ParseInputPacket(byte[] data)
+        public bool ParseInputPacket(byte[] data)
         {
-            RefreshManger.GetInstance.arr2.Add(139);
-            RefreshManger.GetInstance.arr2.Add(60);
-            foreach(var b in data)
-                RefreshManger.GetInstance.arr2.Add(b);
+            //RefreshManger.GetInstance.arr2.Add(139);
+            //RefreshManger.GetInstance.arr2.Add(60);
+            //foreach(var b in data)
+            //    RefreshManger.GetInstance.arr2.Add(b);
 
             var crclsb = data[7];
             var crcmsb = data[8];

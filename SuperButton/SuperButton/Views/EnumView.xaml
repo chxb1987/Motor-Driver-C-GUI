@@ -118,16 +118,15 @@
         <!-- ComboBox -->
 
         <Border BorderBrush="White" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1"><!--" SelectedIndex="0"
-                      SelectedValue="{Binding Path=SelectedValue}" -->
+                      SelectedValue="{Binding Path=SelectedValue}" SelectedItem="{Binding Path=SelectedValue}"-->
             <ComboBox x:Name="EnumCombobox"
                        MinWidth="100"  
-                      SelectedItem="{Binding Path=SelectedValue}"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}"
-                      >
+                      SelectedIndex="{Binding Path=SelectedValue}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}" />
+                        <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>

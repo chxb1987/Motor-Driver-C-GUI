@@ -187,13 +187,16 @@ namespace SuperButton.Models.DriverBlock
                     return new string[] { };
             }
         }
-        public List<byte> arr = new List<byte>();
-        public List<byte> arr2 = new List<byte>();
-
+        //public List<byte> arr = new List<byte>();
+        //public List<byte> arr2 = new List<byte>();
+        //public List<byte> arr3 = new List<byte>();
+        //public List<byte> arr4 = new List<byte>();
         public void StartRefresh()
         {
-            arr.Clear();
-            arr2.Clear();
+            //arr.Clear();
+            //arr2.Clear();
+            //arr3.Clear();
+            //arr4.Clear();
             if(!RefreshManger.DataPressed)//LeftPanelViewModel.GetInstance.EnRefresh && 
             {
                 tab = Views.ParametarsWindow.ParametersWindowTabSelected;

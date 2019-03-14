@@ -86,8 +86,10 @@ namespace SuperButton.Models.ParserBlock
                         }               //send to plot parser              
                         if (StandartPacketsListNew.Count > 0)
                         {
-                            ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
-                            StandartPacketsListNew.Clear(); // Joseph add
+                        //ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
+                        //foreach(var packet in StandartPacketsListNew)
+                            //ParserRayonM1.GetInstanceofParser.ParseInputPacket(packet);
+                        StandartPacketsListNew.Clear(); // Joseph add
 
                         } //send to Standart parser                             
                     }
@@ -140,7 +142,12 @@ namespace SuperButton.Models.ParserBlock
                     break;
                 case (10):
                     readypacket[standpacketIndexCounter] = ch;
+                    //RefreshManger.GetInstance.arr4.Add(139);
+                    //RefreshManger.GetInstance.arr4.Add(60);
+                    //foreach(var b in readypacket)
+                    //    RefreshManger.GetInstance.arr4.Add(b);
                     StandartPacketsListNew.Add(readypacket);
+                    ParserRayonM1.GetInstanceofParser.ParseInputPacket(readypacket);
                     standpacketStateNew = standpacketIndexCounter = 0;
                     break;
                 default:

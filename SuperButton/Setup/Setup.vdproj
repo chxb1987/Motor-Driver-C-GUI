@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_02BC7642F0D0010393B1FE1DC94ED8AE"
-        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_08E2B74F80CC40D2B8A47054A6D3421D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -47,12 +41,6 @@
         {
         "MsmKey" = "8:_166FB1DCD0CB02147D172794AAC43FAD"
         "OwnerKey" = "8:_FAF5A09567095D6CA50993C5CBAC9370"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_167366FF2084F38052B55CF68804B563"
-        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -99,12 +87,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2F8E990AD9EA477EC8D3CFC7B02573B0"
-        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_33ED3F0ABEBD9BE7B1CC65B1096E2BE3"
         "OwnerKey" = "8:_166FB1DCD0CB02147D172794AAC43FAD"
         "MsmSig" = "8:_UNDEFINED"
@@ -141,43 +123,49 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_425940040B0547E52ADA0FEF3E030354"
+        "MsmKey" = "8:_3B75C34CB820CEDEE0A43DEB95502042"
+        "OwnerKey" = "8:_773C8385656A1ED645F024438B279787"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B75C34CB820CEDEE0A43DEB95502042"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4B66570679FAA900175E286E8D4184FD"
+        "MsmKey" = "8:_5CFB6385122A8D3BC2467B2ED16111C2"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4B66570679FAA900175E286E8D4184FD"
-        "OwnerKey" = "8:_4E6D4B1F34636FE9C833FEF58370DFAB"
+        "MsmKey" = "8:_5CFB6385122A8D3BC2467B2ED16111C2"
+        "OwnerKey" = "8:_68F76E3B5F4FBB2978F426DA9048D6AD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4B66570679FAA900175E286E8D4184FD"
-        "OwnerKey" = "8:_6E4C1A92578DC157E17D02D8D51EFE35"
+        "MsmKey" = "8:_5CFB6385122A8D3BC2467B2ED16111C2"
+        "OwnerKey" = "8:_CCC6FF20692D263C60E3A59E9AC38F3F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4E6D4B1F34636FE9C833FEF58370DFAB"
-        "OwnerKey" = "8:_6E4C1A92578DC157E17D02D8D51EFE35"
+        "MsmKey" = "8:_68F76E3B5F4FBB2978F426DA9048D6AD"
+        "OwnerKey" = "8:_CCC6FF20692D263C60E3A59E9AC38F3F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4E6D4B1F34636FE9C833FEF58370DFAB"
+        "MsmKey" = "8:_68F76E3B5F4FBB2978F426DA9048D6AD"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6E4C1A92578DC157E17D02D8D51EFE35"
+        "MsmKey" = "8:_773C8385656A1ED645F024438B279787"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -195,25 +183,37 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8EB1EEC5014A39BBBF2D4D202D5A23AE"
-        "OwnerKey" = "8:_425940040B0547E52ADA0FEF3E030354"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8EB1EEC5014A39BBBF2D4D202D5A23AE"
+        "MsmKey" = "8:_A89E1B3C0652DDDC15499BFDE7EB8167"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C6C355792A167D93B4F12C0397DA0D27"
+        "MsmKey" = "8:_CCC6FF20692D263C60E3A59E9AC38F3F"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D2018857E014EED4605E4215F88FFCC5"
+        "MsmKey" = "8:_DC1A560DB03F8E9F333E9EE84B9712A3"
+        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E2BB54E465409ABC273CE4B429ED220F"
+        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E2E2D2B0D0D2FDD2436A36608065DF0E"
+        "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E81251A46E5B438E9AE37691E342CD12"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -298,61 +298,61 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2F8E990AD9EA477EC8D3CFC7B02573B0"
+        "OwnerKey" = "8:_DC1A560DB03F8E9F333E9EE84B9712A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6C355792A167D93B4F12C0397DA0D27"
+        "OwnerKey" = "8:_A89E1B3C0652DDDC15499BFDE7EB8167"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_02BC7642F0D0010393B1FE1DC94ED8AE"
+        "OwnerKey" = "8:_E2BB54E465409ABC273CE4B429ED220F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6E4C1A92578DC157E17D02D8D51EFE35"
+        "OwnerKey" = "8:_CCC6FF20692D263C60E3A59E9AC38F3F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4E6D4B1F34636FE9C833FEF58370DFAB"
+        "OwnerKey" = "8:_68F76E3B5F4FBB2978F426DA9048D6AD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4B66570679FAA900175E286E8D4184FD"
+        "OwnerKey" = "8:_5CFB6385122A8D3BC2467B2ED16111C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D2018857E014EED4605E4215F88FFCC5"
+        "OwnerKey" = "8:_E2E2D2B0D0D2FDD2436A36608065DF0E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_167366FF2084F38052B55CF68804B563"
+        "OwnerKey" = "8:_E81251A46E5B438E9AE37691E342CD12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_425940040B0547E52ADA0FEF3E030354"
+        "OwnerKey" = "8:_773C8385656A1ED645F024438B279787"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8EB1EEC5014A39BBBF2D4D202D5A23AE"
+        "OwnerKey" = "8:_3B75C34CB820CEDEE0A43DEB95502042"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -369,7 +369,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Setup.msi"
+        "OutputFilename" = "8:Motor Driver GUI.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -401,7 +401,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Motor Driver GUI.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -487,37 +487,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_02BC7642F0D0010393B1FE1DC94ED8AE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:TextBoxBehaivior, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_02BC7642F0D0010393B1FE1DC94ED8AE"
-                    {
-                    "Name" = "8:TextBoxBehaivior.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:TextBoxBehaivior.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08E2B74F80CC40D2B8A47054A6D3421D"
             {
             "SourcePath" = "8:..\\redler_BOD_icon.ico"
@@ -552,37 +521,6 @@
                     }
                 }
             "SourcePath" = "8:SharpDX.D3DCompiler.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_167366FF2084F38052B55CF68804B563"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MathNet.Numerics, Version=2011.4.17.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_167366FF2084F38052B55CF68804B563"
-                    {
-                    "Name" = "8:MathNet.Numerics.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MathNet.Numerics.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
@@ -724,37 +662,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2F8E990AD9EA477EC8D3CFC7B02573B0"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:UserControlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2F8E990AD9EA477EC8D3CFC7B02573B0"
-                    {
-                    "Name" = "8:UserControlLibrary.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:UserControlLibrary.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_33ED3F0ABEBD9BE7B1CC65B1096E2BE3"
             {
             "AssemblyRegister" = "3:1"
@@ -786,20 +693,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_425940040B0547E52ADA0FEF3E030354"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3B75C34CB820CEDEE0A43DEB95502042"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_425940040B0547E52ADA0FEF3E030354"
+                    "_3B75C34CB820CEDEE0A43DEB95502042"
                     {
-                    "Name" = "8:Microsoft.Expression.Interactions.dll"
+                    "Name" = "8:System.Windows.Interactivity.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Microsoft.Expression.Interactions.dll"
+            "SourcePath" = "8:System.Windows.Interactivity.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
@@ -817,14 +724,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B66570679FAA900175E286E8D4184FD"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5CFB6385122A8D3BC2467B2ED16111C2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Telerik.Windows.Controls, Version=2015.2.728.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4B66570679FAA900175E286E8D4184FD"
+                    "_5CFB6385122A8D3BC2467B2ED16111C2"
                     {
                     "Name" = "8:Telerik.Windows.Controls.dll"
                     "Attributes" = "3:512"
@@ -848,14 +755,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4E6D4B1F34636FE9C833FEF58370DFAB"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_68F76E3B5F4FBB2978F426DA9048D6AD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Telerik.Windows.Controls.Input, Version=2015.2.728.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4E6D4B1F34636FE9C833FEF58370DFAB"
+                    "_68F76E3B5F4FBB2978F426DA9048D6AD"
                     {
                     "Name" = "8:Telerik.Windows.Controls.Input.dll"
                     "Attributes" = "3:512"
@@ -879,20 +786,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6E4C1A92578DC157E17D02D8D51EFE35"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_773C8385656A1ED645F024438B279787"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Telerik.Windows.Controls.ImageEditor, Version=2015.2.728.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6E4C1A92578DC157E17D02D8D51EFE35"
+                    "_773C8385656A1ED645F024438B279787"
                     {
-                    "Name" = "8:Telerik.Windows.Controls.ImageEditor.dll"
+                    "Name" = "8:Microsoft.Expression.Interactions.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Telerik.Windows.Controls.ImageEditor.dll"
+            "SourcePath" = "8:Microsoft.Expression.Interactions.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
@@ -930,45 +837,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8EB1EEC5014A39BBBF2D4D202D5A23AE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_8EB1EEC5014A39BBBF2D4D202D5A23AE"
-                    {
-                    "Name" = "8:System.Windows.Interactivity.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Windows.Interactivity.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C6C355792A167D93B4F12C0397DA0D27"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A89E1B3C0652DDDC15499BFDE7EB8167"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:ToggleSwitch, Version=1.1.2.0, Culture=neutral, PublicKeyToken=8637099990568f75, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C6C355792A167D93B4F12C0397DA0D27"
+                    "_A89E1B3C0652DDDC15499BFDE7EB8167"
                     {
                     "Name" = "8:ToggleSwitch.dll"
                     "Attributes" = "3:512"
@@ -992,20 +868,144 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D2018857E014EED4605E4215F88FFCC5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CCC6FF20692D263C60E3A59E9AC38F3F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Telerik.Windows.Controls.ImageEditor, Version=2015.2.728.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_CCC6FF20692D263C60E3A59E9AC38F3F"
+                    {
+                    "Name" = "8:Telerik.Windows.Controls.ImageEditor.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Telerik.Windows.Controls.ImageEditor.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DC1A560DB03F8E9F333E9EE84B9712A3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:UserControlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DC1A560DB03F8E9F333E9EE84B9712A3"
+                    {
+                    "Name" = "8:UserControlLibrary.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:UserControlLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E2BB54E465409ABC273CE4B429ED220F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:TextBoxBehaivior, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E2BB54E465409ABC273CE4B429ED220F"
+                    {
+                    "Name" = "8:TextBoxBehaivior.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:TextBoxBehaivior.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E2E2D2B0D0D2FDD2436A36608065DF0E"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Input.Toolkit, Version=4.0.0.1, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_D2018857E014EED4605E4215F88FFCC5"
+                    "_E2E2D2B0D0D2FDD2436A36608065DF0E"
                     {
                     "Name" = "8:System.Windows.Controls.Input.Toolkit.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:System.Windows.Controls.Input.Toolkit.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E81251A46E5B438E9AE37691E342CD12"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MathNet.Numerics, Version=2011.4.17.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E81251A46E5B438E9AE37691E342CD12"
+                    {
+                    "Name" = "8:MathNet.Numerics.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MathNet.Numerics.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"
@@ -1702,7 +1702,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_83D3749DB44044578D64B94CB522683A"
             {
-            "SourcePath" = "8:..\\SuperButton\\obj\\Debug\\Driver GUI.exe"
+            "SourcePath" = "8:..\\SuperButton\\obj\\Release\\Driver GUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace SuperButton.Models
 {
@@ -96,9 +97,6 @@ namespace SuperButton.Models
                 _execute?.Invoke();
             }
         }
-
-       
-
         #endregion
     }
 }

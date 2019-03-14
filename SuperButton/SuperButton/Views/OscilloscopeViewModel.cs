@@ -1429,11 +1429,11 @@ namespace SuperButton.Views
                                     AllYData2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
 
                                     //Record
-                                    Task.Factory.StartNew(action: () =>
-                                    {
+                                    //Task.Factory.StartNew(action: () =>
+                                    //{
                                         RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
                                         RecList2.Add(item2 * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
-                                    });
+                                    //});
                                 }
                             }
                             #endregion RecordAray
