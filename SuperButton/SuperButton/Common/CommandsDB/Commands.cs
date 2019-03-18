@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using SuperButton.ViewModels;
-
+using System.Windows.Media;
 
 namespace SuperButton.CommandsDB
 {
@@ -1137,19 +1137,21 @@ namespace SuperButton.CommandsDB
             GainList.Add("Gain1 List", new ObservableCollection<object>());
             var data = new NumericTextboxModel
             {
-                Name = "G.Ch1",
-                CommandValue = "1",
-            };
-            Gain.Add("G.Ch1", data);
+                Name = "Ch1 Gain",
+                CommandValue = "1.0",
+                BackGround = (SolidColorBrush)(new BrushConverter().ConvertFrom("#82F7E31D")),
+        };
+            Gain.Add("Ch1 Gain", data);
             GainList["Gain1 List"].Add(data);
 
             GainList.Add("Gain2 List", new ObservableCollection<object>());
             data = new NumericTextboxModel
             {
-                Name = "G.Ch2",
-                CommandValue = "1",
+                Name = "Ch2 Gain",
+                CommandValue = "1.0",
+                BackGround = (SolidColorBrush)(new BrushConverter().ConvertFrom("#7F1810D4")),
             };
-            Gain.Add("G.Ch2", data);
+            Gain.Add("Ch2 Gain", data);
             GainList["Gain2 List"].Add(data);
         }
     }

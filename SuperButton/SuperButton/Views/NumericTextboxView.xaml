@@ -6,22 +6,30 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:models="clr-namespace:SuperButton.Models"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="90">
+             d:DesignHeight="19" d:DesignWidth="110">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="Wheat" BorderThickness="1,1,0.5,1" CornerRadius="4,0,0,4">
-            <Label Content="{Binding Name}" 
+        <Border Grid.Column="0" BorderBrush="White" BorderThickness="0.5,0.5,0.25,0.5" CornerRadius="2,0,0,2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!--<Label Content="{Binding Name}" 
                            Width="Auto"
+                           Background="{Binding BackGround}"
                            Foreground="#FFF9F6F6" 
-                           FontSize="11.5" 
+                           FontSize="12" 
                            HorizontalContentAlignment="Left" 
                            VerticalAlignment="Center" 
-                           Focusable="True"/>
+                           Focusable="True"/>-->
+            <TextBlock Text="{Binding Name}" 
+                           Width="50" 
+                           Background="{Binding BackGround}"
+                           Foreground="#FFF9F6F6" 
+                           FontSize="12"
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Left"/>
         </Border>
-        <Border BorderBrush="Wheat" BorderThickness="0.5,1,1,1" CornerRadius="0,4,4,0" Grid.Column="1">
+        <Border BorderBrush="Wheat" BorderThickness="0.25,0.5,0.5,0.5" CornerRadius="0,2,2,0" Grid.Column="1">
             <TextBox BorderBrush="{x:Null}" Margin="1,0,-1,0"
                              MaxLines="1"
                              HorizontalContentAlignment="Center"

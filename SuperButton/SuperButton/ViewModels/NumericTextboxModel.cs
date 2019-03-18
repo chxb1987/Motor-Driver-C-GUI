@@ -34,7 +34,12 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        private Brush _backGround;
+        public Brush BackGround
+        {
+            get { return _backGround; }
+            set { _backGround = value; OnPropertyChanged("BackGround"); }
+        }
         public virtual ICommand SendData
         {
             get

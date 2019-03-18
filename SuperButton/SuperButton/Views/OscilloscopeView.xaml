@@ -149,17 +149,16 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Line Grid.Column="0" Margin="13,8,5,8"
-        		Stroke="Gray"
-        		Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Line Grid.Column="1" Margin="5,0,6,0"
-            	Stroke="Gray"
-            	Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Line Grid.Column="0" Margin="13,8,5,8" Stroke="Gray" Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Line Grid.Column="1" Margin="5,0,6,0" Stroke="Gray" Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <Button Grid.Column="2" Command="{Binding DirectionPlus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="10,3.5,2,3.5" Width="25" BorderBrush="#FFF3F3F3" BorderThickness="0.5">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0"
-        				Source="pack://application:,,,/Images/back_tb.png"
+        				Source="pack://application:,,,/Images/minus3.png"
         				Stretch="Fill" Width="20" Height="20" />
                     </StackPanel>
                 </Button>
@@ -169,42 +168,30 @@
                 <Button Grid.Column="4" Command="{Binding DirectionMinus}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="25" Margin="3,3.5,1,3.5" Width="25" BorderBrush="White" VerticalAlignment="Center" BorderThickness="0.5">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="0"
-            			Source="pack://application:,,,/Images/next_tb.png" Width="20" Height="20" Stretch="Fill" />
+            			Source="pack://application:,,,/Images/plusZoom.png" Width="20" Height="20" Stretch="Fill" />
                     </StackPanel>
                 </Button>
-                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="30,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
-                    <TextBlock Margin="0"
-            		Foreground="#FFF"
-            		Text="CH1" Background="#82F7E31D" VerticalAlignment="Center" />
+                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="20,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
+                    <TextBlock Foreground="#FFF" Text="CH1" Background="#82F7E31D" VerticalAlignment="Center"/>
                 </Border>
-                <Border Grid.Column="6" MinWidth="100"
-            	Margin="3,0"
-            	Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
-
-                    <ComboBox
+                <Border Grid.Column="6" MinWidth="100" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
+                     <ComboBox
             		SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel1SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0"/>
+            		ItemsSource="{Binding Channel1SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
                 </Border>
                 <Border Grid.Column="7" BorderBrush="White" BorderThickness="0.5" Margin="5,8,0,8" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
-                    <TextBlock Margin="0"
-            		Foreground="#FFF"
-            		Background="#7F1810D4" VerticalAlignment="Center" ><Run Text="Ch2:"/></TextBlock>
+                    <TextBlock Foreground="#FFF" Background="#7F1810D4" VerticalAlignment="Center" Text="CH2"/>
                 </Border>
-                <Border Grid.Column="8" MinWidth="100"
-            	Margin="8,0,3,0"
-            	Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" 
-                >
+                <Border Grid.Column="8" MinWidth="100" Margin="4,0,3,0" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3">
                     <ComboBox
             		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" 
             		ItemsSource="{Binding Channel2SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE" BorderThickness="0" />
 
                 </Border>
-                <Line Grid.Column="9" Margin="5,0"
-                  Stroke="Gray"
-                  Y2="16" VerticalAlignment="Center" />
+                <Line Grid.Column="9" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1"/>
                 <ToggleButton Grid.Column="10" Style="{StaticResource ExampleToolbarToggleButtonStyle}" 
                               IsChecked="{Binding IsFreeze}" 
-                              BorderThickness="0.5" 
+                              BorderThickness="0" 
                               BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
                     <ToggleButton.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -250,10 +237,8 @@
                     <TextBlock Margin="3" Text="Fit View" VerticalAlignment="Center" />
                 </StackPanel>
             </ToggleButton>-->
-                <Line Grid.Column="12" Margin="5,0"
-                  Stroke="#FFD6D5D5"
-                  Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
-                <Button Grid.Column="13" Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
+                <Line Grid.Column="12" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
+                <Button Width="100" Grid.Column="13" Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="3"
                            Source="/Images/fit_to_size.png"
@@ -264,7 +249,7 @@
                 <!--<Button Grid.Column="14" Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                 <TextBlock Margin="3" Text="Rec" />
             </Button>  -->
-                <ToggleButton Grid.Column="14" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
+                <ToggleButton Grid.Column="14" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
                     <ToggleButton.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -283,8 +268,10 @@
                 <Button Grid.Column="15" Command="{Binding ClearGraphCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" VerticalAlignment="Center" BorderThickness="0.5" Width="80" Height="25">
                         <TextBlock Text="Clear Graph" />
                 </Button>
-                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="16" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
-                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="17" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
+                <Line Grid.Column="16" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
+                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="17" Margin="2,0" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
+                <TextBlock Grid.Column="18" Width="5"/>
+                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="19"  ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
             </Grid>
         </ScrollViewer>
 
@@ -412,7 +399,7 @@
             <Button Command="{Binding YMinus}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="0,7,0,5" Width="25" MinWidth="10" MinHeight="10" MaxWidth="30" MaxHeight="30" VerticalAlignment="Center" Height="25" HorizontalAlignment="Center" BorderBrush="#FFE0DBDB" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="0"
-        				Source="pack://application:,,,/Images/back_tb.png"
+        				Source="pack://application:,,,/Images/plusZoom.png"
         				Stretch="Fill" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
@@ -431,12 +418,12 @@
             <Button Command="{Binding YPlus}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="0" Width="25" MinWidth="10" MinHeight="10" MaxWidth="30" MaxHeight="30" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" BorderBrush="#FFDCD7D7" BorderThickness="0.5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Margin="0"
-        				Source="pack://application:,,,/Images/next_tb.png" Width="20" Height="20" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" >
+        				Source="pack://application:,,,/Images/minus3.png" Width="20" Height="20" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="90"/>
+                                <RotateTransform Angle="0"/>
                                 <TranslateTransform/>
                             </TransformGroup>
                         </Image.RenderTransform>

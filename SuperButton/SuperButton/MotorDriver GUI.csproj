@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperButton</RootNamespace>
-    <AssemblyName>Driver GUI</AssemblyName>
+    <AssemblyName>RedlerControl</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <ApplicationIcon>redler_BOD_icon.ico</ApplicationIcon>
     <FileAlignment>512</FileAlignment>
@@ -636,6 +636,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Warning.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\minus3.png" />
+    <Resource Include="Images\plusZoom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

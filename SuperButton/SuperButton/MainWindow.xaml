@@ -15,7 +15,7 @@
         x:Class="SuperButton.MainWindow"
         mc:Ignorable="d"
 	x:Name="Window" 
-	Title="Motor Driver"
+	Title="RedlerControl"
 	Width="1000" Height="600" MinWidth="300" MinHeight="300" IsTabStop="False" ShowInTaskbar="True" WindowState="Maximized"
     Icon="./Themes/redler.jpg"
     Closing="Window_Closing">
