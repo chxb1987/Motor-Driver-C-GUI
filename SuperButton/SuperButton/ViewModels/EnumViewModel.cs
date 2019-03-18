@@ -27,7 +27,7 @@ namespace SuperButton.ViewModels
             get { return _commandList; }
             set
             {
-                foreach (var str in value)
+                foreach(var str in value)
                 {
                     _commandList.Add(str);
                 }
@@ -49,12 +49,12 @@ namespace SuperButton.ViewModels
             {
 
                 base.CommandValue = value;
-                if (Count > 0)
+                if(Count > 0)
                 {
                     SelectedValue = CommandList[Convert.ToInt16(value) - 1];
                     Count++;
                 }
-                if (Count == 5)
+                if(Count == 5)
                     Count = -1;
             }
         }
@@ -69,28 +69,38 @@ namespace SuperButton.ViewModels
 
         private new void SendData()
         {
-            if(Convert.ToInt16(SelectedValue) < 0)
+            if(!LeftPanelViewModel.GetInstance.ValueChange)
             {
-                SelectedValue = "0";
-            }
-            if(Count == 0 && SelectedValue != null && Convert.ToInt16(SelectedValue) > 0)
-            {
-                int StartIndex = 0;
-                int ListIndex = Convert.ToInt16(SelectedValue);
-                foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
+                if(Convert.ToInt16(SelectedValue) < 0)
                 {
-                    if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == CommandList[Convert.ToInt16(SelectedValue)]) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
-                    {
-                        if(List.Value.CommandValue != "")
-                            StartIndex = Convert.ToInt16(List.Value.CommandValue);
-                    }
+                    SelectedValue = "0";
                 }
-                BuildPacketTosend((ListIndex + StartIndex).ToString());
+                if(Count == 0 && SelectedValue != null && Convert.ToInt16(SelectedValue) >= 0)
+                {
+                    int StartIndex = 0;
+                    int ListIndex = Convert.ToInt16(SelectedValue);
+                    foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
+                    {
+                        if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == CommandList[Convert.ToInt16(SelectedValue)]) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
+                        {
+                            if(List.Value.CommandValue != "")
+                            {
+                                StartIndex = Convert.ToInt16(List.Value.CommandValue);
+                                break;
+                            }
+                        }
+                    }
+                    //if(!LeftPanelViewModel.GetInstance.ValueChange)
+                    BuildPacketTosend((ListIndex + StartIndex).ToString());
+                }
             }
+           else
+                LeftPanelViewModel.GetInstance.ValueChange = false;
+            
             if(Count == -1)
                 Count = 0;
         }
-        
+
         private bool IsEnabled()
         {
             return true;
@@ -102,12 +112,17 @@ namespace SuperButton.ViewModels
             set
             {
                 if(_selectedValue == value)
+                {
+                    _selectedValue = value;
+                    OnPropertyChanged("SelectedValue");
+                    LeftPanelViewModel.GetInstance.ValueChange = false;
                     return;
+                }
                 if(_selectedValue != null)
                 {
                     try
                     {
-                        if(Convert.ToInt16(value) > 0 && Convert.ToInt16(value) < CommandList.Count)
+                        if(Convert.ToInt16(value) >= 0 && Convert.ToInt16(value) < CommandList.Count)
                         {
                             _selectedValue = CommandList[Convert.ToInt16(value)];
                         }
@@ -176,7 +191,7 @@ namespace SuperButton.ViewModels
         }
         private void BuildPacketTosend(string val)
         {
-            if (LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
+            if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
             {
                 Task.Factory.StartNew(action: () =>
                 {

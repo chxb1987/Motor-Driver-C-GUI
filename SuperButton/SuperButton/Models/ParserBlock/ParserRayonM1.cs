@@ -89,7 +89,7 @@ namespace SuperButton.Models.ParserBlock
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
-                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
+                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
 
                 if(LeftPanelViewModel.GetInstance != null)
                 { // perform Get after "set" function
@@ -424,27 +424,13 @@ namespace SuperButton.Models.ParserBlock
         }
         public void ParseStandartData(List<byte[]> dataList)
         {
-            //RefreshManger.GetInstance.arr3.Add(139);
-            //RefreshManger.GetInstance.arr3.Add(60);
-            
             for (int i = 0; i < dataList.Count; i++)
             {
-            //    foreach(var b in dataList[i])
-            //        RefreshManger.GetInstance.arr3.Add(b);
-                //Task.Factory.StartNew(action: () =>
-                //{
-                //    Thread.Sleep(1);
                 ParseInputPacket(dataList[i]);
-                //});
             }
         }
         public bool ParseInputPacket(byte[] data)
         {
-            //RefreshManger.GetInstance.arr2.Add(139);
-            //RefreshManger.GetInstance.arr2.Add(60);
-            //foreach(var b in data)
-            //    RefreshManger.GetInstance.arr2.Add(b);
-
             var crclsb = data[7];
             var crcmsb = data[8];
 
@@ -470,7 +456,7 @@ namespace SuperButton.Models.ParserBlock
                 commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
                 //int newPropertyValueInt=0;
                 float newPropertyValuef = 0;
-                if (commandId != 100)
+                if (commandId != 100 && commandId != 1) // 67
                 {
                     if (isInt)
                     {
@@ -486,7 +472,7 @@ namespace SuperButton.Models.ParserBlock
                         {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
                         }
-                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+                        //Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
                     }
                     else
                     {
@@ -500,8 +486,19 @@ namespace SuperButton.Models.ParserBlock
                         {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
                         }
-                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
+                        //Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
                     }
+                }
+                else if(commandId == 1) // 67
+                {
+                    Int32 transit = data[6];
+                    transit <<= 8;
+                    transit |= data[5];
+                    transit <<= 8;
+                    transit |= data[4];
+                    transit <<= 8;
+                    transit |= data[3];
+                    LoadParamsViewModel.GetInstance.DataToList(transit);
                 }
                 else
                 {
@@ -543,7 +540,7 @@ namespace SuperButton.Models.ParserBlock
             short plotDataSample;
 
             // In order to achive best performance using good old-fashioned for loop: twice faster! then "foreach (byte[] packet in PlotList)"
-
+            //Debug.WriteLine("ParsePlot 1" + DateTime.Now.ToString("h:mm:ss.fff"));
             if (!OscilloscopeViewModel.GetInstance.IsFreeze)
             {
                 for (var i = 0; i < PlotList.Count; i++)
@@ -583,11 +580,14 @@ namespace SuperButton.Models.ParserBlock
                             FifoplotList.Enqueue(plotDataSample * iqFactor);
                         else if (OscilloscopeParameters.ChanTotalCounter == 2)
                             FifoplotListCh2.Enqueue(plotDataSample * iqFactor);
+                        //FifoplotList.Enqueue(-100);
                     }
 
                 }
                 PlotList.Clear();
+                //Debug.WriteLine("ParsePlot 2" + DateTime.Now.ToString("h:mm:ss.fff"));
             }
+
         }
 
     }//Class

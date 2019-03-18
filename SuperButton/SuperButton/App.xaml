@@ -54,7 +54,9 @@
             <DataTemplate x:Key="CalibrationButtonModel">
                 <views:CalibrationButton></views:CalibrationButton>
             </DataTemplate>
-
+            <DataTemplate x:Key="NumericTextboxModel">
+                <views:NumericTextboxView></views:NumericTextboxView>
+            </DataTemplate>
             <!--<DataTemplate x:Key="LeftPanelViewModel">
                 <local:GridSplitter></local:GridSplitter>
             </DataTemplate>-->

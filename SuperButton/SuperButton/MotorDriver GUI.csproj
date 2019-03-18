@@ -194,6 +194,8 @@
     <Compile Include="ViewModels\CalibrationButtonModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
+    <Compile Include="ViewModels\LoadParamsViewModel.cs" />
+    <Compile Include="ViewModels\NumericTextboxModel.cs" />
     <Compile Include="ViewModels\FeedBackViewModel.cs" />
     <Compile Include="ViewModels\MaintenanceViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxVM.cs" />
@@ -204,6 +206,9 @@
     </Compile>
     <Compile Include="Views\DataViewInd.xaml.cs">
       <DependentUpon>DataViewInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NumericTextboxView.xaml.cs">
+      <DependentUpon>NumericTextboxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataViewSmallFontInd.xaml.cs">
       <DependentUpon>DataViewSmallFontInd.xaml</DependentUpon>
@@ -315,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataViewInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NumericTextboxView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

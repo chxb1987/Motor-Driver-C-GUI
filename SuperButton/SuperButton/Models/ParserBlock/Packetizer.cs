@@ -49,9 +49,10 @@ namespace SuperButton.Models.ParserBlock
         {
             get
             {
-                lock (Synlock)
+                lock(Synlock)
                 {
-                    if (_instance != null) return _instance;
+                    if(_instance != null)
+                        return _instance;
                     _instance = new Packetizer();
                     return _instance;
                 }
@@ -60,74 +61,89 @@ namespace SuperButton.Models.ParserBlock
 
         public Packetizer()
         {
-            Rs232Interface.GetInstance.Rx2Packetizer += MakePacketsBuff;
+            Task.Factory.StartNew(action: () =>
+            {
+                Thread.Sleep(10);
+                Rs232Interface.GetInstance.Rx2Packetizer += MakePacketsBuff;
+            });
         }
 
         public void MakePacketsBuff(object sender, Rs232InterfaceEventArgs e)
         {
-            
-                if (sender is Rs232Interface) //RayonM3 Parser
-                {
-                    if (Rs232Interface.GetInstance.IsSynced)//Already Synchronized
-                    {
-                        if (e.DataChunk.Length == 0) return;
 
-                        length = e.DataChunk.Length;
-                        data = e.DataChunk;
-                        for (int i = 0; i < length; i++)
-                        {
-                            FiilsPlotPackets(data[i]); //Plot packets
-                            FiilsStandartPackets(data[i]);//Standart Packets                    
-                            FiilsStandartPacketsNew(data[i]);//Standart Pavkets New Updeted
-                        }
-                        if (PlotPacketsList.Count > 0)
-                        {
-                            ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
-                        }               //send to plot parser              
-                        if (StandartPacketsListNew.Count > 0)
-                        {
+            if(sender is Rs232Interface) //RayonM3 Parser
+            {
+                if(Rs232Interface.GetInstance.IsSynced)//Already Synchronized
+                {
+                    if(e.DataChunk.Length == 0)
+                        return;
+
+                    length = e.DataChunk.Length;
+                    data = e.DataChunk;
+                    //Parallel.For(0, length, i =>
+                    //{
+                    //    FiilsPlotPackets(data[i]); //Plot packets
+                    //    FiilsStandartPackets(data[i]);//Standart Packets                
+                    //    FiilsStandartPacketsNew(data[i]);//Standart Pavkets New Updeted
+                    //    i++;
+                    //});
+                    for(int i = 0; i < length; i++)
+                    {
+                        FiilsPlotPackets(data[i]); //Plot packets
+                        //FiilsStandartPackets(data[i]);//Standart Packets                    
+                        FiilsStandartPacketsNew(data[i]);//Standart Pavkets New Updeted
+                    }
+                    if(PlotPacketsList.Count > 0)
+                    {
+                        //ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        PlotPacketsList.Clear();
+                    }               //send to plot parser              
+                    if(StandartPacketsListNew.Count > 0)
+                    {
                         //ParserRayonM1.GetInstanceofParser.ParseStandartData(StandartPacketsListNew);
                         //foreach(var packet in StandartPacketsListNew)
-                            //ParserRayonM1.GetInstanceofParser.ParseInputPacket(packet);
+                        //ParserRayonM1.GetInstanceofParser.ParseInputPacket(packet);
                         StandartPacketsListNew.Clear(); // Joseph add
 
-                        } //send to Standart parser                             
-                    }
-                    else
+                    } //send to Standart parser                             
+                }
+                else
+                {
+                    if(e.DataChunk.Length == 0)
+                        return;
+
+                    PlotPacketsList.Clear();
+                    StandartPacketsListNew.Clear();
+
+
+                    length = e.DataChunk.Length;
+                    data = e.DataChunk;
+                    for(int i = 0; i < length; i++)
                     {
-                        if (e.DataChunk.Length == 0) return;
-
-                        PlotPacketsList.Clear();
+                        AproveSynchronization(data[i]); //Plot packets
+                    }
+                    if(StandartPacketsListNew.Count > 0)
+                    {
+                        ParserRayonM1.GetInstanceofParser.ParseSynchAcktData(StandartPacketsListNew);
                         StandartPacketsListNew.Clear();
-
-
-                        length = e.DataChunk.Length;
-                        data = e.DataChunk;
-                        for (int i = 0; i < length; i++)
-                        {
-                            AproveSynchronization(data[i]); //Plot packets
-                        }
-                        if (StandartPacketsListNew.Count > 0)
-                        {
-                            ParserRayonM1.GetInstanceofParser.ParseSynchAcktData(StandartPacketsListNew);
-                            StandartPacketsListNew.Clear();
-                        }
                     }
                 }
-            
+            }
+
         }
         private void FiilsStandartPacketsNew(byte ch)
         {
-            switch (standpacketStateNew)
+            switch(standpacketStateNew)
             {
                 case (0):	//First magic
-                    if (ch == 0x8b)
+                    if(ch == 0x8b)
                     { standpacketStateNew++; }
                     break;
                 case (1)://Second magic
-                    if (ch == 0x3c)
+                    if(ch == 0x3c)
                     { standpacketStateNew++; }
-                    else standpacketStateNew = 0;
+                    else
+                        standpacketStateNew = 0;
                     break;
                 case (2):
                 case (3):
@@ -158,16 +174,17 @@ namespace SuperButton.Models.ParserBlock
 
         private void AproveSynchronization(byte ch)
         {
-            switch (_synchAproveState)
+            switch(_synchAproveState)
             {
                 case (0):	//First magic
-                    if (ch == 0x8b)
+                    if(ch == 0x8b)
                     { _synchAproveState++; }
                     break;
                 case (1)://Second magic
-                    if (ch == 0x3c)
+                    if(ch == 0x3c)
                     { _synchAproveState++; }
-                    else _synchAproveState = 0;
+                    else
+                        _synchAproveState = 0;
                     break;
                 case (2):
                 case (3):
@@ -194,10 +211,10 @@ namespace SuperButton.Models.ParserBlock
         private void FiilsStandartPackets(byte ch)
         {
 
-            switch (standpacketState)
+            switch(standpacketState)
             {
                 case (0):	//First magic
-                    if (ch == 0x8b)
+                    if(ch == 0x8b)
                     {
 
                         // pack[plotpacketState] = ch;
@@ -207,7 +224,7 @@ namespace SuperButton.Models.ParserBlock
                     break;
                 case (1)://Second magic
 
-                    if (ch == 0x3c)
+                    if(ch == 0x3c)
                     {
                         pack[standpacketState] = ch;
                         standpacketState++;
@@ -216,7 +233,7 @@ namespace SuperButton.Models.ParserBlock
                         standpacketState = 0;
                     break;
                 case (2):
-                    if (ch == 213)
+                    if(ch == 213)
                     {
                         standpacketState++;
                     }
@@ -267,10 +284,10 @@ namespace SuperButton.Models.ParserBlock
             byte[] readypacket;
 
 
-            switch (plotpacketState)
+            switch(plotpacketState)
             {
                 case (0):   //First magic
-                    if (ch == 0xbb)
+                    if(ch == 0xbb)
                     {
 
                         pack[plotpacketState] = ch;
@@ -280,7 +297,7 @@ namespace SuperButton.Models.ParserBlock
                     break;
                 case (1)://Second magic
 
-                    if (ch == 0xcc)
+                    if(ch == 0xcc)
                     {
                         pack[plotpacketState] = ch;
                         plotpacketState++;
@@ -339,17 +356,19 @@ namespace SuperButton.Models.ParserBlock
                     chechSum += pack[8];
                     chechSum += pack[9];
 
-                    if (chechSum == ch)
+                    if(chechSum == ch)
                     {
                         pack[plotpacketState] = ch;
                         readypacket = new byte[11];
                         Array.Copy(pack, 0, readypacket, 0, 11);
                         PlotPacketsList.Add(readypacket);
+                        ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
                     }
                     else
                     {
                         readypacket = new byte[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                         PlotPacketsList.Add(readypacket);
+                        ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
                     }
 
                     plotpacketState = 0;

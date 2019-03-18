@@ -141,7 +141,7 @@ namespace SuperButton.ViewModels
                     ID = 63,
                     SubID = Convert.ToInt16(10),
                     IsSet = true,
-                    IsFloat = true
+                    IsFloat = false
                 }
                 );
                 OnPropertyChanged();

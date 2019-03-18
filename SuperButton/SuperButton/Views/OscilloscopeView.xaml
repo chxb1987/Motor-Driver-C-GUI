@@ -147,6 +147,8 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Line Grid.Column="0" Margin="13,8,5,8"
         		Stroke="Gray"
@@ -170,7 +172,7 @@
             			Source="pack://application:,,,/Images/next_tb.png" Width="20" Height="20" Stretch="Fill" />
                     </StackPanel>
                 </Button>
-                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="69,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
+                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="30,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
                     <TextBlock Margin="0"
             		Foreground="#FFF"
             		Text="CH1" Background="#82F7E31D" VerticalAlignment="Center" />
@@ -281,6 +283,8 @@
                 <Button Grid.Column="15" Command="{Binding ClearGraphCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" VerticalAlignment="Center" BorderThickness="0.5" Width="80" Height="25">
                         <TextBlock Text="Clear Graph" />
                 </Button>
+                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="16" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
+                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="17" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
             </Grid>
         </ScrollViewer>
 

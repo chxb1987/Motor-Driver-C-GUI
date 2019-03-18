@@ -179,7 +179,7 @@ namespace SuperButton.Models.DriverBlock
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
                 case 6: // 7
-                    arr = new string[] { };// "Maintenance List", "MaintenanceBool List"
+                    arr = new string[] {"Maintenance List" };// , "MaintenanceBool List"
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
                     return PanelElements;
@@ -230,7 +230,7 @@ namespace SuperButton.Models.DriverBlock
                     Debug.WriteLine(" --- Tab --- ");
                 }
 
-                Debug.WriteLine("2: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                //Debug.WriteLine("2: " + DateTime.Now.ToString("h:mm:ss.fff"));
                 foreach(var command in BuildList)
                 {
                     if(!command.Value.IsSelected)
@@ -247,7 +247,7 @@ namespace SuperButton.Models.DriverBlock
                     else
                     {
                     }
-                    Thread.Sleep(3);
+                    Thread.Sleep(6);
                     //Thread.SpinWait(1000);
                 }
                 Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
@@ -270,10 +270,8 @@ namespace SuperButton.Models.DriverBlock
                 ConnectionCount++;
                 if(ConnectionCount == 5)
                 {
-
-                    EventRiser.Instance.RiseEevent(string.Format("CountDebug: {0}", CountDebug));
                     EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
-                    Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
+                    LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Not Connected";
                 }
             }
         }
@@ -387,11 +385,11 @@ namespace SuperButton.Models.DriverBlock
             }
             return channel + ": " + value;
         }
-        public int CountDebug = 0;
         //public static int CalibrationTimeOut = 10;
         //private static int PrecedentIdx = 0;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
+            LeftPanelViewModel.GetInstance.ValueChange = false;
             #region Calibration_old
             //if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             //{
@@ -491,9 +489,8 @@ namespace SuperButton.Models.DriverBlock
             {
                 if(commandidentifier.Item2 == 0)
                     OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
-                if(commandidentifier.Item2 == 1)
+                else if(commandidentifier.Item2 == 1)
                     OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
-
                 OscilloscopeParameters.InitList();
             }
             #endregion Plot_Channels
@@ -504,17 +501,27 @@ namespace SuperButton.Models.DriverBlock
             }
             else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
             {
-                if(newPropertyValue == "1" || newPropertyValue == "0")
+                if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Connected")
                 {
-                    CountDebug++;
-                    ConnectionCount = 0;
-                    LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
-                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                    if(newPropertyValue == "1" || newPropertyValue == "0")
+                    {
+                        ConnectionCount = 0;
+                        LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                    }
+                }
+                else if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Not Connected")
+                {
+                    LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Connected";
                 }
             }
             else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
             {
                 MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
+            }
+            else if(commandidentifier.Item1 == 63 && commandidentifier.Item2 == 10) // EnableLoader
+            {
+                MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
             }
             else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
@@ -527,8 +534,12 @@ namespace SuperButton.Models.DriverBlock
                 int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
                 if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
                 {
-                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedValue =
-                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                    if(!LeftPanelViewModel.GetInstance.ValueChange)
+                    {
+                        LeftPanelViewModel.GetInstance.ValueChange = true;
+                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedValue =
+                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                    }
                 }
             }
             #endregion DataView_EnumView

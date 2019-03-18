@@ -161,7 +161,7 @@ namespace SuperButton.ViewModels
         private void SincronizationPos(object sender, Rs232InterfaceEventArgs e)
         {
             leftPanelViewModel.ConnectButtonContent = e.ConnecteButtonLabel;
-            leftPanelViewModel.ConnectTextBoxContent = e.ConnecteButtonLabel;
+            //leftPanelViewModel.ConnectTextBoxContent = e.ConnecteButtonLabel;
             leftPanelViewModel.ComToolTipText = "Allready Connected";
         }
 

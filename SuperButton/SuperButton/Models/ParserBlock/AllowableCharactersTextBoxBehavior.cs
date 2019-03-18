@@ -19,8 +19,9 @@ namespace SuperButton.Models
         void OnPreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             var txt = sender as TextBox;
+            string Name = txt.DataContext.ToString();
             string selection = txt.SelectedText;
-            if (txt.Background.ToString() == "#FFFF0000") {
+            if (txt.Background.ToString() == "#FFFF0000" || Name == "SuperButton.ViewModels.NumericTextboxModel") {
                 if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text, selection == "" ? false : true);
             }
             else

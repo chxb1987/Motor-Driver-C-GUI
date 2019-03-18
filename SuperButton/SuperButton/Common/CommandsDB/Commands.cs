@@ -25,6 +25,8 @@ namespace SuperButton.CommandsDB
             UpperMainPannelList();
             CalibrationCmd();
             BuildErrorList();
+
+            GenerateGain();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -52,6 +54,9 @@ namespace SuperButton.CommandsDB
         public Dictionary<string, ObservableCollection<object>> CalibartionCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
 
         public Dictionary<int, string> ErrorList = new Dictionary<int, string>();
+        public Dictionary<string, NumericTextboxModel> Gain = new Dictionary<string, NumericTextboxModel>();
+        public Dictionary<string, ObservableCollection<object>> GainList = new Dictionary<string, ObservableCollection<object>>();
+
         private static readonly object Synlock = new object(); //Single tone variable
         private static Commands _instance;
         public float _pidcurr;
@@ -210,6 +215,7 @@ namespace SuperButton.CommandsDB
         }
         private void GenerateFeedBakcCommands()
         {
+            #region Hall_SSI
             var names = new[]
             {
                 "Enable", "Roll UP", "Sample Period",
@@ -220,9 +226,6 @@ namespace SuperButton.CommandsDB
             DataCommandsListbySubGroup.Add("Qep1", new ObservableCollection<object>());
             DataCommandsListbySubGroup.Add("Qep2", new ObservableCollection<object>());
             DataCommandsListbySubGroup.Add("SSI_Feedback", new ObservableCollection<object>());
-            //DataCommandsListbySubGroup.Add("Digital", new ObservableCollection<object>());
-            //DataCommandsListbySubGroup.Add("Analog", new ObservableCollection<object>());
-
 
             for(var i = 0; i < names.Length; i++)
             {
@@ -284,6 +287,8 @@ namespace SuperButton.CommandsDB
                 DataCommandsListbySubGroup["Hall"].Add(data);
             }
 
+            #endregion Hall_SSI
+            #region Qep1Qep2
             names = new[]
             {
                 "Enable", "Roll High", "Roll Low", "Direction", "Counts Per Rev",
@@ -348,6 +353,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep1["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
+                SelectedValue = "1",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(71, 8), enum1);
@@ -373,6 +379,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep2["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
+                SelectedValue = "1",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(72, 8), enum2);
@@ -381,6 +388,7 @@ namespace SuperButton.CommandsDB
             {
               enum2
             });
+            #endregion  Qep1Qep2
         }
         public void GenerateMotionCommands()
         {
@@ -994,7 +1002,7 @@ namespace SuperButton.CommandsDB
             //DataViewCommandsList.Add(new Tuple<int, int>(63, 11), data);
             //DataCommandsListbySubGroup["Maintenance List"].Add(data);
 
-            DataCommandsListbySubGroup.Add("MaintenanceBool List", new ObservableCollection<object>());
+            //DataCommandsListbySubGroup.Add("MaintenanceBool List", new ObservableCollection<object>());
 
             var names = new[] { "Save", "Load Manufacture defaults" }; //, "Reboot Driver", "Enable Protected Write", "Enable Loader"};
             var ID = new[] { "63", "63" }; //, "63", "63", "65" };
@@ -1009,9 +1017,21 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                     IsFloat = true,
                 };
-                DataViewCommandsList.Add(new Tuple<int, int>(Convert.ToInt16(ID[i]), Convert.ToInt16(subID[i])), data);
-                DataCommandsListbySubGroup["MaintenanceBool List"].Add(data);
+                //DataViewCommandsList.Add(new Tuple<int, int>(Convert.ToInt16(ID[i]), Convert.ToInt16(subID[i])), data);
+                //DataCommandsListbySubGroup["MaintenanceBool List"].Add(data);
             }
+
+            data = new DataViewModel
+            {
+                CommandName = "Protected Params",
+                CommandId = "63",
+                CommandSubId = "10",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(63, 10), data);
+            DataCommandsListbySubGroup["Maintenance List"].Add(data);
+
         }
         private void UpperMainPannelList()
         {
@@ -1110,6 +1130,27 @@ namespace SuperButton.CommandsDB
             ErrorList.Add(73, "SET_POSITION"              );
             ErrorList.Add(127,"MODULO_RANGE_MUST_POSITIVE");
             ErrorList.Add(166, "OUT_OF_MODULO_RANGE"      );
+        }
+
+        private void GenerateGain()
+        {
+            GainList.Add("Gain1 List", new ObservableCollection<object>());
+            var data = new NumericTextboxModel
+            {
+                Name = "G.Ch1",
+                CommandValue = "1",
+            };
+            Gain.Add("G.Ch1", data);
+            GainList["Gain1 List"].Add(data);
+
+            GainList.Add("Gain2 List", new ObservableCollection<object>());
+            data = new NumericTextboxModel
+            {
+                Name = "G.Ch2",
+                CommandValue = "1",
+            };
+            Gain.Add("G.Ch2", data);
+            GainList["Gain2 List"].Add(data);
         }
     }
 }

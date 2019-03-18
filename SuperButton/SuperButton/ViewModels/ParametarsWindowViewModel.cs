@@ -15,7 +15,7 @@ namespace SuperButton.ViewModels
         private MotionViewModel _motionViewModel;
         private MaintenanceViewModel _maintenanceViewModel;
         private FeedBackViewModel _feedBackViewModel;
-
+        private LoadParamsViewModel _loadParamsViewModel;
         public ParametarsWindowViewModel()
         {
             _operationViewModel = OperationViewModel.GetInstance;
@@ -23,6 +23,7 @@ namespace SuperButton.ViewModels
             _motionViewModel = MotionViewModel.GetInstance;
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
             _feedBackViewModel = FeedBackViewModel.GetInstance;
+            _loadParamsViewModel = LoadParamsViewModel.GetInstance;
         }
         ~ParametarsWindowViewModel() { }
         public ObservableCollection<object> ControlList
@@ -174,7 +175,11 @@ namespace SuperButton.ViewModels
         {
             get { return _feedBackViewModel; }
         }
-        
+        public LoadParamsViewModel LoadParamsViewModel
+        {
+            get { return _loadParamsViewModel; }
+        }
+
 
         private bool CheckValue()
         {

@@ -57,8 +57,10 @@ namespace SuperButton.ViewModels
                 }
             }
         }
+        public bool ValueChange = false;
         public LeftPanelViewModel()
         {
+
             EventRiser.Instance.LoggerEvent += Instance_LoggerEvent;
             ComboBoxCOM = ComboBox.GetInstance;
             //Task task = Task.Run((Action)_comboBox.UpdateComList);
@@ -91,6 +93,7 @@ namespace SuperButton.ViewModels
                     {
                     }
                     LeftPanelViewModel.flag = false;
+                    ConnectTextBoxContent = "Not Connected";
                 }
                 if (_connetButtonContent == value) return;
                 _connetButtonContent = value;
@@ -180,6 +183,7 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = false
             });
+            
             #endregion  Operations
             LeftPanelViewModel.flag = true;
 
@@ -196,16 +200,16 @@ namespace SuperButton.ViewModels
         {
             get
             {
-                if (_connetButtonContent == "Connect")
-                {
-                    if (ParametarsWindow.WindowsOpen)
-                        Close_parmeterWindow();
-                    return "Not Connected";
-                }
-                else
-                {
-                    return "Connected";
-                }
+                //if (_connetButtonContent == "Connect")
+                //{
+                //    //if (ParametarsWindow.WindowsOpen)
+                //    //    Close_parmeterWindow();
+                //    return "Not Connected";
+                //}
+                //else
+                //{
+                    return _connectTextBoxContent;//"Connected";
+                //}
 
             }
             set
@@ -789,7 +793,7 @@ namespace SuperButton.ViewModels
             while (flag && LeftPanelViewModel.GetInstance.EnRefresh )// && count != 1
             {
                 RefreshManger.GetInstance.StartRefresh();
-                await Task.Delay(500);
+                await Task.Delay(1000);
                 //count++;
             }
         }
