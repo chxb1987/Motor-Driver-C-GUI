@@ -89,7 +89,7 @@ namespace SuperButton.Models.ParserBlock
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
-                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
+                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
 
                 if(LeftPanelViewModel.GetInstance != null)
                 { // perform Get after "set" function
@@ -456,9 +456,9 @@ namespace SuperButton.Models.ParserBlock
                 commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
                 //int newPropertyValueInt=0;
                 float newPropertyValuef = 0;
-                if (commandId != 100 && commandId != 1) // 67
+                if(commandId != 100 && commandId != 67 && commandId != 63) // 67
                 {
-                    if (isInt)
+                    if(isInt)
                     {
                         Int32 transit = data[6];
                         transit <<= 8;
@@ -472,12 +472,12 @@ namespace SuperButton.Models.ParserBlock
                         {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
                         }
-                        //Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
                     }
                     else
                     {
                         var dataAray = new byte[4];
-                        for (int i = 0; i < 4; i++)
+                        for(int i = 0; i < 4; i++)
                         {
                             dataAray[i] = data[i + 3];
                         }
@@ -486,19 +486,63 @@ namespace SuperButton.Models.ParserBlock
                         {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
                         }
-                        //Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
                     }
                 }
-                else if(commandId == 1) // 67
+                else if(commandId == 63) // GetParamas Operation
                 {
-                    Int32 transit = data[6];
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = 0,
+                        ID = 67,
+                        SubID = Convert.ToInt16(1),
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                }
+                else if(commandId == 67)
+                {
+                    UInt32 transit = data[6];
                     transit <<= 8;
                     transit |= data[5];
                     transit <<= 8;
                     transit |= data[4];
                     transit <<= 8;
                     transit |= data[3];
-                    LoadParamsViewModel.GetInstance.DataToList(transit);
+                    Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+                    if(commandSubId == 1)
+                    {
+                        MaintenanceViewModel.ParamsCount = transit;
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = 1,
+                            ID = 67,
+                            SubID = Convert.ToInt16(12),
+                            IsSet = true,
+                            IsFloat = false
+                        }
+                        );
+                    }
+                    else if(commandSubId == 12 && getSet == 1)
+                    {
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = 1,
+                            ID = 67,
+                            SubID = Convert.ToInt16(13),
+                            IsSet = false,
+                            IsFloat = false
+                        }
+                        );
+                    }
+                    else if(commandSubId == 13)
+                    {
+                        MaintenanceViewModel.GetInstance.DataToList(transit);
+                    }
+                    //else if(commandSubId == 14)
+                    //{
+                    //    MaintenanceViewModel.GetInstance.DataToList(transit);
+                    //}
                 }
                 else
                 {
@@ -510,7 +554,8 @@ namespace SuperButton.Models.ParserBlock
                     transit |= data[4];
                     transit <<= 8;
                     transit |= data[3];
-                    if(Commands.GetInstance.ErrorList.TryGetValue(transit, out result)){
+                    if(Commands.GetInstance.ErrorList.TryGetValue(transit, out result))
+                    {
                         EventRiser.Instance.RiseEevent(string.Format($"Com. Error: " + result));
                     }
                     else

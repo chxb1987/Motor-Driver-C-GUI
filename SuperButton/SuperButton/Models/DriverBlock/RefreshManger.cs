@@ -515,14 +515,10 @@ namespace SuperButton.Models.DriverBlock
                     LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Connected";
                 }
             }
-            else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
-            {
-                MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
-            }
-            else if(commandidentifier.Item1 == 63 && commandidentifier.Item2 == 10) // EnableLoader
-            {
-                MaintenanceViewModel.GetInstance.EnableWrite = (newPropertyValue == 0.ToString()) ? false : true;
-            }
+            //else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
+            //{
+            //    MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
+            //}
             else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
                 Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;

@@ -23,7 +23,7 @@ namespace SuperButton.ViewModels
             _motionViewModel = MotionViewModel.GetInstance;
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
             _feedBackViewModel = FeedBackViewModel.GetInstance;
-            _loadParamsViewModel = LoadParamsViewModel.GetInstance;
+            //_loadParamsViewModel = LoadParamsViewModel.GetInstance;
         }
         ~ParametarsWindowViewModel() { }
         public ObservableCollection<object> ControlList

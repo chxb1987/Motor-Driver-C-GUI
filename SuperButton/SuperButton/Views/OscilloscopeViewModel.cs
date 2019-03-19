@@ -703,7 +703,7 @@ namespace SuperButton.Views
             }
         }
 
-        //private int ActChenCount = 0;
+        private int ActChenCount = 0;
 
         #region Channels
         private int _chan1Counter = 0;
@@ -929,26 +929,26 @@ namespace SuperButton.Views
                     AllYData.Clear();
                 }
                 //update step
-                //StepRecalcMerge();
+                StepRecalcMerge();
             }
             OscilloscopeParameters.ChanelFreq = OscilloscopeParameters.ChanTotalCounter == 0 ? OscilloscopeParameters.SingleChanelFreqC : OscilloscopeParameters.SingleChanelFreqC / OscilloscopeParameters.ChanTotalCounter;
             int ActualPOintstoPlot = POintstoPlot;//Actual points to plot transit value
             POintstoPlot = (int)(OscilloscopeParameters.ChanelFreq * _duration * 0.001);
 
-            //if(ActualPOintstoPlot != POintstoPlot)//Reset
-            //{
-            //    ActChenCount = 1;
-            //    _isFull = false;
-            //    pivot = 0;
-            //    using(this.ChartData.SuspendUpdates())
-            //    {
-            //        _series0.Clear();
-            //        _series1.Clear();
-            //    }
-            //    _yFloats = new float[0];
-            //    _yFloats2 = new float[0];
-            //    AllYData.Clear();
-            //}
+            if(ActualPOintstoPlot != POintstoPlot)//Reset
+            {
+                ActChenCount = 1;
+                _isFull = false;
+                pivot = 0;
+                using(this.ChartData.SuspendUpdates())
+                {
+                    _series0.Clear();
+                    _series1.Clear();
+                }
+                _yFloats = new float[0];
+                _yFloats2 = new float[0];
+                AllYData.Clear();
+            }
         }
         private void StepRecalcMerge()
         {
@@ -1202,7 +1202,19 @@ namespace SuperButton.Views
                     {
                         #region SingleChan
                         if(ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty)
-                            return;
+                        {
+                            if(AllYData.Count > 1 && _isFull)
+                                State = 4;
+                            else
+                                return;
+                        }
+                        else if(ActChenCount == 1)//First throw
+                        {
+                            float item;
+                            while(ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
+                            { }
+                            ActChenCount = 0;
+                        }
                         else //Collect whole the Data to the single grand list
                         {
                             List<float> Ytemp = new List<float>();
@@ -1214,8 +1226,8 @@ namespace SuperButton.Views
                             //}
 
                             //retrieve all the data
-                            float SubGain1 = Convert.ToSingle(Commands.GetInstance.Gain["G.Ch1"].CommandValue);
-                            float SubGain2 = Convert.ToSingle(Commands.GetInstance.Gain["G.Ch2"].CommandValue);
+                            float SubGain1 = Convert.ToSingle(Commands.GetInstance.Gain["Ch1 Gain"].CommandValue);
+                            float SubGain2 = Convert.ToSingle(Commands.GetInstance.Gain["Ch2 Gain"].CommandValue);
                             while(ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
                             {
                                 if(ch1 != 0)
@@ -1464,8 +1476,8 @@ namespace SuperButton.Views
                         #endregion RecordAray
                         else
                         {
-                            float SubGain1 = Convert.ToSingle(Commands.GetInstance.Gain["G.Ch1"].CommandValue);
-                            float SubGain2 = Convert.ToSingle(Commands.GetInstance.Gain["G.Ch2"].CommandValue);
+                            float SubGain1 = Convert.ToSingle(Commands.GetInstance.Gain["Ch1 Gain"].CommandValue);
+                            float SubGain2 = Convert.ToSingle(Commands.GetInstance.Gain["Ch2 Gain"].CommandValue);
 
                             while(ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out item))
                             {
@@ -1868,8 +1880,7 @@ namespace SuperButton.Views
                 {
                     if(!MessageBoxWrapper.IsOpen)
                     {
-                        string msg = string.Format("No plot detected !");
-                        MessageBoxWrapper.Show(msg, "");
+                        EventRiser.Instance.RiseEevent(string.Format($"No plot detected !"));
                     }
                     _is_recording = false;
                 }

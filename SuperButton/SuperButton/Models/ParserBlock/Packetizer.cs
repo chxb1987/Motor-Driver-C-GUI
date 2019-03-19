@@ -90,13 +90,13 @@ namespace SuperButton.Models.ParserBlock
                     for(int i = 0; i < length; i++)
                     {
                         FiilsPlotPackets(data[i]); //Plot packets
-                        //FiilsStandartPackets(data[i]);//Standart Packets                    
+                        FiilsStandartPackets(data[i]);//Standart Packets                    
                         FiilsStandartPacketsNew(data[i]);//Standart Pavkets New Updeted
                     }
                     if(PlotPacketsList.Count > 0)
                     {
-                        //ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
-                        PlotPacketsList.Clear();
+                        ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        //PlotPacketsList.Clear();
                     }               //send to plot parser              
                     if(StandartPacketsListNew.Count > 0)
                     {
@@ -362,13 +362,13 @@ namespace SuperButton.Models.ParserBlock
                         readypacket = new byte[11];
                         Array.Copy(pack, 0, readypacket, 0, 11);
                         PlotPacketsList.Add(readypacket);
-                        ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        //ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
                     }
                     else
                     {
                         readypacket = new byte[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                         PlotPacketsList.Add(readypacket);
-                        ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
+                        //ParserRayonM1.GetInstanceofParser.ParsePlot(PlotPacketsList);
                     }
 
                     plotpacketState = 0;

@@ -104,7 +104,6 @@ namespace SuperButton.ViewModels
         }
         private void StarterOperation()
         {
-            //Thread.Sleep(1000);
             #region Operations
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {

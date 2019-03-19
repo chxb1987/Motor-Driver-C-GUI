@@ -17,8 +17,21 @@ namespace SuperButton.ViewModels
             get { return onCollectionChangeCommand ?? (onCollectionChangeCommand = new RelayCommand(param => OnCollectionChange(param))); }
         }
 
+        public RelayCommand OnCollectionChangeCommandDefault
+        {
+            get { return onCollectionChangeCommand ?? (onCollectionChangeCommand = new RelayCommand(param => OnCollectionChangeDefault(param))); }
+        }
+
         private void OnCollectionChange(object param)
         {
+            MaintenanceViewModel.CurrentButton = true;
+            SuperButton.Views.MesageBox t = param as SuperButton.Views.MesageBox;
+            t.Close();
+        }
+
+        private void OnCollectionChangeDefault(object param)
+        {
+            MaintenanceViewModel.DefaultButton = true;
             SuperButton.Views.MesageBox t = param as SuperButton.Views.MesageBox;
             t.Close();
         }
