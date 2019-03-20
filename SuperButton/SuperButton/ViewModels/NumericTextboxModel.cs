@@ -20,6 +20,8 @@ namespace SuperButton.ViewModels
         private readonly BaseModel _baseModel = new BaseModel();
 
         public string Name { get { return _baseModel.CommandName; } set { _baseModel.CommandName = value; } }
+        private string _channel;
+        public string Channel { get { return _channel; } set { _channel = value; } }
 
         private string _commandValue = "1";
         public string CommandValue
@@ -56,7 +58,7 @@ namespace SuperButton.ViewModels
         }
         private void ParseValue()
         {
-            Commands.GetInstance.Gain[Name].CommandValue = _commandValue;
+            Commands.GetInstance.Gain["Ch" + Channel + " " + Name].CommandValue = _commandValue;
         }
         private void Esc()
         {

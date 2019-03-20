@@ -6,7 +6,9 @@
              xmlns:s="http://schemas.abtsoftware.co.uk/scichart"         
              xmlns:common="clr-namespace:SuperButton.Common"    
              xmlns:Helpers="clr-namespace:SuperButton.Helpers"
-             xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D" 
+             xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"              
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
              d:DesignHeight="768"
              d:DesignWidth="1024"
              mc:Ignorable="d">
@@ -171,28 +173,26 @@
             			Source="pack://application:,,,/Images/plusZoom.png" Width="20" Height="20" Stretch="Fill" />
                     </StackPanel>
                 </Button>
-                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="20,0,3,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
+                <Border Grid.Column="5" BorderBrush="White" BorderThickness="0.5" Margin="10,0,0,0" Width="26" CornerRadius="0.5" VerticalAlignment="Center">
                     <TextBlock Foreground="#FFF" Text="CH1" Background="#82F7E31D" VerticalAlignment="Center"/>
                 </Border>
                 <Border Grid.Column="6" MinWidth="100" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
-                     <ComboBox
-            		SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel1SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
+                    <ComboBox SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" SelectedIndex="{Binding Ch1SelectedIndex}"
+            		ItemsSource="{Binding Channel1SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
                 </Border>
-                <Border Grid.Column="7" BorderBrush="White" BorderThickness="0.5" Margin="5,8,0,8" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
+                <ItemsControl Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="2,0" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
+                <Border Grid.Column="8" BorderBrush="White" BorderThickness="0.5" Margin="5,0,0,0" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
                     <TextBlock Foreground="#FFF" Background="#7F1810D4" VerticalAlignment="Center" Text="CH2"/>
                 </Border>
-                <Border Grid.Column="8" MinWidth="100" Margin="4,0,3,0" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3">
+                <Border Grid.Column="9" MinWidth="100" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3">
                     <ComboBox
-            		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" 
-            		ItemsSource="{Binding Channel2SourceItems}" Width="100" SelectedIndex="0" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
-
+            		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" SelectedIndex="{Binding Ch2SelectedIndex}"
+            		ItemsSource="{Binding Channel2SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
                 </Border>
-                <Line Grid.Column="9" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1"/>
-                <ToggleButton Grid.Column="10" Style="{StaticResource ExampleToolbarToggleButtonStyle}" 
-                              IsChecked="{Binding IsFreeze}" 
-                              BorderThickness="0" 
-                              BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
+                <ItemsControl Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center"  ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
+                <Line Grid.Column="11" Margin="2,2" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1"/>
+                <ToggleButton Grid.Column="12" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsFreeze}" BorderThickness="0" 
+                              BorderBrush="#FFF3F3F3" Margin="0,1" VerticalAlignment="Center" Height="24.0107">
                     <ToggleButton.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -202,12 +202,41 @@
                         </LinearGradientBrush>
                     </ToggleButton.Background>
                     <StackPanel Orientation="Horizontal">
-                        <Helpers:RecLed Width="11" Recording="{Binding IsFreeze}"></Helpers:RecLed>
+                        <Helpers:RecLed Width="12" Recording="{Binding IsFreeze}"></Helpers:RecLed>
                         <Grid Width="4"></Grid>
                         <Label>Freeze</Label>
                     </StackPanel>
                 </ToggleButton>
-
+                <ToggleButton Grid.Column="13" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0" 
+                              BorderBrush="#FFF3F3F3" Margin="1,0" VerticalAlignment="Center" Height="24.0107">
+                    <ToggleButton.Background>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                            <GradientStop Color="#FFCFCFCF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ToggleButton.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Helpers:RecLed Width="12" Recording="{Binding IsRecording}"></Helpers:RecLed>
+                        <Grid Width="4"></Grid>
+                        <Label>Rec</Label>
+                    </StackPanel>
+                </ToggleButton>
+                <Line Grid.Column="14" Margin="2,2" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1"/>
+                <Button Grid.Column="15" Width="95"  Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" VerticalAlignment="Center" BorderThickness="0.5">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3"
+                           Source="/Images/fit_to_size.png"
+                           Stretch="None" />
+                        <TextBlock Margin="3" Text="Zoom Reset" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="16" Command="{Binding ClearGraphCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" VerticalAlignment="Center" BorderThickness="0.5" Width="85" Height="25">
+                        <TextBlock Text="Clear Graph" />
+                </Button>
+                <Line Grid.Column="17" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
+                
                 <!--<ToggleButton Grid.Column="10" Command="{Binding SetZoomPanModifierCommand}"
                           s:ToggleButtonExtensions.GroupName="Modifiers"
                           Style="{StaticResource ExampleToolbarToggleButtonStyle}" BorderThickness="0.5" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
@@ -237,41 +266,9 @@
                     <TextBlock Margin="3" Text="Fit View" VerticalAlignment="Center" />
                 </StackPanel>
             </ToggleButton>-->
-                <Line Grid.Column="12" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
-                <Button Width="100" Grid.Column="13" Command="{Binding ResetZoomCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="3"
-                           Source="/Images/fit_to_size.png"
-                           Stretch="None" />
-                        <TextBlock Margin="3" Text="Zoom Reset" />
-                    </StackPanel>
-                </Button>
                 <!--<Button Grid.Column="14" Command="{Binding RecordCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" Margin="2,0" VerticalAlignment="Center" BorderThickness="0.5">
                 <TextBlock Margin="3" Text="Rec" />
             </Button>  -->
-                <ToggleButton Grid.Column="14" Style="{StaticResource ExampleToolbarToggleButtonStyle}" IsChecked="{Binding IsRecording}" BorderThickness="0" BorderBrush="#FFF3F3F3" Margin="2,0" VerticalAlignment="Center" Height="24.0107">
-                    <ToggleButton.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                            <GradientStop Color="#FFCFCFCF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ToggleButton.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <!--<customControls:RoundBoolLed Width="11" CurrStatus="{Binding ShowRecordigStatus}"></customControls:RoundBoolLed> -->
-                        <Helpers:RecLed Width="11" Recording="{Binding IsRecording}"></Helpers:RecLed>
-                        <Grid Width="4"></Grid>
-                        <Label>Rec</Label>
-                    </StackPanel>
-                </ToggleButton>
-                <Button Grid.Column="15" Command="{Binding ClearGraphCommand}" Style="{StaticResource ExampleToolbarButtonStyle}" VerticalAlignment="Center" BorderThickness="0.5" Width="80" Height="25">
-                        <TextBlock Text="Clear Graph" />
-                </Button>
-                <Line Grid.Column="16" Margin="2,0" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1" />
-                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="17" Margin="2,0" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
-                <TextBlock Grid.Column="18" Width="5"/>
-                <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="19"  ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
             </Grid>
         </ScrollViewer>
 

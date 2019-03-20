@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="StatusGroup\StatusesModule.cs" />
     <Compile Include="StatusGroup\StatusGrous.cs" />
+    <Compile Include="ViewModels\BoolViewIndModel.cs" />
     <Compile Include="ViewModels\BottomPanelViewModel.cs" />
     <Compile Include="ViewModels\CalibrationButtonModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
@@ -206,6 +207,9 @@
     </Compile>
     <Compile Include="Views\DataViewInd.xaml.cs">
       <DependentUpon>DataViewInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoolViewInd.xaml.cs">
+      <DependentUpon>BoolViewInd.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NumericTextboxView.xaml.cs">
       <DependentUpon>NumericTextboxView.xaml</DependentUpon>
@@ -320,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataViewInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BoolViewInd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

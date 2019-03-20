@@ -56,6 +56,8 @@ namespace SuperButton.CommandsDB
         public Dictionary<int, string> ErrorList = new Dictionary<int, string>();
         public Dictionary<string, NumericTextboxModel> Gain = new Dictionary<string, NumericTextboxModel>();
         public Dictionary<string, ObservableCollection<object>> GainList = new Dictionary<string, ObservableCollection<object>>();
+        public Dictionary<Tuple<int, int>, BoolViewIndModel> DigitalInputList = new Dictionary<Tuple<int, int>, BoolViewIndModel>();
+        public Dictionary<string, ObservableCollection<object>> DigitalInputListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
 
         private static readonly object Synlock = new object(); //Single tone variable
         private static Commands _instance;
@@ -468,14 +470,14 @@ namespace SuperButton.CommandsDB
                  "Cla_Fdb_Enc2"
              };
 
-            Enums.Add("Speed fdbck Source", tmp3);
+            Enums.Add("Speed Fdb Source", tmp3);
             var enum3 = new EnumViewModel
             {
-                CommandName = "Speed fdbck Source",
+                CommandName = "Speed Fdb Source",
                 CommandId = "50",
                 CommandSubId = "3",
                 CommandValue = "0", //first enum in list
-                CommandList = Enums["Speed fdbck Source"]
+                CommandList = Enums["Speed Fdb Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 3), enum3);
             EnumCommandsListbySubGroup["Control"].Add(enum3);
@@ -486,17 +488,38 @@ namespace SuperButton.CommandsDB
                  "Cla_Fdb_Enc1",
                  "Cla_Fdb_Enc2"
              };
-            Enums.Add("Position fdbck Source", tmp4);
+            Enums.Add("Position Fdb Source", tmp4);
             var enum4 = new EnumViewModel
             {
-                CommandName = "Position fdbck Source",
+                CommandName = "Position Fdb Source",
                 CommandId = "50",
                 CommandSubId = "4",
                 CommandValue = "0", //first enum in list
-                CommandList = Enums["Position fdbck Source"]
+                CommandList = Enums["Position Fdb Source"]
             };
             EnumViewCommandsList.Add(new Tuple<int, int>(50, 4), enum4);
             EnumCommandsListbySubGroup["Control"].Add(enum4);
+
+            var tmp5 = new List<string>
+             {
+                "Digital_Cmd",
+                "Analog_Cmd",
+                "PWM_Cmd",
+                "Buffer_Cmd",
+                "Spi_Cmd",
+                "Signal_gen_Cmd"
+            };
+            Enums.Add("Command Source", tmp5);
+            var enum5 = new EnumViewModel
+            {
+                CommandName = "Command Source",
+                CommandId = "50",
+                CommandSubId = "5",
+                CommandValue = "1", //first enum in list
+                CommandList = Enums["Command Source"]
+            };
+            EnumViewCommandsList.Add(new Tuple<int, int>(50, 5), enum5);
+            EnumCommandsListbySubGroup["Control"].Add(enum5);
 
             var data1 = new DataViewModel
             {
@@ -570,6 +593,7 @@ namespace SuperButton.CommandsDB
         {
             #region Commands1
             DataCommandsListbySubGroup.Add("MotionCommand List", new ObservableCollection<object>());
+            DataCommandsListbySubGroup.Add("MotionCommand List2", new ObservableCollection<object>());
 
             var data = new DataViewModel
             {
@@ -591,6 +615,17 @@ namespace SuperButton.CommandsDB
                 IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(4, 0), data);
+            DataCommandsListbySubGroup["MotionCommand List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "RPM",
+                CommandId = "4",
+                CommandSubId = "10",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(4, 10), data);
             DataCommandsListbySubGroup["MotionCommand List"].Add(data);
 
             data = new DataViewModel
@@ -636,7 +671,7 @@ namespace SuperButton.CommandsDB
                 IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(54, 3), data);
-            DataCommandsListbySubGroup["MotionCommand List"].Add(data);
+            DataCommandsListbySubGroup["MotionCommand List2"].Add(data);
 
             data = new DataViewModel
             {
@@ -647,7 +682,7 @@ namespace SuperButton.CommandsDB
                 IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(54, 2), data);
-            DataCommandsListbySubGroup["MotionCommand List"].Add(data);
+            DataCommandsListbySubGroup["MotionCommand List2"].Add(data);
 
             data = new DataViewModel
             {
@@ -658,12 +693,12 @@ namespace SuperButton.CommandsDB
                 IsFloat = false,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(54, 6), data);
-            DataCommandsListbySubGroup["MotionCommand List"].Add(data);
+            DataCommandsListbySubGroup["MotionCommand List2"].Add(data);
             #endregion Commands1
             #region Commands2
             var ProfilerModeEnum = new List<string>
               {
-                  "PID",
+                  "PID", 
                   "Trapezoid"
               };
             Enums.Add("Profiler Mode", ProfilerModeEnum);
@@ -762,6 +797,17 @@ namespace SuperButton.CommandsDB
 
             data = new DataViewModel
             {
+                CommandName = "RPM",
+                CommandId = "25",
+                CommandSubId = "10",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(25, 10), data);
+            DataCommandsListbySubGroup["MotionStatus List"].Add(data);
+
+            data = new DataViewModel
+            {
                 CommandName = "IQ Current [A]",
                 CommandId = "30",
                 CommandSubId = "0",
@@ -815,7 +861,38 @@ namespace SuperButton.CommandsDB
             DataViewCommandsList.Add(new Tuple<int, int>(30, 12), data);
             DataCommandsListbySubGroup["MotionStatus List"].Add(data);
 
+            data = new DataViewModel
+            {
+                CommandName = "Temperature [C]",
+                CommandId = "32",
+                CommandSubId = "1",
+                CommandValue = "",
+                IsFloat = true,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(32, 1), data);
+            DataCommandsListbySubGroup["MotionStatus List"].Add(data);
             #endregion Status_1
+            #region Status2
+
+            DigitalInputListbySubGroup.Add("Digital Input List", new ObservableCollection<object>());
+            var names = new[]
+            {
+                "Input 1", "Input 2", "Input 3", "Input 4"
+            };
+            for(int i = 1; i < 5; i++)
+            {
+                var input = new BoolViewIndModel
+                {
+                    CommandName = names[i - 1],
+                    CommandValue = 0,
+                    CommandId = "29",
+                    CommandSubId = i.ToString(),
+                    IsFloat = false
+                };
+                DigitalInputList.Add(new Tuple<int, int>(29, i), input);
+                DigitalInputListbySubGroup["Digital Input List"].Add(input);
+            }
+            #endregion Status2
         }
         //public void GenerateCalCommands()
         //{
@@ -1137,7 +1214,8 @@ namespace SuperButton.CommandsDB
             GainList.Add("Gain1 List", new ObservableCollection<object>());
             var data = new NumericTextboxModel
             {
-                Name = "Ch1 Gain",
+                Channel = "1",
+                Name = "Gain",
                 CommandValue = "1.0",
                 BackGround = (SolidColorBrush)(new BrushConverter().ConvertFrom("#82F7E31D")),
         };
@@ -1147,7 +1225,8 @@ namespace SuperButton.CommandsDB
             GainList.Add("Gain2 List", new ObservableCollection<object>());
             data = new NumericTextboxModel
             {
-                Name = "Ch2 Gain",
+                Channel = "2",
+                Name = "Gain",
                 CommandValue = "1.0",
                 BackGround = (SolidColorBrush)(new BrushConverter().ConvertFrom("#7F1810D4")),
             };

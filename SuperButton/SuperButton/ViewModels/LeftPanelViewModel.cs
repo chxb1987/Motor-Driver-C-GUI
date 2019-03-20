@@ -102,9 +102,11 @@ namespace SuperButton.ViewModels
             }
 
         }
+        public bool StarterOperationFlag = false;
         private void StarterOperation()
         {
             #region Operations
+            StarterOperationFlag = true;
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -185,7 +187,7 @@ namespace SuperButton.ViewModels
             
             #endregion  Operations
             LeftPanelViewModel.flag = true;
-
+            StarterOperationFlag = false;
             if(EnRefresh)
             {
                 BackGroundFunc();
@@ -789,7 +791,7 @@ namespace SuperButton.ViewModels
         private async Task BackGroundFunc()//object state)
         {
             //int count = 0;
-            while (flag && LeftPanelViewModel.GetInstance.EnRefresh )// && count != 1
+            while (flag && LeftPanelViewModel.GetInstance.EnRefresh)// && count != 1
             {
                 RefreshManger.GetInstance.StartRefresh();
                 await Task.Delay(1000);

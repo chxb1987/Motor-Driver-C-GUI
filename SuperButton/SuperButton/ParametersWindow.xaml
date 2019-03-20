@@ -344,13 +344,14 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Save</TextBlock>
+                            <TextBlock Grid.Column="0">Save Parameters To Driver</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Save}"/>
                         </Grid>
                         <Grid Grid.Row="1">
@@ -361,7 +362,8 @@
                             <TextBlock Grid.Column="0">Load Manufacturer defaults</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2" Height="20"/>
+                        <Grid Grid.Row="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -369,7 +371,7 @@
                             <TextBlock Grid.Column="0">Reset</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reset}"/>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -385,7 +387,7 @@
                             <TextBlock Grid.Column="0">Save Parameters To File</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
                         </Grid>
-                        <Grid Grid.Row="5">
+                        <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>

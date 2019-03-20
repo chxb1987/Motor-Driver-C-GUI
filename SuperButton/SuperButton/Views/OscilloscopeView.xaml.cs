@@ -46,7 +46,10 @@ namespace SuperButton.Views
               var type = this.OscilloscopeChart.RenderSurface;
         }
 
-   
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 

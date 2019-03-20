@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:SuperButton.Models"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <Storyboard x:Key="OnMouseEnter1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
@@ -59,11 +59,11 @@
         <EventTrigger RoutedEvent="Mouse.MouseLeave">
             <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter2}"/>
         </EventTrigger>
-    </UserControl.Triggers>
+    </UserControl.Triggers>-->
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="55*"/>
+            <ColumnDefinition Width="45*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4,0,0,4">
             <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000">
@@ -71,7 +71,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Border x:Name="Glow" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
+                    <!--<Border x:Name="Glow" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
                         <Border.Background>
                             <RadialGradientBrush RadiusX="1.397" Center="1.012,0.5" GradientOrigin="1.012,0.5" RadiusY="0.68">
                                 <GradientStop Color="#B2657FF7"/>
@@ -86,7 +86,7 @@
                                 <GradientStop Color="#33FFFFFF"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                    </Border>
+                    </Border>-->
                     <Label Content="{Binding CommandName}" 
                            Width="Auto"
                            Foreground="#FFF9F6F6" FontSize="11.5" 
@@ -105,8 +105,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition/>-->
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Border BorderBrush="#FF686464" BorderThickness="0.8,0.8,0.8,0.8" Grid.Row="1" Background="White">
                     <TextBox x:Name="SetValTB"

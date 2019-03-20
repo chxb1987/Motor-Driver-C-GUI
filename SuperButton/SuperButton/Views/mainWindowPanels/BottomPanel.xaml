@@ -11,7 +11,7 @@
 	mc:Ignorable="d"
 	x:Class="SuperButton.BottomPanel"
 	x:Name="UserControl"
-	d:DesignWidth="640">
+	d:DesignWidth="1200">
 
     <UserControl.Resources>
 
@@ -492,15 +492,11 @@
         </Style>
 
     </UserControl.Resources>
-
-
-
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="8"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
-
         <common:CollapsableGridSplitter Grid.Row="0"
                                         ResizeDirection="Rows"   
                                         Margin="0"
@@ -521,76 +517,87 @@
                 <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="0">
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="180"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
                             <TextBlock Height="17" Text="Motion Commands" HorizontalAlignment="Center" Foreground="White"></TextBlock>
                         </Border>
                         <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40*"></ColumnDefinition>
-                                <ColumnDefinition Width="33*"></ColumnDefinition>
-                                <ColumnDefinition Width="25*"></ColumnDefinition>
+                                <ColumnDefinition Width="38*"></ColumnDefinition>
+                                <ColumnDefinition Width="3"></ColumnDefinition>
+                                <ColumnDefinition Width="38*"></ColumnDefinition>
+                                <ColumnDefinition Width="3"></ColumnDefinition>
+                                <ColumnDefinition Width="35*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <ItemsControl Width="Auto" 
+                                <ItemsControl Width="200"
                                                   x:Name="MotionCommands"
                                                   HorizontalContentAlignment="Center" 
-                                                  Grid.Row="0" 
                                                   VerticalAlignment="Top"  
                                                   HorizontalAlignment="Left" 
                                                   ItemsSource="{Binding MotionCommandList}" 
                                                   ItemTemplate="{StaticResource DataViewSmallFont}">
 
+                                </ItemsControl>
+                            </ScrollViewer>
+                            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ItemsControl Width="200"
+                                                  HorizontalContentAlignment="Center" 
+                                                  VerticalAlignment="Top"  
+                                                  HorizontalAlignment="Left" 
+                                                  ItemsSource="{Binding MotionCommandList2}" 
+                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
+
                                     </ItemsControl>
-                                    <ItemsControl 
+                                    <ItemsControl Width="200"
                                              HorizontalContentAlignment="Left"
-                                             Grid.Row="1" 
-                                             Width="215" 
+                                             Grid.Row="1"
                                              HorizontalAlignment="Left" 
                                              ItemsSource="{Binding ProfilerModeList}" 
                                              ItemTemplate="{StaticResource EnumViewSmallFont}"/>
                                 </Grid>
                             </ScrollViewer>
-                            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <GroupBox  Header="Signal Generator" Width="Auto" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Grid >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <ItemsControl 
-                                             HorizontalContentAlignment="Left"
-                                             Grid.Row="0" 
-                                             Width="183" 
-                                             VerticalAlignment="Top"
-                                             HorizontalAlignment="Left" 
-                                             ItemsSource="{Binding SGTypeList}" 
-                                             ItemTemplate="{StaticResource EnumViewSmallFont}"/>
-                                        <ItemsControl Width="Auto" 
-                                                  HorizontalContentAlignment="Left" 
-                                                  Grid.Row="1" 
-                                                  VerticalAlignment="Top"  
-                                                  HorizontalAlignment="Left" 
-                                                  ItemsSource="{Binding SGList}" 
-                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
-                                        </ItemsControl>
-                                    </Grid>
-                                </GroupBox>
-                            </ScrollViewer>
-                            <ScrollViewer Grid.Row="1" Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                            <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <Button Grid.Row="0" Height="22" Width="80" Margin="5,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Stop Motion" Command="{Binding StopMotion}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <Border Grid.Row="0" Width="Auto" Height="87" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Width="180" Text="  Signal Generator" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                            <ItemsControl 
+                                             HorizontalContentAlignment="Left"
+                                             Grid.Row="1" 
+                                             Width="180" 
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Left" 
+                                             ItemsSource="{Binding SGTypeList}" 
+                                             ItemTemplate="{StaticResource EnumViewSmallFont}"/>
+                                            <ItemsControl Width="180"  
+                                                  HorizontalContentAlignment="Left" 
+                                                  Grid.Row="2" 
+                                                  VerticalAlignment="Top"  
+                                                  HorizontalAlignment="Left" 
+                                                  ItemsSource="{Binding SGList}" 
+                                                  ItemTemplate="{StaticResource DataViewSmallFont}">
+                                            </ItemsControl>
+                                        </Grid>
+                                    </Border>
+                                    <!--<Button Grid.Row="0" Height="22" Width="80" Margin="5,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Stop Motion" Command="{Binding StopMotion}" VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
                                 </Grid>
                             </ScrollViewer>
                         </Grid>
@@ -599,7 +606,7 @@
                 <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="1">
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
@@ -607,28 +614,61 @@
                         </Border>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="32*"></ColumnDefinition>
-                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="28*"></ColumnDefinition>
+                                <ColumnDefinition Width="3"></ColumnDefinition>
+                                <ColumnDefinition Width="22*"></ColumnDefinition>
+                                <ColumnDefinition Width="3"></ColumnDefinition>
+                                <ColumnDefinition Width="42*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <Grid>
-                                    <ItemsControl Width="160" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                    <ItemsControl Width="155" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
                                 </Grid>
                             </ScrollViewer>
-                            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="60*"></RowDefinition>
-                                        <RowDefinition Height="40*"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <GroupBox Header="Control" Grid.Row="0">
-                                        <ItemsControl ItemsSource="{Binding ControlList}" 
-                                          ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
-                                    </GroupBox>
-                                    <GroupBox Header="Motor" Grid.Row="1">
-                                        <ItemsControl ItemsSource="{Binding MotorlList}" 
-                                          ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
-                                    </GroupBox>
+                                    <Border Grid.Row="0" Width="140" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Width="140" Text="  Digital Input" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                            <ItemsControl Grid.Row="1" Width="Auto" ItemsSource="{Binding DigitalInputList}" ItemTemplate="{StaticResource BoolViewIndModel}"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </ScrollViewer>
+                            <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0" Width="240" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Width="240" Text="  Control" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                            <ItemsControl Grid.Row="1" Width="240" ItemsSource="{Binding ControlList}" ItemTemplate="{StaticResource EnumViewSmallFontInd}"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="1" Width="240" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Width="240" Text="  Motor" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                            <ItemsControl Grid.Row="1" Width="240" ItemsSource="{Binding MotorlList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </ScrollViewer>
 

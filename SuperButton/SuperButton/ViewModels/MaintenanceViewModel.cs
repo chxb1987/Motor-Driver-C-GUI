@@ -9,6 +9,10 @@ using System.IO;
 using SuperButton.Common;
 using SuperButton.Helpers;
 using System.Linq;
+using SuperButton.Views;
+using Microsoft.Win32;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace SuperButton.ViewModels
 {
@@ -173,6 +177,7 @@ namespace SuperButton.ViewModels
         }
 
         private List<UInt32> ParamsToFile = new List<UInt32>();
+        private List<UInt32> FileToParams = new List<UInt32>();
 
         private bool _saveToFile = false;
         public static bool CurrentButton = false;
@@ -185,28 +190,33 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    _saveToFile = value;
-                    CurrentButton = false;
-                    DefaultButton = false;
-                    ParamsToFile.Clear();
-                    string msg = string.Format("Do yo want to save default parameters or current parameters?");
-                    MessageBoxWrapper.Show(msg, "");
-                    //ParamsToFile.Add(139);
-                    //SaveToFileFunc(ParamsToFile);
-                    if(DefaultButton)
+                    if(OscilloscopeParameters.ChanTotalCounter != 0 || LeftPanelViewModel.GetInstance.EnRefresh == true)
                     {
-                        Rs232Interface.GetInstance.SendToParser(new PacketFields
-                        {
-                            Data2Send = 1,
-                            ID = 63,
-                            SubID = Convert.ToInt16(1),
-                            IsSet = true,
-                            IsFloat = false
-                        }
-                        );
+                        EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
+                        _saveToFile = !value;
                     }
-                    else if(CurrentButton)
+                    else
                     {
+                        _saveToFile = value;
+                        CurrentButton = false;
+                        DefaultButton = false;
+                        ParamsToFile.Clear();
+                        //string msg = string.Format("Do yo want to save default parameters or current parameters?");
+                        //MessageBoxWrapper.Show(msg, "");
+                        //if(DefaultButton)
+                        //{
+                        //    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        //    {
+                        //        Data2Send = 1,
+                        //        ID = 63,
+                        //        SubID = Convert.ToInt16(1),
+                        //        IsSet = true,
+                        //        IsFloat = false
+                        //    }
+                        //    );
+                        //}
+                        //else if(CurrentButton)
+                        //{
                         Rs232Interface.GetInstance.SendToParser(new PacketFields
                         {
                             Data2Send = 1,
@@ -216,8 +226,8 @@ namespace SuperButton.ViewModels
                             IsFloat = false
                         }
                         );
+                        //}
                     }
-                    //Task WaitSave = Task.Run((Action)GetInstance.WaitB);
                 }
                 else if(!value)
                 {
@@ -235,17 +245,27 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    _loadFromFile = value;
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    if(OscilloscopeParameters.ChanTotalCounter != 0 || LeftPanelViewModel.GetInstance.EnRefresh == true)
                     {
-                        Data2Send = _saveToFile ? 1 : 0,
-                        ID = 63,
-                        SubID = Convert.ToInt16(0),
-                        IsSet = true,
-                        IsFloat = false
+                        EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
+                        _saveToFile = !value;
                     }
-                    );
-                    Task WaitSave = Task.Run((Action)GetInstance.WaitB);
+                    else
+                    {
+                        _loadFromFile = value;
+                        SelectFile(FileToParams);
+
+
+                        //Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        //{
+                        //    Data2Send = _saveToFile ? 1 : 0,
+                        //    ID = 63,
+                        //    SubID = Convert.ToInt16(0),
+                        //    IsSet = true,
+                        //    IsFloat = false
+                        //}
+                        //);
+                    }
                 }
                 else if(!value)
                 {
@@ -266,14 +286,14 @@ namespace SuperButton.ViewModels
             {
                 ParamsCount -= 1;
                 ParamsToFile.Add(data);
-                    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                    {
-                        Data2Send = 1,
-                        ID = 67,
-                        SubID = Convert.ToInt16(13),
-                        IsSet = false,
-                        IsFloat = false
-                    });
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 1,
+                    ID = 67,
+                    SubID = Convert.ToInt16(13),
+                    IsSet = false,
+                    IsFloat = false
+                });
             }
             else
             {
@@ -281,7 +301,7 @@ namespace SuperButton.ViewModels
                 UInt32 Sum = 0, Sum1 = 0, temp = 0;
                 foreach(var item in ParamsToFile)
                     Sum1 += item;
-                for (int i = 0; i < ParamsToFile.Count - 1; i++)
+                for(int i = 0; i < ParamsToFile.Count - 1; i++)
                 {
                     temp = ParamsToFile.ElementAt(i);
                     Sum += ParamsToFile.ElementAt(i);
@@ -295,9 +315,6 @@ namespace SuperButton.ViewModels
                 SaveToFileFunc(ParamsToFile);
 
             }
-            
-
-            
         }
 
         private string filePath;
@@ -307,7 +324,7 @@ namespace SuperButton.ViewModels
             string Date = Day(DateTime.Now.Day) + ' ' + MonthTrans(DateTime.Now.Month) + ' ' + DateTime.Now.Year.ToString();
             string path = "\\Redler\\Parameters\\" + Date + ' ' + DateTime.Now.ToString("HH:mm:ss");
             path = (path.Replace('-', ' ')).Replace(':', '_');
-            path += ".dat";
+            path += ".txt";
             path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + path;
             filePath = path;
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\");
@@ -330,13 +347,6 @@ namespace SuperButton.ViewModels
                     writer.Write(" ");
                 }
             }
-        }
-        public static byte[] StringToByteArray(string hex)
-        {
-            return Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
         }
         public static string MonthTrans(int month)
         {
@@ -380,6 +390,29 @@ namespace SuperButton.ViewModels
             else
                 return day.ToString();
 
-        }        
+        }
+
+        private void SelectFile(List<UInt32> ListToBurn)
+        {
+
+            System.Windows.Forms.OpenFileDialog ChooseFile = new System.Windows.Forms.OpenFileDialog();
+            ChooseFile.Filter = "All Files (*.*)|*.*";
+            ChooseFile.FilterIndex = 1;
+
+            ChooseFile.Multiselect = false;
+            ChooseFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\";
+
+            if(ChooseFile.ShowDialog() == DialogResult.OK)
+            {
+                string readText = Regex.Replace(File.ReadAllText(ChooseFile.FileName), @"[^\b-\u0001]", String.Empty);
+                var array = readText.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
+                List<string> temp = new List<string>();
+                foreach(var elements in array)
+                    temp.Add(Regex.Replace(elements, @"[^\b-\u0001]", String.Empty));
+                //Remove('\b').Replace('\u0001', ' ');
+
+                var numbers = array.Select(arg => int.Parse(arg)).ToList();
+            }
+        }
     }
 }

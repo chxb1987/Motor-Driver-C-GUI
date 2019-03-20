@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:SuperButton.Models"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <Storyboard x:Key="OnMouseEnter1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
@@ -59,7 +59,7 @@
         <EventTrigger RoutedEvent="Mouse.MouseLeave">
             <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter2}"/>
         </EventTrigger>
-    </UserControl.Triggers>
+    </UserControl.Triggers>-->
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -71,7 +71,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Border x:Name="Glow" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
+                    <!--<Border x:Name="Glow" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
                         <Border.Background>
                             <RadialGradientBrush RadiusX="1.397" Center="1.012,0.5" GradientOrigin="1.012,0.5" RadiusY="0.68">
                                 <GradientStop Color="#B2657FF7"/>
@@ -86,7 +86,7 @@
                                 <GradientStop Color="#33FFFFFF"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                    </Border>
+                    </Border>-->
                     <Label Content="{Binding CommandName}" 
                            Width="Auto"
                            Foreground="#FFF9F6F6" FontSize="11.5" 

@@ -50,6 +50,7 @@ namespace SuperButton.Models.DriverBlock
             var AllDataList = CommandsDB.Commands.GetInstance.DataCommandsListbySubGroup;
             var AllEnumList = CommandsDB.Commands.GetInstance.EnumCommandsListbySubGroup;
             var AllCalList = CommandsDB.Commands.GetInstance.CalibartionCommandsListbySubGroup;
+            var AllBoolList = Commands.GetInstance.DigitalInputListbySubGroup;
 
             foreach(var list in AllEnumList)
             {
@@ -119,6 +120,41 @@ namespace SuperButton.Models.DriverBlock
                     }
                 }
             }
+            foreach(var list in AllBoolList)
+            {
+                BuildGroup.Add(list.Key, new ObservableCollection<object>());
+                foreach(var sub_list in list.Value)
+                {
+                    if(list.Key == "Digital Input List")
+                    {
+                        BoolViewIndModel temp = sub_list as BoolViewIndModel;
+                        string CommandName = temp.CommandName;
+                        string CommandId = temp.CommandId;
+                        string CommandSubId = temp.CommandSubId;
+                        bool IsFloat = temp.IsFloat;
+                        var data = new DataViewModel
+                        {
+                            CommandName = CommandName,
+                            CommandId = CommandId,
+                            CommandSubId = CommandSubId,
+                            IsFloat = IsFloat,
+                        };
+                        BuildGroup[list.Key].Add(data);
+                    }
+                    else
+                    {
+                        var data = new DataViewModel
+                        {
+                            CommandName = ((DataViewModel)sub_list).CommandName,
+                            CommandId = ((DataViewModel)sub_list).CommandId,
+                            CommandSubId = ((DataViewModel)sub_list).CommandSubId,
+                            CommandValue = ((DataViewModel)sub_list).CommandValue,
+                            IsFloat = ((DataViewModel)sub_list).IsFloat,
+                        };
+                        BuildGroup[list.Key].Add(data);
+                    }
+                }
+            }
             //foreach (var list in AllEnumList)
             //{
             //    foreach (var sub_list in list.Value)
@@ -152,7 +188,7 @@ namespace SuperButton.Models.DriverBlock
         }
         public string[] GroupToExecute(int tabIndex)
         {
-            string[] PanelElements = new string[] { "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor", "MotionStatus List" };// , "Driver Type" "UpperMainPan List",
+            string[] PanelElements = new string[] { "Channel List", "MotionCommand List2", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor", "MotionStatus List", "Digital Input List", "UpperMainPan List" };// , "Driver Type" ,
             // , "LPCommands List"
             switch(tabIndex)
             {
@@ -179,7 +215,7 @@ namespace SuperButton.Models.DriverBlock
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
                 case 6: // 7
-                    arr = new string[] {"Maintenance List" };// , "MaintenanceBool List"
+                    arr = new string[] { "Maintenance List" };// , "MaintenanceBool List"
                     return arr.Concat(PanelElements).ToArray();
                 case -1:
                     return PanelElements;
@@ -471,10 +507,26 @@ namespace SuperButton.Models.DriverBlock
                     else
                         Sel = Int32.Parse(newPropertyValue);
 
-                    if(commandidentifier.Item2 == 1)
-                        OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
-                    if(commandidentifier.Item2 == 2)
-                        OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
+                    if(LeftPanelViewModel.GetInstance.StarterOperationFlag)
+                    {
+                        if(commandidentifier.Item2 == 1)
+                        {
+                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                            OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
+                        }
+                        if(commandidentifier.Item2 == 2)
+                        {
+                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                            OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
+                        }
+                    }
+                    else
+                    {
+                        if(commandidentifier.Item2 == 1)
+                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                        if(commandidentifier.Item2 == 2)
+                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                    }
                 }
             }
             else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
@@ -539,6 +591,12 @@ namespace SuperButton.Models.DriverBlock
                 }
             }
             #endregion DataView_EnumView
+            #region DigitalInput
+            else if(Commands.GetInstance.DigitalInputList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            {
+                Commands.GetInstance.DigitalInputList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = Convert.ToInt16(newPropertyValue) == 1 ? 1 : 0;
+            }
+            #endregion DigitalInput
             #region StartUpAPP
             else if(commandidentifier.Item1 == 62)
             {
@@ -558,7 +616,7 @@ namespace SuperButton.Models.DriverBlock
                         break;
                 }
             }
-#endregion StartUpAPP
+            #endregion StartUpAPP
         }
     }
 }

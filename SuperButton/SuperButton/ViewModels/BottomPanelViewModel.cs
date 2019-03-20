@@ -16,7 +16,10 @@ namespace SuperButton.ViewModels
 
         }
         private ObservableCollection<object> _motionCommandList;
+        private ObservableCollection<object> _motionCommandList2;
+
         private ObservableCollection<object> _motionStatusList;
+        private ObservableCollection<object> _digitalInputList;
         private ObservableCollection<object> _SGList;
         public ObservableCollection<object> MotionCommandList
         {
@@ -32,6 +35,32 @@ namespace SuperButton.ViewModels
             }
 
 
+        }
+
+        public ObservableCollection<object> MotionCommandList2
+        {
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["MotionCommand List2"]; //Motion Limit
+            }
+            set
+            {
+                _motionCommandList2 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<object> DigitalInputList
+        {
+            get
+            {
+                return Commands.GetInstance.DigitalInputListbySubGroup["Digital Input List"]; //Motion Limit
+            }
+            set
+            {
+                _digitalInputList = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<object> MotionStatusList
