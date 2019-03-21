@@ -70,9 +70,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="115"/>
-            <ColumnDefinition Width="0"/>
             <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="0"/>
             <!--<ColumnDefinition Width="100"/>-->
         </Grid.ColumnDefinitions>
         <Border BorderBrush="White" BorderThickness="1" CornerRadius="4,0,0,4" Grid.Column="0">
@@ -104,7 +102,7 @@
                 </Grid>
             </Border>
         </Border>
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="2">
+        <Border BorderBrush="White" BorderThickness="1" Grid.Column="1">
             <Grid >
                 <ToggleButton Height="22" 
                               Style="{StaticResource CalToggleButtonStyle}" 
@@ -118,9 +116,9 @@
                 </ToggleButton>
             </Grid>
         </Border>
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="4" CornerRadius="0,2,2,0">
+        <!--<Border BorderBrush="White" BorderThickness="1" Grid.Column="4" CornerRadius="0,2,2,0">
             <Grid>
-                <!--<TextBox x:Name="SetValTB"
+                --><!--<TextBox x:Name="SetValTB"
                              BorderBrush="{x:Null}" MaxLines="1"
                              HorizontalContentAlignment="Center"
                              VerticalContentAlignment="Center"
@@ -133,8 +131,8 @@
                 <!--<ItemsControl ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewModel}"/>-->
                 <!--<StackPanel Background="Transparent" Orientation="Vertical" >
                     <ItemsControl ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                </StackPanel>-->
+                </StackPanel>--><!--
             </Grid>
-        </Border>
+        </Border>-->
     </Grid>
 </UserControl>

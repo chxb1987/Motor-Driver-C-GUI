@@ -120,7 +120,7 @@
         <Border BorderBrush="#FF686464" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
             <ComboBox  Style="{StaticResource ComboboxIndicator}"
                       FontSize="11.5"
-                      
+                      SelectedItem="{Binding Path=SelectedItem}"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}"
                        SelectedIndex="{Binding Path=SelectedValue}"

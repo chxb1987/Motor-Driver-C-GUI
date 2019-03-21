@@ -71,17 +71,24 @@ namespace SuperButton.ViewModels
         {
             if(!LeftPanelViewModel.GetInstance.ValueChange)
             {
-                if(Convert.ToInt16(SelectedValue) < 0)
+                try
                 {
-                    SelectedValue = "0";
+                    if(Convert.ToInt16(_selectedValue) < 0) // SelectedValue
+                    {
+                        SelectedValue = "0";
+                    }
                 }
-                if(Count == 0 && SelectedValue != null && Convert.ToInt16(SelectedValue) >= 0)
+                catch
+                {
+                    _selectedValue = CommandList.FindIndex(x => x.StartsWith(_selectedValue)).ToString();
+                }
+                if(Count == 0 && _selectedValue != null && Convert.ToInt16(_selectedValue) >= 0) // SelectedValue SelectedValue
                 {
                     int StartIndex = 0;
-                    int ListIndex = Convert.ToInt16(SelectedValue);
+                    int ListIndex = Convert.ToInt16(_selectedValue); //SelectedValue
                     foreach(var List in SuperButton.CommandsDB.Commands.GetInstance.EnumViewCommandsList)
                     {
-                        if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == CommandList[Convert.ToInt16(SelectedValue)]) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == SelectedValue))
+                        if((ListIndex < List.Value.CommandList.Count() && List.Value.CommandList[ListIndex] == CommandList[Convert.ToInt16(_selectedValue)]) || (ListIndex == 0 && List.Value.CommandList[ListIndex] == _selectedValue)) // SelectedValue SelectedValue
                         {
                             if(List.Value.CommandValue != "")
                             {
@@ -105,7 +112,17 @@ namespace SuperButton.ViewModels
         {
             return true;
         }
+        private string _selectedItem;
+        public string SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged("SelectedItem");
 
+            }
+        }
         public string SelectedValue
         {
             get { return _selectedValue != null ? (CommandList.FindIndex(x => x.StartsWith(_selectedValue))).ToString() : _selectedValue; }
@@ -126,6 +143,7 @@ namespace SuperButton.ViewModels
                         {
                             _selectedValue = CommandList[Convert.ToInt16(value)];
                         }
+                        LeftPanelViewModel.GetInstance.ValueChange = false;
                     }
                     catch(Exception e)
                     {

@@ -355,7 +355,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep1["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
-                SelectedValue = "1",
+                SelectedValue = "0",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(71, 8), enum1);
@@ -381,7 +381,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep2["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
-                SelectedValue = "1",
+                SelectedValue = "0",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(72, 8), enum2);
@@ -711,7 +711,7 @@ namespace SuperButton.CommandsDB
                 CommandList = Enums["Profiler Mode"],
                 CommandValue = "1",//first enum in list
             };
-            DataViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
+            //DataViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
             EnumViewCommandsList.Add(new Tuple<int, int>(54, 1), ProfilerModeCmd);
             EnumCommandsListbySubGroup.Add("Profiler Mode", new ObservableCollection<object>
             {
@@ -793,6 +793,17 @@ namespace SuperButton.CommandsDB
                 IsFloat = true,
             };
             DataViewCommandsList.Add(new Tuple<int, int>(30, 2), data);
+            DataCommandsListbySubGroup["MotionStatus List"].Add(data);
+
+            data = new DataViewModel
+            {
+                CommandName = "Speed Fdb",
+                CommandId = "25",
+                CommandSubId = "0",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(25, 0), data);
             DataCommandsListbySubGroup["MotionStatus List"].Add(data);
 
             data = new DataViewModel

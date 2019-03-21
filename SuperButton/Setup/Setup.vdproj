@@ -195,6 +195,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D36AF476F77D487E8A8565AEF80504AB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DC1A560DB03F8E9F333E9EE84B9712A3"
         "OwnerKey" = "8:_83D3749DB44044578D64B94CB522683A"
         "MsmSig" = "8:_UNDEFINED"
@@ -899,6 +905,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D36AF476F77D487E8A8565AEF80504AB"
+            {
+            "SourcePath" = "8:..\\SuperButton\\Views\\HomeBackground.jpg"
+            "TargetName" = "8:HomeBackground.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_ACEFAF791ACF4D69AFF5FE5408F4D2FE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DC1A560DB03F8E9F333E9EE84B9712A3"
             {
             "AssemblyRegister" = "3:1"
@@ -1113,7 +1139,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_A377C53E03064DB282C13FF995F198B9"
                     {
-                    "Name" = "8:Driver GUI"
+                    "Name" = "8:Redler Technologies"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -1134,6 +1160,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_ACEFAF791ACF4D69AFF5FE5408F4D2FE"
+                    {
+                    "Name" = "8:Views"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_E003CCA18BA74D99B68451DE4C184753"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -1153,7 +1190,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Driver GUI"
         "ProductCode" = "8:{68EA10BF-12DF-47B5-BC3B-8E689207D336}"
-        "PackageCode" = "8:{35CA6C9E-6DEB-47AA-80AE-A66CE4328793}"
+        "PackageCode" = "8:{54500D16-88BF-41D5-BCC1-2F09F2DE07FA}"
         "UpgradeCode" = "8:{E8B12A53-C591-42CF-ACCF-9B1B8BD3976E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1275,7 +1312,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_768EF6A873844EF883DB22D5F93AE214"
             {
-            "Name" = "8:Driver GUI"
+            "Name" = "8:RedlerControl"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1289,7 +1326,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EB7C4C4F7C04449392CF272B7AB090E7"
             {
-            "Name" = "8:Driver GUI"
+            "Name" = "8:RedlerControl"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1702,7 +1739,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_83D3749DB44044578D64B94CB522683A"
             {
-            "SourcePath" = "8:..\\SuperButton\\obj\\Release\\Driver GUI.exe"
+            "SourcePath" = "8:..\\SuperButton\\obj\\Release\\RedlerControl.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D4653FC14084465B911C39CE821489F5"

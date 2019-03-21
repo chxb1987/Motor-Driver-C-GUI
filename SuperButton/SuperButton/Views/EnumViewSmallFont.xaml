@@ -117,6 +117,7 @@
                       FontSize="11.5"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}"
+                       SelectedItem="{Binding Path=SelectedItem}"
                        SelectedIndex="{Binding Path=SelectedValue}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">

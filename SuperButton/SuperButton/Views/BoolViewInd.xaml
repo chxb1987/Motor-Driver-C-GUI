@@ -40,7 +40,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Border BorderBrush="#FF686464" BorderThickness="0.8,0.8,0.8,0.8" Grid.Row="1" Background="Transparent">
+                <Border BorderBrush="Transparent" BorderThickness="0.8,0.8,0.8,0.8" Grid.Row="1" Background="Transparent">
                     <Helpers:RoundBoolLed Width="20" Height="20" CurrStatus="{Binding CommandValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
             </Grid>

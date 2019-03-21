@@ -65,7 +65,7 @@
             <Grid>
                 <Border BorderBrush="Transparent" BorderThickness="0.8,0.8,0.8,0.8" Background="Transparent">
                     <TextBox x:Name="SetValTB"
-                             Height="24"
+                             Height="24.4"
                              BorderBrush="{x:Null}" 
                              MaxLines="1"
                              HorizontalContentAlignment="Center"

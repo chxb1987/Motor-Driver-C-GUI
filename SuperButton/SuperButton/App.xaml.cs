@@ -36,7 +36,7 @@ namespace SuperButton
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
+            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
 
             // raise selection change event even when there's no change in index
             EventManager.RegisterClassHandler(typeof(ComboBoxItem), UIElement.PreviewMouseLeftButtonDownEvent,

@@ -345,6 +345,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
@@ -362,22 +363,14 @@
                             <TextBlock Grid.Column="0">Load Manufacturer defaults</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
                         </Grid>
-                        <Grid Grid.Row="2" Height="20"/>
-                        <Grid Grid.Row="5">
+                        <Grid Grid.Row="2" Height="15"/>
+                        <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Reset</TextBlock>
-                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reset}"/>
-                        </Grid>
-                        <Grid Grid.Row="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="140"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Protected Params</TextBlock>
-                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableWrite}"/>
+                            <TextBlock Grid.Column="0">Load Parameters From File</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding LoadFromFile}"/>
                         </Grid>
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>
@@ -387,14 +380,24 @@
                             <TextBlock Grid.Column="0">Save Parameters To File</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="5" Height="15"/>
+                        <Grid Grid.Row="6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Load Parameters From File</TextBlock>
-                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding LoadFromFile}"/>
+                            <TextBlock Grid.Column="0">Reset</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reset}"/>
                         </Grid>
+                        <Grid Grid.Row="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Protected Params</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableWrite}"/>
+                        </Grid>
+                        
                         <!--<ItemsControl Grid.Row="4" ItemsSource="{Binding MaintenanceList}" ItemTemplate="{StaticResource DataViewSmallFontInd}" Foreground="White"/>
                         <Grid Grid.Row="5">
                             <Grid.ColumnDefinitions>
