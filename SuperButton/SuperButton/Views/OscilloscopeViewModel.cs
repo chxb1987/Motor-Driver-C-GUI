@@ -1019,12 +1019,45 @@ namespace SuperButton.Views
 
         private void ResetZoom()
         {
+            float maxval = 0, minval = 0;
             XLimit = new DoubleRange(0, _duration);
-            YLimit = new DoubleRange(-OscilloscopeParameters.FullScale, OscilloscopeParameters.FullScale);
+            if(OscilloscopeParameters.ChanTotalCounter == 1 && Ytemp.Count > 0)
+            {
+                maxval = Ytemp.Max();
+                minval = Ytemp.Min();
+            }
+            else if(OscilloscopeParameters.ChanTotalCounter == 2)
+            {
+                maxval = AllYData.Max() >= AllYData2.Max() ? AllYData.Max() : AllYData2.Max();
+                minval = AllYData.Min() <= AllYData2.Min() ? AllYData.Min() : AllYData2.Min();
+            }
+            if(minval == 0)
+                minval = -1;
+            if(maxval < 1)
+                maxval *= 2;
+            //YLimit = new DoubleRange(-OscilloscopeParameters.FullScale, OscilloscopeParameters.FullScale);
+            YLimit = new DoubleRange(minval + 0.1 * minval, maxval + 0.1 * maxval);
             _yzoom = OscilloscopeParameters.FullScale;
             XVisibleRange = XLimit;
             YVisibleRange = YLimit;
         }
+
+        //private void ResetZoom()
+        //{
+        //    if(_selectedDataSource == "Lissajous")
+        //    {
+        //        XLimit = new DoubleRange(-1.2, 1.2);
+        //        YLimit = new DoubleRange(-1.2, 1.2);
+        //    }
+        //    else
+        //    {
+        //        XLimit = new DoubleRange(2.5, 4.5);
+        //        YLimit = new DoubleRange(-12.5, 12.5);
+        //    }
+
+        //    XVisibleRange = XLimit;
+        //    YVisibleRange = YLimit;
+        //}
         private void ClearGraph()
         {
             lock(this)
@@ -1214,11 +1247,12 @@ namespace SuperButton.Views
         private float[] yDataTemp2;
         public static bool _chartRunning = false;
         /* On ticj function */
-        float item;
-        float item2;
+        //float item;
+        //float item2;
         List<float> ytemp = new List<float>();
         List<float> ytemp2 = new List<float>();
 
+        public static List<float> Ytemp = new List<float>();
         private void OnTick(object sender, EventArgs e)
         {
             if(!IsFreeze)
@@ -1245,7 +1279,7 @@ namespace SuperButton.Views
                         }
                         else //Collect whole the Data to the single grand list
                         {
-                            List<float> Ytemp = new List<float>();
+                            Ytemp = new List<float>();
                             float item;
                             //Record 
                             //if(RecFlag)

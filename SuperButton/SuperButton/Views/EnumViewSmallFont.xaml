@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <!--<local:EnumUCModel x:Key="EnumUCModelDataSource" />-->
 
-    <!--<Storyboard x:Key="OnMouseEnter1">
+        <!--<Storyboard x:Key="OnMouseEnter1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.9"/>
@@ -111,17 +111,20 @@
                              Focusable="True"/>
                 </Grid>
             </Border>
-        </Border>
+        </Border><!--SelectedValue="{Binding Path=SelectedValue}"-->
         <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
             <ComboBox  x:Name="Test"
                       FontSize="11.5"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}"
-                       SelectedItem="{Binding Path=SelectedItem}"
-                       SelectedIndex="{Binding Path=SelectedValue}">
+                      SelectedItem="{Binding Path=SelectedItem}"
+                      SelectedIndex="{Binding Path=SelectedIndex}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectedItemChanged1}"  />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="DropDownOpened">
+                        <i:InvokeCommandAction Command="{Binding ComboDropDownOpened}"  />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>

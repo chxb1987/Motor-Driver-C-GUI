@@ -13,6 +13,8 @@ using SuperButton.Views;
 using Microsoft.Win32;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using Abt.Controls.SciChart;
 
 namespace SuperButton.ViewModels
 {
@@ -183,6 +185,43 @@ namespace SuperButton.ViewModels
         public static bool CurrentButton = false;
         public static bool DefaultButton = false;
         public static UInt32 ParamsCount = 0;
+        private string _pathToFile, _pathFromFile = "";
+        public string PathToFile
+        {
+            get { return _pathToFile; }
+            set { _pathToFile = value; OnPropertyChanged("PathToFile"); }
+        }
+        public string PathFromFile
+        {
+            get { return _pathFromFile; }
+            set { _pathFromFile = value; OnPropertyChanged("PathFromFile"); }
+        }
+        public ActionCommand OpenToFileCmd
+        {
+            get { return new ActionCommand(OpenToFile); }
+        }
+        public ActionCommand OpenFromFileCmd
+        {
+            get { return new ActionCommand(OpenFromFile); }
+        }
+        public void OpenToFile()
+        {
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\");
+        }
+        public void OpenFromFile()
+        {
+            System.Windows.Forms.OpenFileDialog ChooseFile = new System.Windows.Forms.OpenFileDialog();
+            ChooseFile.Filter = "All Files (*.*)|*.*";
+            ChooseFile.FilterIndex = 1;
+
+            ChooseFile.Multiselect = false;
+            ChooseFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\";
+
+            if(ChooseFile.ShowDialog() == DialogResult.OK)
+            {
+                PathFromFile = ChooseFile.FileName;
+            }
+        }
         public bool SaveToFile
         {
             get { return _saveToFile; }
@@ -201,22 +240,10 @@ namespace SuperButton.ViewModels
                         CurrentButton = false;
                         DefaultButton = false;
                         ParamsToFile.Clear();
-                        //string msg = string.Format("Do yo want to save default parameters or current parameters?");
-                        //MessageBoxWrapper.Show(msg, "");
-                        //if(DefaultButton)
-                        //{
-                        //    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                        //    {
-                        //        Data2Send = 1,
-                        //        ID = 63,
-                        //        SubID = Convert.ToInt16(1),
-                        //        IsSet = true,
-                        //        IsFloat = false
-                        //    }
-                        //    );
-                        //}
-                        //else if(CurrentButton)
-                        //{
+                        ParamsToFile.Add(1000);
+                        ParamsToFile.Add(5);
+
+                        SaveToFileFunc(ParamsToFile);
                         Rs232Interface.GetInstance.SendToParser(new PacketFields
                         {
                             Data2Send = 1,
@@ -224,9 +251,7 @@ namespace SuperButton.ViewModels
                             SubID = Convert.ToInt16(0),
                             IsSet = true,
                             IsFloat = false
-                        }
-                        );
-                        //}
+                        });
                     }
                 }
                 else if(!value)
@@ -248,12 +273,20 @@ namespace SuperButton.ViewModels
                     if(OscilloscopeParameters.ChanTotalCounter != 0 || LeftPanelViewModel.GetInstance.EnRefresh == true)
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
-                        _saveToFile = !value;
+                        _loadFromFile = !value;
+                        OnPropertyChanged("LoadFromFile");
+                    }
+                    else if(PathFromFile == "")
+                    {
+                        EventRiser.Instance.RiseEevent(string.Format($"Please choose a file and retry!"));
+                        _loadFromFile = !value;
+                        OnPropertyChanged("LoadFromFile");
                     }
                     else
                     {
                         _loadFromFile = value;
-                        SelectFile(FileToParams);
+                        OnPropertyChanged("LoadFromFile");
+                        SelectFile();
 
 
                         //Rs232Interface.GetInstance.SendToParser(new PacketFields
@@ -270,14 +303,9 @@ namespace SuperButton.ViewModels
                 else if(!value)
                 {
                     _loadFromFile = value;
+                    OnPropertyChanged("LoadFromFile");
                 }
-
-                OnPropertyChanged();
             }
-        }
-        private void WaitB()
-        {
-            Thread.Sleep(1000);
         }
 
         public void DataToList(UInt32 data)
@@ -312,8 +340,11 @@ namespace SuperButton.ViewModels
                     SaveToFileFunc(ParamsToFile);
                     EventRiser.Instance.RiseEevent(string.Format($"Save Parameters successed"));
                 }
-                SaveToFileFunc(ParamsToFile);
-
+                else
+                {
+                    EventRiser.Instance.RiseEevent(string.Format($"Checksum Faied!"));
+                    SaveToFileFunc(ParamsToFile);
+                }
             }
         }
 
@@ -326,27 +357,24 @@ namespace SuperButton.ViewModels
             path = (path.Replace('-', ' ')).Replace(':', '_');
             path += ".txt";
             path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + path;
-            filePath = path;
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\");
-            if(!File.Exists(filePath))
+
+            System.Windows.Forms.SaveFileDialog saveFile = new System.Windows.Forms.SaveFileDialog();
+            saveFile.Filter = "Text (*.txt)|*.txt";
+            saveFile.FileName = path;            
+
+            if(saveFile.ShowDialog() == DialogResult.OK)
             {
-                File.Create(filePath).Close();
-                //RecFlag = true;
-            }
-            else if(File.Exists(filePath))
-            {
-                File.Delete(filePath);
-                File.Create(filePath).Close();
-                //RecFlag = true;
-            }
-            using(BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
-            {
-                foreach(var item in ListToSave)
+                PathToFile = saveFile.FileName;
+                using(StreamWriter writer = new StreamWriter(File.Open(PathToFile, FileMode.Create)))
                 {
-                    writer.Write(item.ToString("X2").PadLeft(8, '0'));
-                    writer.Write(" ");
+                    foreach(var item in ListToSave)
+                    {
+                        writer.Write(item.ToString("X2").PadLeft(8, '0'));
+                        writer.Write(" ");
+                    }
                 }
             }
+            SaveToFile = false;
         }
         public static string MonthTrans(int month)
         {
@@ -392,27 +420,13 @@ namespace SuperButton.ViewModels
 
         }
 
-        private void SelectFile(List<UInt32> ListToBurn)
+        private void SelectFile()
         {
-
-            System.Windows.Forms.OpenFileDialog ChooseFile = new System.Windows.Forms.OpenFileDialog();
-            ChooseFile.Filter = "All Files (*.*)|*.*";
-            ChooseFile.FilterIndex = 1;
-
-            ChooseFile.Multiselect = false;
-            ChooseFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\";
-
-            if(ChooseFile.ShowDialog() == DialogResult.OK)
-            {
-                string readText = Regex.Replace(File.ReadAllText(ChooseFile.FileName), @"[^\b-\u0001]", String.Empty);
-                var array = readText.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
-                List<string> temp = new List<string>();
-                foreach(var elements in array)
-                    temp.Add(Regex.Replace(elements, @"[^\b-\u0001]", String.Empty));
-                //Remove('\b').Replace('\u0001', ' ');
-
-                var numbers = array.Select(arg => int.Parse(arg)).ToList();
-            }
+            string readText = File.ReadAllText(PathFromFile);
+            var array = readText.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
+            foreach(var elements in array)
+                FileToParams.Add(Convert.ToUInt32(elements, 16));
+            LoadFromFile = false;
         }
     }
 }

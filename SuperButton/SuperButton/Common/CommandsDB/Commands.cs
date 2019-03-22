@@ -355,7 +355,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep1["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
-                SelectedValue = "0",
+                //SelectedValue = "0",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(71, 8), enum1);
@@ -381,7 +381,7 @@ namespace SuperButton.CommandsDB
                 CommandList = EnumsQep2["Index Reset"],
                 CommandValue = "1",//first enum in list
                 IsFloat = false,
-                SelectedValue = "0",
+                //SelectedValue = "0",
             };
 
             EnumViewCommandsList.Add(new Tuple<int, int>(72, 8), enum2);

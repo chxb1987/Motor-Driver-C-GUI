@@ -15,7 +15,7 @@ namespace SuperButton.ViewModels
         private MotionViewModel _motionViewModel;
         private MaintenanceViewModel _maintenanceViewModel;
         private FeedBackViewModel _feedBackViewModel;
-        private LoadParamsViewModel _loadParamsViewModel;
+        //private LoadParamsViewModel _loadParamsViewModel;
         public ParametarsWindowViewModel()
         {
             _operationViewModel = OperationViewModel.GetInstance;
@@ -175,10 +175,10 @@ namespace SuperButton.ViewModels
         {
             get { return _feedBackViewModel; }
         }
-        public LoadParamsViewModel LoadParamsViewModel
-        {
-            get { return _loadParamsViewModel; }
-        }
+        //public LoadParamsViewModel LoadParamsViewModel
+        //{
+        //    get { return _loadParamsViewModel; }
+        //}
 
 
         private bool CheckValue()

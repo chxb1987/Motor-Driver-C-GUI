@@ -123,7 +123,7 @@
                       SelectedItem="{Binding Path=SelectedItem}"
                       d:IsHidden="False" 
                       ItemsSource="{Binding Path=CommandList}"
-                       SelectedIndex="{Binding Path=SelectedValue}"
+                       SelectedIndex="{Binding Path=SelectedIndex}"
                 IsHitTestVisible="False"
                 Focusable="False"
                 IsReadOnly="True"

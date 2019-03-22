@@ -523,7 +523,7 @@
                         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">
                             <TextBlock Height="17" Text="Motion Commands" HorizontalAlignment="Center" Foreground="White"></TextBlock>
                         </Border>
-                        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="38*"></ColumnDefinition>
                                 <ColumnDefinition Width="3"></ColumnDefinition>
@@ -571,7 +571,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <Border Grid.Row="0" Width="Auto" Height="87" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                    <Border Grid.Row="0" Width="180" Height="87" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
                                         <Grid >
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
@@ -586,7 +586,8 @@
                                              VerticalAlignment="Top"
                                              HorizontalAlignment="Left" 
                                              ItemsSource="{Binding SGTypeList}" 
-                                             ItemTemplate="{StaticResource EnumViewSmallFont}"/>
+                                             ItemTemplate="{StaticResource EnumViewSmallFont}"
+                                             />
                                             <ItemsControl Width="180"  
                                                   HorizontalContentAlignment="Left" 
                                                   Grid.Row="2" 
@@ -603,7 +604,7 @@
                         </Grid>
                     </Grid>
                 </Border>
-                <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="1">
+                <Border BorderThickness="1" BorderBrush="Wheat" Grid.Column="2">
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"></RowDefinition>
@@ -614,15 +615,15 @@
                         </Border>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="28*"></ColumnDefinition>
+                                <ColumnDefinition Width="29*"></ColumnDefinition>
                                 <ColumnDefinition Width="3"></ColumnDefinition>
                                 <ColumnDefinition Width="22*"></ColumnDefinition>
                                 <ColumnDefinition Width="3"></ColumnDefinition>
-                                <ColumnDefinition Width="42*"></ColumnDefinition>
+                                <ColumnDefinition Width="40*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <Grid>
-                                    <ItemsControl Width="155" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                    <ItemsControl Width="168" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{Binding MotionStatusList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
                                 </Grid>
                             </ScrollViewer>
                             <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

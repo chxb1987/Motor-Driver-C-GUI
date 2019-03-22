@@ -24,7 +24,7 @@ namespace SuperButton.Models.DriverBlock
         private static RefreshManger _instance;
 
         public static Dictionary<string, ObservableCollection<object>> BuildGroup = new Dictionary<string, ObservableCollection<object>>();
-        public static Dictionary<Tuple<int, int>, DataViewModel> BuildList;
+        public static Dictionary<Tuple<int, int>, DataViewModel> BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
         public static int TempTab = 0;
         private static bool _dataPressed = false;
         public static bool DataPressed { get { return _dataPressed; } set { _dataPressed = value; } }
@@ -265,7 +265,11 @@ namespace SuperButton.Models.DriverBlock
                     TempTab = tab;
                     Debug.WriteLine(" --- Tab --- ");
                 }
-
+                if(BuildList.Count == 0)
+                {
+                    TempTab = -1;
+                    return;
+                }
                 //Debug.WriteLine("2: " + DateTime.Now.ToString("h:mm:ss.fff"));
                 foreach(var command in BuildList)
                 {
@@ -582,15 +586,8 @@ namespace SuperButton.Models.DriverBlock
                 int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
                 if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
                 {
-                    if(!LeftPanelViewModel.GetInstance.ValueChange)
-                    {
-                        LeftPanelViewModel.GetInstance.ValueChange = true;
-                        //Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedValue =
-                        //Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
-
-                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
-                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
-                    }
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
                 }
             }
             #endregion DataView_EnumView

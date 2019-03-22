@@ -88,6 +88,7 @@ namespace SuperButton.ViewModels
             {
                 foreach (string comport in ports)
                     ComList.Add(comport);
+                ComString = ComList.ElementAt(0);
             }
         }
 
