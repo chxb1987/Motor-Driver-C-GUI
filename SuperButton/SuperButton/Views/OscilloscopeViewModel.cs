@@ -914,45 +914,50 @@ namespace SuperButton.Views
             }
             else if(OscilloscopeParameters.ChanTotalCounter == 2) //both of channels active
             {
-                YVisibleRange = OscilloscopeParameters.FullScale > OscilloscopeParameters.FullScale2
+                if(!RefreshManger.GetInstance.DisconnectedFlag)
+                {
+                    YVisibleRange = OscilloscopeParameters.FullScale > OscilloscopeParameters.FullScale2
                     ? new DoubleRange(min: -OscilloscopeParameters.FullScale,
                         max: OscilloscopeParameters.FullScale)
                     : new DoubleRange(min: -OscilloscopeParameters.FullScale2,
                     max: OscilloscopeParameters.FullScale2);
 
-                _yzoom = YVisibleRange.Max;
+                    _yzoom = YVisibleRange.Max;
 
-                XLimit = new DoubleRange(0, _duration); //ubdate visible limits        
-                XVisibleRange = XLimit;
-                _undesample = 1;
-                pivot = (int)0; //update pivote and move to initial state
-                _isFull = false;
-                using(this.ChartData.SuspendUpdates())
-                {
-                    _series0.Clear();
-                    _series0.Clear();
-                }
-                _yFloats = new float[0];
-                _yFloats2 = new float[0];
+                    XLimit = new DoubleRange(0, _duration); //ubdate visible limits        
+                    XVisibleRange = XLimit;
+                    _undesample = 1;
 
-                while(ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty == false)
-                {
-                    float dummy;
-                    ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out dummy);
-                }
+                    pivot = (int)0; //update pivote and move to initial state
+                    _isFull = false;
 
-                while(ParserRayonM1.GetInstanceofParser.FifoplotListCh2.IsEmpty == false)
-                {
-                    float dummy;
-                    ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out dummy);
-                }
+                    //using(this.ChartData.SuspendUpdates())
+                    //{
+                    //_series1.Clear();
+                    //_series0.Clear();
+                    //}
+                    _yFloats = new float[0];
+                    _yFloats2 = new float[0];
 
-                if(AllYData.Count > 0)
-                {
-                    AllYData.Clear();
+                    while(ParserRayonM1.GetInstanceofParser.FifoplotList.IsEmpty == false)
+                    {
+                        float dummy;
+                        ParserRayonM1.GetInstanceofParser.FifoplotList.TryDequeue(out dummy);
+                    }
+
+                    while(ParserRayonM1.GetInstanceofParser.FifoplotListCh2.IsEmpty == false)
+                    {
+                        float dummy;
+                        ParserRayonM1.GetInstanceofParser.FifoplotListCh2.TryDequeue(out dummy);
+                    }
+
+                    if(AllYData.Count > 0)
+                    {
+                        AllYData.Clear();
+                    }
+                    //update step
+                    StepRecalcMerge();
                 }
-                //update step
-                StepRecalcMerge();
             }
             OscilloscopeParameters.ChanelFreq = OscilloscopeParameters.ChanTotalCounter == 0 ? OscilloscopeParameters.SingleChanelFreqC : OscilloscopeParameters.SingleChanelFreqC / OscilloscopeParameters.ChanTotalCounter;
             int ActualPOintstoPlot = POintstoPlot;//Actual points to plot transit value
@@ -1026,10 +1031,15 @@ namespace SuperButton.Views
                 maxval = Ytemp.Max();
                 minval = Ytemp.Min();
             }
-            else if(OscilloscopeParameters.ChanTotalCounter == 2)
+            else if(OscilloscopeParameters.ChanTotalCounter == 2 && AllYData.Count > 0 && AllYData2.Count > 0)
             {
                 maxval = AllYData.Max() >= AllYData2.Max() ? AllYData.Max() : AllYData2.Max();
                 minval = AllYData.Min() <= AllYData2.Min() ? AllYData.Min() : AllYData2.Min();
+            }
+            else
+            {
+                minval = -OscilloscopeParameters.FullScale;
+                maxval = OscilloscopeParameters.FullScale;
             }
             if(minval == 0)
                 minval = -1;
@@ -1654,9 +1664,9 @@ namespace SuperButton.Views
                                     temp3 = AllYData.Take(POintstoPlot).ToArray();
                                     temp4 = AllYData2.Take(POintstoPlot).ToArray();
 
-                                    carry = AllYData.Count;   //temp3.Length;
-                                    carry2 = AllYData2.Count; //temp4.Length;
-                                                              //1
+                                    carry = temp3.Length;
+                                    carry2 = temp4.Length;
+                                    //1
                                     yDataTemp = new float[POintstoPlot];
                                     Array.Copy(_yFloats, carry, yDataTemp, 0, _yFloats.Length - (carry)); //Shift Left - public static void Copy(Array sourceArray, int sourceIndex, Array destinationArray, int destinationIndex, int length);
                                     Array.Copy(temp3, 0, yDataTemp, _yFloats.Length - carry, carry); // Add range
@@ -1962,10 +1972,7 @@ namespace SuperButton.Views
                 }
                 else
                 {
-                    if(!MessageBoxWrapper.IsOpen)
-                    {
-                        EventRiser.Instance.RiseEevent(string.Format($"No plot detected !"));
-                    }
+                    EventRiser.Instance.RiseEevent(string.Format($"No plot detected!"));
                     _is_recording = false;
                 }
                 //SaveToDisk.IsRecording = value;

@@ -188,13 +188,15 @@ namespace SuperButton.ViewModels
             #endregion  Operations
             LeftPanelViewModel.flag = true;
             StarterOperationFlag = false;
+
             if(EnRefresh)
             {
                 BackGroundFunc();
             }
-            #if !DEBUG
+#if !DEBUG
             RefreshManger.GetInstance.VerifyConnection();
-            #endif
+#endif
+
         }
         private String _connectTextBoxContent;
         public String ConnectTextBoxContent

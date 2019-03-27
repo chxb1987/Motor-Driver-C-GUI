@@ -1,0 +1,18 @@
+﻿<Window x:Class="WPFSparkClient.ClipBorderDemo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+        Title="MainWindow"
+        Height="350"
+        Width="525">
+    <Grid>
+        <wpfspark:ClipBorder BorderBrush="Red"
+                             BorderThickness="1"
+                             CornerRadius="25"
+                             Width="200"
+                             Height="200"
+                             SnapsToDevicePixels="True">
+            <Grid Background="Blue"></Grid>
+        </wpfspark:ClipBorder>
+    </Grid>
+</Window>

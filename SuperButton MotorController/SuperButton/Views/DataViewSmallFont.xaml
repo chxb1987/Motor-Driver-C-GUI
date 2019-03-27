@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="SuperButton.Views.DataViewSmallFont"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:models="clr-namespace:SuperButton.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+    <!--<UserControl.Resources>
+        <Storyboard x:Key="OnMouseEnter1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.9"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Shine">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Offset)" Storyboard.TargetName="Shine">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.995"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="Shine">
+                <EasingColorKeyFrame KeyTime="0:0:0.4" Value="#33F7F5F6"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="Shine">
+                <EasingColorKeyFrame KeyTime="0:0:0.4" Value="#99FFFFFF"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnMouseEnter2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Shine">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.9"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="360"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <UserControl.LayoutTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform Angle="360"/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </UserControl.LayoutTransform>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+            <BeginStoryboard x:Name="OnMouseEnter1_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter1}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+            <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter2}"/>
+        </EventTrigger>
+    </UserControl.Triggers>-->
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55*"/>
+            <ColumnDefinition Width="45*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4,0,0,4">
+            <Border BorderThickness="1" CornerRadius="4,0,0,4" Background="#7F000000">
+                <Grid Margin="0,-1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--<Border x:Name="Glow" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0">
+                        <Border.Background>
+                            <RadialGradientBrush RadiusX="1.397" Center="1.012,0.5" GradientOrigin="1.012,0.5" RadiusY="0.68">
+                                <GradientStop Color="#B2657FF7"/>
+                                <GradientStop Color="#00657FF7" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Border x:Name="Shine" BorderThickness="1" CornerRadius="4,0,0,4" Opacity="0" Width="auto">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="-0.026,1.005">
+                                <GradientStop Color="#99F7F5F6" Offset="0.998"/>
+                                <GradientStop Color="#33FFFFFF"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>-->
+                    <Label Content="{Binding CommandName}" 
+                           Width="Auto"
+                           Foreground="#FFF9F6F6" FontSize="11.5" 
+                           HorizontalContentAlignment="Left" 
+                           VerticalContentAlignment="Stretch"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center" 
+                           Focusable="True"/>
+                </Grid>
+            </Border>
+        </Border>
+        <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="#FF686464" BorderThickness="0.8,0.8,0.8,0.8" Grid.Row="1" Background="White">
+                    <TextBox x:Name="SetValTB"
+                             BorderBrush="{x:Null}" MaxLines="1"
+                             HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Foreground="White"
+                             FontSize="11.5" 
+                             Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
+                             Background="{Binding Background}"
+                             IsReadOnly="{Binding ReadOnly}"
+                             IsEnabled="{Binding EnableTextBox}"
+                             MouseDoubleClick="SetValTB_MouseDoubleClick">
+                        <i:Interaction.Behaviors>
+                            <models:AllowableCharactersTextBoxBehavior/>
+                        </i:Interaction.Behaviors>
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SendData}"></KeyBinding>
+                            <KeyBinding Key="Esc"  Command="{Binding ResetValue}"></KeyBinding>
+                        </TextBox.InputBindings>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeftClickCommand}" />
+                            </i:EventTrigger>
+                            <!--<i:EventTrigger EventName="MouseLeave" >
+                                <i:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
+                            </i:EventTrigger>-->
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </Border>
+
+                <!--<Border BorderThickness="1" Grid.Column="1" CornerRadius="0,4,0,0" Background="#7F000000" Grid.RowSpan="2">
+                    <Label Content="{Binding Path=LabelIntUnit}"
+                           Foreground="White" 
+                           HorizontalContentAlignment="Center" 
+                           VerticalContentAlignment="Center" 
+                           Padding="0" Margin="0,0"/>
+                </Border>-->
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

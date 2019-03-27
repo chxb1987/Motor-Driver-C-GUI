@@ -1,0 +1,518 @@
+﻿<Window
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="clr-namespace:SuperButton.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" 
+        x:Class="SuperButton.Views.ParametarsWindow"
+        ResizeMode="NoResize"
+        Title="Driver Parameters" Height="500" Width="700"
+        Closing="Window_Closing"
+        Icon="./Themes/MotorController.png"
+        WindowStartupLocation="CenterOwner">
+
+    <Window.Background>
+        <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
+    </Window.Background>
+
+    <Window.DataContext>
+        <viewModels:ParametarsWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style x:Key="CalToggleButtonStyle"
+           BasedOn="{StaticResource ToggleButtonStyleCalibrationPan}"
+           TargetType="ToggleButton">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="MaxHeight" Value="30" />
+        </Style>
+        <Style x:Key="ExampleToolbarToggleButtonStyle"
+           BasedOn="{StaticResource DefaultToggleButtonStyle}"
+           TargetType="ToggleButton">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="MaxHeight" Value="30" />
+        </Style>
+
+        <Style x:Key="ExampleToolbarButtonStyle"
+           BasedOn="{StaticResource DefaultButtonStyle}"
+           TargetType="Button">
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Width" Value="110" />
+            <Setter Property="MaxHeight" Value="28" />
+        </Style>
+    </Window.Resources>
+
+    <Grid >
+        <!--Background="#00616161"-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabControl TabStripPlacement="Top" SelectionChanged="TabSelected" Margin="1,0,-1,0">
+            <TabControl.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
+            </TabControl.Background>
+            <TabItem Name="Motor" Header="Motor" TabIndex="1" Background="Black" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="87"/>
+                            <RowDefinition Height="130"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox  Header="Control" Grid.Row="0">
+                            <ItemsControl ItemsSource="{Binding ControlList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}"
+                                          Margin="0,4,0,-4"/>
+                        </GroupBox>
+                        <GroupBox Header="Motor" Grid.Row="1" Margin="0,10,0,0" 
+                            FocusManager.IsFocusScope="True">
+                            <ItemsControl ItemsSource="{Binding MotorlList}" 
+                                          ItemTemplate="{StaticResource DataViewModel}" 
+                                          Margin="0,4,0,-4"
+                                          MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"/>
+                        </GroupBox>
+                        <GroupBox Header="Motor Limit"  Grid.Row="2" Margin="0,10,0,0">
+                            <ItemsControl ItemsSource="{Binding MotorLimitlList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Feed Backs" TabIndex="2" Background="Black" Foreground="White" DataContext="{Binding FeedBackViewModel}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Hall" HorizontalContentAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding HallFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Qep1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <!--<RowDefinition Height="30"></RowDefinition>-->
+                                </Grid.RowDefinitions>
+                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />-->
+                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep1FdBckList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}">
+                                        </ItemsControl>
+                                    </Grid>
+                                </ScrollViewer>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>-->
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Qep2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <!--<RowDefinition Height="30"></RowDefinition>-->
+                                </Grid.RowDefinitions>
+                                <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />-->
+                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FdBckList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}"/>
+                                    </Grid>
+                                </ScrollViewer>
+
+                            </Grid>
+                        </GroupBox>
+                        <!--<GroupBox Grid.Row="0" Header="Digital"  Background="Transparent" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="155"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsDigitalFeedbackEnabled}"/>
+                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </GroupBox>-->
+                        <!--<GroupBox Grid.Row="2"    Header="Analog"  Background="Transparent">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsAnalogFeddbackEnabled}"/>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                            </Grid>
+                        </GroupBox>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="PID" TabIndex="3" Background="Black" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox  Grid.Row="0" Header="Current">
+                            <StackPanel  Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl ItemsSource="{Binding Path= PidCurrentList, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Grid.Row="1" Header="Speed" Margin="0,10,0,0">
+                            <StackPanel Background="Transparent" Orientation="Vertical">
+                                <ItemsControl ItemsSource="{Binding PidSpeedList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0"    Header="Possition"  Background="Transparent" Margin="30,0,0,0">
+                            <StackPanel  Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl   ItemsSource="{Binding PidPositionList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Device" TabIndex="4" Background="Black" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Device Info" >
+                            <StackPanel Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl ItemsSource="{Binding DeviceSerialList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Driver" TabIndex="5" Background="Black" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Full Scale" >
+                            <StackPanel Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl ItemsSource="{Binding DriverFullScaleList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>-->
+            <TabItem Header="Calibration" TabIndex="5" DataContext="{Binding CalibrationViewModel}" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="1">
+                            <GroupBox>
+                                <GroupBox.Header>
+                                    <Border Width="299">
+                                        <Grid Width="Auto">
+                                            <TextBlock Text="Automatic Calibration Menu" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </GroupBox.Header>
+                                <Grid Width="Auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl Grid.Column="0" Width="Auto" ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}"/>
+                                    <ItemsControl Grid.Column="1" Width="Auto" ItemsSource="{Binding CalibrationResultList}" ItemTemplate="{StaticResource DataViewInd}"/>
+                                </Grid>
+                                <!--<StackPanel Background="Transparent" Orientation="Vertical" >
+                                    <ItemsControl ItemsSource="{Binding CalibrationList}" ItemTemplate="{StaticResource CalibrationButtonModel}"/>
+                                </StackPanel>-->
+                            </GroupBox>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Motion" TabIndex="6" DataContext="{Binding MotionViewModel}" Background="Black" Foreground="White" Margin="-1,0,1,0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Current Limit" >
+                            <StackPanel Background="Transparent" Orientation="Vertical" >
+                                <ItemsControl ItemsSource="{Binding CurrentLimitList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Maintenance" TabIndex="7" DataContext="{Binding MaintenanceViewModel}" Background="Black" Foreground="White" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Save Parameters To Driver</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Save}"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Load Manufacturer defaults</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Manufacture}"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Height="15"/>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Load Parameters From File</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding LoadFromFile}"/>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Load Parameters To File</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
+                        </Grid>
+                        <Grid Grid.Row="5" Height="15"/>
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Reset</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding Reset}"/>
+                        </Grid>
+                        <Grid Grid.Row="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Protected Params</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableWrite}"/>
+                        </Grid>
+
+                        <!--<ItemsControl Grid.Row="4" ItemsSource="{Binding MaintenanceList}" ItemTemplate="{StaticResource DataViewSmallFontInd}" Foreground="White"/>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Enable Loader</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableLoder}"/>
+                        </Grid>-->
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="47"/>
+                            <RowDefinition Height="17"/>
+                            <RowDefinition Height="17"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathFromFile}" FontSize="10"></TextBox>
+                            <Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathToFile}" FontSize="10"></TextBox>
+                            <Button Grid.Column="1" Command="{Binding OpenToFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Operations" TabIndex="7" DataContext="{Binding OperationViewModel}" Background="Black" Foreground="White" >
+                <Grid Background="#FF616161">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0"  Grid.Row="0" Background="#FF616161">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Width="200" HorizontalAlignment="Left">
+                            <Button    Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content="Get Driver Version" Command="{Binding GetDriverVersion}" />
+                            <TextBlock x:Name="DriverVersion" Foreground="Black"  Margin="2" Width="100" Background="White" TextAlignment="Center"  Text="{Binding DriverVersion}" ></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Width="200" HorizontalAlignment="Left">
+                            <Button    Foreground="White"  Margin="2" Template="{DynamicResource GlassButton}" Content=" Get Motor Driver " Command="{Binding GetMotorDriver}" />
+                            <TextBlock x:Name="MotorDriver" Foreground="Black"  Margin="2" Width="100" Background="White" TextAlignment="Center" Text="{Binding MotorDriver, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>-->
+            <!--<TabItem Header="Load Parameters" TabIndex="8" DataContext="{Binding LoadParamsViewModel}" Background="Black" Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Save Parameters To File</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Load Parameters From File</TextBlock>
+                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding LoadFromFile}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>-->
+        </TabControl>
+        <!--<Rectangle   Grid.Row="1" Grid.ColumnSpan="3" Height="4.5" StrokeThickness="0.5" Stretch="UniformToFill" StrokeDashArray="1 0" StrokeDashCap="Square" SnapsToDevicePixels="True" Margin="0,2.4,-0.4,2.4" >
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="-0.001,0.747" MappingMode="RelativeToBoundingBox" StartPoint="1,0.697">
+                    <GradientStop Color="#00F9F9F9"/>
+                    <GradientStop Color="#00F2F3F7" Offset="1"/>
+                    <GradientStop Color="#FFF5F5F7" Offset="0.455"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Border BorderBrush="#FF616161" BorderThickness="0,0.5" Background="#19616161" Margin="0,2,-0.4,0.6" Grid.ColumnSpan="3"/>-->
+    </Grid>
+</Window>
+
+

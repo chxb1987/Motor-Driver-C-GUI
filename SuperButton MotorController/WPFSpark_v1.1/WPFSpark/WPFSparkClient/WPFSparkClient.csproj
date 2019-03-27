@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40311281-7FCE-4ED3-9080-06E4C219564F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPFSparkClient</RootNamespace>
+    <AssemblyName>WPFSparkClient</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>wpfspark.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AppButton.cs" />
+    <Compile Include="ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClipBorderDemo.xaml.cs">
+      <DependentUpon>ClipBorderDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FluidPivotPanelDemo.xaml.cs">
+      <DependentUpon>FluidPivotPanelDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FluidStatusBarDemo.xaml.cs">
+      <DependentUpon>FluidStatusBarDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FluidWrapPanelDemo.xaml.cs">
+      <DependentUpon>FluidWrapPanelDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImageIcon.xaml.cs">
+      <DependentUpon>ImageIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FluidProgressBarDemo.xaml.cs">
+      <DependentUpon>FluidProgressBarDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MsgBox.xaml.cs">
+      <DependentUpon>MsgBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SparkWindowDemo.xaml.cs">
+      <DependentUpon>SparkWindowDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SprocketControlDemo.xaml.cs">
+      <DependentUpon>SprocketControlDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToggleSwitchDemo.xaml.cs">
+      <DependentUpon>ToggleSwitchDemo.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClipBorderDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FluidPivotPanelDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FluidStatusBarDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FluidWrapPanelDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="FluidProgressBarDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MsgBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SparkWindowDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SprocketControlDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToggleSwitchDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPFSpark\WPFSpark.csproj">
+      <Project>{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}</Project>
+      <Name>WPFSpark</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\wpfspark_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wpfspark.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Applications.png" />
+    <Resource Include="Resources\Images\Icons\browser.png" />
+    <Resource Include="Resources\Images\Icons\cal.png" />
+    <Resource Include="Resources\Images\Icons\calc.png" />
+    <Resource Include="Resources\Images\Icons\clock.png" />
+    <Resource Include="Resources\Images\Icons\Downloads.png" />
+    <Resource Include="Resources\Images\Icons\Facebook.png" />
+    <Resource Include="Resources\Images\Icons\graph.png" />
+    <Resource Include="Resources\Images\Icons\ipod.png" />
+    <Resource Include="Resources\Images\Icons\mail.png" />
+    <Resource Include="Resources\Images\Icons\map.png" />
+    <Resource Include="Resources\Images\Icons\notes.png" />
+    <Resource Include="Resources\Images\Icons\phone.png" />
+    <Resource Include="Resources\Images\Icons\photo.png" />
+    <Resource Include="Resources\Images\Icons\Skype.png" />
+    <Resource Include="Resources\Images\Icons\SMS.png" />
+    <Resource Include="Resources\Images\Icons\Terminal.png" />
+    <Resource Include="Resources\Images\Icons\tools.png" />
+    <Resource Include="Resources\Images\Icons\twitter.png" />
+    <Resource Include="Resources\Images\Icons\wallpaper.png" />
+    <Resource Include="Resources\Images\Icons\weather.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Backgrounds\background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Backgrounds\black_linen_v2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Backgrounds\Gray_Linen_Fabric.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

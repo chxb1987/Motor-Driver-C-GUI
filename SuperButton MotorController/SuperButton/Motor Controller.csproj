@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05B24EBA-CB42-419A-AB18-7DC1500B7876}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MotorController</RootNamespace>
+    <AssemblyName>Motor Controller</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <ApplicationIcon>MotorController.ico</ApplicationIcon>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Projects\Motor Driver C# GUI\SuperButton\Exe\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E4034261435741EC5D43DEDFADFAAC17754F4219</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SuperButton_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abt.Controls.SciChart.Wpf, Version=3.61.0.7847, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\net40\Abt.Controls.SciChart.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Abt.Controls.SciChart3D.Wpf, Version=3.61.0.7847, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\net40\Abt.Controls.SciChart3D.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\packages\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="SharpDX, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\Lib\net40\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\Lib\net40\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D10, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\Lib\net40\SharpDX.Direct3D10.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\Lib\net40\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ABT Software Services Ltd\SciChartv3.1.0.5077\Lib\net40\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDiagnostics" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel.Internals" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\packages\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls">
+      <HintPath>..\packages\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ImageEditor">
+      <HintPath>..\packages\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input">
+      <HintPath>..\packages\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="TextBoxBehaivior">
+      <HintPath>..\packages\TextBoxBehaivior.dll</HintPath>
+    </Reference>
+    <Reference Include="ToggleSwitch">
+      <HintPath>..\packages\ToggleSwitch.1.1.2\lib\net40-client\ToggleSwitch.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="UserControlLibrary">
+      <HintPath>..\packages\UserControlLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\BindableSelectedItemBehavior.cs" />
+    <Compile Include="Behaviors\ExampleAutocompleteBehavior.cs" />
+    <Compile Include="Behaviors\HyperlinkButtonBehavior.cs" />
+    <Compile Include="Behaviors\InputBindingsManager.cs" />
+    <Compile Include="Behaviors\ListBoxMouseWheelScrollingBehavior.cs" />
+    <Compile Include="Behaviors\RtbSyntaxHighlightingBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewScrollbarVisibilityBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewSelectOnExpandedBehavior.cs" />
+    <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Common\Consts.cs" />
+    <Compile Include="Common\MessageBoxWrapper.cs" />
+    <Compile Include="Example.cs" />
+    <Compile Include="ExampleGroupViewModel.cs" />
+    <Compile Include="ExampleItemViewControl.xaml.cs">
+      <DependentUpon>ExampleItemViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupedExamplesViewModel.cs" />
+    <Compile Include="Helpers\ActualSizePropertyProxy.cs" />
+    <Compile Include="Helpers\AttachableInteractionClasses.cs" />
+    <Compile Include="Helpers\EventRiser.cs" />
+    <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Helpers\NavigationBase.cs" />
+    <Compile Include="Helpers\RecLed.cs" />
+    <Compile Include="Helpers\RoundBoolLed.cs" />
+    <Compile Include="Helpers\TransitioningFrame.cs" />
+    <Compile Include="Helpers\TreeViewExtension.cs" />
+    <Compile Include="HomeControl.xaml.cs">
+      <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatusGroup\StatusesModule.cs" />
+    <Compile Include="StatusGroup\StatusGrous.cs" />
+    <Compile Include="ViewModels\BoolViewIndModel.cs" />
+    <Compile Include="ViewModels\BottomPanelViewModel.cs" />
+    <Compile Include="ViewModels\CalibrationButtonModel.cs" />
+    <Compile Include="ViewModels\CalibrationViewModel.cs" />
+    <Compile Include="ViewModels\ComboBox.cs" />
+    <Compile Include="ViewModels\LoadParamsViewModel.cs" />
+    <Compile Include="ViewModels\NumericTextboxModel.cs" />
+    <Compile Include="ViewModels\FeedBackViewModel.cs" />
+    <Compile Include="ViewModels\MaintenanceViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxVM.cs" />
+    <Compile Include="ViewModels\MotionViewModel.cs" />
+    <Compile Include="ViewModels\OperationViewModel.cs" />
+    <Compile Include="Views\CalibrationButton.xaml.cs">
+      <DependentUpon>CalibrationButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataViewInd.xaml.cs">
+      <DependentUpon>DataViewInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoolViewInd.xaml.cs">
+      <DependentUpon>BoolViewInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NumericTextboxView.xaml.cs">
+      <DependentUpon>NumericTextboxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataViewSmallFontInd.xaml.cs">
+      <DependentUpon>DataViewSmallFontInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataViewSmallFont.xaml.cs">
+      <DependentUpon>DataViewSmallFont.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFontInd.xaml.cs">
+      <DependentUpon>EnumViewSmallFontInd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumViewSmallFont.xaml.cs">
+      <DependentUpon>EnumViewSmallFont.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\mainWindowPanels\BottomPanel.xaml.cs">
+      <DependentUpon>BottomPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CommandsDB\Commands.cs" />
+    <Compile Include="Common\BaseViewModel.cs" />
+    <Compile Include="Common\CollapsableGridSplitter.cs" />
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\Instrument.cs" />
+    <Compile Include="Common\IsModifierTypeConverter.cs" />
+    <Compile Include="Common\NewsEvent.cs" />
+    <Compile Include="Common\StrongTyped.cs" />
+    <Compile Include="Common\TimeFrame.cs" />
+    <Compile Include="Common\Trade.cs" />
+    <Compile Include="Common\VisibleIfTypeConverter.cs" />
+    <Compile Include="Data\DataManager.cs" />
+    <Compile Include="Data\DoubleSeries.cs" />
+    <Compile Include="Data\IDataManager.cs" />
+    <Compile Include="Data\MovingAverage.cs" />
+    <Compile Include="Data\PriceBar.cs" />
+    <Compile Include="Data\XYPoint.cs" />
+    <Compile Include="EnumPattern.xaml.cs">
+      <DependentUpon>EnumPattern.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\mainWindowPanels\LeftPanelView.xaml.cs">
+      <DependentUpon>LeftPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParserBlock\AllowableCharactersTextBoxBehavior.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\DriverBlock\CanInterface.cs" />
+    <Compile Include="Models\DriverBlock\ConnectionBase.cs" />
+    <Compile Include="Models\DriverBlock\RefreshManger.cs" />
+    <Compile Include="Models\DriverBlock\Rs232Interface.cs" />
+    <Compile Include="Models\DriverBlock\Rs232InterfaceEventArgs.cs" />
+    <Compile Include="Models\ParserBlock\CrcBase.cs" />
+    <Compile Include="Models\ParserBlock\Packetizer.cs" />
+    <Compile Include="Models\ParserBlock\PacketizerEventArgs.cs" />
+    <Compile Include="Models\ParserBlock\Parser2SendEventArgs.cs" />
+    <Compile Include="Models\ParserBlock\ParserBase.cs" />
+    <Compile Include="Models\ParserBlock\ParserRayonM1.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
+    <Compile Include="Models\SataticClaass\GuiUpdateQueue.cs" />
+    <Compile Include="Models\SataticClaass\StaticMemebers.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Views\mainWindowPanels\RightPanelView.xaml.cs">
+      <DependentUpon>RightPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\mainWindowPanels\UpperPanel.xaml.cs">
+      <DependentUpon>UpperPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BoolUCModel.cs" />
+    <Compile Include="ViewModels\DataViewModel.cs" />
+    <Compile Include="ViewModels\EnumViewModel.cs" />
+    <Compile Include="ViewModels\IntegerUCModel.cs" />
+    <Compile Include="ViewModels\LeftPanelViewModel.cs" />
+    <Compile Include="ViewModels\ParametarsWindowViewModel.cs" />
+    <Compile Include="ViewModels\RightPanelViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\BoolUC.xaml.cs">
+      <DependentUpon>BoolUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataView.xaml.cs">
+      <DependentUpon>DataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumView.xaml.cs">
+      <DependentUpon>EnumView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IntegerUC.xaml.cs">
+      <DependentUpon>IntegerUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MesageBox.xaml.cs">
+      <DependentUpon>MesageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OscilloscopeParameters.cs" />
+    <Compile Include="Views\OscilloscopeViewModel.cs" />
+    <Compile Include="Data\PriceSeries.cs" />
+    <Compile Include="Views\OscilloscopeView.xaml.cs">
+      <DependentUpon>OscilloscopeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EnumUCModel.cs" />
+    <Compile Include="Views\EnumUC.xaml.cs">
+      <DependentUpon>EnumUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ParametersWindow.xaml.cs">
+      <DependentUpon>ParametersWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ExampleItemViewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CalibrationButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataViewInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BoolViewInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NumericTextboxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFontInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataViewSmallFont.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFontInd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumViewSmallFont.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\mainWindowPanels\BottomPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EnumPattern.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\mainWindowPanels\LeftPanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\MainViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\ResourceDictionary1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\mainWindowPanels\RightPanelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\mainWindowPanels\UpperPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BoolUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EnumView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IntegerUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MesageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OscilloscopeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ParametersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <None Include="Application.ico">
+      <Visible>false</Visible>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="HomeBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="SuperButton_TemporaryKey.pfx" />
+    <None Include="Views\HomeBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\UserControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="SciChartLicense.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\BlackSteel.jpg" />
+    <Resource Include="Images\Backgrounds\ECG.jpg" />
+    <Resource Include="Images\Backgrounds\HomeBackground.jpg" />
+    <Resource Include="Images\Backgrounds\Oscilloscope.jpg" />
+    <Resource Include="Images\Backgrounds\PerfDemo.jpg" />
+    <Resource Include="Images\Backgrounds\SpecAnalyzer.jpg" />
+    <Resource Include="Images\back_tb.png" />
+    <Resource Include="Images\br_next.png" />
+    <Resource Include="Images\buy_tb.png" />
+    <Resource Include="Images\camera2.png" />
+    <Resource Include="Images\chart_line_2.png" />
+    <Resource Include="Images\cog.png" />
+    <Resource Include="Images\contact_tb.png" />
+    <Resource Include="Images\cursor.png" />
+    <Resource Include="Images\cursor_arrow.png" />
+    <Resource Include="Images\cursor_drag_arrow.png" />
+    <Resource Include="Images\cursor_drag_arrow_2.png" />
+    <Resource Include="Images\cursor_drag_hand.png" />
+    <Resource Include="Images\cursor_hand.png" />
+    <Resource Include="Images\cursor_V_split.png" />
+    <Resource Include="Images\ExampleIcons\area_icon.png" />
+    <Resource Include="Images\ExampleIcons\band_icon.png" />
+    <Resource Include="Images\ExampleIcons\bubble_icon.png" />
+    <Resource Include="Images\ExampleIcons\candlestick_icon.png" />
+    <Resource Include="Images\ExampleIcons\column_icon.png" />
+    <Resource Include="Images\ExampleIcons\errorbars_icon.png" />
+    <Resource Include="Images\ExampleIcons\fanchart_icon.png" />
+    <Resource Include="Images\ExampleIcons\heatmap_icon.png" />
+    <Resource Include="Images\ExampleIcons\impulse_icon.png" />
+    <Resource Include="Images\ExampleIcons\line_icon.png" />
+    <Resource Include="Images\ExampleIcons\scatter_icon.png" />
+    <Resource Include="Images\ExampleIcons\stackedarea_icon.png" />
+    <Resource Include="Images\ExampleIcons\stackedcolumn_icon.png" />
+    <Resource Include="Images\ExampleImages\demoAddRemoveDataSeries.png" />
+    <Resource Include="Images\ExampleImages\demoAnnotationsAreEasy.png" />
+    <Resource Include="Images\ExampleImages\demoBandSeries.png" />
+    <Resource Include="Images\ExampleImages\demoBoxPlot.png" />
+    <Resource Include="Images\ExampleImages\demoBubbleChart.png" />
+    <Resource Include="Images\ExampleImages\demoCandlestick.png" />
+    <Resource Include="Images\ExampleImages\demoCandlestickAndLines.png" />
+    <Resource Include="Images\ExampleImages\demoChangeRenderableSeriesType.png" />
+    <Resource Include="Images\ExampleImages\demoColumn.png" />
+    <Resource Include="Images\ExampleImages\demoCreateAnnotationsDynamically.png" />
+    <Resource Include="Images\ExampleImages\demoCreateAStockChart.png" />
+    <Resource Include="Images\ExampleImages\demoCreateMultiPaneStockCharts.png" />
+    <Resource Include="Images\ExampleImages\demoDashedLine.png" />
+    <Resource Include="Images\ExampleImages\demoDragAxisToScale.png" />
+    <Resource Include="Images\ExampleImages\demoDragToPan.png" />
+    <Resource Include="Images\ExampleImages\demoDragToZoom.png" />
+    <Resource Include="Images\ExampleImages\demoECGMonitor.png" />
+    <Resource Include="Images\ExampleImages\demoEEG.png" />
+    <Resource Include="Images\ExampleImages\demoErrorBars.png" />
+    <Resource Include="Images\ExampleImages\demoFanChart.png" />
+    <Resource Include="Images\ExampleImages\demoFIFO.png" />
+    <Resource Include="Images\ExampleImages\demoGapsInSeries.png" />
+    <Resource Include="Images\ExampleImages\demoGhostedTraces.png" />
+    <Resource Include="Images\ExampleImages\demoHeatmap.png" />
+    <Resource Include="Images\ExampleImages\demoHeatmapWithText.png" />
+    <Resource Include="Images\ExampleImages\demoHighQualityRasterizer.png" />
+    <Resource Include="Images\ExampleImages\demoHitTest.png" />
+    <Resource Include="Images\ExampleImages\demoImpulse.png" />
+    <Resource Include="Images\ExampleImages\demoInteractionWithAnnotations.png" />
+    <Resource Include="Images\ExampleImages\demoLeftRightAxis.png" />
+    <Resource Include="Images\ExampleImages\demoLine.png" />
+    <Resource Include="Images\ExampleImages\demoLineAndScatter.png" />
+    <Resource Include="Images\ExampleImages\demoLinearRegression.png" />
+    <Resource Include="Images\ExampleImages\demoLogarithmicAxis.png" />
+    <Resource Include="Images\ExampleImages\demoModifyAxisProperties.png" />
+    <Resource Include="Images\ExampleImages\demoMountain.png" />
+    <Resource Include="Images\ExampleImages\demoMousewheel.png" />
+    <Resource Include="Images\ExampleImages\demoMultiAxis.png" />
+    <Resource Include="Images\ExampleImages\demoMultipleChartsMvvm.png" />
+    <Resource Include="Images\ExampleImages\demoMultipleLines.png" />
+    <Resource Include="Images\ExampleImages\demoMultiXAxis.png" />
+    <Resource Include="Images\ExampleImages\demoOscilloscope.png" />
+    <Resource Include="Images\ExampleImages\demoOverviewControl.png" />
+    <Resource Include="Images\ExampleImages\demoPaletteProvider.png" />
+    <Resource Include="Images\ExampleImages\demoPanXorYDirection.png" />
+    <Resource Include="Images\ExampleImages\demoPointMarkers.png" />
+    <Resource Include="Images\ExampleImages\demoPointMarkers2.png" />
+    <Resource Include="Images\ExampleImages\demoQuadAxis.png" />
+    <Resource Include="Images\ExampleImages\demoRealtimeCursors.png" />
+    <Resource Include="Images\ExampleImages\demoRealTimeStaticAxis.png" />
+    <Resource Include="Images\ExampleImages\demoRealTimeStockChart.png" />
+    <Resource Include="Images\ExampleImages\demoRealtimeUpdates.png" />
+    <Resource Include="Images\ExampleImages\demoRolloverModifier.png" />
+    <Resource Include="Images\ExampleImages\demoScatter.png" />
+    <Resource Include="Images\ExampleImages\demoSciTrader.png" />
+    <Resource Include="Images\ExampleImages\demoSeriesSelect.png" />
+    <Resource Include="Images\ExampleImages\demoSeriesTooltips.png" />
+    <Resource Include="Images\ExampleImages\demoSingleChartMvvm.png" />
+    <Resource Include="Images\ExampleImages\demoSpectrumAnalyzer.png" />
+    <Resource Include="Images\ExampleImages\demoStackedBarChart.png" />
+    <Resource Include="Images\ExampleImages\demoStackedColumnChart.png" />
+    <Resource Include="Images\ExampleImages\demoStackedColumnSideBySideChart.png" />
+    <Resource Include="Images\ExampleImages\demoStackedMountainChart.png" />
+    <Resource Include="Images\ExampleImages\demoStepLine.png" />
+    <Resource Include="Images\ExampleImages\demoStepMountain.png" />
+    <Resource Include="Images\ExampleImages\demoSyncMouseEvents.png" />
+    <Resource Include="Images\ExampleImages\demoThemeManager.png" />
+    <Resource Include="Images\ExampleImages\demoThreshold.png" />
+    <Resource Include="Images\ExampleImages\demoTradeMarkers.png" />
+    <Resource Include="Images\ExampleImages\demoUsingSeriesValueModifier.png" />
+    <Resource Include="Images\ExampleImages\demoVerticalCharts.png" />
+    <Resource Include="Images\ExampleImages\demoVerticallyStackedAxes.png" />
+    <Resource Include="Images\ExampleImages\demoVerticalSliceModifier.png" />
+    <Resource Include="Images\ExampleImages\demoXamlStyling.png" />
+    <Resource Include="Images\FeatureIcons\featureAnnotations.png" />
+    <Resource Include="Images\FeatureIcons\featureAxis.png" />
+    <Resource Include="Images\FeatureIcons\featureBandChart.png" />
+    <Resource Include="Images\FeatureIcons\featureCandlestickChart.png" />
+    <Resource Include="Images\FeatureIcons\featureColumnChart.png" />
+    <Resource Include="Images\FeatureIcons\featureCursors.png" />
+    <Resource Include="Images\FeatureIcons\featureDualAxis.png" />
+    <Resource Include="Images\FeatureIcons\featureImpulseChart.png" />
+    <Resource Include="Images\FeatureIcons\featureLineChart.png" />
+    <Resource Include="Images\FeatureIcons\featureLogAxis.png" />
+    <Resource Include="Images\FeatureIcons\featureMountainChart.png" />
+    <Resource Include="Images\FeatureIcons\featureMvvm.png" />
+    <Resource Include="Images\FeatureIcons\featureNew.png" />
+    <Resource Include="Images\FeatureIcons\featureQuadAxis.png" />
+    <Resource Include="Images\FeatureIcons\featureRealtime.png" />
+    <Resource Include="Images\FeatureIcons\featureScatterChart.png" />
+    <Resource Include="Images\FeatureIcons\featureXamlStyling.png" />
+    <Resource Include="Images\FeatureIcons\featureZoomingAndPanning.png" />
+    <Resource Include="Images\fit_to_size.png" />
+    <Resource Include="Images\hexgridgenerated.png" />
+    <Resource Include="Images\home_tb.png" />
+    <Resource Include="Images\kservices.png" />
+    <Resource Include="Images\media_controls_dark_stop.png" />
+    <Resource Include="Images\media_pause.png" />
+    <Resource Include="Images\media_play_green.png" />
+    <Resource Include="Images\media_stop_red.png" />
+    <Resource Include="Images\next_tb.png" />
+    <Resource Include="Images\pan.png" />
+    <Resource Include="Images\playback_pause.png" />
+    <Resource Include="Images\playback_stop.png" />
+    <Resource Include="Images\rollover.png" />
+    <Resource Include="Images\scichartlogo.png" />
+    <Resource Include="Images\SciChartLogo_Dark.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\selection.png" />
+    <Resource Include="Images\selection_view.png" />
+    <Resource Include="Images\sq_br_next.png" />
+    <Resource Include="Images\step_line.png" />
+    <Resource Include="Images\target.png" />
+    <Resource Include="Images\tutorials_tb.png" />
+    <Resource Include="Images\view_1_1.png" />
+    <Resource Include="Images\zoom.png" />
+    <Resource Include="Properties\1452207982_settings.png" />
+    <Resource Include="Properties\alt-parameters-icone-9469-64.png" />
+    <Resource Include="Properties\Free MP3 Converter.png" />
+    <Resource Include="Properties\reload_all_tabs.png" />
+    <Resource Include="Views\black1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\hide_menu-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="settings_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alt-parameters-icone-9469-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Warning.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\minus3.png" />
+    <Resource Include="Images\plusZoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SelectFile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\MotorController.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MotorController.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPFSpark_v1.1\WPFSpark\WPFSpark\WPFSpark.csproj">
+      <Project>{98be1309-ceb4-45ee-b4ad-28baf0570fab}</Project>
+      <Name>WPFSpark</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	     Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

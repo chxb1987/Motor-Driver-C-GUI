@@ -1,0 +1,105 @@
+﻿<Window x:Class="WPFSparkClient.FluidPivotPanelDemo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="640"
+        Width="384"
+        Title="FluidPivotPanelDemo"
+        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark">
+    <Window.Resources>
+        <DataTemplate x:Key="ListBoxItemTemplate">
+            <StackPanel>
+                <TextBlock FontFamily="Segoe WP"
+                           FontWeight="Light"
+                           FontSize="32"
+                           Foreground="LightGray"
+                           Background="Transparent"
+                           Text="{Binding MainText}"></TextBlock>
+                <TextBlock FontFamily="Segoe WP"
+                           FontWeight="Light"
+                           FontSize="16"
+                           Foreground="Gray"
+                           Background="Transparent"
+                           Text="{Binding SubText}"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <wpfspark:PivotPanel x:Name="RootPivotPanel"
+                             HeaderHeight="70"
+                             HorizontalAlignment="Stretch">
+            <!--<wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP" FontWeight="Light"
+                                                 FontSize="28"
+                                                 ActiveForeground="White"
+                                                 InactiveForeground="#444444">Item One</wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Border Background="LightBlue"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            <TextBlock FontFamily="Segoe WP" FontWeight="Light"
+                                       FontSize="48"
+                                       Foreground="White"
+                                       Text="Item One Content"></TextBlock>
+                        </Border>
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>
+            <wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP" FontWeight="Light"
+                                                 FontSize="28"
+                                                 ActiveForeground="White"
+                                                 InactiveForeground="#444444">Item Two</wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Border Background="LightGoldenrodYellow"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            <TextBlock FontFamily="Segoe WP" FontWeight="Light"
+                                       FontSize="48"
+                                       Foreground="Black"
+                                       Text="Item Two Content"></TextBlock>
+                        </Border>
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>
+            <wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP" FontWeight="Light"
+                                                 FontSize="28"
+                                                 ActiveForeground="White"
+                                                 InactiveForeground="#444444">Item Three</wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Border Background="LightSeaGreen"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            <TextBlock FontFamily="Segoe WP" FontWeight="Light"
+                                       FontSize="48"
+                                       Foreground="Black"
+                                       Text="Item Three Content"></TextBlock>
+                        </Border>
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>-->
+        </wpfspark:PivotPanel>
+        <Button Width="100"
+                Grid.Row="1"
+                Height="28"
+                Content="Reset"
+                FontSize="14"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="Button_Click"></Button>
+    </Grid>
+</Window>

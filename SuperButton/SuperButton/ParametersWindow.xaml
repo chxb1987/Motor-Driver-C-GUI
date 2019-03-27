@@ -211,8 +211,8 @@
             <TabItem Header="PID" TabIndex="3" Background="Black" Foreground="White">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="250"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -237,7 +237,7 @@
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0"    Header="Possition"  Background="Transparent" Margin="30,0,0,0">
                             <StackPanel  Background="Transparent" Orientation="Vertical" >
-                                <ItemsControl     ItemsSource="{Binding PidPositionList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                                <ItemsControl   ItemsSource="{Binding PidPositionList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
                             </StackPanel>
                         </GroupBox>
                     </Grid>
@@ -317,7 +317,7 @@
             <TabItem Header="Motion" TabIndex="6" DataContext="{Binding MotionViewModel}" Background="Black" Foreground="White" Margin="-1,0,1,0" >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="280"/>
+                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
@@ -380,7 +380,7 @@
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Save Parameters To File</TextBlock>
+                            <TextBlock Grid.Column="0">Load Parameters To File</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
                         </Grid>
                         <Grid Grid.Row="5" Height="15"/>

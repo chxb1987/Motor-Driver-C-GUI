@@ -774,7 +774,7 @@
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="REDLER" VerticalAlignment="Top" Width="70" Height="22" FontWeight="Bold" FontSize="19" Foreground="White"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock HorizontalAlignment="Left" Text="Technologies    Version V0.1.n" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
+                    <TextBlock HorizontalAlignment="Left" Text="Technologies    Version V0.1.p" VerticalAlignment="Top" Height="17" Width="160" Foreground="#FF5499D3"/>
                 </Grid>
                 <Grid Grid.Row="2" Width="161" HorizontalAlignment="Left">
                     <Border BorderBrush="Transparent"  BorderThickness="1" CornerRadius="3" Width="110" Height="20" VerticalAlignment="Center" Margin="5,0,0,0">

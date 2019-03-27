@@ -1,0 +1,46 @@
+﻿<wpfspark:SparkWindow x:Class="WPFSparkClient.SparkWindowDemo"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+                      Title="AppTitle"
+                      FontFamily="Segoe WP"
+                      FontWeight="Light"
+                      FontSize="64"
+                      Foreground="LightGray"
+                      TitleMargin="10,-20,0,0"
+                      Width="800"
+                      Height="600"
+                      WindowFrameMode="Pane"
+                      IsAboutEnabled="True">
+    <wpfspark:SparkWindow.TitleEffect>
+        <DropShadowEffect BlurRadius="3"
+                          Direction="-85"
+                          ShadowDepth="4"></DropShadowEffect>
+    </wpfspark:SparkWindow.TitleEffect>
+    <Window.Background>
+        <VisualBrush TileMode="Tile"
+                     Stretch="None"
+                     Viewport="0,0,640,640"
+                     ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Image Source="/Resources/Images/Backgrounds/black_linen_v2.png"
+                       Stretch="None"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Window.Background>
+    <Grid>
+        <TextBlock FontFamily="Segoe WP"
+                   FontWeight="Light"
+                   FontSize="64"
+                   Foreground="YellowGreen"
+                   Text="Your Content Here!"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="4"
+                                  Direction="-85"
+                                  ShadowDepth="4"></DropShadowEffect>
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</wpfspark:SparkWindow>

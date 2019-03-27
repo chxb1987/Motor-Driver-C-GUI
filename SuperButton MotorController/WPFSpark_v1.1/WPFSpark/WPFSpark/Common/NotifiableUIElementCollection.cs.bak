@@ -1,0 +1,38 @@
+﻿#region File Header
+
+// -------------------------------------------------------------------------------
+// 
+// This file is part of the WPFSpark project: http://wpfspark.codeplex.com/
+//
+// Author: Ratish Philip
+// 
+// WPFSpark v1.1
+//
+// -------------------------------------------------------------------------------
+
+#endregion
+
+using System.Windows;
+using System.Windows.Controls;
+
+namespace WPFSpark
+{
+    public class NotifiableUIElementCollection : UIElementCollection
+    {
+        private INotifiableParent parent;
+
+        public NotifiableUIElementCollection(UIElement visualParent, FrameworkElement logicalParent)
+            : base(visualParent, logicalParent)
+        {
+            parent = (INotifiableParent)logicalParent;
+        }
+
+        public override int Add(System.Windows.UIElement element)
+        {
+            if (parent != null)
+                return parent.AddChild(element);
+
+            return -1;
+        }
+    }
+}

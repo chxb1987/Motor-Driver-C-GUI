@@ -1,0 +1,82 @@
+﻿<wpfspark:SparkWindow x:Class="WPFSparkClient.ClientWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                      Title="WPFSpark"
+                      FontFamily="Segoe WP"
+                      FontWeight="Light"
+                      FontSize="44"
+                      Foreground="Orange"
+                      TitleMargin="10,-5,0,0"
+                      Width="412"
+                      Height="606"
+                      WindowFrameMode="CanMinimize"
+                      IsAboutEnabled="True"
+                      OuterBorderBrush="Black"
+                      OuterBorderThickness="1"
+                      InnerBorderBrush="White"
+                      InnerBorderThickness="1">
+    <wpfspark:SparkWindow.TitleEffect>
+        <DropShadowEffect BlurRadius="3"
+                          Direction="-85"
+                          ShadowDepth="4"></DropShadowEffect>
+    </wpfspark:SparkWindow.TitleEffect>
+    <Window.Background>
+        <VisualBrush TileMode="Tile"
+                     Stretch="None"
+                     Viewport="0,0,640,640"
+                     ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Image Source="/Resources/Images/Backgrounds/black_linen_v2.png"
+                       Stretch="None"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="1"
+                BorderBrush="Gray"
+                Background="White"
+                Margin="12,14,12,0">
+            <Image HorizontalAlignment="Center"
+                   Stretch="None"
+                   Margin="0"
+                   Height="120"
+                   Width="300"
+                   Source="/Resources/Images/wpfspark_new.png"></Image>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="8"
+                                  ShadowDepth="5"
+                                  Direction="-45"></DropShadowEffect>
+            </Border.Effect>
+        </Border>
+        <wpfspark:FluidWrapPanel x:Name="fluidWrapPanel"
+                                 Grid.Row="1"
+                                 ClipToBounds="False"
+                                 Margin="-5,0,0,0"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Background="Transparent"
+                                 ItemHeight="130"
+                                 ItemWidth="130"
+                                 IsComposing="True"
+                                 Orientation="Horizontal"
+                                 DragOpacity="0.75"
+                                 DragScale="1.2">
+            <wpfspark:FluidWrapPanel.ElementEasing>
+                <BackEase EasingMode="EaseOut"
+                          Amplitude="0.35"></BackEase>
+            </wpfspark:FluidWrapPanel.ElementEasing>
+            <wpfspark:FluidWrapPanel.DragEasing>
+                <BackEase EasingMode="EaseOut"
+                          Amplitude="0.65"></BackEase>
+            </wpfspark:FluidWrapPanel.DragEasing>
+        </wpfspark:FluidWrapPanel>
+
+    </Grid>
+</wpfspark:SparkWindow>

@@ -178,8 +178,8 @@ namespace SuperButton.ViewModels
             }
         }
 
-        private List<UInt32> ParamsToFile = new List<UInt32>();
-        private List<UInt32> FileToParams = new List<UInt32>();
+        public static List<UInt32> ParamsToFile = new List<UInt32>();
+        public static List<UInt32> FileToParams = new List<UInt32>();
 
         private bool _saveToFile = false;
         public static bool CurrentButton = false;
@@ -206,7 +206,11 @@ namespace SuperButton.ViewModels
         }
         public void OpenToFile()
         {
-            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\");
+            string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Redler\\Parameters\\";
+            if(!Directory.Exists(tempPath))
+                Directory.CreateDirectory(tempPath);
+
+            Process.Start(tempPath);
         }
         public void OpenFromFile()
         {
@@ -237,19 +241,19 @@ namespace SuperButton.ViewModels
                     else
                     {
                         _saveToFile = value;
-                        CurrentButton = false;
-                        DefaultButton = false;
+                        //CurrentButton = false;
+                        //DefaultButton = false;
                         ParamsToFile.Clear();
-                        ParamsToFile.Add(1000);
-                        ParamsToFile.Add(5);
+                        //ParamsToFile.Add(1000);
+                        //ParamsToFile.Add(5);
 
-                        SaveToFileFunc(ParamsToFile);
+                        //SaveToFileFunc(ParamsToFile);
                         Rs232Interface.GetInstance.SendToParser(new PacketFields
                         {
-                            Data2Send = 1,
-                            ID = 63,
-                            SubID = Convert.ToInt16(0),
-                            IsSet = true,
+                            Data2Send = 0,
+                            ID = 67,
+                            SubID = Convert.ToInt16(1),
+                            IsSet = false,
                             IsFloat = false
                         });
                     }
@@ -284,20 +288,17 @@ namespace SuperButton.ViewModels
                     }
                     else
                     {
+                        FileToParams.Clear();
                         _loadFromFile = value;
                         OnPropertyChanged("LoadFromFile");
-                        SelectFile();
-
-
-                        //Rs232Interface.GetInstance.SendToParser(new PacketFields
-                        //{
-                        //    Data2Send = _saveToFile ? 1 : 0,
-                        //    ID = 63,
-                        //    SubID = Convert.ToInt16(0),
-                        //    IsSet = true,
-                        //    IsFloat = false
-                        //}
-                        //);
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = 0,
+                            ID = 67,
+                            SubID = Convert.ToInt16(1),
+                            IsSet = false,
+                            IsFloat = false
+                        } );
                     }
                 }
                 else if(!value)
@@ -326,30 +327,42 @@ namespace SuperButton.ViewModels
             else
             {
                 ParamsToFile.Add(data);
-                UInt32 Sum = 0, Sum1 = 0, temp = 0;
-                foreach(var item in ParamsToFile)
-                    Sum1 += item;
+                UInt32 Sum = 0;
                 for(int i = 0; i < ParamsToFile.Count - 1; i++)
                 {
-                    temp = ParamsToFile.ElementAt(i);
-                    Sum += ParamsToFile.ElementAt(i);
+                    Sum += ((ParamsToFile.ElementAt(i) >> 16) & 0xFFFF) + (ParamsToFile.ElementAt(i) & 0xFFFF);
                 }
                 if(ParamsToFile.ElementAt(ParamsToFile.Count - 1) == Sum)
                 {
                     SaveToFile = false;
                     SaveToFileFunc(ParamsToFile);
-                    EventRiser.Instance.RiseEevent(string.Format($"Save Parameters successed"));
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = 0,
+                        ID = 67,
+                        SubID = Convert.ToInt16(12),
+                        IsSet = true,
+                        IsFloat = false
+                    });
+                    EventRiser.Instance.RiseEevent(string.Format($"Load Parameters successed"));
                 }
                 else
                 {
-                    EventRiser.Instance.RiseEevent(string.Format($"Checksum Faied!"));
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = 0,
+                        ID = 67,
+                        SubID = Convert.ToInt16(12),
+                        IsSet = true,
+                        IsFloat = false
+                    });
+                    EventRiser.Instance.RiseEevent(string.Format($"Checksum Failed!"));
                     SaveToFileFunc(ParamsToFile);
                 }
             }
         }
 
         private string filePath;
-
         public void SaveToFileFunc(List<UInt32> ListToSave)
         {
             string Date = Day(DateTime.Now.Day) + ' ' + MonthTrans(DateTime.Now.Month) + ' ' + DateTime.Now.Year.ToString();
@@ -360,21 +373,26 @@ namespace SuperButton.ViewModels
 
             System.Windows.Forms.SaveFileDialog saveFile = new System.Windows.Forms.SaveFileDialog();
             saveFile.Filter = "Text (*.txt)|*.txt";
-            saveFile.FileName = path;            
+            saveFile.FileName = path;
 
-            if(saveFile.ShowDialog() == DialogResult.OK)
+            var t = new Thread((ThreadStart)(() =>
             {
-                PathToFile = saveFile.FileName;
-                using(StreamWriter writer = new StreamWriter(File.Open(PathToFile, FileMode.Create)))
+                if(saveFile.ShowDialog() == DialogResult.OK)
                 {
-                    foreach(var item in ListToSave)
+                    PathToFile = saveFile.FileName;
+                    using(StreamWriter writer = new StreamWriter(File.Open(PathToFile, FileMode.Create)))
                     {
-                        writer.Write(item.ToString("X2").PadLeft(8, '0'));
-                        writer.Write(" ");
+                        foreach(var item in ListToSave)
+                        {
+                            writer.Write(item.ToString("X2").PadLeft(8, '0'));
+                            writer.Write(" ");
+                        }
                     }
                 }
-            }
-            SaveToFile = false;
+            }));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
         }
         public static string MonthTrans(int month)
         {
@@ -420,13 +438,30 @@ namespace SuperButton.ViewModels
 
         }
 
-        private void SelectFile()
+        public bool SelectFile(UInt32 ParamsCount)
         {
             string readText = File.ReadAllText(PathFromFile);
             var array = readText.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
             foreach(var elements in array)
                 FileToParams.Add(Convert.ToUInt32(elements, 16));
-            LoadFromFile = false;
+            if(ParamsCount == FileToParams.Count() - 1)
+            {
+                return true;
+            }
+            else
+            {
+                EventRiser.Instance.RiseEevent(string.Format($"Wrong File Detected!"));
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 0,
+                    ID = 67,
+                    SubID = Convert.ToInt16(2),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                return false;
+            }
+            //LoadFromFile = false;
         }
     }
 }

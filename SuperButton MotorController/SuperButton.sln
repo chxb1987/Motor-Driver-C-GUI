@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motor Controller", "SuperButton\Motor Controller.csproj", "{05B24EBA-CB42-419A-AB18-7DC1500B7876}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB} = {98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{960F2638-4CF4-4356-90C1-EC81064EFF1C}"
+	ProjectSection(SolutionItems) = preProject
+		MotorController.ico = MotorController.ico
+		Yoav Rejections.txt = Yoav Rejections.txt
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{F1C04E8B-218A-445B-9E10-355605E72580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSpark", "WPFSpark_v1.1\WPFSpark\WPFSpark\WPFSpark.csproj", "{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.DVD-5|Any CPU.ActiveCfg = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.DVD-5|Any CPU.Build.0 = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{05B24EBA-CB42-419A-AB18-7DC1500B7876}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{F1C04E8B-218A-445B-9E10-355605E72580}.CD_ROM|Any CPU.ActiveCfg = Release
+		{F1C04E8B-218A-445B-9E10-355605E72580}.Debug|Any CPU.ActiveCfg = Release
+		{F1C04E8B-218A-445B-9E10-355605E72580}.DVD-5|Any CPU.ActiveCfg = Release
+		{F1C04E8B-218A-445B-9E10-355605E72580}.Release|Any CPU.ActiveCfg = Release
+		{F1C04E8B-218A-445B-9E10-355605E72580}.SingleImage|Any CPU.ActiveCfg = Release
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.DVD-5|Any CPU.ActiveCfg = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.DVD-5|Any CPU.Build.0 = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{98BE1309-CEB4-45EE-B4AD-28BAF0570FAB}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
