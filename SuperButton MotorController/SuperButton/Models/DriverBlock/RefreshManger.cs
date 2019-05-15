@@ -186,9 +186,9 @@ namespace SuperButton.Models.DriverBlock
             //    }
             //}
         }
-        public string[] GroupToExecute(int tabIndex)
+        public string[] GroupToExecute(int tabIndex)//
         {
-            string[] PanelElements = new string[] { "Channel List", "MotionCommand List2", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "Control", "Motor", "MotionStatus List", "Digital Input List", "Position counters List", "UpperMainPan List" };// , "Driver Type" ,
+            string[] PanelElements = new string[] { "Channel List", "MotionCommand List2", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "PowerOut List", "Control", "Motor", "MotionStatus List", "Digital Input List", "Position counters List", "UpperMainPan List" };// , "Driver Type" ,
             // , "LPCommands List"
             switch(tabIndex)
             {
@@ -196,13 +196,13 @@ namespace SuperButton.Models.DriverBlock
                     string[] arr = new string[] { "Motion Limit" }; // "Control", "Motor", already in PanelElements array
                     return arr.Concat(PanelElements).ToArray();
                 case 1:
-                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback" };
+                    arr = new string[] { "Hall", "Qep1", "Qep2", "SSI_Feedback", "Qep1Bis", "Qep2Bis" };
                     return arr.Concat(PanelElements).ToArray();
                 case 2:
                     arr = new string[] { "PIDCurrent", "PIDSpeed", "PIDPosition" };
                     return arr.Concat(PanelElements).ToArray();
                 case 3:
-                    arr = new string[] { "DeviceSerial" };
+                    arr = new string[] { "DeviceSerial", "BaudrateList" };
                     return arr.Concat(PanelElements).ToArray();
                 //case 4:
                 //    arr = new string[] { "DriverFullScale" };
@@ -233,7 +233,7 @@ namespace SuperButton.Models.DriverBlock
             //arr2.Clear();
             //arr3.Clear();
             //arr4.Clear();
-            if(!RefreshManger.DataPressed)//LeftPanelViewModel.GetInstance.EnRefresh && 
+            if(true)//!RefreshManger.DataPressed LeftPanelViewModel.GetInstance.EnRefresh && 
             {
                 tab = Views.ParametarsWindow.ParametersWindowTabSelected;
                 if(ParametarsWindow.WindowsOpen == false)
@@ -558,6 +558,14 @@ namespace SuperButton.Models.DriverBlock
             {
                 Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
             }
+            else if(commandidentifier.Item1 == 12 && commandidentifier.Item2 == 1) // Power Output Command
+            {
+                if(newPropertyValue == "1")
+                    BottomPanelViewModel.GetInstance.PowerOutputChecked = true;
+                else
+                    BottomPanelViewModel.GetInstance.PowerOutputChecked = false;
+
+            }
             else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
             {
                 if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Connected")
@@ -606,7 +614,8 @@ namespace SuperButton.Models.DriverBlock
             //{
             //    MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
             //}
-            else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))
+                && Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].IsSelected == false)
             {
                 Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
                 if(commandidentifier.Item1 == 62 && commandidentifier.Item2 < 3)

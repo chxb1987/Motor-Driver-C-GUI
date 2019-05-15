@@ -393,23 +393,4 @@ namespace SuperButton.ViewModels
         }
         public bool EnableTextBox { get { return true; } set { if(IsSelected) _baseModel.EnableTextBox = true; else _baseModel.EnableTextBox = false; OnPropertyChanged("EnableTextBox"); } }
     }
-
-
-    public class Beam
-    {
-        public double Width { get; set; }
-        public bool IsJoist { get; set; }
-
-        public static void Func()
-        {
-            var bm1 = new Beam { Width = 40 };
-            var bm2 = new Beam { Width = 50 };
-            var bm3 = new Beam { Width = 30 };
-            var bm4 = new Beam { Width = 60 };
-
-            var Beams = new List<Beam> { bm1, bm2, bm3, bm4 };
-
-            Beams.Where(x => x.Width > 40).ToList().ForEach(b => b.IsJoist = true);
-        }
-    }
 }

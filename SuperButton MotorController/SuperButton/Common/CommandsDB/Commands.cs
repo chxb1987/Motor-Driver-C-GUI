@@ -27,6 +27,8 @@ namespace SuperButton.CommandsDB
             BuildErrorList();
 
             GenerateGain();
+
+            GenerateDebugListCommands();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -44,6 +46,8 @@ namespace SuperButton.CommandsDB
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsListLP = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, EnumViewModel> EnumViewCommandsList = new Dictionary<Tuple<int, int>, EnumViewModel>();
         public Dictionary<Tuple<int, int>, CalibrationButtonModel> CalibartionCommandsList = new Dictionary<Tuple<int, int>, CalibrationButtonModel>();
+        public Dictionary<Tuple<int, int>, DebugObjModel> DebugList = new Dictionary<Tuple<int, int>, DebugObjModel>();
+
 
         public Dictionary<string, List<string>> Enums = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> EnumsQep1 = new Dictionary<string, List<string>>();
@@ -52,7 +56,8 @@ namespace SuperButton.CommandsDB
         public Dictionary<string, ObservableCollection<object>> EnumCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> DataCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> CalibartionCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
-
+        public Dictionary<string, ObservableCollection<object>> DebugListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
+       
         public Dictionary<int, string> ErrorList = new Dictionary<int, string>();
         public Dictionary<string, NumericTextboxModel> Gain = new Dictionary<string, NumericTextboxModel>();
         public Dictionary<string, ObservableCollection<object>> GainList = new Dictionary<string, ObservableCollection<object>>();
@@ -149,6 +154,31 @@ namespace SuperButton.CommandsDB
                     k = 7;
             }
 
+            var BR = new List<string>
+              {
+                  "4800",
+                  "9600",
+                  "19200",
+                  "38400",
+                  "57600",
+                  "115200",
+                  "230400",
+                  "460800",
+                  "921600"
+              };
+            Enums.Add("Baudrate", BR);
+
+            var BR_Enum = new EnumViewModel
+            {
+                CommandName = "Baudrate",
+                CommandId = "61",
+                CommandSubId = "1",
+                CommandList = Enums["Baudrate"],
+                CommandValue = "0",//first enum in list
+            };
+
+            EnumViewCommandsList.Add(new Tuple<int, int>(61, 1), BR_Enum);
+            EnumCommandsListbySubGroup.Add("BaudrateList", new ObservableCollection<object> { BR_Enum });
             #region Synch Command cmdID 64 cmdSubID 0
 
             DataCommandsListbySubGroup.Add("DeviceSynchCommand", new ObservableCollection<object>());
@@ -698,7 +728,7 @@ namespace SuperButton.CommandsDB
             #region Commands2
             var ProfilerModeEnum = new List<string>
               {
-                  "PID", 
+                  "PID",
                   "Trapezoid"
               };
             Enums.Add("Profiler Mode", ProfilerModeEnum);
@@ -771,6 +801,19 @@ namespace SuperButton.CommandsDB
 
 
             #endregion Commands4
+            #region Commands5
+            DataCommandsListbySubGroup.Add("PowerOut List", new ObservableCollection<object>());
+            data = new DataViewModel
+            {
+                CommandName = "PowerOut",
+                CommandId = "12",
+                CommandSubId = "1",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(12, 1), data);
+            DataCommandsListbySubGroup["PowerOut List"].Add(data);
+            #endregion Commands5
             #region Status_1
             DataCommandsListbySubGroup.Add("MotionStatus List", new ObservableCollection<object>());
             data = new DataViewModel
@@ -1233,39 +1276,40 @@ namespace SuperButton.CommandsDB
         private void BuildErrorList()
         {
             // Com. Error: 
-            ErrorList.Add(2,  "BAD_COMMAND"               );
-            ErrorList.Add(3,  "BAD_INDEX"                 );
-            ErrorList.Add(5,  "NO_INTERPRETER_MEANING"    );
-            ErrorList.Add(6,  "PROGRAM_NOT_RUNNING"       );
-            ErrorList.Add(7,  "MODE_NOT_STARTED"          );
-            ErrorList.Add(11, "CANNOT_WRITE_TO_FLASH"     );
-            ErrorList.Add(12, "COMMAND_NOT_AVAILABLE"     );
-            ErrorList.Add(13, "UART_BUSY"                 );
-            ErrorList.Add(18, "EMPTY_ASSIGN"              );
-            ErrorList.Add(19, "BAD_COMMAND_FORMAT"        );
-            ErrorList.Add(21, "OPERAND_OUT_OF_RANGE"      );
-            ErrorList.Add(22, "ZERO_DIVISION"             );
-            ErrorList.Add(23, "COMMAND_NOT_ASSIGNED"      );
-            ErrorList.Add(24, "BAD_OPERAND"               );
-            ErrorList.Add(25, "COMMAND_NOT_VALID"         );
-            ErrorList.Add(26, "MOTION_MODE_NOT_VALID"     );
-            ErrorList.Add(28, "OUT_OF_LIMIT_RANGE"        );
-            ErrorList.Add(30, "NO_PROGRAM_TO_CONTINUE"    );
-            ErrorList.Add(32, "COMMUNICATION_ERROR"       );
+            ErrorList.Add(2, "BAD_COMMAND");
+            ErrorList.Add(3, "BAD_INDEX");
+            ErrorList.Add(5, "NO_INTERPRETER_MEANING");
+            ErrorList.Add(6, "PROGRAM_NOT_RUNNING");
+            ErrorList.Add(7, "MODE_NOT_STARTED");
+            ErrorList.Add(11, "CANNOT_WRITE_TO_FLASH");
+            ErrorList.Add(12, "COMMAND_NOT_AVAILABLE");
+            ErrorList.Add(13, "UART_BUSY");
+            ErrorList.Add(18, "EMPTY_ASSIGN");
+            ErrorList.Add(19, "BAD_COMMAND_FORMAT");
+            ErrorList.Add(21, "OPERAND_OUT_OF_RANGE");
+            ErrorList.Add(22, "ZERO_DIVISION");
+            ErrorList.Add(23, "COMMAND_NOT_ASSIGNED");
+            ErrorList.Add(24, "BAD_OPERAND");
+            ErrorList.Add(25, "COMMAND_NOT_VALID");
+            ErrorList.Add(26, "MOTION_MODE_NOT_VALID");
+            ErrorList.Add(28, "OUT_OF_LIMIT_RANGE");
+            ErrorList.Add(30, "NO_PROGRAM_TO_CONTINUE");
+            ErrorList.Add(32, "COMMUNICATION_ERROR");
             ErrorList.Add(37, "HALL_DEFINED_SAME_LOCATION");
-            ErrorList.Add(38, "HALL_READING_ERROR"        );
-            ErrorList.Add(39, "MOTION_START_PAST"         );
-            ErrorList.Add(41, "COMMAND_NOT_SUPPORTED"     );
-            ErrorList.Add(42, "NO_SUCH_LABEL"             );
-            ErrorList.Add(57, "MOTOR_MUST_BE_OFF"         );
-            ErrorList.Add(58, "MOTOR_MUST_BE_ON"          );
-            ErrorList.Add(60, "BAD_UNIT_MODE"             );
-            ErrorList.Add(66, "DRIVE_NOT_READY"           );
-            ErrorList.Add(71, "HOMING_BUSY"               );
-            ErrorList.Add(72, "MODULO_MUST_EVEN"          );
-            ErrorList.Add(73, "SET_POSITION"              );
-            ErrorList.Add(127,"MODULO_RANGE_MUST_POSITIVE");
-            ErrorList.Add(166, "OUT_OF_MODULO_RANGE"      );
+            ErrorList.Add(38, "HALL_READING_ERROR");
+            ErrorList.Add(39, "MOTION_START_PAST");
+            ErrorList.Add(41, "COMMAND_NOT_SUPPORTED");
+            ErrorList.Add(42, "NO_SUCH_LABEL");
+            ErrorList.Add(57, "MOTOR_MUST_BE_OFF");
+            ErrorList.Add(58, "MOTOR_MUST_BE_ON");
+            ErrorList.Add(60, "BAD_UNIT_MODE");
+            ErrorList.Add(66, "DRIVE_NOT_READY");
+            ErrorList.Add(71, "HOMING_BUSY");
+            ErrorList.Add(72, "MODULO_MUST_EVEN");
+            ErrorList.Add(73, "SET_POSITION");
+            ErrorList.Add(127, "MODULO_RANGE_MUST_POSITIVE");
+            ErrorList.Add(166, "OUT_OF_MODULO_RANGE");
+            ErrorList.Add(200, "Reset_Driver_occured");
         }
 
         private void GenerateGain()
@@ -1277,7 +1321,7 @@ namespace SuperButton.CommandsDB
                 Name = "Gain",
                 CommandValue = "1.0",
                 BackGround = (SolidColorBrush)(new BrushConverter().ConvertFrom("#82F7E31D")),
-        };
+            };
             Gain.Add("Ch1 Gain", data);
             GainList["Gain1 List"].Add(data);
 
@@ -1291,6 +1335,24 @@ namespace SuperButton.CommandsDB
             };
             Gain.Add("Ch2 Gain", data);
             GainList["Gain2 List"].Add(data);
+        }
+
+        private void GenerateDebugListCommands()
+        {
+            DebugListbySubGroup.Add("DebugList", new ObservableCollection<object>());
+
+            var data = new DataViewModel
+            {
+                CommandName = "",
+                CommandId = "1",
+                CommandSubId = "0",
+                CommandValue = "",
+                IsFloat = false,
+            };
+
+            //DataViewCommandsList.Add(new Tuple<int, int>(130, 0), data);
+            //DebugListbySubGroup["DebugList"].Add(data);
+
         }
     }
 }

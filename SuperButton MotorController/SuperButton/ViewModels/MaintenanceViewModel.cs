@@ -64,12 +64,12 @@ namespace SuperButton.ViewModels
             set
             {
 
-                if(value && !GetInstance.Manufacture)
+                if(value)
                 {
                     _save = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
-                        Data2Send = _save ? 1 : 0,
+                        Data2Send = 1,
                         ID = 63,
                         SubID = Convert.ToInt16(0),
                         IsSet = true,
@@ -78,7 +78,7 @@ namespace SuperButton.ViewModels
                     );
                     Task WaitSave = Task.Run((Action)GetInstance.Wait);
                 }
-                else if(!value && !GetInstance.Manufacture)
+                else if(!value)
                 {
                     _save = value;
                 }
@@ -100,12 +100,12 @@ namespace SuperButton.ViewModels
             get { return _manufacture; }
             set
             {
-                if(value && !GetInstance.Save)
+                if(value)
                 {
                     _manufacture = value;
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
-                        Data2Send = _manufacture ? 1 : 0,
+                        Data2Send = 1,
                         ID = 63,
                         SubID = Convert.ToInt16(1),
                         IsSet = true,
@@ -114,13 +114,14 @@ namespace SuperButton.ViewModels
                     );
                     Task WaitManufacture = Task.Run((Action)GetInstance.Wait);
                 }
-                else if(!value && !GetInstance.Save)
+                else if(!value)
                 {
                     _manufacture = value;
                 }
                 OnPropertyChanged();
             }
         }
+        
         private bool _reset;
         public bool Reset
         {
@@ -132,15 +133,44 @@ namespace SuperButton.ViewModels
                 {
                     Rs232Interface.GetInstance.SendToParser(new PacketFields
                     {
-                        Data2Send = _reset ? 1 : 0,
+                        Data2Send = 1,
                         ID = 63,
                         SubID = Convert.ToInt16(9),
                         IsSet = true,
                         IsFloat = false
                     }
                     );
+                    Task WaitManufacture = Task.Run((Action)GetInstance.Wait);
                 }
-                Task WaitManufacture = Task.Run((Action)GetInstance.Wait);
+                else if(!value)
+                {
+                    _reset = value;
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = "",
+                        ID = Convert.ToInt16(60),
+                        SubID = Convert.ToInt16(1), // SelectedCh1DataSource
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                    Thread.Sleep(2);
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = "",
+                        ID = Convert.ToInt16(60),
+                        SubID = Convert.ToInt16(2), // SelectedCh2DataSource
+                        IsSet = false,
+                        IsFloat = false
+                    });
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = "1",
+                        ID = Convert.ToInt16(64),
+                        SubID = Convert.ToInt16(0), // AutoBaud (Synch)
+                        IsSet = true,
+                        IsFloat = false
+                    });
+                }
                 OnPropertyChanged();
             }
         }
@@ -286,6 +316,7 @@ namespace SuperButton.ViewModels
                     }
                     else if(PathFromFile == "")
                     {
+                        OpenToFile();
                         EventRiser.Instance.RiseEevent(string.Format($"Please choose a file and retry!"));
                         _loadFromFile = !value;
                         OnPropertyChanged("LoadFromFile");

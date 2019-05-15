@@ -60,6 +60,9 @@
             <DataTemplate x:Key="BoolViewIndModel">
                 <views:BoolViewInd></views:BoolViewInd>
             </DataTemplate>
+            <DataTemplate x:Key="DebugObjModel">
+                <views:DebugObj></views:DebugObj>
+            </DataTemplate>
             <!--<DataTemplate x:Key="LeftPanelViewModel">
                 <local:GridSplitter></local:GridSplitter>
             </DataTemplate>-->
@@ -192,6 +195,58 @@
                                 <Grid Margin="5,0,0,0" Width="53.875" Background="{x:Null}" HorizontalAlignment="Right">
                                     <TextBlock Text="I" TextWrapping="Wrap" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" Margin="0,0,15,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="12" FontWeight="Bold" Text="O" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Center"/>
+                                    <Border HorizontalAlignment="Left" x:Name="slider" Width="24" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="0,1">
+                                        <Border.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                <SkewTransform AngleX="0" AngleY="0"/>
+                                                <RotateTransform Angle="0"/>
+                                                <TranslateTransform X="0" Y="0"/>
+                                            </TransformGroup>
+                                        </Border.RenderTransform>
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                                <GradientStop Color="#FF88888F" Offset="0.957"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF8AB4FF" Offset="1"/>
+                                                <GradientStop Color="#FFD1E2FF" Offset="0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </DockPanel>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource OnUnchecking}" x:Name="OnUnchecking_BeginStoryboard"/>
+                                    </Trigger.ExitActions>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource OnChecking}" x:Name="OnChecking_BeginStoryboard"/>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CheckBoxStyle3" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle2}">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <DockPanel x:Name="dockPanel" Margin="0,0,0.25,0">
+                                <Grid Margin="5,0,0,0" Width="53.875" Background="{x:Null}" HorizontalAlignment="Right">
+                                    <TextBlock Text="Int" TextWrapping="Wrap" FontWeight="Normal" FontSize="12" HorizontalAlignment="Right" Margin="0,0,35,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="25,0,0,0" FontSize="12" FontWeight="Normal" Text="Float" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Center"/>
                                     <Border HorizontalAlignment="Left" x:Name="slider" Width="24" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="0,1">
                                         <Border.RenderTransform>
                                             <TransformGroup>

@@ -182,7 +182,7 @@ namespace SuperButton.Models.DriverBlock
                 if (Configuration.SelectedCom != null && Configuration.SelectedCom != "")//foreach (var comDevice in _comDevicesList)
                 {
                     // Add text to logger panel
-                    EventRiser.Instance.RiseEevent(string.Format($"Trying to establish connection with the driver at {Configuration.SelectedCom}"));
+                    EventRiser.Instance.RiseEevent(string.Format($"Connecting with driver at {Configuration.SelectedCom}"));
                     var tmpcom = new SerialPort
                     {
                         PortName = Configuration.SelectedCom,
@@ -211,6 +211,7 @@ namespace SuperButton.Models.DriverBlock
                                         throw new NullReferenceException("No Listeners on this event");
                                     }
                                     _comPort.DiscardInBuffer();        //Reset internal rx buffer
+                                    EventRiser.Instance.RiseEevent(string.Format($"Baudrate: {_comPort.BaudRate}"));
                                     return;
 
                                 }
@@ -233,7 +234,6 @@ namespace SuperButton.Models.DriverBlock
                                         RxtoParser(this, new Rs232InterfaceEventArgs(RxPacket));
                                     }
                                     Thread.Sleep(100);// while with timeout of 1 second
-
                                     var Cleaner = tmpcom.ReadExisting();
                                 }
                             }

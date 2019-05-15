@@ -15,6 +15,21 @@ namespace SuperButton.ViewModels
         {
 
         }
+        private static BottomPanelViewModel _instance;
+        private static readonly object Synlock = new object();
+        public static BottomPanelViewModel GetInstance
+        {
+            get
+            {
+                lock(Synlock)
+                {
+                    if(_instance != null)
+                        return _instance;
+                    _instance = new BottomPanelViewModel();
+                    return _instance;
+                }
+            }
+        }
         private ObservableCollection<object> _motionCommandList;
         private ObservableCollection<object> _motionCommandList2;
 
@@ -22,6 +37,32 @@ namespace SuperButton.ViewModels
         private ObservableCollection<object> _digitalInputList;
         private ObservableCollection<object> _SGList;
         private ObservableCollection<object> _positionCountersList;
+
+
+
+        private bool _powerOutputChecked = false;
+
+        public bool PowerOutputChecked
+        {
+            get
+            {
+                return _powerOutputChecked;
+            }
+            set
+            {
+                _powerOutputChecked = value;
+
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = _powerOutputChecked ? 1 : 0,
+                    ID = Convert.ToInt16(12),
+                    SubID = Convert.ToInt16(1),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                OnPropertyChanged("PowerOutputChecked");
+            }
+        }
         public ObservableCollection<object> MotionCommandList
         {
 

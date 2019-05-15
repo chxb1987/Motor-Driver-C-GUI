@@ -251,11 +251,14 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Header="Device Info" >
                             <StackPanel Background="Transparent" Orientation="Vertical" >
-                                <ItemsControl ItemsSource="{Binding DeviceSerialList}" ItemTemplate="{StaticResource DataViewModel}" Margin="0,4,0,-4"/>
+                                <ItemsControl ItemsSource="{Binding DeviceSerialList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                <ItemsControl ItemsSource="{Binding BaudrateList}" 
+                                          ItemTemplate="{StaticResource EnumViewModel}">
+                                </ItemsControl>
                             </StackPanel>
                         </GroupBox>
                     </Grid>
@@ -424,11 +427,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathFromFile}" FontSize="10"></TextBox>
-                            <Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                            <!--<Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
-                            </Button>
+                            </Button>-->
                         </Grid>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -436,12 +439,34 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathToFile}" FontSize="10"></TextBox>
-                            <Button Grid.Column="1" Command="{Binding OpenToFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                            <!--<Button Grid.Column="1" Command="{Binding OpenToFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
-                            </Button>
+                            </Button>-->
                         </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Debug" TabIndex="8" DataContext="{Binding DebugViewModel}" Background="Black" Foreground="White" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ItemsControl Grid.Row="0" ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjModel}"/>
                     </Grid>
                 </Grid>
             </TabItem>

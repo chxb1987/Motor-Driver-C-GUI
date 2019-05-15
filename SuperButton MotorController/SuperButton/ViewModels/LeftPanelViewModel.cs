@@ -191,11 +191,13 @@ namespace SuperButton.ViewModels
 
             if(EnRefresh)
             {
-                BackGroundFunc();
+                Thread bkgnd = new Thread(BackGroundFunc);
+                bkgnd.Start();
+                //BackGroundFunc();
             }
-#if DEBUG
+//#if !DEBUG
             RefreshManger.GetInstance.VerifyConnection();
-#endif
+//#endif
 
         }
         private String _connectTextBoxContent;
@@ -237,13 +239,13 @@ namespace SuperButton.ViewModels
             }
         }
 
-        public ObservableCollection<object> DriverTypeList
-        {
-            get
-            {
-                return Commands.GetInstance.EnumCommandsListbySubGroup["Driver Type"];
-            }
-        }
+        //public ObservableCollection<object> DriverTypeList
+        //{
+        //    get
+        //    {
+        //        return Commands.GetInstance.EnumCommandsListbySubGroup["Driver Type"];
+        //    }
+        //}
 #endregion
 
         private float _setCurrentPid;
@@ -779,7 +781,9 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged("EnRefresh");
                 if(value && flag)
                 {
-                    BackGroundFunc();
+                    Thread bkgnd = new Thread(BackGroundFunc);
+                    bkgnd.Start();
+                    //BackGroundFunc();
                 }
                 else if(!value)
                 {
@@ -803,13 +807,14 @@ namespace SuperButton.ViewModels
         {
             LogText = "";
         }
-        private async Task BackGroundFunc()//object state)
+        private async void BackGroundFunc()//object state)
         {
             //int count = 0;
             while (flag && LeftPanelViewModel.GetInstance.EnRefresh)// && count != 1
             {
                 RefreshManger.GetInstance.StartRefresh();
-                await Task.Delay(1000);
+                Thread.Sleep(1000);
+                //await Task.Delay(1000);
                 //count++;
             }
         }

@@ -81,7 +81,7 @@
 
         <!-- Bottom Panel -->
 
-        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" DataContext="{Binding RPcontent, UpdateSourceTrigger=PropertyChanged}"/>
+        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" DataContext="{Binding BPcontent, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- right Panel -->
 

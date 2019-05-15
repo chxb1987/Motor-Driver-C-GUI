@@ -57,7 +57,7 @@ namespace SuperButton.Models
                     return true;
                 if (newText == "." && currentvalue != "" && currentvalue != "-" && !currentvalue.Contains('.') && !TextSelected) // float number - adding dot
                     return true;
-                if (newText == "-" && currentvalue != "" && TextSelected) // delete all selected text and start a negative number
+                if (newText == "-" && currentvalue != "" && !currentvalue.Contains('-')) // && TextSelected delete all selected text and start a negative number
                     return true;
 
                 if (currentvalue.Contains('.') && newText != "-") // verify the number is valid (not a char)

@@ -15,6 +15,7 @@ namespace SuperButton.ViewModels
         private MotionViewModel _motionViewModel;
         private MaintenanceViewModel _maintenanceViewModel;
         private FeedBackViewModel _feedBackViewModel;
+        private DebugViewModel _debugViewModel;
         //private LoadParamsViewModel _loadParamsViewModel;
         public ParametarsWindowViewModel()
         {
@@ -23,6 +24,7 @@ namespace SuperButton.ViewModels
             _motionViewModel = MotionViewModel.GetInstance;
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
             _feedBackViewModel = FeedBackViewModel.GetInstance;
+            _debugViewModel = DebugViewModel.GetInstance;
             //_loadParamsViewModel = LoadParamsViewModel.GetInstance;
         }
         ~ParametarsWindowViewModel() { }
@@ -122,7 +124,8 @@ namespace SuperButton.ViewModels
 
         }
 
-       // private ObservableCollection<object> _deviceSerialList;
+        // private ObservableCollection<object> _deviceSerialList;
+        private ObservableCollection<object> _baudrateList;
         public ObservableCollection<object> DeviceSerialList
         {
 
@@ -132,7 +135,21 @@ namespace SuperButton.ViewModels
             }
 
         }
-      //  private ObservableCollection<object> _driverFullScaleList;
+        public ObservableCollection<object> BaudrateList
+        {
+
+            get
+            {
+                return Commands.GetInstance.EnumCommandsListbySubGroup["BaudrateList"];
+            }
+            set
+            {
+                _baudrateList = value;
+                OnPropertyChanged();
+            }
+
+        }
+        //private ObservableCollection<object> _driverFullScaleList;
         public ObservableCollection<object> DriverFullScaleList
         {
 

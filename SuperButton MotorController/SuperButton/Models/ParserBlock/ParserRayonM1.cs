@@ -466,7 +466,7 @@ namespace SuperButton.Models.ParserBlock
                 commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
                 //int newPropertyValueInt=0;
                 float newPropertyValuef = 0;
-                 if(commandId != 100 && commandId != 67) // 67
+                if(commandId != 100 && commandId != 67) // 67
                 {
                     if(isInt)
                     {

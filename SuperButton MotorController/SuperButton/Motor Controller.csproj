@@ -193,6 +193,8 @@
     <Compile Include="ViewModels\BoolViewIndModel.cs" />
     <Compile Include="ViewModels\BottomPanelViewModel.cs" />
     <Compile Include="ViewModels\CalibrationButtonModel.cs" />
+    <Compile Include="ViewModels\DebugViewModel.cs" />
+    <Compile Include="ViewModels\DebugObjModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\LoadParamsViewModel.cs" />
@@ -202,6 +204,9 @@
     <Compile Include="ViewModels\MessageBoxVM.cs" />
     <Compile Include="ViewModels\MotionViewModel.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
+    <Compile Include="Views\DebugObj.xaml.cs">
+      <DependentUpon>DebugObj.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CalibrationButton.xaml.cs">
       <DependentUpon>CalibrationButton.xaml</DependentUpon>
     </Compile>
@@ -316,6 +321,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DebugObj.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

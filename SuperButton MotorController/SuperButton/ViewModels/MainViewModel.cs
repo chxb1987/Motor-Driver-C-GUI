@@ -55,9 +55,9 @@ namespace SuperButton.ViewModels
         //Data content binding between views of panels within main window
         //and their view models, write binding in XAMLs also
 
-        private BottomPanelViewModel bottomPanelViewModel = new BottomPanelViewModel();
+        private BottomPanelViewModel bottomPanelViewModel = BottomPanelViewModel.GetInstance;
 
-        public BottomPanelViewModel RPcontent
+        public BottomPanelViewModel BPcontent
         {
             get { return bottomPanelViewModel; }
             set { }
@@ -125,7 +125,7 @@ namespace SuperButton.ViewModels
 
             //  rightPanel.DataContext = rightPanelViewModel;
 
-            bottomPanelViewModel = new BottomPanelViewModel();
+            //bottomPanelViewModel = new BottomPanelViewModel();
             //rightPanel.DataContext = rightPanelViewModel;
             //rightPanelViewModel.ConnetButtonContent = "Disconnect";
 
