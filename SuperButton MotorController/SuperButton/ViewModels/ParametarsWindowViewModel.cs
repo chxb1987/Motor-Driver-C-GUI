@@ -196,7 +196,10 @@ namespace SuperButton.ViewModels
         //{
         //    get { return _loadParamsViewModel; }
         //}
-
+        public DebugViewModel DebugViewModel
+        {
+            get { return _debugViewModel; }
+        }
 
         private bool CheckValue()
         {

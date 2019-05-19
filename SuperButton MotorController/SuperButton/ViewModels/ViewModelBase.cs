@@ -8,12 +8,8 @@ namespace SuperButton.ViewModels
 
         protected ViewModelBase()
         {
-
-
-
         }
-
-
+        
         //protected virtual void OnPropertyChanged(string value,[CallerMemberName] string propertyName = null)
         //{
         //    PropertyChangedEventHandler handler = PropertyChanged;
@@ -30,8 +26,6 @@ namespace SuperButton.ViewModels
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
-
-
         }
 
         public void RaisePropertyChanged(string propertyName)

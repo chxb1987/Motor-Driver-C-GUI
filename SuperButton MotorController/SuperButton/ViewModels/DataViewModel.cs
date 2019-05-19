@@ -130,7 +130,7 @@ namespace SuperButton.ViewModels
         //static string cmdClicked = "";
 
         //int cmdID = 0, cmdSubID = 0;
-
+        
         private void MouseLeftClickFunc()
         {
             if(LeftPanelViewModel.GetInstance.ConnectButtonContent == "Disconnect")
@@ -150,6 +150,7 @@ namespace SuperButton.ViewModels
                 }
                 if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))))
                 {
+                    //SuperButton.Models.DriverBlock.RefreshManger.GetInstance._oneSelected = true;
                     Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].IsSelected = true;
                     Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background2 = new SolidColorBrush(Colors.Red);
                     Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(CommandId), Convert.ToInt16(CommandSubId))].Background = new SolidColorBrush(Colors.Red);
@@ -280,6 +281,7 @@ namespace SuperButton.ViewModels
 
                 }
             }
+            //SuperButton.Models.DriverBlock.RefreshManger.GetInstance._oneSelected = false;
             //Dictionary<Tuple<int, int>, DataViewModel> TempList = new Dictionary<Tuple<int, int>, DataViewModel>();
             //bool Flag = false, Selected = false;
             //string KeyStr = "";

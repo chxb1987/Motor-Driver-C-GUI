@@ -60,7 +60,7 @@
             <DataTemplate x:Key="BoolViewIndModel">
                 <views:BoolViewInd></views:BoolViewInd>
             </DataTemplate>
-            <DataTemplate x:Key="DebugObjModel">
+            <DataTemplate x:Key="DebugObjViewModel">
                 <views:DebugObj></views:DebugObj>
             </DataTemplate>
             <!--<DataTemplate x:Key="LeftPanelViewModel">
@@ -238,16 +238,44 @@
                 </Setter>
             </Style>
             <Style x:Key="CheckBoxStyle3" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle2}">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
-                            <DockPanel x:Name="dockPanel" Margin="0,0,0.25,0">
-                                <Grid Margin="5,0,0,0" Width="53.875" Background="{x:Null}" HorizontalAlignment="Right">
-                                    <TextBlock Text="Int" TextWrapping="Wrap" FontWeight="Normal" FontSize="12" HorizontalAlignment="Right" Margin="0,0,35,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="25,0,0,0" FontSize="12" FontWeight="Normal" Text="Float" TextWrapping="Wrap" Foreground="White" VerticalAlignment="Center"/>
-                                    <Border HorizontalAlignment="Left" x:Name="slider" Width="24" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="0,1">
+                            <ControlTemplate.Resources>
+                                <Storyboard x:Key="OnChecking">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="29.125"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="slider">
+                                        <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFC5F7B7"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="slider">
+                                        <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FF257E29"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Key="OnUnchecking">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="-0.875"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                                        <SplineThicknessKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                    </ThicknessAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="slider">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.04"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="slider">
+                                        <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FF1666EA"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="slider">
+                                        <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFB7D0FD"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </ControlTemplate.Resources>
+                            <DockPanel x:Name="dockPanel" Margin="0">
+                                <Grid Margin="2,0,2,0" Width="53.875" Background="{x:Null}" HorizontalAlignment="Right">
+                                    <TextBlock Text="Int" FontWeight="Normal" FontSize="12" HorizontalAlignment="Right" Margin="0,0,7,0" Foreground="#FFF9F9F9" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="-1,0,0,0" FontSize="12" FontWeight="Normal" Text="Float" Foreground="White" VerticalAlignment="Center"/>
+                                    <Border HorizontalAlignment="Left" x:Name="slider" Width="27" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="-2,0,0,0">
                                         <Border.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -259,7 +287,7 @@
                                         <Border.BorderBrush>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                                                <GradientStop Color="#FF88888F" Offset="0.957"/>
+                                                <GradientStop Color="#FF88888F" Offset="1"/>
                                             </LinearGradientBrush>
                                         </Border.BorderBrush>
                                         <Border.Background>
@@ -271,7 +299,6 @@
                                     </Border>
                                 </Grid>
                             </DockPanel>
-
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsChecked" Value="False">
                                     <Trigger.ExitActions>

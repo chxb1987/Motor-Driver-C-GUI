@@ -14,6 +14,7 @@ namespace SuperButton.ViewModels
     internal class DebugViewModel : ViewModelBase
     {
         #region FIELDS
+        private readonly DebugObjModel _debugObjModel = new DebugObjModel();
         private static readonly object Synlock = new object();
         private static DebugViewModel _instance;
         #endregion FIELDS
@@ -44,7 +45,7 @@ namespace SuperButton.ViewModels
         {
             get
             {
-                return Commands.GetInstance.DebugListbySubGroup["DebugList"];
+                return Commands.GetInstance.DebugListbySubGroup["Debug List"];
             }
             set
             {

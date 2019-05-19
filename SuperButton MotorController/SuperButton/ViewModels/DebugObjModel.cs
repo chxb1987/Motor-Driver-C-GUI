@@ -15,65 +15,39 @@ using SuperButton.Views;
 
 namespace SuperButton.ViewModels
 {
-    public class DebugObjModel : ViewModelBase
+    class DebugObjModel : ViewModelBase
     {
         private string _id;
         private string _index;
         private string _getData;
         private string _setData;
+        private bool _intfloat = true; // true = int, false = float
 
-        private bool _intfloat = false;
-
+        public DebugObjModel() {  }
         public bool IntFloat
         {
             get { return _intfloat; }
-            set { _intfloat = value; OnPropertyChanged("IntFloat"); }
+            set { _intfloat = value; }
         }
         public string ID
         {
             get { return _id; }
-            set { _id = value; OnPropertyChanged("ID"); }
+            set { _id = value; }
         }
         public string Index
         {
             get { return _index; }
-            set { _index = value; OnPropertyChanged("Index"); }
+            set { _index = value; }
         }
         public string GetData
         {
             get { return _getData; }
-            set { _getData = value; OnPropertyChanged("GetData"); }
+            set { _getData = value; }
         }
         public string SetData
         {
             get { return _setData; }
-            set { _setData = value; OnPropertyChanged("SetData"); }
-        }
-        
-        public ActionCommand Get { get { return new ActionCommand(GetCmd); } }
-        public ActionCommand Set { get { return new ActionCommand(SetCmd); } }
-
-        private void GetCmd()
-        {
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
-            {
-                Data2Send = 0,
-                ID = Convert.ToInt16(ID),
-                SubID = Convert.ToInt16(Index),
-                IsSet = false,
-                IsFloat = IntFloat
-            });
-        }
-        private void SetCmd()
-        {
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
-            {
-                Data2Send = Convert.ToInt32(SetData),
-                ID = Convert.ToInt16(ID),
-                SubID = Convert.ToInt16(Index),
-                IsSet = true,
-                IsFloat = IntFloat
-            });
+            set { _setData = value; }
         }
     }
 }

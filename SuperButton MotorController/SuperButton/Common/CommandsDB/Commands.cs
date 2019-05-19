@@ -46,7 +46,7 @@ namespace SuperButton.CommandsDB
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsListLP = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, EnumViewModel> EnumViewCommandsList = new Dictionary<Tuple<int, int>, EnumViewModel>();
         public Dictionary<Tuple<int, int>, CalibrationButtonModel> CalibartionCommandsList = new Dictionary<Tuple<int, int>, CalibrationButtonModel>();
-        public Dictionary<Tuple<int, int>, DebugObjModel> DebugList = new Dictionary<Tuple<int, int>, DebugObjModel>();
+        public Dictionary<Tuple<int, int>, DebugObjViewModel> DebugList = new Dictionary<Tuple<int, int>, DebugObjViewModel>();
 
 
         public Dictionary<string, List<string>> Enums = new Dictionary<string, List<string>>();
@@ -1246,7 +1246,7 @@ namespace SuperButton.CommandsDB
 
             var names = new[]
             {
-                "Current Offset", "PI Current Loop", "Hall Mapping", "Encoder1 Direction", "PI Speed Loop", "PI Position Loop"
+                "Current Offset", "PI Current Loop", "Hall Mapping", "Encoder1 Direction", "PI Speed Loop", "PI Position Loop", "Abs. Enc."
             };
             for(int i = 0; i < names.Length; i++) // Calibration Button
             {
@@ -1339,20 +1339,18 @@ namespace SuperButton.CommandsDB
 
         private void GenerateDebugListCommands()
         {
-            DebugListbySubGroup.Add("DebugList", new ObservableCollection<object>());
+            DebugListbySubGroup.Add("Debug List", new ObservableCollection<object>());
 
-            var data = new DataViewModel
+            var data = new DebugObjViewModel
             {
-                CommandName = "",
-                CommandId = "1",
-                CommandSubId = "0",
-                CommandValue = "",
-                IsFloat = false,
+                ID = "62",
+                Index = "2",
+                IntFloat = true,
+                GetData = "",
+                SetData = "",
             };
-
-            //DataViewCommandsList.Add(new Tuple<int, int>(130, 0), data);
-            //DebugListbySubGroup["DebugList"].Add(data);
-
+            DebugList.Add(new Tuple<int, int>(62, 2), data);
+            DebugListbySubGroup["Debug List"].Add(data);
         }
     }
 }

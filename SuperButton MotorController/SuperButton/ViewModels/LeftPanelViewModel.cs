@@ -195,9 +195,9 @@ namespace SuperButton.ViewModels
                 bkgnd.Start();
                 //BackGroundFunc();
             }
-//#if !DEBUG
+#if !DEBUG
             RefreshManger.GetInstance.VerifyConnection();
-//#endif
+#endif
 
         }
         private String _connectTextBoxContent;

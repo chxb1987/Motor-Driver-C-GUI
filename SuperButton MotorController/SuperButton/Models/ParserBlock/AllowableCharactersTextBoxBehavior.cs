@@ -21,7 +21,7 @@ namespace SuperButton.Models
             var txt = sender as TextBox;
             string Name = txt.DataContext.ToString();
             string selection = txt.SelectedText;
-            if (txt.Background.ToString() == "#FFFF0000" || Name == "SuperButton.ViewModels.NumericTextboxModel") {
+            if (txt.Background.ToString() == "#FFFF0000" || Name.Contains(".ViewModels.NumericTextboxModel") || Name.Contains(".ViewModels.DebugObjViewModel")) {
                 if (txt != null) e.Handled = !IsValid(e.Text, false, txt.Text, selection == "" ? false : true);
             }
             else

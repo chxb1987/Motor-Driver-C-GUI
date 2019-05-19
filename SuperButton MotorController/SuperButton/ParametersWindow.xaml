@@ -457,16 +457,13 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <ItemsControl Grid.Row="0" ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjModel}"/>
+                        <GroupBox Grid.Row="0" Header="      ID         Index      Int/Float    GetData                       SetData" >
+                            <ItemsControl ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
+                        </GroupBox>
                     </Grid>
                 </Grid>
             </TabItem>
