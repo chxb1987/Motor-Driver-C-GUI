@@ -1,9 +1,11 @@
 ﻿using Abt.Controls.SciChart;
 using SuperButton.CommandsDB;
+using SuperButton.Models;
 using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -35,6 +37,8 @@ namespace SuperButton.ViewModels
             get { return _debugObjModel.Index; }
             set { _debugObjModel.Index = value; OnPropertyChanged("Index"); }
         }
+
+        
         public string GetData
         {
             get

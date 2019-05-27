@@ -118,9 +118,9 @@ namespace SuperButton.Models.DriverBlock
         }
         public override void Disconnect()
         {
-            if (_comPort.IsOpen)
+            if(_comPort.IsOpen)
             {
-                if (RxtoParser != null)
+                if(RxtoParser != null)
                 {
                     _isSynced = false;
                     Thread.Sleep(100);
@@ -130,14 +130,14 @@ namespace SuperButton.Models.DriverBlock
 
                     ParserRayonM1.mre.WaitOne(1000);
 
-                    if (Rs232Interface.GetInstance.IsSynced == false)
+                    if(Rs232Interface.GetInstance.IsSynced == false)
                     {
 
                         _comPort.DataReceived -= DataReceived;
                         _comPort.Close();
                         _comPort.Dispose();
 
-                        if (Driver2Mainmodel != null)
+                        if(Driver2Mainmodel != null)
                         {
                             Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
                         }
@@ -172,17 +172,17 @@ namespace SuperButton.Models.DriverBlock
         //string msg = "";
         public override void AutoConnect()
         {
-            if (_isSynced == false) //Driver is not synchronized
+            if(_isSynced == false) //Driver is not synchronized
             {
                 //Gets aviable ports list and initates them
                 _comDevicesList =
                     (SerialPort.GetPortNames()).Select(o => new ComDevice { Portname = o, Baudrate = 921600 }).ToList();
 
                 //Iterates though  the ports,Looks for apropriate Com Port ( where the driver connected)
-                if (Configuration.SelectedCom != null && Configuration.SelectedCom != "")//foreach (var comDevice in _comDevicesList)
+                if(Configuration.SelectedCom != null && Configuration.SelectedCom != "")//foreach (var comDevice in _comDevicesList)
                 {
                     // Add text to logger panel
-                    EventRiser.Instance.RiseEevent(string.Format($"Connecting with driver at {Configuration.SelectedCom}"));
+                    EventRiser.Instance.RiseEevent(string.Format($"Connecting at {Configuration.SelectedCom}"));
                     var tmpcom = new SerialPort
                     {
                         PortName = Configuration.SelectedCom,
@@ -195,14 +195,17 @@ namespace SuperButton.Models.DriverBlock
                     {
                         tmpcom.Open(); //Try to open
 
-                        if (tmpcom.IsOpen)
+                        if(tmpcom.IsOpen)
                         {
-                            foreach (var baudRate in BaudRates) //Iterate though baud rates
+                            EventRiser.Instance.RiseEevent(string.Format($"Success"));
+                            EventRiser.Instance.RiseEevent(string.Format($"Autobaud process..."));
+
+                            foreach(var baudRate in BaudRates) //Iterate though baud rates
                             {
 
-                                if (_isSynced)
+                                if(_isSynced)
                                 {
-                                    if (Driver2Mainmodel != null)
+                                    if(Driver2Mainmodel != null)
                                     {
                                         Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Disconnect"));
                                     }
@@ -211,11 +214,14 @@ namespace SuperButton.Models.DriverBlock
                                         throw new NullReferenceException("No Listeners on this event");
                                     }
                                     _comPort.DiscardInBuffer();        //Reset internal rx buffer
+                                    EventRiser.Instance.RiseEevent(string.Format($"Success"));
                                     EventRiser.Instance.RiseEevent(string.Format($"Baudrate: {_comPort.BaudRate}"));
+                                    EventRiser.Instance.RiseEevent(string.Format($"Reading unit parameters"));
+
                                     return;
 
                                 }
-                                else if (_isSynced == false)  //open task
+                                else if(_isSynced == false)  //open task
                                 {
                                     tmpcom.BaudRate = baudRate;
 
@@ -227,7 +233,7 @@ namespace SuperButton.Models.DriverBlock
                                     _comPort = tmpcom;
 
                                     //Init synchronization packet, and rises event for parser
-                                    if (RxtoParser != null)
+                                    if(RxtoParser != null)
                                     {
                                         DataViewModel temp = (DataViewModel)Commands.GetInstance.DataCommandsListbySubGroup["DeviceSynchCommand"][0];
                                         Commands.AssemblePacket(out RxPacket, Int16.Parse(temp.CommandId), Int16.Parse(temp.CommandSubId), true, false, 1);
@@ -237,11 +243,17 @@ namespace SuperButton.Models.DriverBlock
                                     var Cleaner = tmpcom.ReadExisting();
                                 }
                             }
+                            EventRiser.Instance.RiseEevent(string.Format($"Failed"));
+                            tmpcom.Close();
+                            return;
                         }
+                        EventRiser.Instance.RiseEevent(string.Format($"Failed"));
                         tmpcom.Close();
+                        return;
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
+                        EventRiser.Instance.RiseEevent(string.Format($"Failed"));
                         tmpcom.Close();
                         tmpcom.Dispose();
                         return;// false;
@@ -257,7 +269,7 @@ namespace SuperButton.Models.DriverBlock
                     //}
                 }
             }
-            else if (_isSynced == true)
+            else if(_isSynced == true)
                 return;// true;
 
             return;// false;
@@ -278,14 +290,14 @@ namespace SuperButton.Models.DriverBlock
         public virtual bool ManualConnect()
         {
 
-            if (_isSynced == false) //Driver is not synchronized
+            if(_isSynced == false) //Driver is not synchronized
             {
                 //Gets aviable ports list and initates them
                 _comDevicesList =
                     (SerialPort.GetPortNames()).Select(o => new ComDevice { Portname = o, Baudrate = 921600 }).ToList();
 
                 //Iterates though  the ports,Looks for apropriate Com Port ( where the driver connected)
-                foreach (var comDevice in _comDevicesList)
+                foreach(var comDevice in _comDevicesList)
                 {
                     var tmpcom = new SerialPort
                     {
@@ -296,9 +308,9 @@ namespace SuperButton.Models.DriverBlock
                     try
                     {
                         tmpcom.Open(); //Try to open
-                        if (tmpcom.IsOpen)
+                        if(tmpcom.IsOpen)
                         {
-                            foreach (var baudRate in BaudRates) //Iterate though baud rates
+                            foreach(var baudRate in BaudRates) //Iterate though baud rates
                             {
                                 tmpcom.BaudRate = baudRate;
                                 //tmpcom.DataReceived += SyncDataReceived;
@@ -310,7 +322,7 @@ namespace SuperButton.Models.DriverBlock
                                 Thread.Sleep(50);
                                 // tmpcom.DataReceived -= SyncDataReceived;
 
-                                if (_isSynced)
+                                if(_isSynced)
                                 {
                                     return true;
                                 }
@@ -318,7 +330,7 @@ namespace SuperButton.Models.DriverBlock
                         }
                         tmpcom.Close();
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         tmpcom.Close();
                         tmpcom.Dispose();
@@ -347,16 +359,31 @@ namespace SuperButton.Models.DriverBlock
 
         private void SendData(byte[] packetToSend, object comPort)
         {
-            lock (Sendlock)
+            lock(Sendlock)
             {
                 var serialPort = comPort as SerialPort;
                 if(serialPort != null && serialPort.IsOpen)
                 {
-                    serialPort.Write(packetToSend, 0, packetToSend.Length); // Send through RS232 cable
+                    try
+                    {
+                        serialPort.Write(packetToSend, 0, packetToSend.Length); // Send through RS232 cable
+                        serialPort.DiscardOutBuffer();
+                    }
+                    catch
+                    {
+                        EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
+                        LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Not Connected";
+                        RefreshManger.GetInstance.DisconnectedFlag = true;
+                        Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
+                    }
                 }
-                var port = comPort as SerialPort;
-                if (port != null)
-                    port.DiscardOutBuffer();
+                else
+                {
+                    EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
+                    LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Not Connected";
+                    RefreshManger.GetInstance.DisconnectedFlag = true;
+                    Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
+                }
             }
         }
 
@@ -385,12 +412,12 @@ namespace SuperButton.Models.DriverBlock
         {
             //Create new parent Task
             SerialPort port = (SerialPort)sender;
-            if (port != null)
+            if(port != null)
             {
                 byte[] buffer = new byte[port.BytesToRead];
                 port.Read(buffer, 0, buffer.Length);
 
-                if (Rx2Packetizer != null && buffer.Length > 0)
+                if(Rx2Packetizer != null && buffer.Length > 0)
                 {
                     Rx2Packetizer(this, new Rs232InterfaceEventArgs(buffer)); // Go to Packetizer -> MakePacketsBuff function
                 }
@@ -409,9 +436,10 @@ namespace SuperButton.Models.DriverBlock
         {
             get
             {
-                lock (Synlock)
+                lock(Synlock)
                 {
-                    if (_instance != null) return _instance;
+                    if(_instance != null)
+                        return _instance;
                     _instance = new Rs232Interface();
                     return _instance;
                 }

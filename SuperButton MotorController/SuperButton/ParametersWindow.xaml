@@ -427,11 +427,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathFromFile}" FontSize="10"></TextBox>
-                            <!--<Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                            <Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
-                            </Button>-->
+                            </Button>
                         </Grid>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -439,11 +439,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathToFile}" FontSize="10"></TextBox>
-                            <!--<Button Grid.Column="1" Command="{Binding OpenToFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
+                            <Button Grid.Column="1" Command="{Binding OpenToFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
-                            </Button>-->
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -452,7 +452,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="400"/>
-                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
@@ -464,6 +464,17 @@
                         <GroupBox Grid.Row="0" Header="      ID         Index      Int/Float    GetData                       SetData" >
                             <ItemsControl ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
                         </GroupBox>
+                        <TextBox Grid.Row="1" Text="{Binding DebugValue}"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Row="1" Content="Enable Refresh"
+                              IsChecked="{Binding EnRefresh, Mode=TwoWay}">
+                        </CheckBox>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SuperButton.ViewModels;
 using SuperButton.Views;
+using System.Diagnostics;
 
 namespace SuperButton
 {
@@ -31,6 +32,8 @@ namespace SuperButton
         {
             if (ParametarsWindow.WindowsOpen == true)
                 LeftPanelViewModel.GetInstance.Close_parmeterWindow();
+            App.Current.Shutdown();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

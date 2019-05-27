@@ -115,7 +115,7 @@
                              Foreground="#FF111111"
                              FontSize="10.667" 
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
-                             Background="{Binding Background2}"
+                             Background="{Binding BackgroundStd}"
                              MouseDoubleClick="SetValTB_MouseDoubleClick">
                         <i:Interaction.Behaviors>
                             <models:AllowableCharactersTextBoxBehavior/>

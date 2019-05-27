@@ -816,17 +816,7 @@ namespace SuperButton.CommandsDB
             #endregion Commands5
             #region Status_1
             DataCommandsListbySubGroup.Add("MotionStatus List", new ObservableCollection<object>());
-            data = new DataViewModel
-            {
-                CommandName = "Driver Status",
-                CommandId = "33",
-                CommandSubId = "1",
-                CommandValue = "",
-                IsFloat = false,
-            };
-            DataViewCommandsList.Add(new Tuple<int, int>(33, 1), data);
-            DataCommandsListbySubGroup["MotionStatus List"].Add(data);
-
+            
             data = new DataViewModel
             {
                 CommandName = "PWM %",
@@ -1129,6 +1119,18 @@ namespace SuperButton.CommandsDB
             //});
             #endregion Commands2
             #region Command3
+            DataCommandsListbySubGroup.Add("DriverStatus List", new ObservableCollection<object>());
+            data = new DataViewModel
+            {
+                CommandName = "Driver Status",
+                CommandId = "33",
+                CommandSubId = "1",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(33, 1), data);
+            DataCommandsListbySubGroup["DriverStatus List"].Add(data);
+
             data = new DataViewModel
             {
                 CommandName = "MotorStatus",
@@ -1344,12 +1346,12 @@ namespace SuperButton.CommandsDB
             var data = new DebugObjViewModel
             {
                 ID = "62",
-                Index = "2",
+                Index = "3",
                 IntFloat = true,
                 GetData = "",
                 SetData = "",
             };
-            DebugList.Add(new Tuple<int, int>(62, 2), data);
+            DebugList.Add(new Tuple<int, int>(62, 3), data);
             DebugListbySubGroup["Debug List"].Add(data);
         }
     }

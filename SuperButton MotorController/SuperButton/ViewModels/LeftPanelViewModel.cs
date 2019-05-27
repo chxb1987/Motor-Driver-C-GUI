@@ -49,9 +49,10 @@ namespace SuperButton.ViewModels
         {
             get
             {
-                lock (Synlock)
+                lock(Synlock)
                 {
-                    if (_instance != null) return _instance;
+                    if(_instance != null)
+                        return _instance;
                     _instance = new LeftPanelViewModel();
                     return _instance;
                 }
@@ -81,21 +82,22 @@ namespace SuperButton.ViewModels
             get { return _connetButtonContent; }
             set
             {
-                if (value == "Disconnect")
+                if(value == "Disconnect")
                 {
-                    
+
                     //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
                 }
                 else
                 {
-                    if (flag)
-                    {
-                    }
+                    //if(flag)
+                    //{
+                    //}
                     LeftPanelViewModel.flag = false;
                     ConnectTextBoxContent = "Not Connected";
                 }
-                if (_connetButtonContent == value) return;
+                if(_connetButtonContent == value)
+                    return;
                 _connetButtonContent = value;
                 OnPropertyChanged("ConnectButtonContent");
 
@@ -103,10 +105,12 @@ namespace SuperButton.ViewModels
 
         }
         public bool StarterOperationFlag = false;
+        public int StarterCount = 0;
         private void StarterOperation()
         {
             #region Operations
             StarterOperationFlag = true;
+            StarterCount = 0;
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -154,7 +158,7 @@ namespace SuperButton.ViewModels
                 IsFloat = false
             });
 
-            for (int i = 1; i < 4; i++)
+            for(int i = 1; i < 4; i++)
             {
                 Thread.Sleep(20);
                 Rs232Interface.GetInstance.SendToParser(new PacketFields
@@ -166,60 +170,63 @@ namespace SuperButton.ViewModels
                     IsFloat = false
                 });
             }
-            Thread.Sleep(20);
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
-            {
-                Data2Send = "",
-                ID = Convert.ToInt16(60),
-                SubID = Convert.ToInt16(9), // Get Units Name
-                IsSet = false,
-                IsFloat = false
-            });
-            Thread.Sleep(20);
-            Rs232Interface.GetInstance.SendToParser(new PacketFields
-            {
-                Data2Send = "",
-                ID = Convert.ToInt16(60),
-                SubID = Convert.ToInt16(10), // Get Units Name
-                IsSet = false,
-                IsFloat = false
-            });
-            
+            //Thread.Sleep(20);
+            //Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //{
+            //    Data2Send = "",
+            //    ID = Convert.ToInt16(60),
+            //    SubID = Convert.ToInt16(9), // Get Units Name
+            //    IsSet = false,
+            //    IsFloat = false
+            //});
+            //Thread.Sleep(20);
+            //Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //{
+            //    Data2Send = "",
+            //    ID = Convert.ToInt16(60),
+            //    SubID = Convert.ToInt16(10), // Get Units Name
+            //    IsSet = false,
+            //    IsFloat = false
+            //});
+            Thread.Sleep(30);
             #endregion  Operations
+            if(StarterCount == 10)
+            {
+                EventRiser.Instance.RiseEevent(string.Format($"Success"));
+            }
+            else
+                EventRiser.Instance.RiseEevent(string.Format($"Failed"));
+
             LeftPanelViewModel.flag = true;
             StarterOperationFlag = false;
-
-            if(EnRefresh)
-            {
-                Thread bkgnd = new Thread(BackGroundFunc);
-                bkgnd.Start();
-                //BackGroundFunc();
-            }
 #if !DEBUG
-            RefreshManger.GetInstance.VerifyConnection();
+            Thread Connection = new Thread(RefreshManger.GetInstance.VerifyConnection);
+            Connection.Start();
+            //RefreshManger.GetInstance.VerifyConnection();
 #endif
+            if(DebugViewModel.GetInstance.EnRefresh)
+            {
+                //Thread bkgnd = new Thread(BackGroundFunc);
+                //bkgnd.IsBackground = true;
+                //bkgnd.Start();
+                //Thread t1 = new Thread(() =>
+                //{
+                BackGroundFunc();
+                //});
+                //t1.IsBackground = true;
+                //t1.Start();
+            }
+
 
         }
         private String _connectTextBoxContent;
         public String ConnectTextBoxContent
         {
-            get
-            {
-                //if (_connetButtonContent == "Connect")
-                //{
-                //    //if (ParametarsWindow.WindowsOpen)
-                //    //    Close_parmeterWindow();
-                //    return "Not Connected";
-                //}
-                //else
-                //{
-                    return _connectTextBoxContent;//"Connected";
-                //}
-
-            }
+            get { return _connectTextBoxContent; }
             set
             {
-                if (_connectTextBoxContent == value) return;
+                if(_connectTextBoxContent == value)
+                    return;
                 _connectTextBoxContent = value;
                 OnPropertyChanged("ConnectTextBoxContent");
             }
@@ -246,7 +253,7 @@ namespace SuperButton.ViewModels
         //        return Commands.GetInstance.EnumCommandsListbySubGroup["Driver Type"];
         //    }
         //}
-#endregion
+        #endregion
 
         private float _setCurrentPid;
         public float SetCurrentPid
@@ -254,7 +261,8 @@ namespace SuperButton.ViewModels
             get { return _setCurrentPid; }
             set
             {
-                if (_setCurrentPid == value) return;
+                if(_setCurrentPid == value)
+                    return;
                 _setCurrentPid = value;
                 OnPropertyChanged("SetCurrentPid");
 
@@ -267,14 +275,15 @@ namespace SuperButton.ViewModels
             get { return _currentPid; }
             set
             {
-                if (_currentPid == value) return;
+                if(_currentPid == value)
+                    return;
 
                 _currentPid = value;
                 OnPropertyChanged("CurrentPid");
             }
         }
 
-#region Send_Button
+        #region Send_Button
         private String _sendButtonContent;
         public String SendButtonContent
         {
@@ -282,28 +291,30 @@ namespace SuperButton.ViewModels
             get { return _sendButtonContent; }
             set
             {
-                if (_sendButtonContent == value) return;
+                if(_sendButtonContent == value)
+                    return;
                 _sendButtonContent = value;
                 OnPropertyChanged("SendButtonContent");
             }
         }
-#endregion
+        #endregion
 
-#region Stop_Button
+        #region Stop_Button
         private String _stopButtonContent;
         public String StopButtonContent
         {
             get { return _stopButtonContent; }
             set
             {
-                if (_stopButtonContent == value) return;
+                if(_stopButtonContent == value)
+                    return;
                 _stopButtonContent = value;
                 OnPropertyChanged("StopButtonContent");
             }
         }
-#endregion
+        #endregion
 
-#region MotorON_Switch
+        #region MotorON_Switch
         public static bool MotorOnOff_flag = false;
         private bool _motorOnToggleChecked = false;
         private int _ledMotorStatus;
@@ -316,11 +327,11 @@ namespace SuperButton.ViewModels
             }
             set
             {
-                if (_connetButtonContent == "Disconnect")
+                if(_connetButtonContent == "Disconnect")
                 {
                     _motorOnToggleChecked = value;
                     //Sent
-                    if (!MotorOnOff_flag)
+                    if(!MotorOnOff_flag)
                     {
                         Rs232Interface.GetInstance.SendToParser(new PacketFields
                         {
@@ -367,11 +378,28 @@ namespace SuperButton.ViewModels
             }
         }
 
-#endregion
+        private ObservableCollection<object> _driverStatusList;
+        public ObservableCollection<object> DriverStatusList
+        {
 
-#endregion
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["DriverStatus List"];
+            }
+            set
+            {
+                _driverStatusList = value;
+                OnPropertyChanged();
+            }
 
-#region TXRXLed
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region TXRXLed
         private int _led_statusTx;
         public int LedStatusTx
         {
@@ -422,34 +450,34 @@ namespace SuperButton.ViewModels
                 }
             }
         }
-#endregion TXRXLed
+        #endregion TXRXLed
 
-#region Send_Button
+        #region Send_Button
 
         public ActionCommand SendActionCommand { get { return new ActionCommand(() => SendXLS()); } }
 
 
         public void SendXLS()
         {
-            if (_xlThread.ThreadState == System.Threading.ThreadState.Running)
+            if(_xlThread.ThreadState == System.Threading.ThreadState.Running)
             {
                 System.Windows.MessageBox.Show(" Wait until the end of XLS!! thread running)))");
                 return;
             }
 
-            if (_xlThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            if(_xlThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
             {
                 System.Windows.MessageBox.Show(" Wait until the end of XLS!! thread Sleeping)))");
                 return;
             }
 
-            if (_xlThread.ThreadState == System.Threading.ThreadState.Unstarted)
+            if(_xlThread.ThreadState == System.Threading.ThreadState.Unstarted)
             {
 
                 _xlThread.Start();
             }
 
-            if (_xlThread.ThreadState == System.Threading.ThreadState.Stopped)
+            if(_xlThread.ThreadState == System.Threading.ThreadState.Stopped)
             {
                 _xlThread = new Thread(ThreadProc);
                 _xlThread.Start();
@@ -478,7 +506,7 @@ namespace SuperButton.ViewModels
 
             poRefCmd = new byte[11];
 
-            using (OleDbConnection connection = new OleDbConnection())
+            using(OleDbConnection connection = new OleDbConnection())
             {
                 connection.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + excelPath +
                                                 ";Extended Properties=\"Excel 12.0 Xml;HDR=YES\"";
@@ -495,7 +523,7 @@ namespace SuperButton.ViewModels
 
 
             // ProtocolParser.GetInstance.BuildPacketToSend("1", "213" /*CommandId*/, "0" /* subid*/, true /*IsSet*/);
-            if (Rs232Interface.GetInstance.IsSynced)
+            if(Rs232Interface.GetInstance.IsSynced)
             {
                 //Send command to the target 
                 PacketFields RxPacket;
@@ -513,7 +541,7 @@ namespace SuperButton.ViewModels
 
             Stopwatch sw = new Stopwatch();
 
-            foreach (DataRow row in table.Rows)
+            foreach(DataRow row in table.Rows)
             {
                 double temp = (double)row[0];
                 object item = (double)((((double)row[0] * countesPerRev) / mmperRev) + offset);
@@ -521,11 +549,11 @@ namespace SuperButton.ViewModels
                 int var_i = (int)Convert.ToInt32(item);
                 string datatosend = var_i.ToString();
 
-                if (ChankLen > 0)
+                if(ChankLen > 0)
                 {
                     ChankLen--;
                     //  ProtocolParser.GetInstance.BuildPacketToSend(datatosend, "403" /*CommandId*/, "0" /* subid*/, true /*IsSet*/);
-                    if (Rs232Interface.GetInstance.IsSynced)
+                    if(Rs232Interface.GetInstance.IsSynced)
                     {
                         //Send command to the target 
                         PacketFields RxPacket;
@@ -538,24 +566,24 @@ namespace SuperButton.ViewModels
                         Rs232Interface.GetInstance.SendToParser(RxPacket);
                     }
                     DebugCount++;
-#region SW
+                    #region SW
                     sw.Start();
-                    while (sw.ElapsedTicks < 50)
+                    while(sw.ElapsedTicks < 50)
                     {
                     }
                     sw.Reset();
-#endregion
+                    #endregion
                 }
                 else
                 {
                     sw.Start();
-                    while (sw.ElapsedTicks < 50)
+                    while(sw.ElapsedTicks < 50)
                     {
                     }
                     sw.Reset();
                     ChankLen = 0;
                     //   ProtocolParser.GetInstance.BuildPacketToSend(datatosend, "403" /*CommandId*/, "0" /* subid*/, true /*IsSet*/);
-                    if (Rs232Interface.GetInstance.IsSynced)
+                    if(Rs232Interface.GetInstance.IsSynced)
                     {
                         //Send command to the target 
                         PacketFields RxPacket;
@@ -571,9 +599,9 @@ namespace SuperButton.ViewModels
                     mre.Reset();//Suspend
                     mre.WaitOne();
                 }
-                lock (TableLock)
+                lock(TableLock)
                 {
-                    if (Stop == true)
+                    if(Stop == true)
                     {
                         break;
                     }
@@ -583,7 +611,7 @@ namespace SuperButton.ViewModels
             }
 
             sw.Start();
-            while (sw.ElapsedTicks < 10000)
+            while(sw.ElapsedTicks < 10000)
             {
             }
             sw.Reset();
@@ -593,16 +621,16 @@ namespace SuperButton.ViewModels
         }
 
 
-#endregion
+        #endregion
 
-#region Action methods
+        #region Action methods
         public void AutoConnectCommand()
         {
 
-            if (Rs232Interface.GetInstance.IsSynced == false)
+            if(Rs232Interface.GetInstance.IsSynced == false)
             {
-                lock (ConnectLock)
-                {   
+                lock(ConnectLock)
+                {
                     // Erase textboxs content, reset all default.
                     foreach(var element in Commands.GetInstance.DataViewCommandsList)
                     {
@@ -620,7 +648,7 @@ namespace SuperButton.ViewModels
             }
             else
             {
-                lock (ConnectLock)
+                lock(ConnectLock)
                 {
                     Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
                 }
@@ -647,97 +675,37 @@ namespace SuperButton.ViewModels
         private string _comToolTipText;
         public string ComToolTipText
         {
-            get
-            {
-
-                return
-                    _comToolTipText;
-            }
+            get { return _comToolTipText; }
 
             set
             {
                 _comToolTipText = value;
                 RaisePropertyChanged("ComToolTipText");
             }
-
         }
         public void FStop()
         {
-            lock (TableLock)
+            lock(TableLock)
             {
                 Stop = true;
             }
             Thread.Sleep(1000);
 
-            if (_xlThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+            if(_xlThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
             {
                 _xlThread.Abort();
             }
         }
-
-        /*
-        public void SPC()
-        {
-            lock (pidLock)
-            {
-
-                if (Rs232Interface.GetInstance.IsSynced)
-                {
-                    var temp = Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(81, 1)];
-                    ////init rxPacket
-                    RxPacket.ID = Convert.ToInt16(temp.CommandId);
-                    RxPacket.IsFloat = true;
-                    RxPacket.IsSet = true;
-                    RxPacket.SubID = Convert.ToInt16(temp.CommandSubId);
-                    RxPacket.Data2Send = SetCurrentPid;
-                    ////Sent
-                    Rs232Interface.GetInstance.SendToParser(RxPacket);
-         
-                }
-                else
-                    SetCurrentPid = -1;
-            }
-            }
-        public void GPC( )
-        {
-           lock(pidLock)
-            {
-               
-                if (Rs232Interface.GetInstance.IsSynced)
-                {
-                    ////init rxPacke
-
-                    var temp = Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(81, 1)];
-                    RxPacket.ID = Convert.ToInt16(temp.CommandId);
-                    RxPacket.IsFloat = true;
-                    RxPacket.IsSet = false;
-                    RxPacket.SubID = Convert.ToInt16(temp.CommandSubId);
-                    RxPacket.Data2Send = "";
-                    ////Sent
-                    Rs232Interface.GetInstance.SendToParser(RxPacket);
-                    Thread.Sleep(20);
-                    CurrentPid = Commands.GetInstance.Pidcurr;
-              
-
-                }
-                else
-                    CurrentPid = -1;
-            
-            }
-
-        }
-        */
-
-        public static bool flag; // Indicate the application is running and connected to a driver
+        public static bool flag = false; // Indicate the application is running and connected to a driver
 
         public static ParametarsWindow win;
         private void ShowParametersWindow()
         {
             //if (_connetButtonContent == "Disconnect")
             {
-                if (ParametarsWindow.WindowsOpen != true)
+                if(ParametarsWindow.WindowsOpen != true)
                 {
-                    
+
                     win = ParametarsWindow.GetInstance; // new ParametarsWindow();
                     if(win.ActualHeight != 0)
                     {
@@ -747,8 +715,8 @@ namespace SuperButton.ViewModels
                     {
                         win.Show();
                     }
-                    
-                    flag = true;
+
+                    //flag = true;
                     //Task task = Task.Run((Action)BackGroundFunc);
                 }
                 else
@@ -761,63 +729,36 @@ namespace SuperButton.ViewModels
         public void Close_parmeterWindow()
         {
             win.Close();
-            //flag = false;
         }
 
-#if !DEBUG
-        private bool _enRefresh = true;
-#else
-        private bool _enRefresh = false;
-#endif
-        public bool EnRefresh
-        {
-            get
-            {
-                return _enRefresh;
-            }
-            set
-            {
-                _enRefresh = value;
-                OnPropertyChanged("EnRefresh");
-                if(value && flag)
-                {
-                    Thread bkgnd = new Thread(BackGroundFunc);
-                    bkgnd.Start();
-                    //BackGroundFunc();
-                }
-                else if(!value)
-                {
-                    RefreshManger.DataPressed = false;
-                    foreach(var list in Commands.GetInstance.DataViewCommandsList)
-                    {
-                        try
-                        {
-                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].IsSelected = false;
-                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background2 = new SolidColorBrush(Colors.White);
-                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(Convert.ToInt16(list.Value.CommandId), Convert.ToInt16(list.Value.CommandSubId))].Background = new SolidColorBrush(Colors.Gray);
-                        }
-                        catch(Exception e)
-                        {
-                        }
-                    }
-                }
-            }
-        }
         private void ClearLog()
         {
             LogText = "";
         }
-        private async void BackGroundFunc()//object state)
+        public void BackGroundFunc()//object state)
         {
+            //Thread Refresh = new Thread(RefreshManger.GetInstance.StartRefresh);
             //int count = 0;
-            while (flag && LeftPanelViewModel.GetInstance.EnRefresh)// && count != 1
+            while(flag && DebugViewModel.GetInstance.EnRefresh)// && count != 1
             {
                 RefreshManger.GetInstance.StartRefresh();
+                //Refresh.Start();
                 Thread.Sleep(1000);
                 //await Task.Delay(1000);
                 //count++;
             }
         }
-#endregion
+
+        private string _driverStat;
+        public string DriverStat
+        {
+            get { return _driverStat; }
+            set
+            {
+                _driverStat = value;
+                OnPropertyChanged("DriverStat");
+            }
+        }
+        #endregion
     }
 }

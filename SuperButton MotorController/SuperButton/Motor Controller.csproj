@@ -195,7 +195,7 @@
     <Compile Include="ViewModels\CalibrationButtonModel.cs" />
     <Compile Include="ViewModels\DebugObjViewModel.cs" />
     <Compile Include="ViewModels\DebugViewModel.cs" />
-    <Compile Include="ViewModels\DebugObjModel.cs" />
+    <Compile Include="Models\DebugObjModel.cs" />
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\LoadParamsViewModel.cs" />

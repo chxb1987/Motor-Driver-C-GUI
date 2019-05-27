@@ -571,8 +571,9 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="10"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="10"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Border Grid.Row="0" Width="180" Height="87" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
@@ -602,9 +603,23 @@
                                             </ItemsControl>
                                         </Grid>
                                     </Border>
-                                    <Button Grid.Row="2" Height="22" Width="80" Margin="5,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Stop Motor" Command="{Binding StopMotion}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    <TextBlock Grid.Row="3" Text="  Power Out" Foreground="White"></TextBlock>
-                                    <wpfSpark:ToggleSwitch Grid.Row="3" Width="60" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" IsChecked="{Binding PowerOutputChecked, Mode=TwoWay}"  />
+                                    <Border Grid.Row="2" Width="180" Height="Auto" BorderBrush="Transparent" BorderThickness="1" CornerRadius="4">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="0" Height="22" Width="80" Margin="0,0,0,0" Foreground="White" Template="{DynamicResource PressedButton}" Content="Stop Motor" Command="{Binding StopMotion}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="4" Width="180" Height="Auto" BorderBrush="Transparent" BorderThickness="1" CornerRadius="4">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="  Power Out" Foreground="White"></TextBlock>
+                                            <wpfSpark:ToggleSwitch Grid.Row="0" Width="35" Height="15" HorizontalAlignment="Right" VerticalAlignment="Center" IsChecked="{Binding PowerOutputChecked, Mode=TwoWay}" FontSize="9" />
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </ScrollViewer>
                         </Grid>

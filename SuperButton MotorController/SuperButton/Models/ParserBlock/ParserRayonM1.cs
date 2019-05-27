@@ -93,7 +93,7 @@ namespace SuperButton.Models.ParserBlock
 
                 if(LeftPanelViewModel.GetInstance != null)
                 { // perform Get after "set" function
-                    if(LeftPanelViewModel.flag == true && LeftPanelViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
+                    if(LeftPanelViewModel.flag == true && DebugViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
                     {
                         if(e.PacketRx.ID != 63)
                         {

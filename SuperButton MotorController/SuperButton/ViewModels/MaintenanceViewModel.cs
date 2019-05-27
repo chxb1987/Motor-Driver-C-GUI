@@ -267,7 +267,7 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    if(OscilloscopeParameters.ChanTotalCounter != 0 || LeftPanelViewModel.GetInstance.EnRefresh == true)
+                    if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
                         _saveToFile = !value;
@@ -308,7 +308,7 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    if(OscilloscopeParameters.ChanTotalCounter != 0 || LeftPanelViewModel.GetInstance.EnRefresh == true)
+                    if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
                         _loadFromFile = !value;

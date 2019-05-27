@@ -189,7 +189,7 @@ namespace SuperButton.Models.DriverBlock
         }
         public string[] GroupToExecute(int tabIndex)//
         {
-            string[] PanelElements = new string[] { "Channel List", "MotionCommand List2", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "PowerOut List", "Control", "Motor", "MotionStatus List", "Digital Input List", "Position counters List", "UpperMainPan List" };// , "Driver Type" ,
+            string[] PanelElements = new string[] { "DriverStatus List", "Channel List", "MotionCommand List2", "MotionCommand List", "Profiler Mode", "S.G.List", "S.G.Type", "PowerOut List", "Control", "Motor", "MotionStatus List", "Digital Input List", "Position counters List", "UpperMainPan List" };// , "Driver Type" ,
             // , "LPCommands List"
             switch(tabIndex)
             {
@@ -221,7 +221,7 @@ namespace SuperButton.Models.DriverBlock
                 case -1:
                     return PanelElements;
                 default:
-                    return new string[] { };
+                    return PanelElements;
             }
         }
         //public List<byte> arr = new List<byte>();
@@ -296,10 +296,9 @@ namespace SuperButton.Models.DriverBlock
         }
         static int ConnectionCount = 0;
         //public bool _oneSelected = false;
-        public Task VerifyConnection()
+        public void VerifyConnection()
         {
-            //int Count = 0;
-            while(true)
+            while(true && Rs232Interface._comPort.IsOpen)
             {
                 Rs232Interface.GetInstance.SendToParser(new PacketFields
                 {
@@ -317,18 +316,11 @@ namespace SuperButton.Models.DriverBlock
                     LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Not Connected";
                     DisconnectedFlag = true;
                 }
-
-                //if(_oneSelected)
-                //{
-                //    if(Count == -1)
-                //        Count = 0;
-                //    Count++;
-                //}
-                //else
-                //    Count = -1;
-                //if(Count > 6)
-                //    MouseLeaveCommandFunc();
             }
+            EventRiser.Instance.RiseEevent(string.Format($"Connection Lost"));
+            LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Not Connected";
+            RefreshManger.GetInstance.DisconnectedFlag = true;
+            Task.Run((Action)Rs232Interface.GetInstance.Disconnect);
         }
         //private void MouseLeaveCommandFunc()
         //{
@@ -420,7 +412,7 @@ namespace SuperButton.Models.DriverBlock
                 case 32768:
                     return "FetShort";
                 default:
-                    return "no info(" + returnedValue + ")";
+                    return returnedValue;
             }
         }
 
@@ -454,7 +446,7 @@ namespace SuperButton.Models.DriverBlock
                     value = "[Counts]";
                     break;
                 default:
-                    value = "";
+                    value = "N/A";
                     break;
             }
             return channel + ": " + value;
@@ -464,239 +456,272 @@ namespace SuperButton.Models.DriverBlock
         public bool DisconnectedFlag = false;
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
-            LeftPanelViewModel.GetInstance.ValueChange = false;
-            if(Views.ParametarsWindow.ParametersWindowTabSelected != 7)
+            if(LeftPanelViewModel.GetInstance.StarterOperationFlag)
             {
-                #region Calibration_old
-                //if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
-                //{
-                //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = CalibrationGetStatus(newPropertyValue);
-                //    if(LeftPanelViewModel.GetInstance.EnRefresh == false && Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent == "Running")//newPropertyValue != "2" && newPropertyValue != "3"&& CalibrationTimeOut > 0
-                //    {
-                //        Rs232Interface.GetInstance.SendToParser(new PacketFields
-                //        {
-                //            ID = Convert.ToInt16(commandidentifier.Item1),
-                //            SubID = Convert.ToInt16(commandidentifier.Item2),
-                //            IsSet = false,
-                //            IsFloat = false
-                //        });
-                //        //Thread.Sleep(100);
-                //        //CalibrationTimeOut--;
-                //    }
-                //    //else if(CalibrationTimeOut <= 0)
-                //    //{
-                //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent = "Run";
-                //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = "TimeOut";
-                //    //}
-                //    //else
-                //    if(newPropertyValue == "2")
-                //    {
-                //        PrecedentIdx = commandidentifier.Item2;
-                //        Rs232Interface.GetInstance.SendToParser(new PacketFields
-                //        {
-                //            ID = Convert.ToInt16(33),
-                //            SubID = Convert.ToInt16(1),
-                //            IsSet = false,
-                //            IsFloat = false
-                //        });
-                //    }
-                //    else if(newPropertyValue == "3")
-                //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2 - 1)].ButtonContent = "Run";
-                //}
-                //else if(commandidentifier.Item1 == 33) // Calibraion Status
-                //{
-                //    if(PrecedentIdx != 0)
-                //    {
-                //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].CommandValue = CalibrationGetError(newPropertyValue);
-                //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
-                //        PrecedentIdx = 0;
-                //    }
-                //    else
-                //    {
-                //        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
-                //    }
-                //}
-                #endregion Calibration_old
-                #region Calibration_new
-                if(commandidentifier.Item1 == 6)
-                {
-                    if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
-                    {
-                        if(Convert.ToInt16(newPropertyValue) == 0)
-                            Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Run";
-                        else if(Convert.ToInt16(newPropertyValue) == 1)
-                            Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Running";
-                    }
-                    else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
-                    {
-                        //if(Convert.ToInt16(newPropertyValue) < 2)
-                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetStatus(newPropertyValue);
-                    }
+                Debug.WriteLine(commandidentifier.Item1.ToString() + ' ' + commandidentifier.Item2.ToString());
 
-                }
-                #endregion Calibration_new
-                #region Plot_Channels
-                else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 <= 2)
+                switch(commandidentifier.Item1)
                 {
-                    if(Int32.Parse(newPropertyValue) >= 0)
-                    {
-                        int Sel = 0;
-                        if(Int32.Parse(newPropertyValue) > 30)
-                        {
-                            Sel = Int32.Parse(newPropertyValue) - 3;
-                        }
-                        else
-                            Sel = Int32.Parse(newPropertyValue);
-
-                        if(LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag)
-                        {
-                            if(commandidentifier.Item2 == 1)
-                            {
-                                OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                                OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
-                            }
-                            if(commandidentifier.Item2 == 2)
-                            {
-                                OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
-                                OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
-                                DisconnectedFlag = false;
-                            }
-                        }
-                        else
-                        {
-                            if(commandidentifier.Item2 == 1)
-                                OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                            if(commandidentifier.Item2 == 2)
-                                OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
-                        }
-                    }
+                    case 1:
+                        LeftPanelViewModel.GetInstance.StarterCount += 1;
+                        break;
+                    case 66:
+                        LeftPanelViewModel.GetInstance.StarterCount += 1;
+                        break;
+                    case 60:
+                        LeftPanelViewModel.GetInstance.StarterCount += 1;
+                        break;
+                    case 62:
+                        LeftPanelViewModel.GetInstance.StarterCount += 1;
+                        break;
+                    default:
+                        break;
                 }
-                else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
-                {
-                    OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH1", newPropertyValue);
-                }
-                else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 10)
-                {
-                    OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH2", newPropertyValue);
-                }
-                else if(commandidentifier.Item1 == 66)
-                {
-                    if(commandidentifier.Item2 == 0)
-                        OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
-                    else if(commandidentifier.Item2 == 1)
-                        OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
-                    OscilloscopeParameters.InitList();
-                }
-                #endregion Plot_Channels
-                #region DataView_EnumView
-                else if(commandidentifier.Item1 == 33)
-                {
-                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
-                }
-                else if(commandidentifier.Item1 == 12 && commandidentifier.Item2 == 1) // Power Output Command
-                {
-                    if(newPropertyValue == "1")
-                        BottomPanelViewModel.GetInstance.PowerOutputChecked = true;
-                    else
-                        BottomPanelViewModel.GetInstance.PowerOutputChecked = false;
-
-                }
-                else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
-                {
-                    if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Connected")
-                    {
-                        if(newPropertyValue == "1" || newPropertyValue == "0")
-                        {
-                            ConnectionCount = 0;
-                            LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
-                            Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                        }
-                    }
-                    else if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Not Connected")
-                    {
-                        LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Connected";
-                        if(DisconnectedFlag)
-                        {
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                Data2Send = "",
-                                ID = Convert.ToInt16(60),
-                                SubID = Convert.ToInt16(1), // SelectedCh1DataSource
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Thread.Sleep(2);
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                Data2Send = "",
-                                ID = Convert.ToInt16(60),
-                                SubID = Convert.ToInt16(2), // SelectedCh2DataSource
-                                IsSet = false,
-                                IsFloat = false
-                            });
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                Data2Send = "1",
-                                ID = Convert.ToInt16(64),
-                                SubID = Convert.ToInt16(0), // AutoBaud (Synch)
-                                IsSet = true,
-                                IsFloat = false
-                            });
-                        }
-                    }
-                }
-                //else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
-                //{
-                //    MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
-                //}
-                else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))
-                    && Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].IsSelected == false)
-                {
-                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                    if(commandidentifier.Item1 == 62 && commandidentifier.Item2 < 3)
-                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                }
-                else if(Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
-                {
-                    int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
-                    if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
-                    {
-                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
-                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
-                    }
-                }
-                #endregion DataView_EnumView
-                #region DigitalInput
-                else if(Commands.GetInstance.DigitalInputList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
-                {
-                    Commands.GetInstance.DigitalInputList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = Convert.ToInt16(newPropertyValue) == 1 ? 1 : 0;
-                }
-                #endregion DigitalInput
-                #region StartUpAPP
-                else if(commandidentifier.Item1 == 62)
-                {
-                    switch(commandidentifier.Item2)
-                    {
-                        case 0:
-                            Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                            break;
-                        case 1:
-                            Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                            break;
-                        case 2:
-                            Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                            break;
-                        case 3:
-                            Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
-                            break;
-                    }
-                }
-                #endregion StartUpAPP
             }
+
+            LeftPanelViewModel.GetInstance.ValueChange = false;
+            //if(Views.ParametarsWindow.ParametersWindowTabSelected != 7)
+            //{
+            #region Calibration_old
+            //if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            //{
+            //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = CalibrationGetStatus(newPropertyValue);
+            //    if(LeftPanelViewModel.GetInstance.EnRefresh == false && Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent == "Running")//newPropertyValue != "2" && newPropertyValue != "3"&& CalibrationTimeOut > 0
+            //    {
+            //        Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //        {
+            //            ID = Convert.ToInt16(commandidentifier.Item1),
+            //            SubID = Convert.ToInt16(commandidentifier.Item2),
+            //            IsSet = false,
+            //            IsFloat = false
+            //        });
+            //        //Thread.Sleep(100);
+            //        //CalibrationTimeOut--;
+            //    }
+            //    //else if(CalibrationTimeOut <= 0)
+            //    //{
+            //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].ButtonContent = "Run";
+            //    //    Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2 - 1)].CommandValue = "TimeOut";
+            //    //}
+            //    //else
+            //    if(newPropertyValue == "2")
+            //    {
+            //        PrecedentIdx = commandidentifier.Item2;
+            //        Rs232Interface.GetInstance.SendToParser(new PacketFields
+            //        {
+            //            ID = Convert.ToInt16(33),
+            //            SubID = Convert.ToInt16(1),
+            //            IsSet = false,
+            //            IsFloat = false
+            //        });
+            //    }
+            //    else if(newPropertyValue == "3")
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2 - 1)].ButtonContent = "Run";
+            //}
+            //else if(commandidentifier.Item1 == 33) // Calibraion Status
+            //{
+            //    if(PrecedentIdx != 0)
+            //    {
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].CommandValue = CalibrationGetError(newPropertyValue);
+            //        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, PrecedentIdx - 1)].ButtonContent = "Run";
+            //        PrecedentIdx = 0;
+            //    }
+            //    else
+            //    {
+            //        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetError(newPropertyValue);
+            //    }
+            //}
+            #endregion Calibration_old
+            #region Calibration_new
+            if(commandidentifier.Item1 == 6)
+            {
+                if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+                {
+                    if(Convert.ToInt16(newPropertyValue) == 0)
+                        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Run";
+                    else if(Convert.ToInt16(newPropertyValue) == 1)
+                        Commands.GetInstance.CalibartionCommandsList[new Tuple<int, int>(6, commandidentifier.Item2)].ButtonContent = "Running";
+                }
+                else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+                {
+                    //if(Convert.ToInt16(newPropertyValue) < 2)
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = CalibrationGetStatus(newPropertyValue);
+                }
+
+            }
+            #endregion Calibration_new
+            #region Plot_Channels
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 <= 2)
+            {
+                int Sel = 0;
+                if(Int32.Parse(newPropertyValue) > 0)
+                {
+                    if(Int32.Parse(newPropertyValue) > 30)
+                    {
+                        Sel = Int32.Parse(newPropertyValue) - 3;
+                    }
+                    else
+                        Sel = Int32.Parse(newPropertyValue);
+
+                    if(LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag)
+                    {
+                        if(commandidentifier.Item2 == 1)
+                        {
+                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                            OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
+                        }
+                        if(commandidentifier.Item2 == 2)
+                        {
+                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                            OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
+                            DisconnectedFlag = false;
+                        }
+                    }
+                    else
+                    {
+                        if(commandidentifier.Item2 == 1)
+                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                        if(commandidentifier.Item2 == 2)
+                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                    }
+                }
+                //else
+                //{
+                //    if(commandidentifier.Item2 == 1)
+                //        OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                //    if(commandidentifier.Item2 == 2)
+                //        OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                //}
+            }
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
+            {
+                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH1", newPropertyValue);
+            }
+            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 10)
+            {
+                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH2", newPropertyValue);
+            }
+            else if(commandidentifier.Item1 == 66)
+            {
+                if(commandidentifier.Item2 == 0)
+                    OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
+                else if(commandidentifier.Item2 == 1)
+                    OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
+                OscilloscopeParameters.InitList();
+            }
+            #endregion Plot_Channels
+            #region DataView_EnumView
+            else if(commandidentifier.Item1 == 33)
+            {
+                if(newPropertyValue != "0")
+                    //Dispatcher.CurrentDispatcher.Invoke(() => 
+                    LeftPanelViewModel.GetInstance.DriverStat = CalibrationGetError(newPropertyValue);
+            }
+            else if(commandidentifier.Item1 == 12 && commandidentifier.Item2 == 1) // Power Output Command
+            {
+                if(newPropertyValue == "1")
+                    BottomPanelViewModel.GetInstance.PowerOutputChecked = true;
+                else
+                    BottomPanelViewModel.GetInstance.PowerOutputChecked = false;
+
+            }
+            else if(commandidentifier.Item1 == 1 && commandidentifier.Item2 == 0) // MotorStatus
+            {
+                if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Connected")
+                {
+                    if(newPropertyValue == "1" || newPropertyValue == "0")
+                    {
+                        ConnectionCount = 0;
+                        LeftPanelViewModel.GetInstance.LedMotorStatus = Convert.ToInt16(newPropertyValue);
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                    }
+                }
+                else if(LeftPanelViewModel.GetInstance.ConnectTextBoxContent == "Not Connected")
+                {
+                    LeftPanelViewModel.GetInstance.ConnectTextBoxContent = "Connected";
+                    if(DisconnectedFlag)
+                    {
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = "",
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(1), // SelectedCh1DataSource
+                            IsSet = false,
+                            IsFloat = false
+                        });
+                        Thread.Sleep(2);
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = "",
+                            ID = Convert.ToInt16(60),
+                            SubID = Convert.ToInt16(2), // SelectedCh2DataSource
+                            IsSet = false,
+                            IsFloat = false
+                        });
+                        Rs232Interface.GetInstance.SendToParser(new PacketFields
+                        {
+                            Data2Send = "1",
+                            ID = Convert.ToInt16(64),
+                            SubID = Convert.ToInt16(0), // AutoBaud (Synch)
+                            IsSet = true,
+                            IsFloat = false
+                        });
+                    }
+                }
+            }
+            //else if(commandidentifier.Item1 == 65 && commandidentifier.Item2 == 0) // EnableLoader
+            //{
+            //    MaintenanceViewModel.GetInstance.EnableLoder = (newPropertyValue == 0.ToString()) ? false : true;
+            //}
+            else if(Commands.GetInstance.DataViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))
+                && Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].IsSelected == false)
+            {
+                Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                if(commandidentifier.Item1 == 62 && commandidentifier.Item2 < 3)
+                    Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+            }
+            else if(Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            {
+                int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
+                if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
+                {
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
+                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                }
+            }
+            #endregion DataView_EnumView
+            #region DigitalInput
+            else if(Commands.GetInstance.DigitalInputList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
+            {
+                Commands.GetInstance.DigitalInputList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = Convert.ToInt16(newPropertyValue) == 1 ? 1 : 0;
+            }
+            #endregion DigitalInput
+            #region StartUpAPP
+            else if(commandidentifier.Item1 == 62)
+            {
+                switch(commandidentifier.Item2)
+                {
+                    case 0:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 1:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 2:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 3:
+                        Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                }
+            }
+            #endregion StartUpAPP
+            //}
             #region DebugTab
-            else if(Commands.GetInstance.DebugList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))) // Debug Panel
+            if(Commands.GetInstance.DebugList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))) // Debug Panel
             {
                 Commands.GetInstance.DebugList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].GetData = newPropertyValue;
+                DebugViewModel.GetInstance.DebugValue = newPropertyValue;
             }
             #endregion DebugTab
         }

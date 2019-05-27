@@ -4,7 +4,7 @@ namespace SuperButton.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         protected ViewModelBase()
         {
@@ -23,8 +23,10 @@ namespace SuperButton.ViewModels
         //}
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
+
+            if(handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 

@@ -13,9 +13,9 @@ using SuperButton.CommandsDB;
 using Abt.Controls.SciChart;
 using SuperButton.Views;
 
-namespace SuperButton.ViewModels
+namespace SuperButton.Models
 {
-    class DebugObjModel : ViewModelBase
+    class DebugObjModel
     {
         private string _id;
         private string _index;
@@ -23,7 +23,6 @@ namespace SuperButton.ViewModels
         private string _setData;
         private bool _intfloat = true; // true = int, false = float
 
-        public DebugObjModel() {  }
         public bool IntFloat
         {
             get { return _intfloat; }

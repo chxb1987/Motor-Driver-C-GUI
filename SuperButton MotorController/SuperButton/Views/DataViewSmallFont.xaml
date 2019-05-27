@@ -116,7 +116,7 @@
                              Foreground="White"
                              FontSize="11.5" 
                              Text="{Binding CommandValue,UpdateSourceTrigger=PropertyChanged}" 
-                             Background="{Binding Background}"
+                             Background="{Binding BackgroundSmallFont}"
                              IsReadOnly="{Binding ReadOnly}"
                              IsEnabled="{Binding EnableTextBox}"
                              MouseDoubleClick="SetValTB_MouseDoubleClick">
