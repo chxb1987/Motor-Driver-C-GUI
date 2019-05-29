@@ -1714,8 +1714,9 @@ namespace SuperButton.Views
                             //Debug.WriteLine("POintstoPlot {0}, pivot {1}: ", POintstoPlot, pivot);
 
                             Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
-                            #endregion
+                            
                         }
+                        #endregion
                     }
                 }
             }

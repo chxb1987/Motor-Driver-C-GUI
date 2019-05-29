@@ -42,18 +42,6 @@
         <Grid.Background>
             <ImageBrush ImageSource="pack://siteoforigin:,,,/HomeBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <!--  <Grid.Background>
-            <LinearGradientBrush EndPoint="0.007,0.981" StartPoint="1,-0.006">
-                <GradientStop Color="#FFFBFBFB" Offset="0.009"/>
-                <GradientStop Color="#FFD8FBFB" Offset="1"/>
-                <GradientStop Color="#FFB7F0B7" Offset="0.248"/>
-                <GradientStop Color="#FFA8D1BA" Offset="0.799"/>
-                <GradientStop Color="#FF063808" Offset="0.526"/>
-                <GradientStop Color="#FF0C7223" Offset="0.676"/>
-                <GradientStop Color="#FF1F743A" Offset="0.123"/>
-                <GradientStop Color="#FF616161" Offset="0.913"/>
-            </LinearGradientBrush>
-        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/> <!--50-->
             <RowDefinition Height="0"/>  <!--9.037-->
@@ -81,7 +69,7 @@
 
         <!-- Bottom Panel -->
 
-        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" DataContext="{Binding BPcontent, UpdateSourceTrigger=PropertyChanged}"/>
+        <superButton:BottomPanel Visibility="Visible"  VerticalContentAlignment="Top" Grid.Row="3" Grid.Column="1" DataContext="{Binding BPcontent, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- right Panel -->
 

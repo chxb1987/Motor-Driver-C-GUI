@@ -659,7 +659,9 @@ namespace SuperButton.ViewModels
 
         private void Instance_LoggerEvent(object sender, EventArgs e)
         {
-            LogText = ((CustomEventArgs)e).Msg + Environment.NewLine + LogText;
+            string temp = ((CustomEventArgs)e).Msg + Environment.NewLine + LogText;
+            if(!LogText.Contains(((CustomEventArgs)e).Msg))
+                LogText = temp;
         }
         public string LogText
         {

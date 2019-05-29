@@ -267,12 +267,13 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
+                    /*if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
                         _saveToFile = !value;
                     }
-                    else
+                    else*/
+                    _redoState = PreRedoState(OscilloscopeParameters.ChanTotalCounter, DebugViewModel.GetInstance.EnRefresh);
                     {
                         _saveToFile = value;
                         //CurrentButton = false;
@@ -300,6 +301,74 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string PreRedoState(int plot, bool refresh)
+        {
+            if(plot > 0 && refresh)
+            {
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 0,
+                    ID = 64,
+                    SubID = Convert.ToInt16(1),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                DebugViewModel.GetInstance.EnRefresh = false;
+                return "both";
+            }
+            else if(plot > 0)
+            {
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 0,
+                    ID = 64,
+                    SubID = Convert.ToInt16(1),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                return "plot";
+            }
+            else if(refresh)
+            {
+                DebugViewModel.GetInstance.EnRefresh = false;
+                return "refresh";
+            }
+            else
+                return "nothing";
+
+        }
+        public void PostRedoState(string state)
+        {
+            if(state == "both")
+            {
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 1,
+                    ID = 64,
+                    SubID = Convert.ToInt16(1),
+                    IsSet = true,
+                    IsFloat = false
+                });
+                DebugViewModel.GetInstance.EnRefresh = true;
+            }
+            else if(state == "refresh")
+            {
+                DebugViewModel.GetInstance.EnRefresh = true;
+            }
+            else if(state == "plot")
+            {
+                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                {
+                    Data2Send = 1,
+                    ID = 64,
+                    SubID = Convert.ToInt16(1),
+                    IsSet = true,
+                    IsFloat = false
+                });
+            }
+        }
+        public static string _redoState = "";
         private bool _loadFromFile = false;
         public bool LoadFromFile
         {
@@ -308,13 +377,16 @@ namespace SuperButton.ViewModels
             {
                 if(value)
                 {
-                    if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
+                    /*if(OscilloscopeParameters.ChanTotalCounter != 0 || DebugViewModel.GetInstance.EnRefresh == true)
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Please disable plot and Refresh option and retry!"));
                         _loadFromFile = !value;
                         OnPropertyChanged("LoadFromFile");
                     }
-                    else if(PathFromFile == "")
+                    else */
+                    _redoState = PreRedoState(OscilloscopeParameters.ChanTotalCounter, DebugViewModel.GetInstance.EnRefresh);
+
+                    if(PathFromFile == "")
                     {
                         OpenToFile();
                         EventRiser.Instance.RiseEevent(string.Format($"Please choose a file and retry!"));
@@ -380,6 +452,8 @@ namespace SuperButton.ViewModels
                         IsFloat = false
                     });
                     EventRiser.Instance.RiseEevent(string.Format($"Load Parameters successed"));
+                    PostRedoState(_redoState);
+
                 }
                 else
                 {

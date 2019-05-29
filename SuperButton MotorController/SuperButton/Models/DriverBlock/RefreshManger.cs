@@ -240,7 +240,7 @@ namespace SuperButton.Models.DriverBlock
                 if(ParametarsWindow.WindowsOpen == false)
                     tab = -1;
 
-                Debug.WriteLine("1: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                Debug.WriteLine("StartRefresh: " + DateTime.Now.ToString("h:mm:ss.fff"));
                 if(tab != TempTab)
                 {
                     BuildList = new Dictionary<Tuple<int, int>, DataViewModel>();
@@ -288,10 +288,10 @@ namespace SuperButton.Models.DriverBlock
                     else
                     {
                     }
-                    Thread.Sleep(6);
+                    Thread.Sleep(1);
                     //Thread.SpinWait(1000);
                 }
-                Debug.WriteLine("3: " + DateTime.Now.ToString("h:mm:ss.fff"));
+                Debug.WriteLine("EndRefresh: " + DateTime.Now.ToString("h:mm:ss.fff"));
             }
         }
         static int ConnectionCount = 0;
@@ -613,9 +613,7 @@ namespace SuperButton.Models.DriverBlock
             #region DataView_EnumView
             else if(commandidentifier.Item1 == 33)
             {
-                if(newPropertyValue != "0")
-                    //Dispatcher.CurrentDispatcher.Invoke(() => 
-                    LeftPanelViewModel.GetInstance.DriverStat = CalibrationGetError(newPropertyValue);
+                LeftPanelViewModel.GetInstance.DriverStat = CalibrationGetError(newPropertyValue);
             }
             else if(commandidentifier.Item1 == 12 && commandidentifier.Item2 == 1) // Power Output Command
             {

@@ -25,9 +25,7 @@ namespace SuperButton.CommandsDB
             UpperMainPannelList();
             CalibrationCmd();
             BuildErrorList();
-
             GenerateGain();
-
             GenerateDebugListCommands();
         }
 

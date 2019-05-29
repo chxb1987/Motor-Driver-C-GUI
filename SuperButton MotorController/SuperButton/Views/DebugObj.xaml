@@ -6,7 +6,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:models="clr-namespace:SuperButton.Models"
       mc:Ignorable="d" 
-      d:DesignHeight="30" d:DesignWidth="350">
+      d:DesignHeight="30" d:DesignWidth="369">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -57,10 +57,11 @@
         <!-- Get data-->
         <Border BorderBrush="White" BorderThickness="1" Grid.Column="3">
             <Grid>
-                <TextBox   Width="50"
+                <TextBox   Width="80"
                            Text="{Binding GetData,UpdateSourceTrigger=PropertyChanged}" 
                            Foreground="White" FontSize="12"
-                           VerticalContentAlignment="Center"/>
+                           VerticalContentAlignment="Center"
+                           IsEnabled="True"/>
             </Grid>
         </Border>
         <!-- Get button-->

@@ -89,13 +89,13 @@ namespace SuperButton.Models.ParserBlock
             {
                 ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.IsSet,
                     e.PacketRx.IsFloat);
-                Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
+                //Debug.WriteLine("{0} {1}[{2}]={3} {4}.", e.PacketRx.IsSet ? "Set" : "Get", e.PacketRx.ID, e.PacketRx.SubID, e.PacketRx.Data2Send, e.PacketRx.IsFloat ? "F" : "I");
 
                 if(LeftPanelViewModel.GetInstance != null)
                 { // perform Get after "set" function
                     if(LeftPanelViewModel.flag == true && DebugViewModel.GetInstance.EnRefresh == false && e.PacketRx.IsSet != false)
                     {
-                        if(e.PacketRx.ID != 63)
+                        if(e.PacketRx.ID != 63 && e.PacketRx.ID != 67)
                         {
                             ParseOutputData(e.PacketRx.Data2Send, e.PacketRx.ID, e.PacketRx.SubID, false,
                             e.PacketRx.IsFloat);
@@ -241,6 +241,8 @@ namespace SuperButton.Models.ParserBlock
         //Send data to controller
         public void ParseOutputData(object Data2Send, Int16 Id, Int16 SubId, bool IsSet, bool IsFloat)
         {
+            Debug.WriteLine("{0} {1}[{2}]={3} {4}.", IsSet ? "Set" : "Get", Id, SubId, Data2Send, IsFloat ? "F" : "I");
+
 
             //TODO add try catch here
             if(Id == 81 && SubId == 1 && IsSet == true)
@@ -556,7 +558,7 @@ namespace SuperButton.Models.ParserBlock
 
                         }
                     }
-                    else if(commandSubId == 12 && getSet == 1)
+                    else if(commandSubId == 12 && getSet == 0)
                     {
                         if(MaintenanceViewModel.ParamsToFile.Count == 0)
                         {
@@ -629,15 +631,17 @@ namespace SuperButton.Models.ParserBlock
                             });
                         }
                     }
-                    else if(commandSubId == 4 && getSet == 1)
+                    else if(commandSubId == 4 && getSet == 0)
                     {
                         if(transit == 1)
                         {
                             EventRiser.Instance.RiseEevent(string.Format($"Load Parameters successed"));
+                            MaintenanceViewModel.GetInstance.PostRedoState(MaintenanceViewModel._redoState);
                         }
                         else
                         {
                             EventRiser.Instance.RiseEevent(string.Format($"Load Parameters Failed"));
+                            MaintenanceViewModel.GetInstance.PostRedoState(MaintenanceViewModel._redoState);
                         }
                         MaintenanceViewModel.GetInstance.LoadFromFile = false;
 

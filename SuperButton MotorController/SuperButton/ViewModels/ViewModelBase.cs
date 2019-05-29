@@ -1,33 +1,27 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
+
 namespace SuperButton.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         protected ViewModelBase()
         {
         }
-        
-        //protected virtual void OnPropertyChanged(string value,[CallerMemberName] string propertyName = null)
-        //{
-        //    PropertyChangedEventHandler handler = PropertyChanged;
-        //    if (handler != null)
 
-        //    {
-        //        handler(this, new PropertyChangedEventArgs(propertyName));
-        //      if(string.IsNullOrEmpty(value))
-        //          throw new ArgumentException("error");
-        //    }
-        //}
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            //this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             PropertyChangedEventHandler handler = PropertyChanged;
 
             if(handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            //Debug.WriteLine(propertyName);
+            //Debug.WriteLine(handler.Method);
         }
 
         public void RaisePropertyChanged(string propertyName)
@@ -36,6 +30,14 @@ namespace SuperButton.ViewModels
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        protected void RaisePropertyChangedEvent(string propertyName)
+        {
+            if(PropertyChanged != null)
+            {
+                PropertyChangedEventArgs e = new PropertyChangedEventArgs(propertyName);
+                PropertyChanged(this, e);
             }
         }
     }

@@ -5,11 +5,15 @@ using SuperButton.Models.DriverBlock;
 using SuperButton.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Specialized;
+using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace SuperButton.ViewModels
 {
@@ -37,8 +41,8 @@ namespace SuperButton.ViewModels
             get { return _debugObjModel.Index; }
             set { _debugObjModel.Index = value; OnPropertyChanged("Index"); }
         }
-
         
+
         public string GetData
         {
             get
@@ -50,7 +54,7 @@ namespace SuperButton.ViewModels
             {
                 _debugObjModel.GetData = value;
                 Debug.WriteLine("set: " + value);
-                OnPropertyChanged("GetData");
+                OnPropertyChanged(nameof(GetData));
             }
         }
         public string SetData
@@ -61,7 +65,7 @@ namespace SuperButton.ViewModels
 
         public ActionCommand Get { get { return new ActionCommand(GetCmd); } }
         public ActionCommand Set { get { return new ActionCommand(SetCmd); } }
-
+        
         private void GetCmd()
         {
             var data = new DebugObjViewModel
@@ -72,18 +76,29 @@ namespace SuperButton.ViewModels
                 GetData = "",
                 SetData = "",
             };
-            Commands.GetInstance.DebugList.Clear();
+
+            Commands.GetInstance.DebugList.Remove(new Tuple<int, int>(Commands.GetInstance.DebugList.ElementAt(0).Key.Item1, Commands.GetInstance.DebugList.ElementAt(0).Key.Item2));
             Commands.GetInstance.DebugList.Add(new Tuple<int, int>(Convert.ToInt16(ID), Convert.ToInt16(Index)), data);
             try
             {
-                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                //Rs232Interface.GetInstance.SendToParser(new PacketFields
+                //{
+                //    Data2Send = 0,
+                //    ID = Convert.ToInt16(ID),
+                //    SubID = Convert.ToInt16(Index),
+                //    IsSet = false,
+                //    IsFloat = !this.IntFloat
+                //});
+                var tmp = new PacketFields
                 {
                     Data2Send = 0,
                     ID = Convert.ToInt16(ID),
                     SubID = Convert.ToInt16(Index),
                     IsSet = false,
-                    IsFloat = !this.IntFloat
-                });
+                    IsFloat = !this.IntFloat,
+                };
+                Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
+            
             }
             catch(Exception e)
             {
@@ -94,14 +109,24 @@ namespace SuperButton.ViewModels
         {
             try
             {
-                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                //Rs232Interface.GetInstance.SendToParser(new PacketFields
+                //{
+                //    Data2Send = Convert.ToInt32(SetData),
+                //    ID = Convert.ToInt16(ID),
+                //    SubID = Convert.ToInt16(Index),
+                //    IsSet = true,
+                //    IsFloat = !this.IntFloat
+                //});
+
+                var tmp = new PacketFields
                 {
                     Data2Send = Convert.ToInt32(SetData),
                     ID = Convert.ToInt16(ID),
                     SubID = Convert.ToInt16(Index),
                     IsSet = true,
-                    IsFloat = !this.IntFloat
-                });
+                    IsFloat = !this.IntFloat,
+                };
+                Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
             }
             catch(Exception e)
             {

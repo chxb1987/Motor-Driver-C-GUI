@@ -12,6 +12,7 @@ using System.Linq;
 using SuperButton.CommandsDB;
 using Abt.Controls.SciChart;
 using SuperButton.Views;
+using System.ComponentModel;
 
 namespace SuperButton.Models
 {

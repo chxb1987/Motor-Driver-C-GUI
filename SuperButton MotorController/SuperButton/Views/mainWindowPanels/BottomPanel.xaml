@@ -508,7 +508,8 @@
                                         IsCollapsed="False"
                                         IsTabStop="False" Height="8" Grid.ColumnSpan="2"
                                         Cursor="Hand"
-                                        ResizeBehavior="PreviousAndNext"/>
+                                        ResizeBehavior="PreviousAndNext"
+                                        />
 
         <Grid Grid.Row="1">
             <Grid Margin="0,1,0,0">

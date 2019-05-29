@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Collections.ObjectModel;
 using SuperButton.CommandsDB;
 using System.Threading;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace SuperButton.ViewModels
 {
@@ -39,7 +41,6 @@ namespace SuperButton.ViewModels
         }
         private DebugViewModel()
         {
-
         }
 
         private ObservableCollection<object> _debugList;

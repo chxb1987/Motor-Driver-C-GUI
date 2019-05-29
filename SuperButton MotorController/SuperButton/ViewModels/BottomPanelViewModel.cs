@@ -6,6 +6,7 @@ using Abt.Controls.SciChart;
 using SuperButton.Models.DriverBlock;
 using System;
 using System.Threading;
+using System.Diagnostics;
 
 namespace SuperButton.ViewModels
 {
@@ -51,16 +52,22 @@ namespace SuperButton.ViewModels
             set
             {
                 _powerOutputChecked = value;
+                // get call stack
+                StackTrace stackTrace = new StackTrace();
 
-                Rs232Interface.GetInstance.SendToParser(new PacketFields
+                if(stackTrace.GetFrame(1).GetMethod().Name != "UpdateModel")
                 {
-                    Data2Send = _powerOutputChecked ? 1 : 0,
-                    ID = Convert.ToInt16(12),
-                    SubID = Convert.ToInt16(1),
-                    IsSet = true,
-                    IsFloat = false
-                });
+                    Rs232Interface.GetInstance.SendToParser(new PacketFields
+                    {
+                        Data2Send = _powerOutputChecked ? 1 : 0,
+                        ID = Convert.ToInt16(12),
+                        SubID = Convert.ToInt16(1),
+                        IsSet = true,
+                        IsFloat = false
+                    });
+                }
                 OnPropertyChanged("PowerOutputChecked");
+
             }
         }
         public ObservableCollection<object> MotionCommandList

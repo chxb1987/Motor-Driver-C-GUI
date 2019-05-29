@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Abt.Controls.SciChart.Example.Data;
 using SuperButton.Data;
 using SuperButton.ViewModels;
@@ -55,6 +56,7 @@ namespace SuperButton.Models.DriverBlock
         {
             LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
             PacketRx = packetRx;     // Send Packet
+            Debug.WriteLine(PacketRx.IsSet);
         }
 
 

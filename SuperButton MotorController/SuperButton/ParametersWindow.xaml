@@ -451,7 +451,7 @@
             <TabItem Header="Debug" TabIndex="8" DataContext="{Binding DebugViewModel}" Background="Black" Foreground="White" >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -461,10 +461,18 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0" Header="      ID         Index      Int/Float    GetData                       SetData" >
-                            <ItemsControl ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
-                        </GroupBox>
-                        <TextBox Grid.Row="1" Text="{Binding DebugValue}"/>
+                        <Border Grid.Row="0" Width="Auto" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Width="365" Text="      ID         Index      Int/Float          GetData                           SetData" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
+                                <TextBox Grid.Row="1" Text="{Binding DebugValue}" Width="80" Margin="47,0,0,0" Height="23.5" IsReadOnly="True"/>
+                            </Grid>
+                        </Border>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
