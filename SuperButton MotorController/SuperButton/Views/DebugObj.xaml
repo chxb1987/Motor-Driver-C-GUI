@@ -6,7 +6,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:models="clr-namespace:SuperButton.Models"
       mc:Ignorable="d" 
-      d:DesignHeight="30" d:DesignWidth="369">
+      d:DesignHeight="30" d:DesignWidth="460">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,11 +19,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <!--ID-->
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="4,0,0,4" Grid.Column="0">
+        <Border BorderBrush="White" BorderThickness="1,1,0,1" CornerRadius="4,0,0,4" Grid.Column="0">
             <Grid>
                 <TextBox    x:Name="ID"
                             Width="50" 
-                           Text="{Binding ID,UpdateSourceTrigger=PropertyChanged}" 
+                           Text="{Binding ID}" 
                            Foreground="White" FontSize="12"
                            VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
@@ -33,10 +33,10 @@
             </Grid>
         </Border>
         <!--Index-->
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="1">
+        <Border BorderBrush="White" BorderThickness="0,1,0,1" Grid.Column="1">
             <Grid>
                 <TextBox   Width="50"
-                           Text="{Binding Index,UpdateSourceTrigger=PropertyChanged}" 
+                           Text="{Binding Index}" 
                            Foreground="White" FontSize="12"
                            VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
@@ -46,52 +46,69 @@
             </Grid>
         </Border>
         <!--Type : Int/Float-->
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="2">
+        <Border BorderBrush="White" BorderThickness="0,1,0,1" Grid.Column="2">
             <Grid >
-                <CheckBox     Style="{StaticResource CheckBoxStyle3}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"     
+                    Style="{StaticResource CheckBoxStyle3}"
                               VerticalAlignment="Center"
-                              IsChecked="{Binding IntFloat}">
+                              IsChecked="{Binding IntFloat}"
+                              >
                 </CheckBox>
+                <Separator Grid.Column="1" Width="10" Background="Transparent" Visibility="Hidden"/>
             </Grid>
         </Border>
-        <!-- Get data-->
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="3">
-            <Grid>
-                <TextBox   Width="80"
-                           Text="{Binding GetData,UpdateSourceTrigger=PropertyChanged}" 
-                           Foreground="White" FontSize="12"
-                           VerticalContentAlignment="Center"
-                           IsEnabled="True"/>
-            </Grid>
+
+        <Border BorderBrush="White" BorderThickness="0,1,0,1" Grid.Column="3">
+            <Line Stroke="Gray" Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="10"/>
         </Border>
         <!-- Get button-->
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="4">
-            <Grid >
-                <Button Height="22" Width="30"
+        <!-- Get data-->
+        <Border BorderBrush="White" BorderThickness="0,1,0,1" Grid.Column="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Height="22" Width="30" 
                               Template="{DynamicResource PressedButton}" 
-                              Command="{Binding Get}"  
-                              BorderThickness="0.5" 
+                              Command="{Binding Get}"
                               Foreground="White"
                               Content="Get">
                 </Button>
+                <TextBox Grid.Column="1" Width="100"
+                           Text="{Binding GetData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                           Foreground="White" FontSize="12"
+                           VerticalContentAlignment="Center"
+                           IsEnabled="True"/>
+                <Separator Grid.Column="2" Width="10" Background="Transparent" Visibility="Hidden"/>
             </Grid>
         </Border>
+        
+        <Border BorderBrush="White" BorderThickness="0,1,0,1" Grid.Column="5">
+            <Line Stroke="Gray" Y2="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="10"/>
+        </Border>
+        
         <!-- Set button-->
-        <Border BorderBrush="White" BorderThickness="1" Grid.Column="5">
-            <Grid >
-                <Button Height="22" Width="30"
+        <Border BorderBrush="White" BorderThickness="0,1,1,1" CornerRadius="0,4,4,0" Grid.Column="6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Height="22" Width="30"
                               Template="{DynamicResource PressedButton}" 
                               Command="{Binding Set}"  
                               BorderThickness="0.5" 
                               Foreground="White"
                               Content="Set">
                 </Button>
-            </Grid>
-        </Border>
-        <!-- Set data-->
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="0,4,4,0" Grid.Column="6">
-            <Grid>
-                <TextBox   Width="50"
+                <!-- Set data-->
+                <TextBox   Grid.Column="1" Width="100"
                            Text="{Binding SetData,UpdateSourceTrigger=PropertyChanged}" 
                            Foreground="White" FontSize="12"
                            VerticalContentAlignment="Center">

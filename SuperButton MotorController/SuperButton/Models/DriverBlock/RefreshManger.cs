@@ -556,12 +556,12 @@ namespace SuperButton.Models.DriverBlock
                 int Sel = 0;
                 if(Int32.Parse(newPropertyValue) > 0)
                 {
-                    if(Int32.Parse(newPropertyValue) > 30)
-                    {
-                        Sel = Int32.Parse(newPropertyValue) - 3;
-                    }
-                    else
-                        Sel = Int32.Parse(newPropertyValue);
+                    //if(Int32.Parse(newPropertyValue) > 30)
+                    //{
+                    //    Sel = Int32.Parse(newPropertyValue) - 3;
+                    //}
+                    //else
+                    Sel = Int32.Parse(newPropertyValue);
 
                     if(LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag)
                     {
@@ -569,20 +569,28 @@ namespace SuperButton.Models.DriverBlock
                         {
                             OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
                             OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
+                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH1: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.First(x => x.Key == OscilloscopeViewModel.GetInstance.SelectedCh1DataSource).Value;
                         }
-                        if(commandidentifier.Item2 == 2)
+                        else if(commandidentifier.Item2 == 2)
                         {
                             OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
                             OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
+                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH2: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.First(x => x.Key == OscilloscopeViewModel.GetInstance.SelectedCh2DataSource).Value;
                             DisconnectedFlag = false;
                         }
                     }
                     else
                     {
                         if(commandidentifier.Item2 == 1)
+                        {
                             OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                        if(commandidentifier.Item2 == 2)
+                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH1: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.ElementAt(Sel).Value;
+                        }
+                        else if(commandidentifier.Item2 == 2)
+                        {
                             OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH2: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.ElementAt(Sel).Value;
+                        }
                     }
                 }
                 //else
@@ -593,6 +601,7 @@ namespace SuperButton.Models.DriverBlock
                 //        OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
                 //}
             }
+            /*
             else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
             {
                 OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH1", newPropertyValue);
@@ -601,6 +610,7 @@ namespace SuperButton.Models.DriverBlock
             {
                 OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH2", newPropertyValue);
             }
+            */
             else if(commandidentifier.Item1 == 66)
             {
                 if(commandidentifier.Item2 == 0)
@@ -680,11 +690,17 @@ namespace SuperButton.Models.DriverBlock
             }
             else if(Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
-                int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
-                if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
+                try
                 {
-                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
-                    Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                    int index = Convert.ToInt16(newPropertyValue) - Convert.ToInt16(Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue);
+                    if(index < Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList.Count && index >= 0)
+                    {
+                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].SelectedItem =
+                        Commands.GetInstance.EnumViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandList[index];
+                    }
+                }
+                catch
+                {
                 }
             }
             #endregion DataView_EnumView
@@ -716,9 +732,9 @@ namespace SuperButton.Models.DriverBlock
             #endregion StartUpAPP
             //}
             #region DebugTab
-            if(Commands.GetInstance.DebugList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))) // Debug Panel
+            if(Commands.GetInstance.DebugCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2))) // Debug Panel
             {
-                Commands.GetInstance.DebugList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].GetData = newPropertyValue;
+                Commands.GetInstance.DebugCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].GetData = newPropertyValue;
                 DebugViewModel.GetInstance.DebugValue = newPropertyValue;
             }
             #endregion DebugTab

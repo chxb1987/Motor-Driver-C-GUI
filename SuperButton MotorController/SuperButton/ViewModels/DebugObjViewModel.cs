@@ -19,7 +19,7 @@ namespace SuperButton.ViewModels
 {
     public class DebugObjViewModel : ViewModelBase
     {
-        private readonly DebugObjModel _debugObjModel = new DebugObjModel();
+        private DebugObjModel _debugObjModel = new DebugObjModel();
 
 
         public bool IntFloat
@@ -77,8 +77,8 @@ namespace SuperButton.ViewModels
                 SetData = "",
             };
 
-            Commands.GetInstance.DebugList.Remove(new Tuple<int, int>(Commands.GetInstance.DebugList.ElementAt(0).Key.Item1, Commands.GetInstance.DebugList.ElementAt(0).Key.Item2));
-            Commands.GetInstance.DebugList.Add(new Tuple<int, int>(Convert.ToInt16(ID), Convert.ToInt16(Index)), data);
+            Commands.GetInstance.DebugCommandsList.Remove(new Tuple<int, int>(Commands.GetInstance.DebugCommandsList.ElementAt(0).Key.Item1, Commands.GetInstance.DebugCommandsList.ElementAt(0).Key.Item2));
+            Commands.GetInstance.DebugCommandsList.Add(new Tuple<int, int>(Convert.ToInt16(ID), Convert.ToInt16(Index)), data);
             try
             {
                 //Rs232Interface.GetInstance.SendToParser(new PacketFields

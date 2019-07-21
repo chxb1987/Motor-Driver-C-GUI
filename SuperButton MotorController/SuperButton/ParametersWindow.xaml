@@ -8,7 +8,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d" 
         x:Class="SuperButton.Views.ParametarsWindow"
-        ResizeMode="NoResize"
+        xmlns:UserControl="clr-namespace:SuperButton.Views"
+        ResizeMode="CanMinimize"
         Title="Driver Parameters" Height="500" Width="700"
         Closing="Window_Closing"
         Icon="./Themes/MotorController.png"
@@ -50,12 +51,12 @@
 
     <Grid >
         <!--Background="#00616161"-->
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
         <TabControl TabStripPlacement="Top" SelectionChanged="TabSelected" Margin="1,0,-1,0">
             <TabControl.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
@@ -120,7 +121,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="20"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Header="Qep1">
                             <Grid>
@@ -130,29 +131,25 @@
                                     <!--<RowDefinition Height="30"></RowDefinition>-->
                                 </Grid.RowDefinitions>
                                 <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />-->
-                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep1FdBckList}" 
+                                <!--<ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep1FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep1FdBckList}" 
                                           ItemTemplate="{StaticResource EnumViewModel}">
-                                        </ItemsControl>
-                                    </Grid>
-                                </ScrollViewer>
+                                    </ItemsControl>
+                                </Grid>
+                                <!--</ScrollViewer>-->
                             </Grid>
                         </GroupBox>
                         <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                </Grid.RowDefinitions>
+                            <ScrollViewer VerticalScrollBarVisibility="Visible">
                                 <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>-->
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            </Grid>
+                                <ItemsControl ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" Grid.ColumnSpan="2" />
+                            </ScrollViewer>
                         </GroupBox>
                     </Grid>
                     <Grid Grid.Column="4">
@@ -169,18 +166,17 @@
                                     <!--<RowDefinition Height="30"></RowDefinition>-->
                                 </Grid.RowDefinitions>
                                 <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}"  IsChecked="{Binding IsQep1FeedBackEnabled}" />-->
-                                <ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
-                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FdBckList}" 
+                                <!--<ScrollViewer Grid.Row="1" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <ItemsControl Grid.Row="0" ItemsSource="{Binding Qep2FeedBackList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Qep2FdBckList}" 
                                           ItemTemplate="{StaticResource EnumViewModel}"/>
-                                    </Grid>
-                                </ScrollViewer>
-
+                                </Grid>
+                                <!--</ScrollViewer>-->
                             </Grid>
                         </GroupBox>
                         <!--<GroupBox Grid.Row="0" Header="Digital"  Background="Transparent" >
@@ -328,9 +324,9 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Header="Current Limit" >
-                            <StackPanel Background="Transparent" Orientation="Vertical" >
-                                <ItemsControl ItemsSource="{Binding CurrentLimitList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            </StackPanel>
+                            <!--<StackPanel Background="Transparent" Orientation="Vertical" >-->
+                            <ItemsControl ItemsSource="{Binding CurrentLimitList}" ItemTemplate="{StaticResource DataViewModel}" />
+                            <!--</StackPanel>-->
                         </GroupBox>
                     </Grid>
                 </Grid>
@@ -425,6 +421,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathFromFile}" FontSize="10"></TextBox>
                             <Button Grid.Column="1" Command="{Binding OpenFromFileCmd}" Style="{StaticResource ExampleToolbarButtonStyle}" Height="17" Width="25" BorderBrush="Wheat" BorderThickness="1" Margin="0">
@@ -432,10 +429,12 @@
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
                             </Button>
+                            <ProgressBar Grid.Column="2" Width="50" Value="{Binding PbarValueFromFile}"></ProgressBar>
                         </Grid>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox  Grid.Column="0" BorderBrush="Wheat" BorderThickness="1" IsReadOnly="True" Text="{Binding PathToFile}" FontSize="10"></TextBox>
@@ -444,6 +443,7 @@
                                     <Image Source="pack://application:,,,/Images/SelectFile.ico" Stretch="Fill" Width="17" Height="17" Margin="0,-3,0,0"/>
                                 </StackPanel>
                             </Button>
+                            <ProgressBar Grid.Column="2" Width="50" Value="{Binding PbarValueToFile}"></ProgressBar>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -467,10 +467,13 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Width="365" Text="      ID         Index      Int/Float          GetData                           SetData" Foreground="White" Background="Gray" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Width="460" Text="      ID         Index      Int/Float                     GetData                                 SetData" Foreground="White" Background="Gray" HorizontalAlignment="Center" Margin="0,0,-1,0"/>
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
-                                <TextBox Grid.Row="1" Text="{Binding DebugValue}" Width="80" Margin="47,0,0,0" Height="23.5" IsReadOnly="True"/>
+                                <TextBox Grid.Row="1" Text="{Binding DebugValue, Mode=TwoWay}" Width="100" Margin="60,0,0,0" Height="22" IsReadOnly="True" FontSize="12"/>
+                                <!--<ItemsControl Grid.Row="3" Height="25" ItemTemplate="{StaticResource DebugObjViewModel}" ItemsSource="{Binding Debug_Obj}"/>-->
+                                <!--<UserControl:DebugObj x:Name="Debug_Obj" Grid.Row="3" ></UserControl:DebugObj>-->
                             </Grid>
                         </Border>
                     </Grid>

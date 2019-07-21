@@ -71,6 +71,7 @@ namespace SuperButton.Views
         {
 
         }
+
         //private void HandleChecked(object sender, RoutedEventArgs e)
         //{
         //    ToggleButton toggle = sender as ToggleButton;

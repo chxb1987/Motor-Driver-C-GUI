@@ -70,13 +70,16 @@ namespace SuperButton.Models.ParserBlock
         public UInt32 Ticker = 0;
         public UInt32 TickerC = 1;
 
+        private List<int> exceptionID = new List<int>(); // Contains all the ID that dont need to be descripted by refersh manager class.
+        int[] exceptionID_Arr = {100, 67, 34, 35, 36 }; // 100: Error, 67: Load To/From file params started, 34, 35, 36: Init plots table. , 34, 35, 36
         public ParserRayonM1()
         {
             Rs232Interface.GetInstance.RxtoParser += parseOutdata;
             Rs232Interface.GetInstance.TxtoParser += parseIndata;
             Packetizer packetizer = new Packetizer();
-            //   decodeThread = new Thread(StartParser);
-            //   decodeThread.Start();
+
+            foreach(var element in exceptionID_Arr)
+                exceptionID.Add(element);
         }
         #region Parser_Selection
 
@@ -441,8 +444,10 @@ namespace SuperButton.Models.ParserBlock
                 ParseInputPacket(dataList[i]);
             }
         }
+
         public bool ParseInputPacket(byte[] data)
         {
+            
             var crclsb = data[7];
             var crcmsb = data[8];
 
@@ -468,24 +473,21 @@ namespace SuperButton.Models.ParserBlock
                 commandSubId = commandSubId + Convert.ToInt16(subIdMsb << 2);
                 //int newPropertyValueInt=0;
                 float newPropertyValuef = 0;
-                if(commandId != 100 && commandId != 67) // 67
+                Int32 transit = data[6];
+                transit <<= 8;
+                transit |= data[5];
+                transit <<= 8;
+                transit |= data[4];
+                transit <<= 8;
+                transit |= data[3];
+                if(!exceptionID.Contains(commandId))
                 {
                     if(isInt)
                     {
-                        Int32 transit = data[6];
-                        transit <<= 8;
-                        transit |= data[5];
-                        transit <<= 8;
-                        transit |= data[4];
-                        transit <<= 8;
-                        transit |= data[3];
-
                         if(getSet == 1)
-                        {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
-                        }
-                        //if(commandId != 1 && commandSubId != 0)
-                            Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+                        
+                        Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
                     }
                     else
                     {
@@ -502,32 +504,15 @@ namespace SuperButton.Models.ParserBlock
                         Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
                     }
                 }
-                //else if(commandId == 63) // GetParamas Operation
-                //{
-                //    Rs232Interface.GetInstance.SendToParser(new PacketFields
-                //    {
-                //        Data2Send = 0,
-                //        ID = 67,
-                //        SubID = Convert.ToInt16(1),
-                //        IsSet = false,
-                //        IsFloat = false
-                //    });
-                //}
                 else if(commandId == 67)
                 {
-                    UInt32 transit = data[6];
-                    transit <<= 8;
-                    transit |= data[5];
-                    transit <<= 8;
-                    transit |= data[4];
-                    transit <<= 8;
-                    transit |= data[3];
                     Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
                     if(commandSubId == 1)
                     {
+                        MaintenanceViewModel.PbarParamsCount = Convert.ToUInt32(transit);
                         if(MaintenanceViewModel.GetInstance.SaveToFile == true)
                         {
-                            MaintenanceViewModel.ParamsCount = transit;
+                            MaintenanceViewModel.ParamsCount = Convert.ToUInt32(transit);
                             Rs232Interface.GetInstance.SendToParser(new PacketFields
                             {
                                 Data2Send = 1,
@@ -540,7 +525,7 @@ namespace SuperButton.Models.ParserBlock
                         }
                         else if(MaintenanceViewModel.GetInstance.LoadFromFile == true)
                         {
-                            if(MaintenanceViewModel.GetInstance.SelectFile(transit))
+                            if(MaintenanceViewModel.GetInstance.SelectFile(Convert.ToUInt32(transit)))
                             {
                                 Rs232Interface.GetInstance.SendToParser(new PacketFields
                                 {
@@ -555,7 +540,6 @@ namespace SuperButton.Models.ParserBlock
                             {
                                 MaintenanceViewModel.GetInstance.LoadFromFile = false;
                             }
-
                         }
                     }
                     else if(commandSubId == 12 && getSet == 0)
@@ -576,16 +560,11 @@ namespace SuperButton.Models.ParserBlock
                         {
                             MaintenanceViewModel.GetInstance.SaveToFile = false;
                         }
-
                     }
                     else if(commandSubId == 13)
                     {
-                        MaintenanceViewModel.GetInstance.DataToList(transit);
+                        MaintenanceViewModel.GetInstance.DataToList(Convert.ToUInt32(transit));
                     }
-                    //else if(commandSubId == 14)
-                    //{
-                    //    MaintenanceViewModel.GetInstance.DataToList(transit);
-                    //}
                     else if(commandSubId == 2 && getSet == 0)
                     {
                         if(MaintenanceViewModel.GetInstance.LoadFromFile && MaintenanceViewModel.FileToParams.Count > 1)
@@ -618,6 +597,7 @@ namespace SuperButton.Models.ParserBlock
                                 IsFloat = false
                             });
                             MaintenanceViewModel.FileToParams.RemoveAt(0);
+                            MaintenanceViewModel.GetInstance.PbarValueFromFile = 100 - ((MaintenanceViewModel.FileToParams.Count) * 100 / MaintenanceViewModel.PbarParamsCount);
                         }
                         else if(MaintenanceViewModel.FileToParams.Count == 1)
                         {
@@ -655,16 +635,32 @@ namespace SuperButton.Models.ParserBlock
                         });
                     }
                 }
+                else if(commandId == 34)
+                {
+                    OscilloscopeParameters.plotCount_temp = transit;
+                    OscilloscopeParameters.plotCount = transit;
+                    if(transit > 0)
+                        OscilloscopeParameters.fillPlotList();
+                }
+                else if(commandId == 35)
+                {
+                    OscilloscopeParameters.plotGeneral.Add(transit);
+                }
+                else if(commandId == 36)
+                {
+                    var dataAray = new byte[4];
+                    for(int i = 0; i < 4; i++)
+                    {
+                        dataAray[i] = data[i + 3];
+                    }
+                    newPropertyValuef = System.BitConverter.ToSingle(dataAray, 0);
+                    OscilloscopeParameters.plotFullScale.Add(newPropertyValuef);
+                    if(OscilloscopeParameters.plotCount_temp > 0)
+                        OscilloscopeParameters.fillPlotList();
+                }
                 else
                 {
                     string result;
-                    Int32 transit = data[6];
-                    transit <<= 8;
-                    transit |= data[5];
-                    transit <<= 8;
-                    transit |= data[4];
-                    transit <<= 8;
-                    transit |= data[3];
                     if(Commands.GetInstance.ErrorList.TryGetValue(transit, out result))
                     {
                         EventRiser.Instance.RiseEevent(string.Format($"Com. Error: " + result));

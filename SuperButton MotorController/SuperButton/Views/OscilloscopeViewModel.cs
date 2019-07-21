@@ -35,7 +35,7 @@ namespace SuperButton.Views
 
 
         private string _yaxeTitle;
-        readonly Dictionary<string, string> ChannelYtitles = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> ChannelYtitles = new Dictionary<string, string>();
 
         //CH1 ComboBox
         int ch1;
@@ -555,6 +555,7 @@ namespace SuperButton.Views
         }
         private void FillDictionary()
         {
+            /*
             _channel1SourceItems.Add("Pause:");
             _channel1SourceItems.Add("IqFeedback");
             _channel1SourceItems.Add("I_PhaseA");
@@ -589,13 +590,14 @@ namespace SuperButton.Views
             _channel1SourceItems.Add("SpeedRefPI");
             _channel1SourceItems.Add("SpeedFdb");
             _channel1SourceItems.Add("CurrentRefPI");
+            */
 
             //update Ch1 ComboBox
             //Channel1SourceItems = _channel1SourceItems;
             //update Ch2 ComboBox
             //Channel2SourceItems = Channel1SourceItems;// _channel1SourceItems;
 
-
+            /*
             ChannelYtitles.Add("Pause", "");
             ChannelYtitles.Add("IqFeedback", "Current [A]");
             ChannelYtitles.Add("I_PhaseA", "Current [A]");
@@ -628,6 +630,7 @@ namespace SuperButton.Views
             ChannelYtitles.Add("SpeedRefPI", ""); //34
             ChannelYtitles.Add("SpeedFdb", ""); //35
             ChannelYtitles.Add("CurrentRefPI", ""); //36
+            */
         }
         #endregion
         #region ActionCommnds
@@ -763,19 +766,19 @@ namespace SuperButton.Views
                             RxPacket.IsFloat = false;
                             RxPacket.IsSet = true;
                             RxPacket.SubID = 1;
-                            RxPacket.Data2Send = (ch1 >= 28) ? ch1 + 3 : ch1;
+                            RxPacket.Data2Send = ch1; //(ch1 >= 28) ? ch1 + 3 : ch1;
                             //rise event
                             Rs232Interface.GetInstance.SendToParser(RxPacket);
                             //if(ch1 != 0)
                             //{
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                Data2Send = "",
-                                ID = Convert.ToInt16(60),
-                                SubID = Convert.ToInt16(9), // Get Units Name
-                                IsSet = false,
-                                IsFloat = false
-                            });
+                            //Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            //{
+                            //    Data2Send = "",
+                            //    ID = Convert.ToInt16(60),
+                            //    SubID = Convert.ToInt16(9), // Get Units Name
+                            //    IsSet = false,
+                            //    IsFloat = false
+                            //});
                             //}
                             ChannelsplotActivationMerge();
                         }
@@ -823,19 +826,19 @@ namespace SuperButton.Views
                             RxPacket.IsFloat = false;
                             RxPacket.IsSet = true;
                             RxPacket.SubID = 2;
-                            RxPacket.Data2Send = (ch2 >= 28) ? ch2 + 3 : ch2;
+                            RxPacket.Data2Send = ch2; //(ch2 >= 28) ? ch2 + 3 : ch2;
                             //rise event
                             Rs232Interface.GetInstance.SendToParser(RxPacket);
                             //if(ch2 != 0)
                             //{
-                            Rs232Interface.GetInstance.SendToParser(new PacketFields
-                            {
-                                Data2Send = "",
-                                ID = Convert.ToInt16(60),
-                                SubID = Convert.ToInt16(10), // Get Units Name
-                                IsSet = false,
-                                IsFloat = false
-                            });
+                            //Rs232Interface.GetInstance.SendToParser(new PacketFields
+                            //{
+                            //    Data2Send = "",
+                            //    ID = Convert.ToInt16(60),
+                            //    SubID = Convert.ToInt16(10), // Get Units Name
+                            //    IsSet = false,
+                            //    IsFloat = false
+                            //});
                             //}
                             ChannelsplotActivationMerge();
                         }

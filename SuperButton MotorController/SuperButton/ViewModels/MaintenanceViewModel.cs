@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Abt.Controls.SciChart;
 
+
 namespace SuperButton.ViewModels
 {
     class MaintenanceViewModel : ViewModelBase
@@ -220,6 +221,7 @@ namespace SuperButton.ViewModels
         public static bool CurrentButton = false;
         public static bool DefaultButton = false;
         public static UInt32 ParamsCount = 0;
+        public static UInt32 PbarParamsCount = 0;
         private string _pathToFile, _pathFromFile = "";
         public string PathToFile
         {
@@ -273,6 +275,7 @@ namespace SuperButton.ViewModels
                         _saveToFile = !value;
                     }
                     else*/
+                    PbarValueToFile = 0;
                     _redoState = PreRedoState(OscilloscopeParameters.ChanTotalCounter, DebugViewModel.GetInstance.EnRefresh);
                     {
                         _saveToFile = value;
@@ -291,6 +294,11 @@ namespace SuperButton.ViewModels
                             IsSet = false,
                             IsFloat = false
                         });
+                        var task1 = Task.Factory.StartNew(action: () =>
+                        {
+                            CheckPBar("ToFile");
+                        });
+                        Task.WaitAll(task1);
                     }
                 }
                 else if(!value)
@@ -385,10 +393,10 @@ namespace SuperButton.ViewModels
                     }
                     else */
                     _redoState = PreRedoState(OscilloscopeParameters.ChanTotalCounter, DebugViewModel.GetInstance.EnRefresh);
-
+                    PbarValueFromFile = 0;
                     if(PathFromFile == "")
                     {
-                        OpenToFile();
+                        //OpenToFile();
                         EventRiser.Instance.RiseEevent(string.Format($"Please choose a file and retry!"));
                         _loadFromFile = !value;
                         OnPropertyChanged("LoadFromFile");
@@ -406,6 +414,7 @@ namespace SuperButton.ViewModels
                             IsSet = false,
                             IsFloat = false
                         } );
+                        CheckPBar("FromFile");
                     }
                 }
                 else if(!value)
@@ -422,6 +431,7 @@ namespace SuperButton.ViewModels
             {
                 ParamsCount -= 1;
                 ParamsToFile.Add(data);
+                PbarValueToFile = (ParamsToFile.Count) * 100 / PbarParamsCount;
                 Rs232Interface.GetInstance.SendToParser(new PacketFields
                 {
                     Data2Send = 1,
@@ -546,7 +556,6 @@ namespace SuperButton.ViewModels
                 return day.ToString();
 
         }
-
         public bool SelectFile(UInt32 ParamsCount)
         {
             string readText = File.ReadAllText(PathFromFile);
@@ -571,6 +580,75 @@ namespace SuperButton.ViewModels
                 return false;
             }
             //LoadFromFile = false;
+        }
+
+        private long _pbarValueFromFile = 0;
+        public long PbarValueFromFile {
+            get { return _pbarValueFromFile; }
+            set { _pbarValueFromFile = value; OnPropertyChanged("PbarValueFromFile"); }
+        }
+        private long _pbarValueToFile = 0;
+        public long PbarValueToFile
+        {
+            get { return _pbarValueToFile; }
+            set { _pbarValueToFile = value; OnPropertyChanged("PbarValueToFile"); }
+        }
+
+        private void CheckPBar(string way)
+        {
+            int timeout = 0;
+            long tempPbarVal = 0;
+            if(way == "ToFile")
+            {
+                Task.Factory.StartNew(action: () =>
+                {
+                    Thread.Sleep(1);
+                    while(PbarValueToFile != 100 && timeout < 100)
+                    {
+                        if(tempPbarVal != PbarValueToFile)
+                        {
+                            tempPbarVal = PbarValueToFile;
+                            timeout = 0;
+                        }
+                        else
+                            timeout++;
+                        Thread.Sleep(5);
+                        if(PbarValueToFile == 100)
+                            break;
+                        if(timeout >= 100)
+                        {
+                            SaveToFile = false;
+                            PbarValueToFile = 0;
+                            EventRiser.Instance.RiseEevent(string.Format($"Load Parameters Failed"));
+                            MaintenanceViewModel.GetInstance.PostRedoState(MaintenanceViewModel._redoState);
+                        }
+                    }
+                });
+            }
+            else
+            {
+                Task.Factory.StartNew(action: () =>
+                {
+                    Thread.Sleep(1);
+                    while(PbarValueFromFile != 100 && timeout < 100)
+                    {
+                        if(tempPbarVal != PbarValueFromFile)
+                            tempPbarVal = PbarValueFromFile;
+                        else
+                            timeout++;
+                        Thread.Sleep(5);
+                        if(PbarValueFromFile == 100)
+                            break;
+                        if(timeout >= 100)
+                        {
+                            SaveToFile = false;
+                            PbarValueFromFile = 0;
+                            EventRiser.Instance.RiseEevent(string.Format($"Load Parameters Failed"));
+                            MaintenanceViewModel.GetInstance.PostRedoState(MaintenanceViewModel._redoState);
+                        }
+                    }
+                });
+            }
         }
     }
 }

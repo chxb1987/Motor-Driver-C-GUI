@@ -119,8 +119,18 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = false
             });
+            Thread.Sleep(20);
+            Rs232Interface.GetInstance.SendToParser(new PacketFields
+            {
+                Data2Send = "",
+                ID = Convert.ToInt16(34),
+                SubID = Convert.ToInt16(1), // Start Plot list
+                IsSet = false,
+                IsFloat = false
+            });
 
-            //Thread.Sleep(1000);
+            Thread.Sleep(5000);
+            /*
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
                 Data2Send = "",
@@ -138,7 +148,7 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = true
             });
-
+            */
             Thread.Sleep(20);
             Rs232Interface.GetInstance.SendToParser(new PacketFields
             {
@@ -170,6 +180,7 @@ namespace SuperButton.ViewModels
                     IsFloat = false
                 });
             }
+
             //Thread.Sleep(20);
             //Rs232Interface.GetInstance.SendToParser(new PacketFields
             //{
@@ -190,7 +201,7 @@ namespace SuperButton.ViewModels
             //});
             Thread.Sleep(30);
             #endregion  Operations
-            if(StarterCount == 10)
+            if(StarterCount == 6)
             {
                 EventRiser.Instance.RiseEevent(string.Format($"Success"));
             }

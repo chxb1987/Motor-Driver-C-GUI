@@ -15,10 +15,10 @@ namespace SuperButton.CommandsDB
             GenerateFeedBakcCommands();
             GeneratePidCommands();
             GenerateDeviceCommands();
-            //GenerateDriverCommands();
+            ///GenerateDriverCommands();
             GenerateMainWindowCommands();
             GenerateBPCommands();
-            //GenerateCalCommands();
+            ///GenerateCalCommands();
             GenerateLPCommands();
             GenerateMotionTabCommands();
             GenerateMaintenanceList();
@@ -31,8 +31,8 @@ namespace SuperButton.CommandsDB
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
         {
-            if(id == 81 && subId == 1 && isSet == true)
-            { /*int i = 0;*/ }
+            //if(id == 81 && subId == 1 && isSet == true)
+            //{ /*int i = 0;*/ }
             rxPacket.ID = id;
             rxPacket.IsFloat = isFloat;
             rxPacket.IsSet = isSet;
@@ -44,7 +44,7 @@ namespace SuperButton.CommandsDB
         public Dictionary<Tuple<int, int>, DataViewModel> DataViewCommandsListLP = new Dictionary<Tuple<int, int>, DataViewModel>();
         public Dictionary<Tuple<int, int>, EnumViewModel> EnumViewCommandsList = new Dictionary<Tuple<int, int>, EnumViewModel>();
         public Dictionary<Tuple<int, int>, CalibrationButtonModel> CalibartionCommandsList = new Dictionary<Tuple<int, int>, CalibrationButtonModel>();
-        public Dictionary<Tuple<int, int>, DebugObjViewModel> DebugList = new Dictionary<Tuple<int, int>, DebugObjViewModel>();
+        public Dictionary<Tuple<int, int>, DebugObjViewModel> DebugCommandsList = new Dictionary<Tuple<int, int>, DebugObjViewModel>();
 
 
         public Dictionary<string, List<string>> Enums = new Dictionary<string, List<string>>();
@@ -54,8 +54,8 @@ namespace SuperButton.CommandsDB
         public Dictionary<string, ObservableCollection<object>> EnumCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> DataCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
         public Dictionary<string, ObservableCollection<object>> CalibartionCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
-        public Dictionary<string, ObservableCollection<object>> DebugListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
-       
+        public Dictionary<string, ObservableCollection<object>> DebugCommandsListbySubGroup = new Dictionary<string, ObservableCollection<object>>();
+
         public Dictionary<int, string> ErrorList = new Dictionary<int, string>();
         public Dictionary<string, NumericTextboxModel> Gain = new Dictionary<string, NumericTextboxModel>();
         public Dictionary<string, ObservableCollection<object>> GainList = new Dictionary<string, ObservableCollection<object>>();
@@ -245,11 +245,11 @@ namespace SuperButton.CommandsDB
         }
         private void GenerateFeedBakcCommands()
         {
-            #region Hall_SSI
+            #region Hall
             var names = new[]
             {
                 "Enable", "Roll UP", "Sample Period",
-                "Direction", "Counts Per Rev", "Speed LPF Cut-Off", "Index Mode"
+                "Direction", "Counts Per Rev", "Speed LPF Cut-Off"
             };
 
             DataCommandsListbySubGroup.Add("Hall", new ObservableCollection<object>());
@@ -260,33 +260,16 @@ namespace SuperButton.CommandsDB
             for(var i = 0; i < names.Length; i++)
             {
                 var data = new DataViewModel();
-                if(i != 6)
-                {
-                    data = new DataViewModel
-                    {
-                        CommandName = names[i],
-                        CommandId = "70",
-                        CommandSubId = (i + 1).ToString(CultureInfo.InvariantCulture),
-                        CommandValue = "",
-                        IsFloat = names[i] == "Speed LPF Cut-Off"
-                    };
-                    DataViewCommandsList.Add(new Tuple<int, int>(70, i + 1), data);
-                    DataCommandsListbySubGroup["Hall"].Add(data);
-                }
-
-                if(i >= 6)
-                    continue;
-
                 data = new DataViewModel
                 {
                     CommandName = names[i],
-                    CommandId = "73",
-                    CommandSubId = i.ToString(CultureInfo.InvariantCulture),
+                    CommandId = "70",
+                    CommandSubId = (i + 1).ToString(CultureInfo.InvariantCulture),
                     CommandValue = "",
+                    IsFloat = names[i] == "Speed LPF Cut-Off"
                 };
-                DataViewCommandsList.Add(new Tuple<int, int>(73, i), data);
-                if(i != 0)
-                    DataCommandsListbySubGroup["SSI_Feedback"].Add(data);
+                DataViewCommandsList.Add(new Tuple<int, int>(70, i + 1), data);
+                DataCommandsListbySubGroup["Hall"].Add(data);
             }
 
             for(int i = 1; i < 5; i++)
@@ -317,7 +300,33 @@ namespace SuperButton.CommandsDB
                 DataCommandsListbySubGroup["Hall"].Add(data);
             }
 
-            #endregion Hall_SSI
+            #endregion Hall
+            #region SSI
+
+            names = new[]
+            {
+                "Enable", "Roll High", "Roll Low", "Sample Period",
+                "Direction", "Counts Per Rev", "Speed LPF Cut-Off",
+                "Index Mode", "Index Value", "Encoder Resolution"
+            };
+
+            for(int i = 0, j = 1; i < names.Length; i++, j++)
+            {
+                var data = new DataViewModel
+                {
+                    CommandName = names[i],
+                    CommandId = "73",
+                    CommandSubId = j.ToString(CultureInfo.InvariantCulture),
+                    CommandValue = "",
+                    IsFloat = names[i] == "Speed LPF Cut-Off"
+                };
+
+                DataViewCommandsList.Add(new Tuple<int, int>(73, j), data);
+                DataCommandsListbySubGroup["SSI_Feedback"].Add(data);
+                if(i == 8)
+                    j = 13;
+            }
+            #endregion SSI
             #region Qep1Qep2
             names = new[]
             {
@@ -814,7 +823,7 @@ namespace SuperButton.CommandsDB
             #endregion Commands5
             #region Status_1
             DataCommandsListbySubGroup.Add("MotionStatus List", new ObservableCollection<object>());
-            
+
             data = new DataViewModel
             {
                 CommandName = "PWM %",
@@ -1339,7 +1348,7 @@ namespace SuperButton.CommandsDB
 
         private void GenerateDebugListCommands()
         {
-            DebugListbySubGroup.Add("Debug List", new ObservableCollection<object>());
+            DebugCommandsListbySubGroup.Add("Debug List", new ObservableCollection<object>());
 
             var data = new DebugObjViewModel
             {
@@ -1349,8 +1358,8 @@ namespace SuperButton.CommandsDB
                 GetData = "",
                 SetData = "",
             };
-            DebugList.Add(new Tuple<int, int>(62, 3), data);
-            DebugListbySubGroup["Debug List"].Add(data);
+            DebugCommandsList.Add(new Tuple<int, int>(62, 3), data);
+            DebugCommandsListbySubGroup["Debug List"].Add(data);
         }
     }
 }
