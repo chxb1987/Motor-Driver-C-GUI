@@ -50,13 +50,6 @@
     </Window.Resources>
 
     <Grid >
-        <!--Background="#00616161"-->
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>-->
         <TabControl TabStripPlacement="Top" SelectionChanged="TabSelected" Margin="1,0,-1,0">
             <TabControl.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/Views/HomeBackground.jpg"/>
@@ -324,9 +317,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Header="Current Limit" >
-                            <!--<StackPanel Background="Transparent" Orientation="Vertical" >-->
                             <ItemsControl ItemsSource="{Binding CurrentLimitList}" ItemTemplate="{StaticResource DataViewModel}" />
-                            <!--</StackPanel>-->
                         </GroupBox>
                     </Grid>
                 </Grid>
@@ -340,6 +331,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -399,16 +392,16 @@
                             <TextBlock Grid.Column="0">Protected Params</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableWrite}"/>
                         </Grid>
-
-                        <!--<ItemsControl Grid.Row="4" ItemsSource="{Binding MaintenanceList}" ItemTemplate="{StaticResource DataViewSmallFontInd}" Foreground="White"/>
-                        <Grid Grid.Row="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="135"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Enable Loader</TextBlock>
-                            <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding EnableLoder}"/>
-                        </Grid>-->
+                        <Separator Grid.Row="8" Height="10" Background="Transparent" Visibility="Hidden"/>
+                        <!--<Border Grid.Row="9" Width="199" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4,4,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </Border>-->
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -448,7 +441,23 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Debug" TabIndex="8" DataContext="{Binding DebugViewModel}" Background="Black" Foreground="White" >
+            <TabItem Header="I/O" TabIndex="8" DataContext="{Binding IOViewModel}" Background="Black" Foreground="White" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Header="Analog Command" >
+                            <ItemsControl ItemsSource="{Binding AnalogCommandList}" ItemTemplate="{StaticResource DataViewModel}"/>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Debug" TabIndex="9" DataContext="{Binding DebugViewModel}" Background="Black" Foreground="White" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -458,7 +467,7 @@
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Width="Auto" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
@@ -469,13 +478,29 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Width="460" Text="      ID         Index      Int/Float                     GetData                                 SetData" Foreground="White" Background="Gray" HorizontalAlignment="Center" Margin="0,0,-1,0"/>
+                                <TextBlock Grid.Row="0" Width="461" Text="      ID         Index      Int/Float                     GetData                                 SetData" Foreground="White" Background="Gray" HorizontalAlignment="Left" Margin="0,0,-1,0"/>
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding DebugList}" ItemTemplate="{StaticResource DebugObjViewModel}"/>
                                 <TextBox Grid.Row="1" Text="{Binding DebugValue, Mode=TwoWay}" Width="100" Margin="60,0,0,0" Height="22" IsReadOnly="True" FontSize="12"/>
                                 <!--<ItemsControl Grid.Row="3" Height="25" ItemTemplate="{StaticResource DebugObjViewModel}" ItemsSource="{Binding Debug_Obj}"/>-->
                                 <!--<UserControl:DebugObj x:Name="Debug_Obj" Grid.Row="3" ></UserControl:DebugObj>-->
                             </Grid>
                         </Border>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="Auto" Height="Auto" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Width="199" Text="Internal Parameters" Foreground="White" Background="Gray" HorizontalAlignment="Left"/>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding InternalParamList}" ItemTemplate="{StaticResource DataViewSmallFontInd}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>

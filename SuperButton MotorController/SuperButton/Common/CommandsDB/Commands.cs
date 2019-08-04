@@ -27,6 +27,7 @@ namespace SuperButton.CommandsDB
             BuildErrorList();
             GenerateGain();
             GenerateDebugListCommands();
+            GenerateIOTabCommands();
         }
 
         static public void AssemblePacket(out PacketFields rxPacket, Int16 id, Int16 subId, bool isSet, bool isFloat, object data2Send)
@@ -136,20 +137,19 @@ namespace SuperButton.CommandsDB
             {
                 "Serial Number", "Hardware Rev", "CanNode ID"//,"System ID"
             };
-            for(int i = 0, k = 1; i < names.Length; i++, k++)
+            var SubId = new[] { "1", "2", "8" };
+            for(int i = 0; i < names.Length; i++)
             {
                 var data = new DataViewModel
                 {
                     CommandName = names[i],
                     CommandId = "62",
-                    CommandSubId = k.ToString(CultureInfo.InvariantCulture),
+                    CommandSubId = SubId[i],
                     CommandValue = "",
                 };
 
-                DataViewCommandsList.Add(new Tuple<int, int>(62, k), data);
+                DataViewCommandsList.Add(new Tuple<int, int>(62, Convert.ToInt16(SubId[i])), data);
                 DataCommandsListbySubGroup["DeviceSerial"].Add(data);
-                if(i == 1)
-                    k = 7;
             }
 
             var BR = new List<string>
@@ -435,10 +435,11 @@ namespace SuperButton.CommandsDB
               {
                   "Current Control",
                   "Speed Control",
-                  "Position Control",
-                  "ST Speed Control",
-                  "ST Position Time Control",
-                  "ST Position Control"
+                  "Position Control"
+                  //,
+                  //"ST Speed Control",
+                  //"ST Position Time Control",
+                  //"ST Position Control"
               };
             Enums.Add("Drive Mode", tmp1);
 
@@ -762,7 +763,6 @@ namespace SuperButton.CommandsDB
                 "RampUpDown",
                 "SquareWave",
                 "SinWave"
-
             };
             Enums.Add("S.G.Type", SignalgeneratorTypeEnum);
 
@@ -1175,10 +1175,31 @@ namespace SuperButton.CommandsDB
                 DataCommandsListbySubGroup["CurrentLimit List"].Add(data);
             }
         }
+        private void GenerateIOTabCommands()
+        {
+            DataCommandsListbySubGroup.Add("AnalogCommand List", new ObservableCollection<object>());
+
+            var names = new[]
+            {
+                "Ampere/Volt", "RPM/Volt", "Counts/Volt", "Offset", "Dead Zone", "Direction"
+            };
+            for(int i = 0; i < names.Length; i++)
+            {
+                var data = new DataViewModel
+                {
+                    CommandName = names[i],
+                    CommandId = "110",
+                    CommandSubId = (i).ToString(CultureInfo.InvariantCulture),
+                    CommandValue = "",
+                    IsFloat = i == 5 ? false : true,
+                };
+
+                DataViewCommandsList.Add(new Tuple<int, int>(110, i), data);
+                DataCommandsListbySubGroup["AnalogCommand List"].Add(data);
+            }
+        }
         private void GenerateMaintenanceList()
         {
-            DataCommandsListbySubGroup.Add("Maintenance List", new ObservableCollection<object>());
-
             var data = new DataViewModel
             {
                 CommandName = "Flash Checksum",
@@ -1187,11 +1208,6 @@ namespace SuperButton.CommandsDB
                 CommandValue = "",
                 IsFloat = false,
             };
-            //DataViewCommandsList.Add(new Tuple<int, int>(63, 11), data);
-            //DataCommandsListbySubGroup["Maintenance List"].Add(data);
-
-            //DataCommandsListbySubGroup.Add("MaintenanceBool List", new ObservableCollection<object>());
-
             var names = new[] { "Save", "Load Manufacture defaults" }; //, "Reboot Driver", "Enable Protected Write", "Enable Loader"};
             var ID = new[] { "63", "63" }; //, "63", "63", "65" };
             var subID = new[] { "0", "1" }; //, "2", "10", "0" };
@@ -1205,21 +1221,7 @@ namespace SuperButton.CommandsDB
                     CommandValue = "",
                     IsFloat = true,
                 };
-                //DataViewCommandsList.Add(new Tuple<int, int>(Convert.ToInt16(ID[i]), Convert.ToInt16(subID[i])), data);
-                //DataCommandsListbySubGroup["MaintenanceBool List"].Add(data);
             }
-
-            data = new DataViewModel
-            {
-                CommandName = "Protected Params",
-                CommandId = "63",
-                CommandSubId = "10",
-                CommandValue = "",
-                IsFloat = false,
-            };
-            DataViewCommandsList.Add(new Tuple<int, int>(63, 10), data);
-            DataCommandsListbySubGroup["Maintenance List"].Add(data);
-
         }
         private void UpperMainPannelList()
         {
@@ -1360,6 +1362,21 @@ namespace SuperButton.CommandsDB
             };
             DebugCommandsList.Add(new Tuple<int, int>(62, 3), data);
             DebugCommandsListbySubGroup["Debug List"].Add(data);
+
+            DataCommandsListbySubGroup.Add("InternalParam List", new ObservableCollection<object>());
+            #region Operation
+            var data_b = new DataViewModel
+            {
+                CommandName = "Checksum",
+                CommandId = "62",
+                CommandSubId = "10",
+                CommandValue = "",
+                IsFloat = false,
+            };
+            DataViewCommandsList.Add(new Tuple<int, int>(62, 10), data_b);
+            DataCommandsListbySubGroup["InternalParam List"].Add(data_b);
+
+            #endregion Operation
         }
     }
 }

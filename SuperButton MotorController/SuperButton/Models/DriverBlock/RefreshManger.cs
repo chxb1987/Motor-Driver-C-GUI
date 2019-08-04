@@ -215,9 +215,12 @@ namespace SuperButton.Models.DriverBlock
                 case 5:
                     arr = new string[] { "CurrentLimit List" };
                     return arr.Concat(PanelElements).ToArray();
-                case 6: // 7
-                    arr = new string[] { "Maintenance List" };// , "MaintenanceBool List"
+                case 7:
+                    arr = new string[] { "AnalogCommand List" };
                     return arr.Concat(PanelElements).ToArray();
+                //case 8:
+                //    arr = new string[] { "InternalParam List" };
+                //    return arr.Concat(PanelElements).ToArray();
                 case -1:
                     return PanelElements;
                 default:
@@ -380,27 +383,27 @@ namespace SuperButton.Models.DriverBlock
                 case 0:
                     return "All OK !";
                 case 1:
-                    return "hallFeedlErr";
+                    return "hall Feedl Err";
                 case 2:
-                    return "encPhaseErr";
+                    return "enc Phase Err";
                 case 4:
-                    return "encoderHallMismach";
+                    return "encoder Hall Mismach";
                 case 8:
                     return "overTemperature";
                 case 16:
-                    return "overVoltage";
+                    return "over Voltage";
                 case 32:
-                    return "underVoltage";
+                    return "under Voltage";
                 case 64:
-                    return "speedRangeErr";
+                    return "speed Range Err";
                 case 128:
-                    return "positionErr";
+                    return "position Err";
                 case 256:
-                    return "gateDriverFault";
+                    return "gate Driver Fault";
                 case 512:
                     return "nOCTW";
                 case 1024:
-                    return "gateDriverInit";
+                    return "gate Driver Init";
                 case 2048:
                     return "motorStall";
                 case 4096:
@@ -408,11 +411,11 @@ namespace SuperButton.Models.DriverBlock
                 case 8192:
                     return "Reserved4";
                 case 16384:
-                    return "ADCoffset";
+                    return "ADC offset";
                 case 32768:
-                    return "FetShort";
+                    return "Fet Short";
                 default:
-                    return returnedValue;
+                    return "no info(" + returnedValue + ")";
             }
         }
 
@@ -454,11 +457,30 @@ namespace SuperButton.Models.DriverBlock
         //public static int CalibrationTimeOut = 10;
         //private static int PrecedentIdx = 0;
         public bool DisconnectedFlag = false;
+        public void YAxisLegend(int Sel, int identifier)
+        {
+            if(LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag)
+            {
+                if(Sel <= OscilloscopeViewModel.GetInstance.Channel1SourceItems.Count && Sel <= OscilloscopeViewModel.GetInstance.Channel2SourceItems.Count)
+                {
+                    try
+                    {
+                        OscilloscopeViewModel.GetInstance.YAxisUnits = "CH" + identifier.ToString() + ": " + OscilloscopeViewModel.GetInstance.ChannelYtitles.First(x => x.Key == OscilloscopeViewModel.GetInstance.SelectedCh1DataSource).Value;
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                    }
+                }
+            }
+            else if(Sel <= OscilloscopeViewModel.GetInstance.ChannelYtitles.Count)
+                OscilloscopeViewModel.GetInstance.YAxisUnits = "CH" + identifier.ToString() + ": " + OscilloscopeViewModel.GetInstance.ChannelYtitles.ElementAt(Sel).Value;
+        }
         internal void UpdateModel(Tuple<int, int> commandidentifier, string newPropertyValue)
         {
             if(LeftPanelViewModel.GetInstance.StarterOperationFlag)
             {
-                Debug.WriteLine(commandidentifier.Item1.ToString() + ' ' + commandidentifier.Item2.ToString());
+                Debug.WriteLine("Starter: " + commandidentifier.Item1.ToString() + ' ' + commandidentifier.Item2.ToString());
 
                 switch(commandidentifier.Item1)
                 {
@@ -480,8 +502,6 @@ namespace SuperButton.Models.DriverBlock
             }
 
             LeftPanelViewModel.GetInstance.ValueChange = false;
-            //if(Views.ParametarsWindow.ParametersWindowTabSelected != 7)
-            //{
             #region Calibration_old
             //if(Commands.GetInstance.CalibartionCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             //{
@@ -554,71 +574,54 @@ namespace SuperButton.Models.DriverBlock
             else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 <= 2)
             {
                 int Sel = 0;
-                if(Int32.Parse(newPropertyValue) > 0)
+                if(Int32.Parse(newPropertyValue) >= 0)
                 {
-                    //if(Int32.Parse(newPropertyValue) > 30)
-                    //{
-                    //    Sel = Int32.Parse(newPropertyValue) - 3;
-                    //}
-                    //else
                     Sel = Int32.Parse(newPropertyValue);
 
-                    if(LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag)
+                    if((LeftPanelViewModel.GetInstance.StarterOperationFlag || DisconnectedFlag))
                     {
-                        if(commandidentifier.Item2 == 1)
+                        if(Sel <= OscilloscopeViewModel.GetInstance.Channel1SourceItems.Count && Sel <= OscilloscopeViewModel.GetInstance.Channel2SourceItems.Count)
                         {
-                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                            OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
-                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH1: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.First(x => x.Key == OscilloscopeViewModel.GetInstance.SelectedCh1DataSource).Value;
-                        }
-                        else if(commandidentifier.Item2 == 2)
-                        {
-                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
-                            OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
-                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH2: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.First(x => x.Key == OscilloscopeViewModel.GetInstance.SelectedCh2DataSource).Value;
-                            DisconnectedFlag = false;
+                            if(commandidentifier.Item2 == 1)
+                            {
+                                OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                                OscilloscopeViewModel.GetInstance.SelectedCh1DataSource = OscilloscopeViewModel.GetInstance.Channel1SourceItems.ElementAt(Sel);
+                                YAxisLegend(Sel, commandidentifier.Item2);
+                            }
+                            else if(commandidentifier.Item2 == 2)
+                            {
+                                OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                                OscilloscopeViewModel.GetInstance.SelectedCh2DataSource = OscilloscopeViewModel.GetInstance.Channel2SourceItems.ElementAt(Sel);
+                                YAxisLegend(Sel, commandidentifier.Item2);
+                                DisconnectedFlag = false;
+                            }
                         }
                     }
                     else
                     {
-                        if(commandidentifier.Item2 == 1)
+                        if(Sel <= OscilloscopeViewModel.GetInstance.ChannelYtitles.Count)
                         {
-                            OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH1: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.ElementAt(Sel).Value;
-                        }
-                        else if(commandidentifier.Item2 == 2)
-                        {
-                            OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
-                            OscilloscopeViewModel.GetInstance.YAxisUnits = "CH2: " + OscilloscopeViewModel.GetInstance.ChannelYtitles.ElementAt(Sel).Value;
+                            if(commandidentifier.Item2 == 1)
+                            {
+                                OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
+                            }
+                            else if(commandidentifier.Item2 == 2)
+                            {
+                                OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
+                            }
+                            YAxisLegend(Sel, commandidentifier.Item2);
                         }
                     }
                 }
-                //else
-                //{
-                //    if(commandidentifier.Item2 == 1)
-                //        OscilloscopeViewModel.GetInstance.Ch1SelectedIndex = Sel;
-                //    if(commandidentifier.Item2 == 2)
-                //        OscilloscopeViewModel.GetInstance.Ch2SelectedIndex = Sel;
-                //}
             }
-            /*
-            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 9)
-            {
-                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH1", newPropertyValue);
-            }
-            else if(commandidentifier.Item1 == 60 && commandidentifier.Item2 == 10)
-            {
-                OscilloscopeViewModel.GetInstance.YAxisUnits = YAxisUnits("CH2", newPropertyValue);
-            }
-            */
-            else if(commandidentifier.Item1 == 66)
+            /*else if(commandidentifier.Item1 == 66)
             {
                 if(commandidentifier.Item2 == 0)
                     OscilloscopeParameters.IfullScale = float.Parse(newPropertyValue);
                 else if(commandidentifier.Item2 == 1)
                     OscilloscopeParameters.VfullScale = float.Parse(newPropertyValue);
                 OscilloscopeParameters.InitList();
-            }
+            }*/
             #endregion Plot_Channels
             #region DataView_EnumView
             else if(commandidentifier.Item1 == 33)
@@ -687,6 +690,8 @@ namespace SuperButton.Models.DriverBlock
                 Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
                 if(commandidentifier.Item1 == 62 && commandidentifier.Item2 < 3)
                     Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                else if(commandidentifier.Item1 == 62 && commandidentifier.Item2 == 10)
+                    Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = "0x" + int.Parse(newPropertyValue).ToString("X");
             }
             else if(Commands.GetInstance.EnumViewCommandsList.ContainsKey(new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)))
             {
@@ -726,6 +731,9 @@ namespace SuperButton.Models.DriverBlock
                         break;
                     case 3:
                         Commands.GetInstance.DataViewCommandsListLP[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = newPropertyValue;
+                        break;
+                    case 10:
+                        Commands.GetInstance.DataViewCommandsList[new Tuple<int, int>(commandidentifier.Item1, commandidentifier.Item2)].CommandValue = "0x" + int.Parse(newPropertyValue).ToString("X");
                         break;
                 }
             }

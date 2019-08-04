@@ -62,6 +62,7 @@ namespace SuperButton.Views
                 plotGeneral.Clear();
                 plotFullScale.Clear();
                 OscilloscopeViewModel.GetInstance.Channel1SourceItems.Clear();
+                OscilloscopeViewModel.GetInstance.Channel2SourceItems.Clear();
                 OscilloscopeViewModel.GetInstance.ChannelYtitles.Clear();
                 ScaleAndGainList.Clear();
             }
@@ -107,7 +108,7 @@ namespace SuperButton.Views
         }
         public static void InitList()
         {
-            /*
+            
             //Init list
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, (float)1.0)); //Pause            
             ScaleAndGainList.Add(new Tuple<float, float>((float)1.0, IfullScale));//IqFeedback       
@@ -144,7 +145,9 @@ namespace SuperButton.Views
             ScaleAndGainList.Add(new Tuple<float, float>(1, (float)Math.Pow(2, 15)));          // SpeedRefPI
             ScaleAndGainList.Add(new Tuple<float, float>(1, (float)Math.Pow(2, 15)));          // SpeedFdb
             ScaleAndGainList.Add(new Tuple<float, float>(1, IfullScale)); // CurrentRefPI
-            */
+
+            OscilloscopeViewModel.GetInstance.FillDictionary();
+
         }
     }
 

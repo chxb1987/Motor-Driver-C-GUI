@@ -11,7 +11,7 @@
     <RootNamespace>MotorController</RootNamespace>
     <AssemblyName>Motor Controller</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <ApplicationIcon>MotorController.ico</ApplicationIcon>
+    <ApplicationIcon>MotorControllerMain.ico</ApplicationIcon>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -199,6 +199,7 @@
     <Compile Include="ViewModels\CalibrationViewModel.cs" />
     <Compile Include="ViewModels\ComboBox.cs" />
     <Compile Include="ViewModels\LoadParamsViewModel.cs" />
+    <Compile Include="ViewModels\IOViewModel.cs" />
     <Compile Include="ViewModels\NumericTextboxModel.cs" />
     <Compile Include="ViewModels\FeedBackViewModel.cs" />
     <Compile Include="ViewModels\MaintenanceViewModel.cs" />
@@ -657,9 +658,6 @@
     <Resource Include="Images\SelectFile.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Themes\MotorController.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="MotorController.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -698,6 +696,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MotorControllerMain.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\MotorController.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

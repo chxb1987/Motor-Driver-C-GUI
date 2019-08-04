@@ -19,6 +19,8 @@ using System.Diagnostics;
 using SuperButton.Helpers;
 using System.Collections.ObjectModel;
 using SuperButton.CommandsDB;
+using System.Windows.Input;
+using SuperButton.Models;
 
 //Cntl+M and Control+O for close regions
 namespace SuperButton.Views
@@ -164,7 +166,7 @@ namespace SuperButton.Views
         }
         public void YDirPlus()
         {
-            if(_yzoom > 0 &&_yzoom < 1000)
+            if(_yzoom > 0 && _yzoom < 1000)
             {
                 _yzoom = _yzoom * 2;
                 YLimit = new DoubleRange(-_yzoom, _yzoom); //ubdate visible limits        
@@ -549,14 +551,13 @@ namespace SuperButton.Views
             _yFloats = new float[0];
             _yFloats2 = new float[0];
 
-            FillDictionary();
             Thread.Sleep(100);
             ResetZoom();
         }
-        private void FillDictionary()
+        public void FillDictionary()
         {
-            /*
-            _channel1SourceItems.Add("Pause:");
+
+            _channel1SourceItems.Add("Pause");
             _channel1SourceItems.Add("IqFeedback");
             _channel1SourceItems.Add("I_PhaseA");
             _channel1SourceItems.Add("I_PhaseB");
@@ -590,14 +591,8 @@ namespace SuperButton.Views
             _channel1SourceItems.Add("SpeedRefPI");
             _channel1SourceItems.Add("SpeedFdb");
             _channel1SourceItems.Add("CurrentRefPI");
-            */
 
-            //update Ch1 ComboBox
-            //Channel1SourceItems = _channel1SourceItems;
-            //update Ch2 ComboBox
-            //Channel2SourceItems = Channel1SourceItems;// _channel1SourceItems;
 
-            /*
             ChannelYtitles.Add("Pause", "");
             ChannelYtitles.Add("IqFeedback", "Current [A]");
             ChannelYtitles.Add("I_PhaseA", "Current [A]");
@@ -630,7 +625,7 @@ namespace SuperButton.Views
             ChannelYtitles.Add("SpeedRefPI", ""); //34
             ChannelYtitles.Add("SpeedFdb", ""); //35
             ChannelYtitles.Add("CurrentRefPI", ""); //36
-            */
+
         }
         #endregion
         #region ActionCommnds
@@ -719,6 +714,56 @@ namespace SuperButton.Views
         private IXyDataSeries<float, float> _series1;
 
         private int _ch1Index = 0, _ch2Index = 0;
+
+        #region detect_same_index_seleted_in_plot_combobox
+        public ICommand SelectedItemChanged_Plot1
+        {
+            get
+            {
+                return new RelayCommand(Send_Plot1, IsEnabled);
+            }
+        }
+        public ICommand SelectedItemChanged_Plot2
+        {
+            get
+            {
+                return new RelayCommand(Send_Plot2, IsEnabled);
+            }
+        }
+        private bool IsEnabled()
+        {
+            return true;
+        }
+        private new void Send_Plot1()
+        {
+            if(_isOpened)
+            {
+                SelectedCh1DataSource = Channel1SourceItems.ElementAt(Ch1SelectedIndex);
+                _isOpened = false;
+            }
+            else
+                _isOpened = false;
+        }
+        private new void Send_Plot2()
+        {
+            if(_isOpened)
+            {
+                SelectedCh2DataSource = Channel2SourceItems.ElementAt(Ch2SelectedIndex);
+                _isOpened = false;
+            }
+            else
+                _isOpened = false;
+        }
+        public ICommand ComboDropDownOpened
+        {
+            get { return new RelayCommand(ComboDropDownOpenedFunc, IsEnabled); }
+        }
+        private static bool _isOpened = false;
+        private void ComboDropDownOpenedFunc()
+        {
+            _isOpened = true;
+        }
+        #endregion detect_same_index_seleted_in_plot_combobox
         public int Ch1SelectedIndex
         {
             get { return _ch1Index; }
@@ -1144,6 +1189,10 @@ namespace SuperButton.Views
             get { return _yVisibleRange; }
             set
             {
+                //if(value.Max < 0.000001)
+                //   value.Max = 0.1;
+                //if(value.Min > -0.0001 && value.Min < 0)
+                //    value.Min = -0.1;
                 if(_yVisibleRange == value)
                     return;
 
@@ -1159,38 +1208,56 @@ namespace SuperButton.Views
             {
                 if(_yAxisUnits == value)
                     return;
-                if(_yAxisUnits == "")
+                /*if(_yAxisUnits == "")
                 {
                     _yAxisUnits = value;
                 }
-                else if(_yAxisUnits != null)
+                else */
+                if(_yAxisUnits != null)
                 {
                     char[] separator = { ':', ',' };
                     string[] words = _yAxisUnits.Split(separator);
                     string[] newWords = value.Split(separator);
-                    if(words[0] == "CH1" && newWords[0] == "CH1")
+                    if(words[0] == "" && newWords[0] == "CH1" && newWords[1] != " ")
                     {
-                        if(words.Length < 3)
+                        value = "CH1:" + newWords[1];
+                    }
+                    else if(words[0] == "CH1" && newWords[0] == "CH1")
+                    {
+                        if(words.Length < 3 && newWords[1] != " ")
                             value = "CH1:" + newWords[1];
-                        else
+                        else if(newWords[1] == " " && words.Length > 3)
+                            value = "CH2:" + words[3];
+                        else if(words.Length > 3)
                             value = "CH1:" + newWords[1] + ", CH2:" + words[3];
-                        _yAxisUnits = value;
+                        else if(words.Length < 3 && newWords[1] == " ")
+                            value = "";
                     }
                     else if(words[0] == "CH1" && newWords[0] == "CH2")
                     {
-                        value = "CH1:" + words[1] + ", CH2:" + newWords[1];
-                        _yAxisUnits = value;
+                        if(words[1] == " " && newWords[1] == " ")
+                            value = "";
+                        else if(words[1] == " " && newWords[1] != " ")
+                            value = "CH2:" + newWords[1];
+                        else if(words[1] != " " && newWords[1] == " ")
+                            value = "CH1:" + words[1];
+                        else
+                            value = "CH1:" + words[1] + ", CH2:" + newWords[1];
                     }
                     else if(words[0] == "CH2" && newWords[0] == "CH1")
                     {
                         value = "CH1:" + newWords[1] + ", CH2:" + words[1];
-                        _yAxisUnits = value;
                     }
                     else if(words[0] == "CH2" && newWords[0] == "CH2")
                     {
-                        value = "CH2:" + newWords[1];
-                        _yAxisUnits = value;
+                        if(words.Length < 3 && newWords[1] != " ")
+                            value = "CH2:" + newWords[1];
+                        else
+                            value = "";
                     }
+                    else
+                        value = "";
+                    _yAxisUnits = value;
                 }
 
                 OnPropertyChanged("YAxisUnits");
@@ -1717,7 +1784,7 @@ namespace SuperButton.Views
                             //Debug.WriteLine("POintstoPlot {0}, pivot {1}: ", POintstoPlot, pivot);
 
                             Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
-                            
+
                         }
                         #endregion
                     }
@@ -1978,7 +2045,8 @@ namespace SuperButton.Views
             get { return _is_recording; }
             set
             {
-                if(_is_recording == value)  return; 
+                if(_is_recording == value)
+                    return;
                 if(OscilloscopeParameters.ChanTotalCounter > 0 && plotActivationstate == 1)
                 {
                     _is_recording = value;

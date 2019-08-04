@@ -637,8 +637,10 @@ namespace SuperButton.Models.ParserBlock
                 }
                 else if(commandId == 34)
                 {
+                    EventRiser.Instance.RiseEevent(string.Format($"Reading plots..."));
                     OscilloscopeParameters.plotCount_temp = transit;
                     OscilloscopeParameters.plotCount = transit;
+                    EventRiser.Instance.RiseEevent(string.Format($"Plots count: " + transit.ToString()));
                     if(transit > 0)
                         OscilloscopeParameters.fillPlotList();
                 }

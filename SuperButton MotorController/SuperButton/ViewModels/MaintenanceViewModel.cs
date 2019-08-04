@@ -44,20 +44,6 @@ namespace SuperButton.ViewModels
         {
         }
 
-        private ObservableCollection<object> _maintenanceList;
-        public ObservableCollection<object> MaintenanceList
-        {
-            get
-            {
-                return Commands.GetInstance.DataCommandsListbySubGroup["Maintenance List"];
-            }
-            set
-            {
-                _maintenanceList = value;
-                OnPropertyChanged();
-            }
-        }
-
         private bool _save = false;
         public bool Save
         {

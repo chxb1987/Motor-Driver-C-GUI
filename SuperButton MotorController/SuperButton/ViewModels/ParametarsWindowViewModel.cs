@@ -16,6 +16,7 @@ namespace SuperButton.ViewModels
         private MaintenanceViewModel _maintenanceViewModel;
         private FeedBackViewModel _feedBackViewModel;
         private DebugViewModel _debugViewModel;
+        private IOViewModel _ioViewModel;
         //private LoadParamsViewModel _loadParamsViewModel;
         public ParametarsWindowViewModel()
         {
@@ -25,6 +26,7 @@ namespace SuperButton.ViewModels
             _maintenanceViewModel = MaintenanceViewModel.GetInstance;
             _feedBackViewModel = FeedBackViewModel.GetInstance;
             _debugViewModel = DebugViewModel.GetInstance;
+            _ioViewModel = IOViewModel.GetInstance;
             //_loadParamsViewModel = LoadParamsViewModel.GetInstance;
         }
         ~ParametarsWindowViewModel() { }
@@ -182,6 +184,10 @@ namespace SuperButton.ViewModels
         public MotionViewModel MotionViewModel
         {
             get { return _motionViewModel; }
+        }
+        public IOViewModel IOViewModel
+        {
+            get { return _ioViewModel; }
         }
 
         public MaintenanceViewModel MaintenanceViewModel

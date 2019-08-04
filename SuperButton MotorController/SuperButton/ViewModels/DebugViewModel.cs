@@ -55,6 +55,19 @@ namespace SuperButton.ViewModels
                 OnPropertyChanged("DebugList");
             }
         }
+        private ObservableCollection<object> _nternalParamList;
+        public ObservableCollection<object> InternalParamList
+        {
+            get
+            {
+                return Commands.GetInstance.DataCommandsListbySubGroup["InternalParam List"];
+            }
+            set
+            {
+                _nternalParamList = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _debugValue = "";
 

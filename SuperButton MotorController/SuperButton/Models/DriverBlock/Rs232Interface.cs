@@ -216,8 +216,6 @@ namespace SuperButton.Models.DriverBlock
                                     _comPort.DiscardInBuffer();        //Reset internal rx buffer
                                     EventRiser.Instance.RiseEevent(string.Format($"Success"));
                                     EventRiser.Instance.RiseEevent(string.Format($"Baudrate: {_comPort.BaudRate}"));
-                                    EventRiser.Instance.RiseEevent(string.Format($"Reading unit parameters"));
-
                                     return;
 
                                 }

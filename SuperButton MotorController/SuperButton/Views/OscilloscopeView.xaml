@@ -177,8 +177,17 @@
                     <TextBlock Foreground="#FFF" Text="CH1" Background="#82F7E31D" VerticalAlignment="Center"/>
                 </Border>
                 <Border Grid.Column="6" MinWidth="100" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3" >
-                    <ComboBox SelectedItem="{Binding SelectedCh1DataSource, Mode=TwoWay}" SelectedIndex="{Binding Ch1SelectedIndex}"
-            		ItemsSource="{Binding Channel1SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
+                    <ComboBox SelectedItem="{Binding SelectedCh1DataSource, Mode=OneWay}" SelectedIndex="{Binding Ch1SelectedIndex}"
+            		ItemsSource="{Binding Channel1SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedItemChanged_Plot1}"  />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="DropDownOpened">
+                                <i:InvokeCommandAction Command="{Binding ComboDropDownOpened}"  />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
                 </Border>
                 <ItemsControl Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="2,0" ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch1Gain}"/>
                 <Border Grid.Column="8" BorderBrush="White" BorderThickness="0.5" Margin="5,0,0,0" CornerRadius="0.5" Width="26" VerticalAlignment="Center">
@@ -187,7 +196,16 @@
                 <Border Grid.Column="9" MinWidth="100" Height="22" VerticalAlignment="Center" BorderBrush="White" BorderThickness="0.7" CornerRadius="3">
                     <ComboBox
             		SelectedItem="{Binding SelectedCh2DataSource, Mode=TwoWay}" SelectedIndex="{Binding Ch2SelectedIndex}"
-            		ItemsSource="{Binding Channel2SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE"/>
+            		ItemsSource="{Binding Channel2SourceItems}" Width="100" BorderBrush="#FFF9F9F9" Background="#FFF0EEEE">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedItemChanged_Plot2}"  />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="DropDownOpened">
+                                <i:InvokeCommandAction Command="{Binding ComboDropDownOpened}"  />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
                 </Border>
                 <ItemsControl Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center"  ItemTemplate="{StaticResource NumericTextboxModel}" ItemsSource="{Binding Ch2Gain}"/>
                 <Line Grid.Column="11" Margin="2,2" Stroke="#FFD6D5D5" Y2="16" VerticalAlignment="Center" Fill="#FFC1C1C1"/>
