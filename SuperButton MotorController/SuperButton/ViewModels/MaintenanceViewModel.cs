@@ -467,7 +467,7 @@ namespace SuperButton.ViewModels
             }
         }
 
-        private string filePath;
+        //private string filePath;
         public void SaveToFileFunc(List<UInt32> ListToSave)
         {
             string Date = Day(DateTime.Now.Day) + ' ' + MonthTrans(DateTime.Now.Month) + ' ' + DateTime.Now.Year.ToString();

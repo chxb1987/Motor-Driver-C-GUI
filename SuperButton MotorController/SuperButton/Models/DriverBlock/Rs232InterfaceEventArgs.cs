@@ -56,7 +56,7 @@ namespace SuperButton.Models.DriverBlock
         {
             LeftPanelViewModel.GetInstance.LedStatusTx = RoundBoolLed.PASSED;
             PacketRx = packetRx;     // Send Packet
-            Debug.WriteLine(PacketRx.IsSet);
+            //Debug.WriteLine(PacketRx.IsSet);
         }
 
 

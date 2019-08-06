@@ -145,8 +145,10 @@ namespace SuperButton.Models.DriverBlock
                         {
                             throw new NullReferenceException("No Listeners to this event");
                         }
+                        LeftPanelViewModel.busy = false;
                     }
                 }
+                LeftPanelViewModel.busy = false;
             }
             else
             {
@@ -155,9 +157,8 @@ namespace SuperButton.Models.DriverBlock
                 _comPort.Close();
                 _comPort.Dispose();
                 Driver2Mainmodel(this, new Rs232InterfaceEventArgs("Connect"));
-
+                LeftPanelViewModel.busy = false;
             }
-            //LeftPanelViewModel.GetInstance.EnRefresh = false;
         }
 
         #region Auto_Connect
@@ -172,7 +173,7 @@ namespace SuperButton.Models.DriverBlock
         //string msg = "";
         public override void AutoConnect()
         {
-            if(_isSynced == false) //Driver is not synchronized
+            if(_isSynced == false && LeftPanelViewModel.GetInstance.ConnectButtonContent == "Connect") //Driver is not synchronized
             {
                 //Gets aviable ports list and initates them
                 _comDevicesList =
@@ -216,6 +217,7 @@ namespace SuperButton.Models.DriverBlock
                                     _comPort.DiscardInBuffer();        //Reset internal rx buffer
                                     EventRiser.Instance.RiseEevent(string.Format($"Success"));
                                     EventRiser.Instance.RiseEevent(string.Format($"Baudrate: {_comPort.BaudRate}"));
+                                    LeftPanelViewModel.busy = false;
                                     return;
 
                                 }
@@ -243,10 +245,12 @@ namespace SuperButton.Models.DriverBlock
                             }
                             EventRiser.Instance.RiseEevent(string.Format($"Failed"));
                             tmpcom.Close();
+                            LeftPanelViewModel.busy = false;
                             return;
                         }
                         EventRiser.Instance.RiseEevent(string.Format($"Failed"));
                         tmpcom.Close();
+                        LeftPanelViewModel.busy = false;
                         return;
                     }
                     catch(Exception)
@@ -254,23 +258,21 @@ namespace SuperButton.Models.DriverBlock
                         EventRiser.Instance.RiseEevent(string.Format($"Failed"));
                         tmpcom.Close();
                         tmpcom.Dispose();
+                        LeftPanelViewModel.busy = false;
                         return;// false;
                     }
                 }
                 else
-                {
                     EventRiser.Instance.RiseEevent(string.Format($"No COM Port Selected!"));
-                    //if (!MessageBoxWrapper.IsOpen)
-                    //{
-                    //    msg = string.Format("No COM Port Selected!");
-                    //    MessageBoxWrapper.Show(msg, "");
-                    //}
-                }
             }
             else if(_isSynced == true)
-                return;// true;
+            {
+                LeftPanelViewModel.busy = false;
+                return;
+            }
 
-            return;// false;
+            LeftPanelViewModel.busy = false;
+            return;
         }
 
         #endregion

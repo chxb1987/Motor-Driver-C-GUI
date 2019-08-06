@@ -84,15 +84,11 @@ namespace SuperButton.ViewModels
             {
                 if(value == "Disconnect")
                 {
-
                     //Connection = Task.Run((Action)LeftPanelViewModel.VerifyDriverCom);
                     StarterTask = Task.Run((Action)StarterOperation);
                 }
                 else
                 {
-                    //if(flag)
-                    //{
-                    //}
                     LeftPanelViewModel.flag = false;
                     ConnectTextBoxContent = "Not Connected";
                 }
@@ -195,6 +191,8 @@ namespace SuperButton.ViewModels
                 IsSet = false,
                 IsFloat = false
             });
+            Thread.Sleep(20);
+
             for(int i = 1; i < 4; i++)
             {
                 Thread.Sleep(20);
@@ -662,11 +660,12 @@ namespace SuperButton.ViewModels
         #endregion
 
         #region Action methods
+        public static bool busy = false;
         public void AutoConnectCommand()
         {
-
-            if(Rs232Interface.GetInstance.IsSynced == false)
+            if(Rs232Interface.GetInstance.IsSynced == false && busy == false)
             {
+                busy = true;
                 lock(ConnectLock)
                 {
                     // Erase textboxs content, reset all default.
@@ -684,8 +683,9 @@ namespace SuperButton.ViewModels
                     task.Start();
                 }
             }
-            else
+            else if(busy == false)
             {
+                busy = true;
                 lock(ConnectLock)
                 {
                     Task.Run((Action)Rs232Interface.GetInstance.Disconnect);

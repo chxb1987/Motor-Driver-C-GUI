@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define DEBUG_PLOT
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -734,7 +736,7 @@ namespace SuperButton.Views
         {
             return true;
         }
-        private new void Send_Plot1()
+        private void Send_Plot1()
         {
             if(_isOpened)
             {
@@ -744,7 +746,7 @@ namespace SuperButton.Views
             else
                 _isOpened = false;
         }
-        private new void Send_Plot2()
+        private void Send_Plot2()
         {
             if(_isOpened)
             {
@@ -1143,7 +1145,7 @@ namespace SuperButton.Views
                         }
                     }
                 }
-                catch(Exception e) { }
+                catch(Exception) { }
             }
         }
         public string YaxeTitle
@@ -1388,9 +1390,9 @@ namespace SuperButton.Views
                                 //Record
                                 if(RecFlag)
                                 {
-                                    if(SelectedCh1DataSource != "Pause:")
+                                    if(SelectedCh1DataSource != "Pause")
                                         RecList.Add(item * OscilloscopeParameters.Gain * OscilloscopeParameters.FullScale);
-                                    else if(SelectedCh2DataSource != "Pause:")
+                                    else if(SelectedCh2DataSource != "Pause")
                                         RecList2.Add(item * OscilloscopeParameters.Gain2 * OscilloscopeParameters.FullScale2);
                                 }
                             }
@@ -1629,8 +1631,9 @@ namespace SuperButton.Views
                         {
                             float item;
                             float item2;
+#if (DEBUG && DEBUG_PLOT)
                             Debug.WriteLine("Plot 1: " + DateTime.Now.ToString("h:mm:ss.fff"));
-
+#endif
                             //Collect data from first channel
                             #region RecordAray
                             if(RecFlag)
@@ -1672,6 +1675,8 @@ namespace SuperButton.Views
                             else
                                 return;
                             #region Switch
+                            Debug.WriteLine(POintstoPlot);
+                            Debug.WriteLine(State);
 
                             switch(State)
                             {
@@ -1759,7 +1764,7 @@ namespace SuperButton.Views
 
                                     for(int i = 0; i < POintstoPlot; i++)
                                         xData[i] = i * (OscilloscopeParameters.Step * _undesample);
-
+                                    
                                     //lock(this)
                                     //{
                                     using(this.ChartData.SuspendUpdates())
@@ -1781,10 +1786,9 @@ namespace SuperButton.Views
                             }
                             #endregion Switch
 
-                            //Debug.WriteLine("POintstoPlot {0}, pivot {1}: ", POintstoPlot, pivot);
-
+#if(DEBUG && DEBUG_PLOT)
                             Debug.WriteLine("Plot 2: " + DateTime.Now.ToString("h:mm:ss.fff"));
-
+#endif
                         }
                         #endregion
                     }
@@ -1873,21 +1877,21 @@ namespace SuperButton.Views
                         string[] xstring = new string[RecList.Count + 1];
 
                         string[] ystring = new string[RecList.Count + 1];
-                        if(SelectedCh1DataSource != "Pause:")
+                        if(SelectedCh1DataSource != "Pause")
                         {
                             xstring = new string[RecList.Count + 1];
                             ystring[0] = "Channel 1 - " + SelectedCh1DataSource;
                         }
 
                         string[] ystring2 = new string[RecList2.Count + 1];
-                        if(SelectedCh2DataSource != "Pause:")
+                        if(SelectedCh2DataSource != "Pause")
                         {
                             xstring = new string[RecList2.Count + 1];
                             ystring2[0] = "Channel 2 - " + SelectedCh2DataSource;
                         }
                         xstring[0] = "Time";
 
-                        if(SelectedCh1DataSource != "Pause:" && SelectedCh2DataSource != "Pause:")
+                        if(SelectedCh1DataSource != "Pause" && SelectedCh2DataSource != "Pause")
                         {
                             for(int i = 1; i < RecList.Count; i++)
                             {
@@ -1899,7 +1903,7 @@ namespace SuperButton.Views
                             RecList.Clear();
                             RecList2.Clear();
                         }
-                        else if(SelectedCh1DataSource != "Pause:")
+                        else if(SelectedCh1DataSource != "Pause")
                         {
                             for(int i = 1; i < RecList.Count; i++)
                             {
@@ -1909,7 +1913,7 @@ namespace SuperButton.Views
                             }
                             RecList.Clear();
                         }
-                        else if(SelectedCh2DataSource != "Pause:")
+                        else if(SelectedCh2DataSource != "Pause")
                         {
                             for(int i = 1; i < RecList2.Count; i++)
                             {
@@ -1939,21 +1943,21 @@ namespace SuperButton.Views
                             string[] xstring = new string[count + 1];
 
                             string[] ystring = new string[count + 1];
-                            if(SelectedCh1DataSource != "Pause:")
+                            if(SelectedCh1DataSource != "Pause")
                             {
                                 xstring = new string[count + 1];
                                 ystring[0] = "Channel 1 - " + SelectedCh1DataSource;
                             }
 
                             string[] ystring2 = new string[count + 1];
-                            if(SelectedCh2DataSource != "Pause:")
+                            if(SelectedCh2DataSource != "Pause")
                             {
                                 xstring = new string[count + 1];
                                 ystring2[0] = "Channel 2 - " + SelectedCh2DataSource;
                             }
                             xstring[0] = "Time";
 
-                            if(SelectedCh1DataSource != "Pause:" && SelectedCh2DataSource != "Pause:")
+                            if(SelectedCh1DataSource != "Pause" && SelectedCh2DataSource != "Pause")
                             {
                                 for(int i = 1; i < count; i++)
                                 {
@@ -1965,7 +1969,7 @@ namespace SuperButton.Views
                                 //RecList.Clear();
                                 //RecList2.Clear();
                             }
-                            else if(SelectedCh1DataSource != "Pause:")
+                            else if(SelectedCh1DataSource != "Pause")
                             {
                                 for(int i = 1; i < count; i++)
                                 {
@@ -1975,7 +1979,7 @@ namespace SuperButton.Views
                                 }
                                 //RecList.Clear();
                             }
-                            else if(SelectedCh2DataSource != "Pause:")
+                            else if(SelectedCh2DataSource != "Pause")
                             {
                                 for(int i = 1; i < count; i++)
                                 {

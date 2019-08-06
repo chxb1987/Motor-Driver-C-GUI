@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define DEBUG_OPERATION
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,7 +72,7 @@ namespace SuperButton.Models.ParserBlock
         public UInt32 TickerC = 1;
 
         private List<int> exceptionID = new List<int>(); // Contains all the ID that dont need to be descripted by refersh manager class.
-        int[] exceptionID_Arr = {100, 67, 34, 35, 36 }; // 100: Error, 67: Load To/From file params started, 34, 35, 36: Init plots table. , 34, 35, 36
+        int[] exceptionID_Arr = { 100, 67, 34, 35, 36 }; // 100: Error, 67: Load To/From file params started, 34, 35, 36: Init plots table. , 34, 35, 36
         public ParserRayonM1()
         {
             Rs232Interface.GetInstance.RxtoParser += parseOutdata;
@@ -244,8 +245,9 @@ namespace SuperButton.Models.ParserBlock
         //Send data to controller
         public void ParseOutputData(object Data2Send, Int16 Id, Int16 SubId, bool IsSet, bool IsFloat)
         {
+#if(DEBUG && DEBUG_OPERATION)
             Debug.WriteLine("{0} {1}[{2}]={3} {4}.", IsSet ? "Set" : "Get", Id, SubId, Data2Send, IsFloat ? "F" : "I");
-
+#endif
 
             //TODO add try catch here
             if(Id == 81 && SubId == 1 && IsSet == true)
@@ -352,7 +354,8 @@ namespace SuperButton.Models.ParserBlock
                         temp[7] = (byte)(((int)datvaluevalue >> 16) & 0xFF);
                         temp[8] = (byte)(((int)datvaluevalue >> 24) & 0xFF);
                     }
-                    catch {
+                    catch
+                    {
                         var datvaluevalue = UInt32.Parse(Data2Send.ToString());
                         temp[5] = (byte)(((int)datvaluevalue & 0xFF));
                         temp[6] = (byte)(((int)datvaluevalue >> 8) & 0xFF);
@@ -447,7 +450,7 @@ namespace SuperButton.Models.ParserBlock
 
         public bool ParseInputPacket(byte[] data)
         {
-            
+
             var crclsb = data[7];
             var crcmsb = data[8];
 
@@ -486,8 +489,9 @@ namespace SuperButton.Models.ParserBlock
                     {
                         if(getSet == 1)
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), transit.ToString());
-                        
+#if(DEBUG && DEBUG_OPERATION)
                         Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+#endif
                     }
                     else
                     {
@@ -501,12 +505,16 @@ namespace SuperButton.Models.ParserBlock
                         {
                             RefreshManger.GetInstance.UpdateModel(new Tuple<int, int>(commandId, commandSubId), newPropertyValuef.ToString());
                         }
+#if(DEBUG && DEBUG_OPERATION)
                         Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, newPropertyValuef, "F", getSet == 0 ? "Set" : "Get");
+#endif
                     }
                 }
                 else if(commandId == 67)
                 {
+#if(DEBUG && DEBUG_OPERATION)
                     Debug.WriteLine("{0} {1}[{2}]={3} {4} {5}.", "Drv", commandId, commandSubId, transit, "I", getSet == 0 ? "Set" : "Get");
+#endif
                     if(commandSubId == 1)
                     {
                         MaintenanceViewModel.PbarParamsCount = Convert.ToUInt32(transit);

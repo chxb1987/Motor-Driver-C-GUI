@@ -305,26 +305,23 @@ namespace SuperButton.CommandsDB
 
             names = new[]
             {
-                "Enable", "Roll High", "Roll Low", "Sample Period",
-                "Direction", "Counts Per Rev", "Speed LPF Cut-Off",
-                "Index Mode", "Index Value", "Encoder Resolution"
+                "Enable", "Sample Period", "Direction", "Counts Per Rev", "Speed LPF Cut-Off"
             };
-
-            for(int i = 0, j = 1; i < names.Length; i++, j++)
+            var SubId = new[] { "1", "3", "4", "5", "6" };
+            // "Roll High", "Roll Low", "Index Mode", "Index Value", "Encoder Resolution"
+            for(int i = 0; i < names.Length; i++)
             {
                 var data = new DataViewModel
                 {
                     CommandName = names[i],
                     CommandId = "73",
-                    CommandSubId = j.ToString(CultureInfo.InvariantCulture),
+                    CommandSubId = SubId[i],
                     CommandValue = "",
                     IsFloat = names[i] == "Speed LPF Cut-Off"
                 };
 
-                DataViewCommandsList.Add(new Tuple<int, int>(73, j), data);
+                DataViewCommandsList.Add(new Tuple<int, int>(73, Convert.ToInt16(SubId[i])), data);
                 DataCommandsListbySubGroup["SSI_Feedback"].Add(data);
-                if(i == 8)
-                    j = 13;
             }
             #endregion SSI
             #region Qep1Qep2
@@ -637,11 +634,11 @@ namespace SuperButton.CommandsDB
             {
                 CommandName = "Current [A]",
                 CommandId = "3",
-                CommandSubId = "0",
+                CommandSubId = "1",
                 CommandValue = "",
                 IsFloat = true,
             };
-            DataViewCommandsList.Add(new Tuple<int, int>(3, 0), data);
+            DataViewCommandsList.Add(new Tuple<int, int>(3, 1), data);
             DataCommandsListbySubGroup["MotionCommand List"].Add(data);
 
             data = new DataViewModel

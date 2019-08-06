@@ -114,7 +114,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="20"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Header="Qep1">
                             <Grid>
@@ -139,7 +139,7 @@
                             </Grid>
                         </GroupBox>
                         <GroupBox Grid.Row="2" Header="SSI Feedback"  Background="Transparent">
-                            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <!--<CheckBox Grid.Row="0" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding IsSsiFeedbackEnabled}"/>-->
                                 <ItemsControl ItemsSource="{Binding SsiFeedbackFeedBackList}" ItemTemplate="{StaticResource DataViewModel}" Grid.ColumnSpan="2" />
                             </ScrollViewer>
@@ -372,7 +372,7 @@
                                 <ColumnDefinition Width="140"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0">Load Parameters To File</TextBlock>
+                            <TextBlock Grid.Column="0">Save Parameters To File</TextBlock>
                             <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle2}" IsChecked="{Binding SaveToFile}"/>
                         </Grid>
                         <Grid Grid.Row="5" Height="15"/>

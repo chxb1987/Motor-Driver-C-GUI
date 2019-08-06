@@ -41,7 +41,7 @@ namespace SuperButton.ViewModels
             get { return _debugObjModel.Index; }
             set { _debugObjModel.Index = value; OnPropertyChanged("Index"); }
         }
-        
+
 
         public string GetData
         {
@@ -65,7 +65,7 @@ namespace SuperButton.ViewModels
 
         public ActionCommand Get { get { return new ActionCommand(GetCmd); } }
         public ActionCommand Set { get { return new ActionCommand(SetCmd); } }
-        
+
         private void GetCmd()
         {
             var data = new DebugObjViewModel
@@ -98,26 +98,17 @@ namespace SuperButton.ViewModels
                     IsFloat = !this.IntFloat,
                 };
                 Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
-            
+
             }
-            catch(Exception e)
+            catch(Exception)
             {
             }
 
         }
         private void SetCmd()
         {
-            try
+            if(SetData != "" && ID != "" && Index != "")
             {
-                //Rs232Interface.GetInstance.SendToParser(new PacketFields
-                //{
-                //    Data2Send = Convert.ToInt32(SetData),
-                //    ID = Convert.ToInt16(ID),
-                //    SubID = Convert.ToInt16(Index),
-                //    IsSet = true,
-                //    IsFloat = !this.IntFloat
-                //});
-
                 var tmp = new PacketFields
                 {
                     Data2Send = Convert.ToInt32(SetData),
@@ -127,9 +118,6 @@ namespace SuperButton.ViewModels
                     IsFloat = !this.IntFloat,
                 };
                 Task.Factory.StartNew(action: () => { Rs232Interface.GetInstance.SendToParser(tmp); });
-            }
-            catch(Exception e)
-            {
             }
         }
     }
